@@ -8,11 +8,13 @@
 import UIKit
 class PlanCardTableViewCell: UITableViewCell {
 
-    var durationTime: String?
+    var durationTime: Double = 1
 
-    var times = ["1", "1.5", "2", "2.5", "3", "3.5"]
+    var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
+    
+    var startTime: String = "09:00"
 
-    @IBOutlet weak var pickerView: TimePickerView!
+    @IBOutlet weak var timePickerView: TimePickerView!
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -26,25 +28,28 @@ class PlanCardTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        pickerView.pickerView.delegate = self
-        pickerView.pickerView.dataSource = self
+        calculateTime()
+        
+        timePickerView.picker.delegate = self
+        
+        timePickerView.picker.dataSource = self
 
-        self.pickerView.timeTextField.text = "1小時"
-    }
-    
-    func layoutCell(
-        startTime: String
-    ) {
+        timePickerView.delegate = self
         
         startTimeLabel.text = startTime
+
+        timePickerView.timeTextField.text = "\(durationTime)小時"
+    }
+    
+    func calculateTime() {
         
         do {
             let date = try TimeManager.getDateFromString(
                 dateFormat: "HH:mm", dateString: startTime, duration:
-                    Double(pickerView.timeTextField.text ?? "2.00") ?? 2.00)
+                    durationTime)
+            let formatMinutes = String(format: "%02d", date.endMinutes)
+            endTimeLabel.text = "\(date.endHours):\(formatMinutes)"
             
-            endTimeLabel.text = "\(date.endHours):\(date.endMinutes)"
-
         } catch let wrongError {
             print("Error message: \(wrongError),Please add correct time!")
         }
@@ -55,7 +60,6 @@ class PlanCardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    
 }
 
 extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -73,8 +77,15 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        self.pickerView.timeTextField.text = "\(times[row])小時"
+        durationTime = Double(times[row]) ?? 1.0
+        self.timePickerView.timeTextField.text = "\(times[row])小時"
         
     }
+}
+
+extension PlanCardTableViewCell: TimePickerViewDelegate {
+    func donePickerViewAction() {
+        calculateTime()
+    }
+    
 }

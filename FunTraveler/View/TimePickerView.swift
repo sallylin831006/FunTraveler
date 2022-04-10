@@ -6,10 +6,15 @@
 //
 
 import UIKit
+protocol TimePickerViewDelegate: AnyObject {
+    func donePickerViewAction()
+}
 
 class TimePickerView: UIView {
     
-    var pickerView = UIPickerView()
+    weak var delegate: TimePickerViewDelegate?
+    
+    var picker = UIPickerView()
     let timeTextField = UITextField()
     
     override init(frame: CGRect) {
@@ -45,7 +50,7 @@ extension TimePickerView {
 
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
          
-        timeTextField.inputView = pickerView
+        timeTextField.inputView = picker
         timeTextField.inputAccessoryView = toolBar
             
         timeTextField.backgroundColor = UIColor.init(
@@ -62,6 +67,7 @@ extension TimePickerView {
     
     @objc func donePicker() {
         timeTextField.resignFirstResponder()
+        delegate?.donePickerViewAction()
     }
     
     func layoutOfTimePickerView() {

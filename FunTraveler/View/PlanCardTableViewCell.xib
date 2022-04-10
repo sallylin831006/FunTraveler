@@ -83,8 +83,8 @@
                 <outlet property="endTimeLabel" destination="exU-Mw-uIn" id="ZvE-lV-bWY"/>
                 <outlet property="nameLabel" destination="Ps1-aK-owa" id="aGF-p7-PlW"/>
                 <outlet property="orderLabel" destination="IwA-bK-0MV" id="YjM-fT-WpD"/>
-                <outlet property="pickerView" destination="7Aj-Dm-bNU" id="Mjf-h2-GjQ"/>
                 <outlet property="startTimeLabel" destination="xJL-at-h0T" id="8F8-cV-hbg"/>
+                <outlet property="timePickerView" destination="7Aj-Dm-bNU" id="YBb-vX-mpc"/>
             </connections>
             <point key="canvasLocation" x="-31.884057971014496" y="171.76339285714286"/>
         </tableViewCell>

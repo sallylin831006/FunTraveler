@@ -129,7 +129,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .none
             cell.nameLabel.text = "景福宮"
             cell.addressLabel.text = "保安三街8-1號"
-            cell.layoutCell(startTime: "09:30") // ADJUST 00:00
+            cell.startTime = "09:00"
 
             return cell
         } else {
