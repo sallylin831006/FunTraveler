@@ -8,6 +8,8 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
+    var isMoveDown: Bool = false
+
     let daySource = [
         DayModel(color: .red, title: "第一天"),
         DayModel(color: .yellow, title: "第二天"),
@@ -33,6 +35,8 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var zoomButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
@@ -40,6 +44,27 @@ class PlanPickerViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: TrafficTimeTableViewCell.self), bundle: nil)
 
     }
+    @IBAction func tapZoomButton(_ sender: UIButton) {
+        if isMoveDown == true {
+            UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
+                self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
+            }, completion: nil)
+            
+            zoomButton.setImage(UIImage.asset(.zoomIn), for: .selected)
+            zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 400, width: 50, height: 50)
+            isMoveDown = false
+        } else {
+            UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
+                self.view.frame = CGRect(x: 0, y: 550, width: UIScreen.width, height: UIScreen.height)
+            }, completion: nil)
+            zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .selected)
+            zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 250, width: 50, height: 50)
+
+            isMoveDown = true
+        }
+    }
+    
+}
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         planCard.count
