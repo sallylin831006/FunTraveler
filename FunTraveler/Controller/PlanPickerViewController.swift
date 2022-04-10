@@ -8,6 +8,13 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
+    let daySource = [
+        DayModel(color: .red, title: "第一天"),
+        DayModel(color: .yellow, title: "第二天"),
+        DayModel(color: .green, title: "第三天"),
+        DayModel(color: .green, title: "第四天")
+    ]
+
     var planCard = ["1", "2", "3", "4", "5"] {
         didSet {
             tableView.reloadData()
@@ -69,4 +76,32 @@ class PlanPickerViewController: UIViewController {
         }
     }
 
+}
+
+extension PlanPickerViewController: SelectionViewDataSource {
+    
+    func configureNumberOfButton(_ selectionView: SelectionView) -> Int {
+        
+        return daySource.count
+    }
+    
+    func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel] {
+        return daySource
+
+    }
+    
+    func colorOfindicator() -> UIColor { .black }
+    
+    func colorOfText() -> UIColor { .black }
+    
+}
+
+@objc extension PlanPickerViewController: SelectionViewDelegate {
+    @objc func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+        // tableView.backgroundColor = daySource[index].color
+    }
+    
+    @objc func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
+            return true
+    }
 }

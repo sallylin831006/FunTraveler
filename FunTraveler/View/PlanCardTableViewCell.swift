@@ -26,6 +26,12 @@ class PlanCardTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        pickerView.pickerView.delegate = self
+        pickerView.pickerView.dataSource = self
+
+        self.pickerView.timeTextField.text = "1小時"
+    }
+    
     func layoutCell(
         startTime: String
     ) {
@@ -49,3 +55,26 @@ class PlanCardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
+
+}
+
+extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return times.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(times[row])小時"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        self.pickerView.timeTextField.text = "\(times[row])小時"
+        
+    }
+}
