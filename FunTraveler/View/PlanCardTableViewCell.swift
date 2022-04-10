@@ -55,7 +55,7 @@ class PlanCardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-
+    
 }
 
 extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {

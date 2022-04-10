@@ -39,11 +39,17 @@ class PlanPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
+        
+        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
+        
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: TrafficTimeTableViewCell.self), bundle: nil)
 
     }
+    
+   
     @IBAction func tapZoomButton(_ sender: UIButton) {
         if isMoveDown == true {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
@@ -65,6 +71,50 @@ class PlanPickerViewController: UIViewController {
     }
     
 }
+
+extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
+    // MARK: - Section Header
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+ 
+        return 200.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: PlanCardHeaderView.identifier)
+        as? PlanCardHeaderView else { return nil }
+
+        headerView.titleLabel.text = "小琉球潛水之旅"
+        headerView.dateLabel.text = "2022年10月06日- 2022年10月08日"
+
+        headerView.selectionView.delegate = self
+        headerView.selectionView.dataSource = self
+
+        return headerView
+    }
+    
+    // MARK: - Section Footer
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        50.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: PlanCardFooterView.identifier)
+        as? PlanCardFooterView else { return nil }
+        
+        footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
+
+        return footerView
+    }
+    
+    @objc func tapScheduleButton() {
+        planCard.append("new") // HARD CODE
+        tableView.reloadData()
+    }
+
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         planCard.count
