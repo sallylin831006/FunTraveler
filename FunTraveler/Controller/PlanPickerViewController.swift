@@ -8,11 +8,11 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
+    
     var departureTime: String = ""
     var backTime: String = ""
 //    var tripTitle: String = ""
 
-    
     var isMoveDown: Bool = false
 
     let daySource = [
@@ -21,7 +21,13 @@ class PlanPickerViewController: UIViewController {
         DayModel(color: .green, title: "第三天"),
         DayModel(color: .green, title: "第四天")
     ]
-
+     
+    var tripData: Trips? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     var planCard = ["1", "2", "3", "4", "5"] {
         didSet {
             tableView.reloadData()
@@ -51,8 +57,29 @@ class PlanPickerViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: TrafficTimeTableViewCell.self), bundle: nil)
-
+        fetchData()
     }
+    
+    // MARK: - Action
+    func fetchData() {
+        let tripProvider = TripProvider()
+        
+        tripProvider.fetchTrip(completion: { result in
+            
+            switch result {
+                
+            case .success(let tripData):
+                print("tripData.trip",tripData.data)
+                print("tripData",tripData)
+                
+                self.tripData = tripData
+                
+            case .failure:
+                print("讀取資料失敗！")
+            }
+        })
+    }
+    
     
    
     @IBAction func tapZoomButton(_ sender: UIButton) {
@@ -90,7 +117,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: PlanCardHeaderView.identifier)
         as? PlanCardHeaderView else { return nil }
 
-        headerView.titleLabel.text = "tripTitle"
+        headerView.titleLabel.text = tripData?.data[0].title
         
         headerView.dateLabel.text = "\(departureTime)- \(backTime)"
 

@@ -17,6 +17,12 @@
 		3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */; };
 		3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */; };
 		3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */; };
+		3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */; };
+		3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1328041A3A004F5BB3 /* Parser.swift */; };
+		3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1528041A4F004F5BB3 /* HTTPClient.swift */; };
+		3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1728041A93004F5BB3 /* TripProvider.swift */; };
+		3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1928041AA9004F5BB3 /* TripRequest.swift */; };
+		3A185C1C28041E9F004F5BB3 /* DomainConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1B28041E9F004F5BB3 /* DomainConstant.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -52,6 +58,12 @@
 		3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanTableViewCell.swift; sourceTree = "<group>"; };
 		3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlanTableViewCell.xib; sourceTree = "<group>"; };
 		3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
+		3A185C1328041A3A004F5BB3 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		3A185C1528041A4F004F5BB3 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		3A185C1728041A93004F5BB3 /* TripProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripProvider.swift; sourceTree = "<group>"; };
+		3A185C1928041AA9004F5BB3 /* TripRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRequest.swift; sourceTree = "<group>"; };
+		3A185C1B28041E9F004F5BB3 /* DomainConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainConstant.swift; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -104,6 +116,12 @@
 			isa = PBXGroup;
 			children = (
 				3A73527328017FF300B4D8D3 /* TimeManager.swift */,
+				3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */,
+				3A185C1328041A3A004F5BB3 /* Parser.swift */,
+				3A185C1528041A4F004F5BB3 /* HTTPClient.swift */,
+				3A185C1B28041E9F004F5BB3 /* DomainConstant.swift */,
+				3A185C1728041A93004F5BB3 /* TripProvider.swift */,
+				3A185C1928041AA9004F5BB3 /* TripRequest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -322,7 +340,11 @@
 			files = (
 				3A73528528019AC200B4D8D3 /* TrafficTimeTableViewCell.swift in Sources */,
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
+				3A185C1C28041E9F004F5BB3 /* DomainConstant.swift in Sources */,
+				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
+				3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */,
 				3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */,
+				3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
 				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
@@ -337,9 +359,11 @@
 				3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */,
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
+				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
 				3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
+				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
