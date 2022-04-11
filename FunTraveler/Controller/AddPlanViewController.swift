@@ -9,11 +9,21 @@ import UIKit
 
 class AddPlanViewController: UIViewController {
     
+    var textFieldClosure : ((_ text: String) -> Void)?  {
+        
+        didSet {
+            
+            tableView.reloadData()
+            
+        }
+    }
+    
+
+    
     var departureTime: String = ""
     var backTime: String = ""
-    var tripTitle: String = ""
+    var tripTitle: String = "" 
     
-    var passingDateClosure : ((_ text: String) -> Void)?
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -80,7 +90,12 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         planDetailViewController.departureTime = departureTime
         planDetailViewController.backTime = backTime
 //        planDetailViewController.tripTitle = tripTitle
-        print("tripTitle",tripTitle)
+        
+        textFieldClosure = { titleText in
+            print("成功了嗎", titleText)
+        }
+        
+        print("tripTitle", tripTitle)
         navigationController?.pushViewController(planDetailViewController, animated: true)
         navigationController?.modalPresentationStyle = .fullScreen
         present(planDetailViewController, animated: true, completion: nil)
@@ -113,6 +128,13 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         }
         tripTitle = cell.textField.text ?? ""
         
+        cell.titleClosure = { titleText in
+            print("titleText", titleText)
+        }
+        
+//        textFieldClosure(cell.textField.text ?? "")
+        
+
 //        cell.passTitleData(tripTitle: tripTitle)
     
         return cell

@@ -9,6 +9,9 @@ import UIKit
 
 class AddPlanTableViewCell: UITableViewCell {
     
+    var titleClosure : ((_ text: String) -> Void)?
+
+    
     @IBOutlet weak var textField: UITextField!
     
     @IBOutlet weak var departurePickerVIew: DatePickerView!
@@ -17,6 +20,7 @@ class AddPlanTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        titleClosure?(textField.text ?? "")
 //        departurePickerVIew.dateClosure = { dateText in
 //            print(dateText)
 //        }
@@ -37,7 +41,6 @@ class AddPlanTableViewCell: UITableViewCell {
     
     func layoutCell(tripTitle: String) {
         textField.text = tripTitle
-        
         
     }
     
