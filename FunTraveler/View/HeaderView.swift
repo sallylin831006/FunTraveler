@@ -16,6 +16,9 @@ class HeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         // -------改不動-------//
+        titleLabel.text = "123"
+        titleLabel.tintColor = UIColor.themeApricotDeep
+        // -------改不動-------//
         setupHeaderView()
     }
 

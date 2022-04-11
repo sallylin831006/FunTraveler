@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */; };
 		3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */; };
+		3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */; };
+		3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C032803C9D2004F5BB3 /* HeaderView.xib */; };
+		3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C052803C9E4004F5BB3 /* HeaderView.swift */; };
+		3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C072803C9FA004F5BB3 /* FooterView.swift */; };
+		3A185C0A2803CA04004F5BB3 /* FooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C092803CA04004F5BB3 /* FooterView.xib */; };
+		3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */; };
+		3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */; };
+		3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -36,6 +44,14 @@
 /* Begin PBXFileReference section */
 		3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanCardFooterView.xib; sourceTree = "<group>"; };
 		3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCardFooterView.swift; sourceTree = "<group>"; };
+		3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
+		3A185C032803C9D2004F5BB3 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		3A185C052803C9E4004F5BB3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		3A185C072803C9FA004F5BB3 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		3A185C092803CA04004F5BB3 /* FooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterView.xib; sourceTree = "<group>"; };
+		3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanTableViewCell.swift; sourceTree = "<group>"; };
+		3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlanTableViewCell.xib; sourceTree = "<group>"; };
+		3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -144,6 +160,7 @@
 			children = (
 				3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */,
 				3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */,
+				3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -160,7 +177,14 @@
 				3A73528328019AC200B4D8D3 /* TrafficTimeTableViewCell.swift */,
 				3A73528428019AC200B4D8D3 /* TrafficTimeTableViewCell.xib */,
 				3A7352772801802900B4D8D3 /* SelectionView.swift */,
+				3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */,
+				3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */,
+				3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */,
 				3A7352792801802900B4D8D3 /* TimePickerView.swift */,
+				3A185C032803C9D2004F5BB3 /* HeaderView.xib */,
+				3A185C052803C9E4004F5BB3 /* HeaderView.swift */,
+				3A185C092803CA04004F5BB3 /* FooterView.xib */,
+				3A185C072803C9FA004F5BB3 /* FooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,7 +260,10 @@
 			files = (
 				3A73528628019AC200B4D8D3 /* TrafficTimeTableViewCell.xib in Resources */,
 				3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */,
+				3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */,
 				3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */,
+				3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */,
+				3A185C0A2803CA04004F5BB3 /* FooterView.xib in Resources */,
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
 				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
@@ -294,10 +321,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A73528528019AC200B4D8D3 /* TrafficTimeTableViewCell.swift in Sources */,
+				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
+				3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
 				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
+				3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */,
 				3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */,
+				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
 				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
 				3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */,
@@ -307,6 +338,7 @@
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
+				3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */,
 			);

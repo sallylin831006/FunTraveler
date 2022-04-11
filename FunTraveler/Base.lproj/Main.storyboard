@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Raf-iY-6DG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W48-Y1-gML">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -8,6 +8,36 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Add Plan View Controller-->
+        <scene sceneID="GQm-0V-fdY">
+            <objects>
+                <viewController id="W48-Y1-gML" customClass="AddPlanViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="swL-Ry-cCa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2wQ-vH-r3J">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="j0e-OT-kv9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="2wQ-vH-r3J" secondAttribute="trailing" id="FDZ-lv-TmH"/>
+                            <constraint firstItem="2wQ-vH-r3J" firstAttribute="top" secondItem="j0e-OT-kv9" secondAttribute="top" id="RTn-cC-Xjb"/>
+                            <constraint firstItem="2wQ-vH-r3J" firstAttribute="leading" secondItem="j0e-OT-kv9" secondAttribute="leading" id="exw-GM-ISp"/>
+                            <constraint firstItem="j0e-OT-kv9" firstAttribute="bottom" secondItem="2wQ-vH-r3J" secondAttribute="bottom" id="peu-fd-p5C"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="2wQ-vH-r3J" id="Z3P-zs-ydR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pBf-XQ-DlW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3080" y="-164"/>
+        </scene>
         <!--Plan Detail View Controller-->
         <scene sceneID="cPx-gs-fch">
             <objects>
@@ -39,9 +69,8 @@
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQg-tk-eNA">
-                                <rect key="frame" x="329" y="127" width="60" height="60"/>
+                                <rect key="frame" x="344" y="127" width="45" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Nay-vO-GrY"/>
                                     <constraint firstAttribute="height" constant="60" id="ORj-sa-oer"/>
                                 </constraints>
                                 <color key="tintColor" systemColor="systemRedColor"/>
@@ -59,6 +88,7 @@
                         <constraints>
                             <constraint firstItem="eCG-Dv-YsX" firstAttribute="trailing" secondItem="kE1-6t-6pR" secondAttribute="trailing" id="854-he-b50"/>
                             <constraint firstItem="kE1-6t-6pR" firstAttribute="leading" secondItem="eCG-Dv-YsX" secondAttribute="leading" id="HYP-kz-aUl"/>
+                            <constraint firstItem="KQg-tk-eNA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eCG-Dv-YsX" secondAttribute="leading" symbolic="YES" id="S6T-Ca-Gko"/>
                             <constraint firstItem="eCG-Dv-YsX" firstAttribute="bottom" secondItem="kE1-6t-6pR" secondAttribute="bottom" constant="50" id="g3A-M3-16w"/>
                             <constraint firstItem="eCG-Dv-YsX" firstAttribute="trailing" secondItem="KQg-tk-eNA" secondAttribute="trailing" constant="25" id="tJo-Lo-Lpt"/>
                             <constraint firstItem="kE1-6t-6pR" firstAttribute="top" secondItem="KQg-tk-eNA" secondAttribute="bottom" constant="25" id="zvx-gD-Ouc"/>
