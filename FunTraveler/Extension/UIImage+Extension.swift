@@ -14,6 +14,8 @@ enum ImageAsset: String {
     case orderMarker
     case zoomIn
     case zoomOut
+    
+    case headerBackgroundImage
 
 }
 

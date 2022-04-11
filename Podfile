@@ -7,6 +7,7 @@ target 'FunTraveler' do
 
   # Pods for FunTraveler
     pod 'SwiftLint'
+    pod 'IQKeyboardManagerSwift'
 
 
 end

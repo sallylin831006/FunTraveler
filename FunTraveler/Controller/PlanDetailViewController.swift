@@ -8,18 +8,27 @@
 import UIKit
 
 class PlanDetailViewController: UIViewController {
-
+    
+    var departureTime: String = ""
+    var backTime: String = ""
+    var tripTitle: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showPlanPicker()
+        self.navigationItem.hidesBackButton = true
     }
 
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
+        planPickerViewController.departureTime = departureTime
+        planPickerViewController.backTime = backTime
+        planPickerViewController.tripTitle = tripTitle
+
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
-
+        
         // ADD BOTTOM VIEW
         let bottomView = UIView()
         bottomView.frame = CGRect(x: 0, y: UIScreen.height - 80, width: UIScreen.width, height: 80)
