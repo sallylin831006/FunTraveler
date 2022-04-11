@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 extension UIStoryboard {
-
+    
+    static let planDetailVC = "PlanDetailViewController"
+    
     static let planPickerVC = "PlanPickerViewController"
+    
 }

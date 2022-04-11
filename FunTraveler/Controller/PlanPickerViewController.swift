@@ -8,6 +8,11 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
+    var departureTime: String = ""
+    var backTime: String = ""
+//    var tripTitle: String = ""
+
+    
     var isMoveDown: Bool = false
 
     let daySource = [
@@ -85,8 +90,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: PlanCardHeaderView.identifier)
         as? PlanCardHeaderView else { return nil }
 
-        headerView.titleLabel.text = "小琉球潛水之旅"
-        headerView.dateLabel.text = "2022年10月06日- 2022年10月08日"
+        headerView.titleLabel.text = "tripTitle"
+        
+        headerView.dateLabel.text = "\(departureTime)- \(backTime)"
 
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
