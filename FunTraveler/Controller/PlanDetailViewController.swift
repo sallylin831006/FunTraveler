@@ -11,11 +11,12 @@ class PlanDetailViewController: UIViewController {
     
     var departureTime: String = ""
     var backTime: String = ""
-//    var tripTitle: String = ""
+    var tripTitle: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         showPlanPicker()
+        self.navigationItem.hidesBackButton = true
     }
 
     func showPlanPicker() {
@@ -23,7 +24,7 @@ class PlanDetailViewController: UIViewController {
             withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
         planPickerViewController.departureTime = departureTime
         planPickerViewController.backTime = backTime
-//        planPickerViewController.tripTitle = tripTitle
+        planPickerViewController.tripTitle = tripTitle
 
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
