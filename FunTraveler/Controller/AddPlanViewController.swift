@@ -7,7 +7,16 @@
 
 import UIKit
 
-class AddPlanViewController: UIViewController {
+class AddPlanViewController: UIViewController, UITextFieldDelegate {
+    
+    var textFieldClosure : ((_ text: String) -> Void)? {
+        
+        didSet {
+            
+            tableView.reloadData()
+            
+        }
+    }
     
     var departureTime: String = ""
     var backTime: String = ""
@@ -85,6 +94,10 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.modalPresentationStyle = .fullScreen
         present(planDetailViewController, animated: true, completion: nil)
         
+        textFieldClosure = { titleText in
+            planDetailViewController.tripTitle = titleText
+            
+        }
     }
     
     // MARK: - Section Row
@@ -119,22 +132,12 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-//    private func mappingCellWtih(reciever: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-//
-//        guard
-//            let inputCell = tableView.dequeueReusableCell(
-//                withIdentifier: String(describing: AddPlanTableViewCell.self),
-//                for: indexPath
-//            ) as? AddPlanTableViewCell
-//        else {
-//
-//                return UITableViewCell()
-//        }
-//
-//        inputCell.layoutCell(
-//            tripTitle: inputCell.textField.text ?? "")
-//
-//        return inputCell
-//    }
+extension AddPlanViewController: AddPlanTableViewCellDelegate {
+    
+    func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
+        
+        guard let textFieldClosure = textFieldClosure else { return }
+        textFieldClosure(text)
+    }
     
 }
