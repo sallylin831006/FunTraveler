@@ -6,6 +6,7 @@
 //
 
 import UIKit
+//import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
@@ -20,9 +21,6 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
     var departureTime: String = ""
     var backTime: String = ""
-    var tripTitle: String = ""
-    
-    var passingDateClosure : ((_ text: String) -> Void)?
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -61,14 +59,13 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 as? HeaderView else { return nil }
         
         headerView.titleLabel.text = "建立行程"
-
         
         return headerView
     }
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        50.0
+        150.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -77,27 +74,30 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: FooterView.identifier)
                 as? FooterView else { return nil }
         
-        footerView.saveButton.addTarget(target, action: #selector(tapsaveButton), for: .touchUpInside)
+        footerView.saveButton.addTarget(target, action: #selector(tapSaveButton), for: .touchUpInside)
+        
+        footerView.cancelButton.addTarget(target, action: #selector(tapCancelButton), for: .touchUpInside)
         
         return footerView
     }
     
-    @objc func tapsaveButton() {
-   
+    @objc func tapSaveButton() {
+        
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planDetailVC) as? PlanDetailViewController else { return }
         planDetailViewController.departureTime = departureTime
         planDetailViewController.backTime = backTime
-//        planDetailViewController.tripTitle = tripTitle
-        print("tripTitle",tripTitle)
-        navigationController?.pushViewController(planDetailViewController, animated: true)
-        navigationController?.modalPresentationStyle = .fullScreen
-        present(planDetailViewController, animated: true, completion: nil)
         
         textFieldClosure = { titleText in
             planDetailViewController.tripTitle = titleText
             
         }
+        self.navigationController?.pushViewController(planDetailViewController, animated: true)
+        
+    }
+    
+    @objc func tapCancelButton() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Section Row
@@ -124,14 +124,15 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         cell.backPickerVIew.dateClosure = { backTime in
             self.backTime = backTime
         }
-        tripTitle = cell.textField.text ?? ""
         
-//        cell.passTitleData(tripTitle: tripTitle)
-    
+        cell.delegate = self
+        
         return cell
         
     }
     
+}
+
 extension AddPlanViewController: AddPlanTableViewCellDelegate {
     
     func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
