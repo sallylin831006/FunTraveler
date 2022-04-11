@@ -9,7 +9,6 @@ import UIKit
 
 class PlanDetailViewController: UIViewController {
     
-
     var departureTime: String = ""
     var backTime: String = ""
 //    var tripTitle: String = ""

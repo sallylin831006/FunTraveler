@@ -69,9 +69,7 @@ class PlanPickerViewController: UIViewController {
             switch result {
                 
             case .success(let tripData):
-                print("tripData.trip",tripData.data)
-                print("tripData",tripData)
-                
+
                 self.tripData = tripData
                 
             case .failure:
@@ -80,8 +78,6 @@ class PlanPickerViewController: UIViewController {
         })
     }
     
-    
-   
     @IBAction func tapZoomButton(_ sender: UIButton) {
         if isMoveDown == true {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
@@ -139,7 +135,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         as? PlanCardFooterView else { return nil }
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-
+        
         return footerView
     }
     
@@ -205,11 +201,11 @@ extension PlanPickerViewController: SelectionViewDataSource {
 }
 
 @objc extension PlanPickerViewController: SelectionViewDelegate {
-    @objc func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+    func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
         // tableView.backgroundColor = daySource[index].color
     }
     
-    @objc func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
+    func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
             return true
     }
 }

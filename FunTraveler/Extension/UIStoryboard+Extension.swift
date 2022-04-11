@@ -14,4 +14,6 @@ extension UIStoryboard {
     
     static let planPickerVC = "PlanPickerViewController"
     
+    static let addPlanVC = "AddPlanViewController"
+    
 }

@@ -11,7 +11,6 @@ enum TripRequest: STRequest {
 
     case getTrip(token: String)
     
-
     var headers: [String: String] {
 
         switch self {
@@ -53,7 +52,6 @@ enum TripRequest: STRequest {
         
         }
         
-    
     }
 
 }

@@ -11,7 +11,6 @@ class AddPlanTableViewCell: UITableViewCell {
     
     var titleClosure : ((_ text: String) -> Void)?
 
-    
     @IBOutlet weak var textField: UITextField!
     
     @IBOutlet weak var departurePickerVIew: DatePickerView!
@@ -35,7 +34,7 @@ class AddPlanTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func passTitleData(tripTitle: String){
+    func passTitleData(tripTitle: String) {
         textField.text = tripTitle
     }
     

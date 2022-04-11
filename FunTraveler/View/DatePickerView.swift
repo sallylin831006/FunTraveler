@@ -59,7 +59,6 @@ extension DatePickerView {
         dateClosure?(formatter.string(from: datePicker.date))
     }
     
-
     func layoutOfPicker() {
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         
@@ -70,4 +69,3 @@ extension DatePickerView {
     }
     
 }
-

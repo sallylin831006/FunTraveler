@@ -9,7 +9,7 @@ import UIKit
 
 class AddPlanViewController: UIViewController {
     
-    var textFieldClosure : ((_ text: String) -> Void)?  {
+    var textFieldClosure : ((_ text: String) -> Void)? {
         
         didSet {
             
@@ -18,12 +18,9 @@ class AddPlanViewController: UIViewController {
         }
     }
     
-
-    
     var departureTime: String = ""
     var backTime: String = ""
     var tripTitle: String = "" 
-    
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -63,7 +60,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.titleLabel.text = "建立行程"
 
-        
         return headerView
     }
     
@@ -78,12 +74,14 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: FooterView.identifier)
                 as? FooterView else { return nil }
         
-        footerView.saveButton.addTarget(target, action: #selector(tapsaveButton), for: .touchUpInside)
+        footerView.saveButton.addTarget(target, action: #selector(tapSaveButton), for: .touchUpInside)
+        
+        footerView.cancelButton.addTarget(self, action: #selector(tapCancelButton), for: .touchUpInside)
         
         return footerView
     }
     
-    @objc func tapsaveButton() {
+    @objc func tapSaveButton() {
    
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planDetailVC) as? PlanDetailViewController else { return }
@@ -100,6 +98,12 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.modalPresentationStyle = .fullScreen
         present(planDetailViewController, animated: true, completion: nil)
         
+    }
+    
+    @objc func tapCancelButton() {
+        //不知為何沒有進來這個func
+        print("進來喔")
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Section Row
@@ -126,6 +130,8 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         cell.backPickerVIew.dateClosure = { backTime in
             self.backTime = backTime
         }
+        
+        //titleTextfield NotWorking
         tripTitle = cell.textField.text ?? ""
         
         cell.titleClosure = { titleText in
@@ -134,29 +140,10 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
 //        textFieldClosure(cell.textField.text ?? "")
         
-
 //        cell.passTitleData(tripTitle: tripTitle)
     
         return cell
         
     }
-    
-//    private func mappingCellWtih(reciever: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-//
-//        guard
-//            let inputCell = tableView.dequeueReusableCell(
-//                withIdentifier: String(describing: AddPlanTableViewCell.self),
-//                for: indexPath
-//            ) as? AddPlanTableViewCell
-//        else {
-//
-//                return UITableViewCell()
-//        }
-//
-//        inputCell.layoutCell(
-//            tripTitle: inputCell.textField.text ?? "")
-//
-//        return inputCell
-//    }
-    
+
 }

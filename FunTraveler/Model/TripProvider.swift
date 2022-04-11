@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-
 struct Trips: Codable {
     var data: [Trip]
 }
@@ -18,7 +17,6 @@ struct Trip: Codable {
     var title: String
     var days: Int
 }
-
 
 typealias TripHanlder = (Result<Trips>) -> Void
 
@@ -31,16 +29,16 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.getTrip(token: "mockToken") ,
-            completion: { result in  //completion: { [weak self] result in
+            completion: { result in  // completion: { [weak self] result in
                 
-                //guard let strongSelf = self else { return }
+                // guard let strongSelf = self else { return }
                 
                 switch result {
                     
                 case .success(let data):
                     
                     do {
-                        //let products = try strongSelf.decoder.decode(
+                        // let products = try strongSelf.decoder.decode(
                         let tripData = try JSONDecoder().decode(
                             Trips.self,
                             from: data
