@@ -9,6 +9,12 @@ import UIKit
 
 class AddPlanViewController: UIViewController {
     
+    var departureTime: String = ""
+    var backTime: String = ""
+    var tripTitle: String = ""
+    
+    var passingDateClosure : ((_ text: String) -> Void)?
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -24,15 +30,13 @@ class AddPlanViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-
+        
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: AddPlanTableViewCell.self), bundle: nil)
     }
     
-    
 }
-
 
 extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
@@ -48,6 +52,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 as? HeaderView else { return nil }
         
         headerView.titleLabel.text = "建立行程"
+
         
         return headerView
     }
@@ -56,20 +61,30 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         50.0
     }
-
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-
+        
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: FooterView.identifier)
                 as? FooterView else { return nil }
-
+        
         footerView.saveButton.addTarget(target, action: #selector(tapsaveButton), for: .touchUpInside)
-
+        
         return footerView
     }
     
     @objc func tapsaveButton() {
-        // to add plan page
+   
+        guard let planDetailViewController = storyboard?.instantiateViewController(
+            withIdentifier: UIStoryboard.planDetailVC) as? PlanDetailViewController else { return }
+        planDetailViewController.departureTime = departureTime
+        planDetailViewController.backTime = backTime
+//        planDetailViewController.tripTitle = tripTitle
+        print("tripTitle",tripTitle)
+        navigationController?.pushViewController(planDetailViewController, animated: true)
+        navigationController?.modalPresentationStyle = .fullScreen
+        present(planDetailViewController, animated: true, completion: nil)
+        
     }
     
     // MARK: - Section Row
@@ -89,10 +104,37 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.selectionStyle = .none
         
+        // pickerView傳值到VC
+        cell.departurePickerVIew.dateClosure = { departureTime in
+            self.departureTime = departureTime
+        }
+        cell.backPickerVIew.dateClosure = { backTime in
+            self.backTime = backTime
+        }
+        tripTitle = cell.textField.text ?? ""
+        
+//        cell.passTitleData(tripTitle: tripTitle)
+    
         return cell
         
     }
     
-    
+//    private func mappingCellWtih(reciever: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+//
+//        guard
+//            let inputCell = tableView.dequeueReusableCell(
+//                withIdentifier: String(describing: AddPlanTableViewCell.self),
+//                for: indexPath
+//            ) as? AddPlanTableViewCell
+//        else {
+//
+//                return UITableViewCell()
+//        }
+//
+//        inputCell.layoutCell(
+//            tripTitle: inputCell.textField.text ?? "")
+//
+//        return inputCell
+//    }
     
 }

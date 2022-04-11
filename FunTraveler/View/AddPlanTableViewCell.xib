@@ -80,6 +80,7 @@
             <connections>
                 <outlet property="backPickerVIew" destination="wzS-H4-SMA" id="iJC-2U-pJA"/>
                 <outlet property="departurePickerVIew" destination="VjX-eu-XXL" id="jPR-Lc-s8V"/>
+                <outlet property="textField" destination="BnL-d6-QRv" id="AeE-UG-pwm"/>
             </connections>
             <point key="canvasLocation" x="207.24637681159422" y="185.49107142857142"/>
         </tableViewCell>
