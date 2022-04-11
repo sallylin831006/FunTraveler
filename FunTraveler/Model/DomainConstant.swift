@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct DomainConstant { //可拆開在另一個檔案
+struct DomainConstant {
 
-    static let urlKey = "STBaseURL" //寫在info.plist
-    static let urlMap = "MapBaseURL" //寫在info.plist
+    static let urlKey = "STBaseURL" // 寫在info.plist
+    static let urlMap = "MapBaseURL" // 寫在info.plist
     // https://maps.googleapis.com/maps/api
 
     enum Domain {
