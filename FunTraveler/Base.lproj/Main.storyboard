@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="W48-Y1-gML">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pBT-bH-4iO">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
@@ -11,7 +11,7 @@
         <!--Add Plan View Controller-->
         <scene sceneID="GQm-0V-fdY">
             <objects>
-                <viewController id="W48-Y1-gML" customClass="AddPlanViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPlanViewController" id="W48-Y1-gML" customClass="AddPlanViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="swL-Ry-cCa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -36,7 +36,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pBf-XQ-DlW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3080" y="-164"/>
+            <point key="canvasLocation" x="3387" y="-153"/>
         </scene>
         <!--Plan Detail View Controller-->
         <scene sceneID="cPx-gs-fch">
@@ -103,6 +103,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ex-9Z-0n0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5708.6956521739139" y="-108.48214285714285"/>
+        </scene>
+        <!--Plan Over View View Controller-->
+        <scene sceneID="VbJ-Dq-TPz">
+            <objects>
+                <viewController id="pBT-bH-4iO" customClass="PlanOverViewViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Yg8-cw-pqm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RVC-JZ-h9f">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cE1-bv-Vf7"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="RVC-JZ-h9f" firstAttribute="leading" secondItem="cE1-bv-Vf7" secondAttribute="leading" id="6dB-lz-73n"/>
+                            <constraint firstItem="cE1-bv-Vf7" firstAttribute="trailing" secondItem="RVC-JZ-h9f" secondAttribute="trailing" id="aEt-4f-DbO"/>
+                            <constraint firstItem="RVC-JZ-h9f" firstAttribute="top" secondItem="cE1-bv-Vf7" secondAttribute="top" id="wkv-6G-zbS"/>
+                            <constraint firstItem="cE1-bv-Vf7" firstAttribute="bottom" secondItem="RVC-JZ-h9f" secondAttribute="bottom" id="zjc-6y-L0m"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="RVC-JZ-h9f" id="zeY-ay-oK7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Vg-XR-WtF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2499" y="-153"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2Gv-sN-vFO">

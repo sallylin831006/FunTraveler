@@ -55,21 +55,12 @@ protocol STRequest {
     var endPoint: String { get }
 }
 
-
-
-
-
 extension STRequest {
     
     func makeRequest(domain: String) -> URLRequest {
         
         let urlString = Bundle.STValueForString(key: domain) + endPoint
-//        let urlString = Bundle.STValueForString(key: DomainConstant.urlKey) + endPoint
-
-        //let mapString = Bundle.STValueForString(key: DomainConstant.urlMap) + endPoint
         
-        //let urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(withLatitude),\(longitude)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(mapKey)"
-
         let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)!
 
         var request = URLRequest(url: url)
@@ -94,7 +85,6 @@ class HTTPClient {
 
     private init() { }
 
-    
 // ----- GOOGLE MAP -----//
 
     func maprequest(
@@ -115,7 +105,7 @@ class HTTPClient {
             let httpResponse = response as! HTTPURLResponse
             // swiftlint:enable force_cast
             let statusCode = httpResponse.statusCode
-                print ("STATUS CODE: \(httpResponse.statusCode),\(stRequest.endPoint)")
+                print("STATUS CODE: \(httpResponse.statusCode), \(stRequest.endPoint)")
 
             switch statusCode {
 
@@ -158,7 +148,7 @@ class HTTPClient {
             let httpResponse = response as! HTTPURLResponse
             // swiftlint:enable force_cast
             let statusCode = httpResponse.statusCode
-                print ("STATUS CODE: \(httpResponse.statusCode),\(stRequest.endPoint)")
+                print("STATUS CODE: \(httpResponse.statusCode),\(stRequest.endPoint)")
 
             switch statusCode {
 
@@ -182,6 +172,4 @@ class HTTPClient {
         }).resume()
     }
     
-    
 }
-
