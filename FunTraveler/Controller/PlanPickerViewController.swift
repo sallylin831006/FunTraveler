@@ -8,6 +8,11 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
+    
+    var departureTime: String = ""
+    var backTime: String = ""
+    var tripTitle: String = ""
+
     var isMoveDown: Bool = false
 
     let daySource = [
@@ -16,7 +21,13 @@ class PlanPickerViewController: UIViewController {
         DayModel(color: .green, title: "第三天"),
         DayModel(color: .green, title: "第四天")
     ]
-
+     
+    var tripData: Trips? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     var planCard = ["1", "2", "3", "4", "5"] {
         didSet {
             tableView.reloadData()
@@ -46,10 +57,27 @@ class PlanPickerViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: TrafficTimeTableViewCell.self), bundle: nil)
-
+        fetchData()
     }
     
-   
+    // MARK: - Action
+    func fetchData() {
+        let tripProvider = TripProvider()
+        
+        tripProvider.fetchTrip(completion: { result in
+            
+            switch result {
+                
+            case .success(let tripData):
+
+                self.tripData = tripData
+                
+            case .failure:
+                print("讀取資料失敗！")
+            }
+        })
+    }
+    
     @IBAction func tapZoomButton(_ sender: UIButton) {
         if isMoveDown == true {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
@@ -85,8 +113,10 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: PlanCardHeaderView.identifier)
         as? PlanCardHeaderView else { return nil }
 
-        headerView.titleLabel.text = "小琉球潛水之旅"
-        headerView.dateLabel.text = "2022年10月06日- 2022年10月08日"
+        headerView.titleLabel.text = tripTitle
+        //headerView.titleLabel.text = tripData?.data[0].title
+
+        headerView.dateLabel.text = "\(departureTime)- \(backTime)"
 
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
@@ -106,7 +136,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         as? PlanCardFooterView else { return nil }
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-
+        
         return footerView
     }
     
@@ -172,11 +202,11 @@ extension PlanPickerViewController: SelectionViewDataSource {
 }
 
 @objc extension PlanPickerViewController: SelectionViewDelegate {
-    @objc func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+    func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
         // tableView.backgroundColor = daySource[index].color
     }
     
-    @objc func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
+    func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
             return true
     }
 }

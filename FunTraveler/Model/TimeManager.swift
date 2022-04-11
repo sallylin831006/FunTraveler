@@ -20,7 +20,6 @@ class TimeManager {
             throw ClientError.invalidDateOfTime
         }
         
-
         let newDate = date + duration*3600
 
         let calendar = Calendar.current
@@ -31,8 +30,8 @@ class TimeManager {
         let endHours = calendar.component(.hour, from: newDate)
         let endMinutes = calendar.component(.minute, from: newDate)
         
-        
-        return Time(startHours: startHours, startMinutes: startMinutes, duration: duration, endHours: endHours, endMinutes: endMinutes)
+        return Time(startHours: startHours, startMinutes: startMinutes,
+                    duration: duration, endHours: endHours, endMinutes: endMinutes)
     }
 }
 
@@ -47,6 +46,6 @@ struct Time {
     
 }
 
-enum ClientError :Error {
+enum ClientError: Error {
     case invalidDateOfTime
 }
