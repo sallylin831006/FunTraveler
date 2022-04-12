@@ -9,6 +9,12 @@ import UIKit
 
 class PlanOverViewViewController: UIViewController {
     
+    var tripData: Trips? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -28,7 +34,24 @@ class PlanOverViewViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
+        fetchData()
+    }
+    
+    // MARK: - Action
+    func fetchData() {
+        let tripProvider = TripProvider()
         
+        tripProvider.fetchTrip(completion: { result in
+            
+            switch result {
+                
+            case .success(let tripData):
+                self.tripData = tripData
+                
+            case .failure:
+                print("讀取資料失敗！")
+            }
+        })
     }
     
 }
@@ -89,6 +112,9 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
+        guard let tripData = tripData else { return UITableViewCell() } // ?
+        cell.dayTitle.text = "\(tripData.data[indexPath.row].days)天 ｜ 旅遊回憶"
+        cell.tripTitle.text = tripData.data[indexPath.row].title
         
         return cell
         

@@ -22,11 +22,6 @@ class PlanPickerViewController: UIViewController {
         DayModel(color: .green, title: "第四天")
     ]
      
-    var tripData: Trips? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
     
     var planCard = ["1", "2", "3", "4", "5"] {
         didSet {
@@ -46,6 +41,12 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
+    var tripSchedule: Trips? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     @IBOutlet weak var zoomButton: UIButton!
     
     override func viewDidLoad() {
@@ -57,26 +58,27 @@ class PlanPickerViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: TrafficTimeTableViewCell.self), bundle: nil)
+        
         fetchData()
     }
-    
     // MARK: - Action
     func fetchData() {
         let tripProvider = TripProvider()
         
-        tripProvider.fetchTrip(completion: { result in
+        tripProvider.fetchSchedule(tripId: 2,completion: { result in
             
             switch result {
                 
-            case .success(let tripData):
-
-                self.tripData = tripData
+            case .success(let tripSchedule):
+                self.tripSchedule = tripSchedule
+                print("tripSchedule", tripSchedule)
                 
             case .failure:
                 print("讀取資料失敗！")
             }
         })
     }
+    
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
         if isMoveDown == true {
@@ -114,8 +116,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         as? PlanCardHeaderView else { return nil }
 
         headerView.titleLabel.text = tripTitle
-        //headerView.titleLabel.text = tripData?.data[0].title
-
+        
         headerView.dateLabel.text = "\(departureTime)- \(backTime)"
 
         headerView.selectionView.delegate = self

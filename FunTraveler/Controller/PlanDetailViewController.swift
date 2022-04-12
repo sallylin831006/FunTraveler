@@ -13,12 +13,14 @@ class PlanDetailViewController: UIViewController {
     var backTime: String = ""
     var tripTitle: String = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         showPlanPicker()
         self.navigationItem.hidesBackButton = true
+        
     }
-
+    
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
