@@ -8,16 +8,6 @@
 import Foundation
 import UIKit
 
-struct Trips: Codable {
-    var data: [Trip]
-}
-
-struct Trip: Codable {
-    var id: Int
-    var title: String
-    var days: Int
-}
-
 typealias TripHanlder = (Result<Trips>) -> Void
 
 class TripProvider {
@@ -29,16 +19,13 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.getTrip(token: "mockToken") ,
-            completion: { result in  // completion: { [weak self] result in
-                
-                // guard let strongSelf = self else { return }
+            completion: { result in
                 
                 switch result {
                     
                 case .success(let data):
                     
                     do {
-                        // let products = try strongSelf.decoder.decode(
                         let tripData = try JSONDecoder().decode(
                             Trips.self,
                             from: data
@@ -61,4 +48,41 @@ class TripProvider {
                 }
             })
     }
+    
+    // MARK: - Public method
+    func fetchSchedule(tripId: Int, completion: @escaping TripHanlder) {
+        
+        HTTPClient.shared.request(
+            TripRequest.getSchdule(token: "mockToken", tripId: tripId) ,
+            completion: { result in
+                
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
+
+                        let tripSchedule = try JSONDecoder().decode(
+                            Trips.self,
+                            from: data
+                        )
+                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(tripSchedule))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
+
 }
