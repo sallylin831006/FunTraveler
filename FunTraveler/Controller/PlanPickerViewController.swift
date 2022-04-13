@@ -189,6 +189,16 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapScheduleButton() {
+        //        planCard.append("new") // HARD CODE
+        //        tableView.reloadData()
+        //
+        guard let searchVC = storyboard?.instantiateViewController(
+            withIdentifier: UIStoryboard.searchVC) as? SearchViewController else { return }
+        let navSearchVC = UINavigationController(rootViewController: searchVC)
+        navSearchVC.modalPresentationStyle = .fullScreen
+        self.present(navSearchVC, animated: true)
+        
+    }
     // MARK: - Delete
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
