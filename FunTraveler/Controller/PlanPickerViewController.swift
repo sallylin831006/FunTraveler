@@ -9,8 +9,17 @@ import UIKit
 
 class PlanPickerViewController: UIViewController {
     
-    var departureTime: String = ""
-    var backTime: String = ""
+    private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
+    
+    private var selectedDepartmentTimes: String = "09:00" {
+        didSet {
+            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+            self.scheduleTwo[0].startTime = selectedDepartmentTimes
+            
+        }
+    }
+    
+    private var headerView: PlanCardHeaderView!
     var tripTitle: String = ""
 
     var isMoveDown: Bool = false
@@ -119,11 +128,20 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
 
         headerView.titleLabel.text = tripTitle
         
-        headerView.dateLabel.text = "\(departureTime)- \(backTime)"
+        headerView.dateLabel.text = "\(departureDate)- \(backDate)"
 
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
 
+        headerView.departmentPickerView.picker.delegate = self
+
+        headerView.departmentPickerView.picker.dataSource = self
+        
+        self.headerView = headerView
+        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+        
+        headerView.departmentPickerView.delegate = self
+        
         return headerView
     }
     
@@ -191,6 +209,40 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
 }
+
+extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        
+            return departmentTimes.count
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+            return "\(departmentTimes[row])"
+        
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        self.selectedDepartmentTimes = departmentTimes[row]
+                
+    }
+}
+
+extension PlanPickerViewController: TimePickerViewDelegate {
+    func donePickerViewAction() {
+       
+    }
+    
+}
+
+
+
 
 extension PlanPickerViewController: SelectionViewDataSource {
     
