@@ -6,6 +6,13 @@
 //
 
 import UIKit
+
+protocol PlanCardTableViewCellDelegate: AnyObject {
+    
+    func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int)
+
+}
+
 class PlanCardTableViewCell: UITableViewCell {
 
     var durationTime: Double = 1
@@ -94,6 +101,7 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
 extension PlanCardTableViewCell: TimePickerViewDelegate {
     func donePickerViewAction() {
         calculateTime()
+        delegate?.updateTime(startTime: startTime, duration: durationTime, trafficTime: trafficTime, index: index)
     }
     
 }

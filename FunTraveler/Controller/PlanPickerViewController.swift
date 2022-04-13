@@ -9,6 +9,33 @@ import UIKit
 
 class PlanPickerViewController: UIViewController {
     
+    struct ScheduleTwo {
+        var name: String
+        var address: String
+        var startTime: String
+        var duration: Double
+        var trafficTime: Double
+        var type: String
+    }
+    var scheduleTwo: [ScheduleTwo] = [
+        ScheduleTwo(name: "1景點", address: "新北市烏來區新烏路五段88號",
+                    startTime: "09:00", duration: 1.0, trafficTime: 1.0, type: "attraction"),
+        ScheduleTwo(name: "2景點", address: "交通",
+                    startTime: "11:00", duration: 2.0, trafficTime: 1.0, type: "attraction"),
+        ScheduleTwo(name: "3景點", address: "新北市烏來區新烏路五段20號",
+                    startTime: "13:00", duration: 2.5, trafficTime: 1.0, type: "attraction"),
+        ScheduleTwo(name: "4景點", address: "交通",
+                    startTime: "15:30", duration: 1.0, trafficTime: 1.0, type: "attraction"),
+        ScheduleTwo(name: "5景點", address: "新北市烏來區新烏路五段20號",
+                    startTime: "16:30", duration: 2.0, trafficTime: 1.0, type: "attraction")
+    ] {
+        didSet {
+            rearrangeTime()
+            tableView.reloadData()
+            // scrollToBottom()
+        }
+    }
+    
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     
     private var selectedDepartmentTimes: String = "09:00" {
@@ -270,4 +297,42 @@ extension PlanPickerViewController: SelectionViewDataSource {
     func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
             return true
     }
+}
+
+extension PlanPickerViewController: PlanCardTableViewCellDelegate {
+    func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int) {
+        self.scheduleTwo[index].startTime = startTime
+        self.scheduleTwo[index].duration = duration
+        self.scheduleTwo[index].trafficTime = trafficTime
+        
+    }
+    
+    func rearrangeTime() {
+        var previousEndTime = ""
+        for (index, schedule) in self.scheduleTwo.enumerated() {
+            do {
+                let totalDuration = schedule.duration + schedule.trafficTime
+                let date = try TimeManager.getDateFromString(startTime: schedule.startTime, duration: totalDuration)
+                
+                let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
+                
+                if schedule.startTime == previousEndTime || previousEndTime == "" {
+                    previousEndTime = endTime
+                    continue
+                }
+                
+                self.scheduleTwo[index].startTime = previousEndTime
+                
+                let newDate = try TimeManager.getDateFromString(startTime: previousEndTime, duration: totalDuration)
+                
+                let newEndTime = "\(newDate.endHours):\(String(format: "%02d", newDate.endMinutes))"
+                
+                previousEndTime = newEndTime
+                
+            } catch let wrongError {
+                print("Error message: \(wrongError),Please add correct time!")
+            }
+        }
+    }
+    
 }
