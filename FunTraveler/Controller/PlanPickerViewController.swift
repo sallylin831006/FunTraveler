@@ -47,33 +47,28 @@ class PlanPickerViewController: UIViewController {
     }
     
     private var headerView: PlanCardHeaderView!
+
+    var departureDate: String = ""
+    var backDate: String = ""
     var tripTitle: String = ""
-
-    var isMoveDown: Bool = false
-
-    let daySource = [
+    
+    private var isMoveDown: Bool = false
+    
+    private let daySource = [
         DayModel(color: .red, title: "第一天"),
         DayModel(color: .yellow, title: "第二天"),
         DayModel(color: .green, title: "第三天"),
         DayModel(color: .green, title: "第四天")
     ]
-     
     
-    var planCard = ["1", "2", "3", "4", "5"] {
-        didSet {
-            tableView.reloadData()
-            scrollToBottom()
-        }
-    }
-
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
             
             tableView.dataSource = self
-
+            
             tableView.delegate = self
-
+            
         }
     }
     
@@ -97,13 +92,14 @@ class PlanPickerViewController: UIViewController {
             PlanPickerViewController.longPressGestureRecognized(_:)))
         tableView.addGestureRecognizer(longpress)
         
-        fetchData()
+        // fetchData()
     }
+    
     // MARK: - Action
-    func fetchData() {
+    private func fetchData() {
         let tripProvider = TripProvider()
         
-        tripProvider.fetchSchedule(tripId: 2,completion: { result in
+        tripProvider.fetchSchedule(tripId: 2, completion: { result in
             
             switch result {
                 
@@ -115,8 +111,8 @@ class PlanPickerViewController: UIViewController {
                 print("讀取資料失敗！")
             }
         })
+        
     }
-    
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
         if isMoveDown == true {
@@ -133,7 +129,7 @@ class PlanPickerViewController: UIViewController {
             }, completion: nil)
             zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .selected)
             zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 250, width: 50, height: 50)
-
+            
             isMoveDown = true
         }
     }
@@ -143,23 +139,23 @@ class PlanPickerViewController: UIViewController {
 extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
- 
+        
         return 200.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: PlanCardHeaderView.identifier)
-        as? PlanCardHeaderView else { return nil }
-
+            withIdentifier: PlanCardHeaderView.identifier)
+                as? PlanCardHeaderView else { return nil }
+        
         headerView.titleLabel.text = tripTitle
         
         headerView.dateLabel.text = "\(departureDate)- \(backDate)"
-
+        
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
-
+      
         headerView.departmentPickerView.picker.delegate = self
 
         headerView.departmentPickerView.picker.dataSource = self
@@ -180,8 +176,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: PlanCardFooterView.identifier)
-        as? PlanCardFooterView else { return nil }
+            withIdentifier: PlanCardFooterView.identifier)
+                as? PlanCardFooterView else { return nil }
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
         
@@ -208,17 +204,17 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return [deleteAction]
     }
-
+    
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         scheduleTwo.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let tripCell = tableView.dequeueReusableCell(
-                withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
-                    as? PlanCardTableViewCell else { return UITableViewCell() }
+            withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
+                as? PlanCardTableViewCell else { return UITableViewCell() }
         tripCell.selectionStyle = .none
         
         tripCell.nameLabel.text = scheduleTwo[indexPath.row].name
@@ -226,25 +222,25 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         tripCell.startTime = scheduleTwo[indexPath.row].startTime
         
         tripCell.durationTime = scheduleTwo[indexPath.row].duration
-            
+        
         tripCell.trafficTime = scheduleTwo[indexPath.row].trafficTime
-
+        
         tripCell.orderLabel.text = String(indexPath.row + 1)
-            
+        
         tripCell.index = indexPath.row
-
+        
         tripCell.delegate = self
         
         return tripCell
     }
-
-    func scrollToBottom() {
+    
+    private func scrollToBottom() {
         DispatchQueue.main.async {
-            let indexPath = IndexPath(row: self.planCard.count-1, section: 0)
+            let indexPath = IndexPath(row: self.scheduleTwo.count-1, section: 0)
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
-
+    
 }
 
 extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -290,7 +286,7 @@ extension PlanPickerViewController: SelectionViewDataSource {
     
     func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel] {
         return daySource
-
+        
     }
     
     func colorOfindicator() -> UIColor { .black }
@@ -305,7 +301,7 @@ extension PlanPickerViewController: SelectionViewDataSource {
     }
     
     func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
-            return true
+        return true
     }
 }
 

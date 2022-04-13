@@ -14,9 +14,9 @@ protocol PlanCardTableViewCellDelegate: AnyObject {
 }
 
 class PlanCardTableViewCell: UITableViewCell {
-
+    
     var index: Int = 1
-
+        
     weak var delegate: PlanCardTableViewCellDelegate?
     
     var trafficTime: Double = 1 {
@@ -25,7 +25,7 @@ class PlanCardTableViewCell: UITableViewCell {
             calculateTime()
         }
     }
-    
+
     var durationTime: Double = 1 {
         didSet {
             timePickerView.timeTextField.text = "\(durationTime)小時"
@@ -44,7 +44,10 @@ class PlanCardTableViewCell: UITableViewCell {
         }
 }
     
+//    var endTimeClosure : ((_ text: String) -> Void)?
 
+    @IBOutlet weak var orderLabel: UILabel!
+    
     @IBOutlet weak var timePickerView: TimePickerView!
     
     @IBOutlet weak var trafficPickerView: TimePickerView!
@@ -55,7 +58,7 @@ class PlanCardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var startTimeLabel: UILabel!
     
-    @IBOutlet weak var orderLabel: UIImageView!
+    @IBOutlet weak var orderImage: UIImageView!
     
     @IBOutlet weak var endTimeLabel: UILabel!
     
@@ -79,18 +82,16 @@ class PlanCardTableViewCell: UITableViewCell {
         timePickerView.picker.tag = 1
         
         startTimeLabel.text = startTime
-
-        timePickerView.timeTextField.text = "\(durationTime)小時"
     }
     
     func calculateTime() {
         
         do {
-            let date = try TimeManager.getDateFromString(
-                dateFormat: "HH:mm", dateString: startTime, duration:
-                    durationTime)
+            let date = try TimeManager.getDateFromString(startTime: startTime, duration: durationTime)
             let formatMinutes = String(format: "%02d", date.endMinutes)
             endTimeLabel.text = "\(date.endHours):\(formatMinutes)"
+
+//            endTimeClosure?("\(date.endHours):\(formatMinutes)")
             
         } catch let wrongError {
             print("Error message: \(wrongError),Please add correct time!")
@@ -112,7 +113,7 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
-        return times.count
+            return times.count
         } else {
             return trafficTimes.count
         }
@@ -121,7 +122,7 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView.tag == 1 {
-        return "\(times[row])小時"
+            return "\(times[row])小時"
         } else {
             return "\(trafficTimes[row])小時"
         }
