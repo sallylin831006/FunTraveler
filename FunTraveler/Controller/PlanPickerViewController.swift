@@ -144,8 +144,14 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapScheduleButton() {
-        planCard.append("new") // HARD CODE
-        tableView.reloadData()
+    // MARK: - Delete
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
+            tableView.isEditing = false
+            
+            self.scheduleTwo.remove(at: index.row)
+        }
+        return [deleteAction]
     }
 
     // MARK: - Section Row
