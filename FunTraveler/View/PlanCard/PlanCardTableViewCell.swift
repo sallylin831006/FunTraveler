@@ -12,7 +12,15 @@ class PlanCardTableViewCell: UITableViewCell {
 
     var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
     
-    var startTime: String = "09:00"
+    var durationTime: Double = 1 {
+        didSet {
+            timePickerView.timeTextField.text = "\(durationTime)小時"
+            calculateTime()
+        }
+    }
+
+    private var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
+    
 
     @IBOutlet weak var timePickerView: TimePickerView!
     
