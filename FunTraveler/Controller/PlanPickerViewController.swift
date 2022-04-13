@@ -174,31 +174,31 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
 
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        planCard.count
+        scheduleTwo.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row % 2 == 0 {
-            guard let cell = tableView.dequeueReusableCell(
+        
+        guard let tripCell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
                     as? PlanCardTableViewCell else { return UITableViewCell() }
-            
-            cell.selectionStyle = .none
-            cell.nameLabel.text = "景福宮"
-            cell.addressLabel.text = "保安三街8-1號"
-            cell.startTime = "09:00"
-
-            return cell
-        } else {
-            guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: String(describing: TrafficTimeTableViewCell.self), for: indexPath)
-                    as? TrafficTimeTableViewCell else { return UITableViewCell() }
-            
-            cell.trafficTimeLabel.text = "開車時間"
-
-            return cell
-        }
+        tripCell.selectionStyle = .none
         
+        tripCell.nameLabel.text = scheduleTwo[indexPath.row].name
+        tripCell.addressLabel.text = scheduleTwo[indexPath.row].address
+        tripCell.startTime = scheduleTwo[indexPath.row].startTime
+        
+        tripCell.durationTime = scheduleTwo[indexPath.row].duration
+            
+        tripCell.trafficTime = scheduleTwo[indexPath.row].trafficTime
+
+        tripCell.orderLabel.text = String(indexPath.row + 1)
+            
+        tripCell.index = indexPath.row
+
+        tripCell.delegate = self
+        
+        return tripCell
     }
 
     func scrollToBottom() {
