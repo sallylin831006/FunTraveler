@@ -15,9 +15,16 @@ protocol PlanCardTableViewCellDelegate: AnyObject {
 
 class PlanCardTableViewCell: UITableViewCell {
 
-    var durationTime: Double = 1
+    var index: Int = 1
 
-    var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
+    weak var delegate: PlanCardTableViewCellDelegate?
+    
+    var trafficTime: Double = 1 {
+        didSet {
+            trafficPickerView.timeTextField.text = "\(trafficTime)小時"
+            calculateTime()
+        }
+    }
     
     var durationTime: Double = 1 {
         didSet {
@@ -28,8 +35,19 @@ class PlanCardTableViewCell: UITableViewCell {
 
     private var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
     
+    private var trafficTimes = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
+    
+    var startTime: String = "" {
+        didSet {
+            startTimeLabel.text = startTime
+            calculateTime()
+        }
+}
+    
 
     @IBOutlet weak var timePickerView: TimePickerView!
+    
+    @IBOutlet weak var trafficPickerView: TimePickerView!
     
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -43,13 +61,22 @@ class PlanCardTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        calculateTime()
+                
+        trafficPickerView.picker.delegate = self
+        
+        trafficPickerView.picker.dataSource = self
+
+        trafficPickerView.delegate = self
+        
+        trafficPickerView.picker.tag = 2
         
         timePickerView.picker.delegate = self
         
         timePickerView.picker.dataSource = self
 
         timePickerView.delegate = self
+        
+        timePickerView.picker.tag = 1
         
         startTimeLabel.text = startTime
 
@@ -84,16 +111,34 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView.tag == 1 {
         return times.count
+        } else {
+            return trafficTimes.count
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView.tag == 1 {
         return "\(times[row])小時"
+        } else {
+            return "\(trafficTimes[row])小時"
+        }
+        
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        durationTime = Double(times[row]) ?? 1.0
-        self.timePickerView.timeTextField.text = "\(times[row])小時"
+        if pickerView.tag == 1 {
+            guard let selectedTimes = Double(times[row]) else { return }
+            durationTime = selectedTimes
+            self.timePickerView.timeTextField.text = "\(durationTime)小時"
+            
+        } else {
+            guard let selectedTimes = Double(trafficTimes[row]) else { return }
+            trafficTime = selectedTimes
+            self.trafficPickerView.timeTextField.text = "\(trafficTimes)小時"
+        }
         
     }
 }
