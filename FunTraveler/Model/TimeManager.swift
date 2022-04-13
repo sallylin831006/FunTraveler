@@ -10,13 +10,14 @@ import UIKit
 
 class TimeManager {
     
-    static func getDateFromString(dateFormat: String, dateString: String, duration: Double) throws -> Time {
+    static func getDateFromString(startTime: String, duration: Double) throws -> Time {
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
+        dateFormatter.dateFormat = "HH:mm"
         dateFormatter.locale = Locale.ReferenceType.system
         dateFormatter.timeZone = TimeZone.ReferenceType.local
         
-        guard let date = dateFormatter.date(from: dateString) else {
+        guard let date = dateFormatter.date(from: startTime) else {
             throw ClientError.invalidDateOfTime
         }
         
