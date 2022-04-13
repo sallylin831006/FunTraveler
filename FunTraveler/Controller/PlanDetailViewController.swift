@@ -17,13 +17,14 @@ class PlanDetailViewController: UIViewController {
         super.viewDidLoad()
         showPlanPicker()
         self.navigationItem.hidesBackButton = true
+        
     }
-
+    
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
-        planPickerViewController.departureTime = departureTime
-        planPickerViewController.backTime = backTime
+        planPickerViewController.departureDate = departureTime
+        planPickerViewController.backDate = backTime
         planPickerViewController.tripTitle = tripTitle
 
         addChild(planPickerViewController)

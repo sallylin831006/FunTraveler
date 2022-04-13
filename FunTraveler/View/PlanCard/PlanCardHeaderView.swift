@@ -12,7 +12,9 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
-
+    
+    @IBOutlet weak var departmentPickerView: TimePickerView!
+    
     @IBOutlet weak var selectionView: SelectionView!
 
     override init(reuseIdentifier: String?) {

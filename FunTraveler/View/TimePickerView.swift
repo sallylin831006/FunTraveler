@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//import IQKeyboardManagerSwift
+
 protocol TimePickerViewDelegate: AnyObject {
     func donePickerViewAction()
 }
@@ -33,16 +35,18 @@ class TimePickerView: UIView {
 }
 
 extension TimePickerView {
-        
+
     private func setupTimePickerView() {
+
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
-        
+
         let doneButton = UIBarButtonItem(
             title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
+
         let spaceButton = UIBarButtonItem(
             barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(
@@ -51,6 +55,7 @@ extension TimePickerView {
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
          
         timeTextField.inputView = picker
+//        timeTextField.inputAccessoryView = UIView()
         timeTextField.inputAccessoryView = toolBar
             
         timeTextField.backgroundColor = UIColor.init(
@@ -66,10 +71,10 @@ extension TimePickerView {
     }
     
     @objc func donePicker() {
-        timeTextField.resignFirstResponder()
         delegate?.donePickerViewAction()
+        timeTextField.resignFirstResponder()
     }
-    
+
     func layoutOfTimePickerView() {
         timeTextField.translatesAutoresizingMaskIntoConstraints = false
         timeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true

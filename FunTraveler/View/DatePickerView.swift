@@ -34,15 +34,13 @@ extension DatePickerView {
         datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 100))
         
         datePicker.datePickerMode = .dateAndTime
+
         datePicker.minuteInterval = 15
         datePicker.date = Date()
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let fromDateTime = formatter.date(from: "2016-01-02 18:08")
-        datePicker.minimumDate = fromDateTime
-        let endDateTime = formatter.date(from: "2020-04-06 10:45")
-        datePicker.maximumDate = endDateTime
+        datePicker.minimumDate = Date()
         datePicker.locale = Locale(identifier: "zh_TW")
         
         // ACTION

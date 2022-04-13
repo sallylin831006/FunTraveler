@@ -10,14 +10,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="208" id="KGk-i7-Jjw" customClass="PlanCardHeaderView" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="428" height="208"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="246" id="KGk-i7-Jjw" customClass="PlanCardHeaderView" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="246"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="428" height="208"/>
+                <rect key="frame" x="0.0" y="0.0" width="428" height="246"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小琉球潛水趣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cot-6R-Mzr">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="小琉球潛水趣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cot-6R-Mzr">
                         <rect key="frame" x="156" y="20" width="116.5" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="wru-9j-Ok7"/>
@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022年10月06日- 2022年10月08日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaC-HT-fXs">
-                        <rect key="frame" x="100" y="59" width="228" height="17"/>
+                        <rect key="frame" x="100" y="59" width="228" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="sRk-ck-6xM"/>
                         </constraints>
@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="k1b-wu-BgV">
-                        <rect key="frame" x="16" y="86.5" width="35" height="34"/>
+                        <rect key="frame" x="16" y="79.5" width="35" height="34"/>
                         <color key="tintColor" systemColor="systemPinkColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="Gxr-gV-HQm"/>
@@ -44,7 +44,7 @@
                         </constraints>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UEl-AH-wa4">
-                        <rect key="frame" x="61" y="86.5" width="35" height="34"/>
+                        <rect key="frame" x="61" y="79.5" width="35" height="34"/>
                         <color key="tintColor" systemColor="systemTealColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="0EA-F4-qcb"/>
@@ -53,21 +53,41 @@
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45E-pd-iDp" customClass="SelectionView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="20" y="137" width="388" height="30"/>
+                        <rect key="frame" x="20" y="130" width="388" height="30"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="9An-Ln-ySS"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qm4-sP-Kky" customClass="TimePickerView" customModule="FunTraveler" customModuleProvider="target">
+                        <rect key="frame" x="116" y="180" width="240" height="50"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="06U-Bm-GLW"/>
+                            <constraint firstAttribute="width" constant="240" id="D8c-Sn-JaU"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出發時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZpG-CI-dC4">
+                        <rect key="frame" x="30" y="180" width="70" height="50"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="ZpG-CI-dC4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="9eh-C6-vA1"/>
                     <constraint firstItem="k1b-wu-BgV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="CdS-Bv-vGj"/>
                     <constraint firstItem="UEl-AH-wa4" firstAttribute="centerY" secondItem="k1b-wu-BgV" secondAttribute="centerY" id="ChA-cY-dpt"/>
                     <constraint firstItem="UEl-AH-wa4" firstAttribute="leading" secondItem="k1b-wu-BgV" secondAttribute="trailing" constant="10" id="DKy-uW-j07"/>
                     <constraint firstItem="cot-6R-Mzr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="E9K-O0-PFp"/>
+                    <constraint firstItem="qm4-sP-Kky" firstAttribute="top" secondItem="45E-pd-iDp" secondAttribute="bottom" constant="20" id="FWQ-ul-vue"/>
                     <constraint firstItem="uaC-HT-fXs" firstAttribute="top" secondItem="cot-6R-Mzr" secondAttribute="bottom" constant="16" id="Gf4-5D-nd4"/>
                     <constraint firstItem="UEl-AH-wa4" firstAttribute="top" secondItem="uaC-HT-fXs" secondAttribute="bottom" constant="10" id="HEE-Kt-nbT"/>
+                    <constraint firstAttribute="bottom" secondItem="ZpG-CI-dC4" secondAttribute="bottom" constant="16" id="fUr-DU-4Zv"/>
+                    <constraint firstItem="qm4-sP-Kky" firstAttribute="leading" secondItem="ZpG-CI-dC4" secondAttribute="trailing" constant="16" id="gOL-cn-8cq"/>
                     <constraint firstItem="45E-pd-iDp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="h3h-Tl-KdO"/>
+                    <constraint firstAttribute="bottom" secondItem="qm4-sP-Kky" secondAttribute="bottom" constant="16" id="kRx-8G-G5r"/>
+                    <constraint firstItem="ZpG-CI-dC4" firstAttribute="top" secondItem="45E-pd-iDp" secondAttribute="bottom" constant="20" id="lpK-Ju-NMy"/>
                     <constraint firstItem="45E-pd-iDp" firstAttribute="top" secondItem="k1b-wu-BgV" secondAttribute="bottom" constant="16" id="nd4-eF-1BN"/>
                     <constraint firstItem="cot-6R-Mzr" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="nmA-py-Cw2"/>
                     <constraint firstAttribute="trailing" secondItem="45E-pd-iDp" secondAttribute="trailing" constant="20" id="nxN-w3-yjH"/>
@@ -77,10 +97,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="dateLabel" destination="uaC-HT-fXs" id="y1g-uo-wq9"/>
+                <outlet property="departmentPickerView" destination="qm4-sP-Kky" id="zUu-MI-Kct"/>
                 <outlet property="selectionView" destination="45E-pd-iDp" id="Vsj-YS-A7D"/>
                 <outlet property="titleLabel" destination="cot-6R-Mzr" id="JBx-Xf-3Rf"/>
             </connections>
-            <point key="canvasLocation" x="165.21739130434784" y="157.36607142857142"/>
+            <point key="canvasLocation" x="165.21739130434784" y="170.08928571428569"/>
         </tableViewCell>
     </objects>
     <resources>
