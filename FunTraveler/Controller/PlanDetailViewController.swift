@@ -13,7 +13,6 @@ class PlanDetailViewController: UIViewController {
     var backTime: String = ""
     var tripTitle: String = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         showPlanPicker()
@@ -24,8 +23,8 @@ class PlanDetailViewController: UIViewController {
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
-        planPickerViewController.departureTime = departureTime
-        planPickerViewController.backTime = backTime
+        planPickerViewController.departureDate = departureTime
+        planPickerViewController.backDate = backTime
         planPickerViewController.tripTitle = tripTitle
 
         addChild(planPickerViewController)
