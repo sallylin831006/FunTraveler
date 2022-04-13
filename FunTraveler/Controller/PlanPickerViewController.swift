@@ -57,7 +57,9 @@ class PlanPickerViewController: UIViewController {
         
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
-        tableView.registerCellWithNib(identifier: String(describing: TrafficTimeTableViewCell.self), bundle: nil)
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
+            PlanPickerViewController.longPressGestureRecognized(_:)))
+        tableView.addGestureRecognizer(longpress)
         
         fetchData()
     }
