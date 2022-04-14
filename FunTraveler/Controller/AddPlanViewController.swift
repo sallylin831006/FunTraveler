@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
@@ -19,8 +18,6 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    var departureTime: String = ""
-    var backTime: String = ""
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -85,8 +82,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planDetailVC) as? PlanDetailViewController else { return }
-        planDetailViewController.departureTime = departureTime
-        planDetailViewController.backTime = backTime
         
         textFieldClosure = { titleText in
             planDetailViewController.tripTitle = titleText
@@ -116,14 +111,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 as? AddPlanTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        
-        // pickerView傳值到VC
-        cell.departurePickerVIew.dateClosure = { departureTime in
-            self.departureTime = departureTime
-        }
-        cell.backPickerVIew.dateClosure = { backTime in
-            self.backTime = backTime
-        }
         
         cell.delegate = self
         
