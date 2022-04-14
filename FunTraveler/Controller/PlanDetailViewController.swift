@@ -6,15 +6,17 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
-    
+    var schedules: [Schedule] = []
     var departureTime: String = ""
     var backTime: String = ""
     var tripTitle: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addMap()
         showPlanPicker()
         self.navigationItem.hidesBackButton = true
         
@@ -23,10 +25,12 @@ class PlanDetailViewController: UIViewController {
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
-        planPickerViewController.departureDate = departureTime
-        planPickerViewController.backDate = backTime
-        planPickerViewController.tripTitle = tripTitle
-
+        
+        planPickerViewController.scheduleClosure = { [weak self] schedules in
+            self?.schedules = schedules
+            self?.addMarker()
+        }
+        
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
         
@@ -41,6 +45,7 @@ class PlanDetailViewController: UIViewController {
         shareButton.backgroundColor = .lightGray
         shareButton.setTitle("分享", for: .normal)
         bottomView.addSubview(shareButton)
+        shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
 
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.leadingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -70).isActive = true
@@ -49,5 +54,49 @@ class PlanDetailViewController: UIViewController {
         shareButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
     }
+    @objc func tapToShare() {
+        
+    }
+    
+    let label = UILabel()
+    let mapView = GMSMapView()
 
+    func addMap() {
+        mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.addSubview(mapView)
+
+        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
+        mapView.camera = camera
+        
+    }
+    
+    func addMarker() {
+        var markerArray: [CLLocationCoordinate2D] = []
+        mapView.clear()
+        for schedule in schedules {
+            
+            let marker = GMSMarker()
+            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
+            marker.iconView = markerView
+            marker.position = CLLocationCoordinate2DMake(
+                CLLocationDegrees(schedule.position.lat),
+                CLLocationDegrees(schedule.position.long))
+            
+            marker.map = mapView
+            marker.title = schedule.name
+            marker.snippet = schedule.address
+            markerArray.append(marker.position)
+        }
+        
+        let path = GMSMutablePath()
+        
+        for coord in markerArray {
+            path.add(coord)
+        }
+        let line = GMSPolyline(path: path)
+        line.strokeColor = UIColor.themeRed!
+        line.strokeWidth = 4.0
+        line.map = mapView
+    }
+    
 }

@@ -9,6 +9,8 @@ import UIKit
 
 class PlanPickerViewController: UIViewController {
     
+    var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
+        
     var trip: Trip? {
         didSet {
             tableView.reloadData()
@@ -19,6 +21,8 @@ class PlanPickerViewController: UIViewController {
         didSet {
             rearrangeTime()
             tableView.reloadData()
+            scheduleClosure?(schedule)
+
             // scrollToBottom()
         }
     }
@@ -184,6 +188,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         //
         guard let searchVC = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.searchVC) as? SearchViewController else { return }
+        searchVC.scheduleArray = schedule
+        
+        searchVC.scheduleClosure = { newSchedule in
+            self.schedule = newSchedule
+        }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
         navSearchVC.modalPresentationStyle = .fullScreen
         self.present(navSearchVC, animated: true)
