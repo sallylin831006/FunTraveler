@@ -9,26 +9,13 @@ import UIKit
 
 class PlanPickerViewController: UIViewController {
     
-    struct ScheduleTwo {
-        var name: String
-        var address: String
-        var startTime: String
-        var duration: Double
-        var trafficTime: Double
-        var type: String
+    var trip: Trip? {
+        didSet {
+            tableView.reloadData()
     }
-    var scheduleTwo: [ScheduleTwo] = [
-        ScheduleTwo(name: "1景點", address: "新北市烏來區新烏路五段88號",
-                    startTime: "09:00", duration: 1.0, trafficTime: 1.0, type: "attraction"),
-        ScheduleTwo(name: "2景點", address: "交通",
-                    startTime: "11:00", duration: 2.0, trafficTime: 1.0, type: "attraction"),
-        ScheduleTwo(name: "3景點", address: "新北市烏來區新烏路五段20號",
-                    startTime: "13:00", duration: 2.5, trafficTime: 1.0, type: "attraction"),
-        ScheduleTwo(name: "4景點", address: "交通",
-                    startTime: "15:30", duration: 1.0, trafficTime: 1.0, type: "attraction"),
-        ScheduleTwo(name: "5景點", address: "新北市烏來區新烏路五段20號",
-                    startTime: "16:30", duration: 2.0, trafficTime: 1.0, type: "attraction")
-    ] {
+    }
+    
+    var schedule: [Schedule] = [] {
         didSet {
             rearrangeTime()
             tableView.reloadData()
@@ -88,6 +75,8 @@ class PlanPickerViewController: UIViewController {
         
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
+        fetchData()
+        
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPressGestureRecognized(_:)))
         tableView.addGestureRecognizer(longpress)
@@ -99,12 +88,17 @@ class PlanPickerViewController: UIViewController {
     private func fetchData() {
         let tripProvider = TripProvider()
         
-        tripProvider.fetchSchedule(tripId: 2, completion: { result in
+        tripProvider.fetchSchedule(tripId: 1, completion: { [weak self] result in
             
             switch result {
                 
             case .success(let tripSchedule):
-                self.tripSchedule = tripSchedule
+
+                self?.trip = tripSchedule.data
+                
+                guard let schedules = tripSchedule.data.schedules else { return }
+
+                self?.schedule = schedules[0]
                 print("tripSchedule", tripSchedule)
                 
             case .failure:
@@ -149,9 +143,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
         
-        headerView.titleLabel.text = tripTitle
+        headerView.titleLabel.text = trip?.title
         
-        headerView.dateLabel.text = "\(departureDate)- \(backDate)"
+        headerView.dateLabel.text = "\(trip?.startDate)- \(trip?.endDate)"
         
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
@@ -207,7 +201,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        scheduleTwo.count
+        schedule.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -217,13 +211,13 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         tripCell.selectionStyle = .none
         
-        tripCell.nameLabel.text = scheduleTwo[indexPath.row].name
-        tripCell.addressLabel.text = scheduleTwo[indexPath.row].address
-        tripCell.startTime = scheduleTwo[indexPath.row].startTime
+        tripCell.nameLabel.text = schedule[indexPath.row].name
+        tripCell.addressLabel.text = schedule[indexPath.row].address
+        tripCell.startTime = schedule[indexPath.row].startTime
         
-        tripCell.durationTime = scheduleTwo[indexPath.row].duration
+        tripCell.durationTime = schedule[indexPath.row].duration
         
-        tripCell.trafficTime = scheduleTwo[indexPath.row].trafficTime
+        tripCell.trafficTime = schedule[indexPath.row].trafficTime
         
         tripCell.orderLabel.text = String(indexPath.row + 1)
         
@@ -236,7 +230,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     private func scrollToBottom() {
         DispatchQueue.main.async {
-            let indexPath = IndexPath(row: self.scheduleTwo.count-1, section: 0)
+            let number = self.schedule.count
+
+            let indexPath = IndexPath(row: number-1, section: 0)
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
@@ -307,15 +303,16 @@ extension PlanPickerViewController: SelectionViewDataSource {
 
 extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int) {
-        self.scheduleTwo[index].startTime = startTime
-        self.scheduleTwo[index].duration = duration
-        self.scheduleTwo[index].trafficTime = trafficTime
+        
+        self.schedule[index].startTime = startTime
+        self.schedule[index].duration = duration
+        self.schedule[index].trafficTime = trafficTime
         
     }
     
     func rearrangeTime() {
         var previousEndTime = ""
-        for (index, schedule) in self.scheduleTwo.enumerated() {
+        for (index, schedule) in self.schedule.enumerated() {
             do {
                 let totalDuration = schedule.duration + schedule.trafficTime
                 let date = try TimeManager.getDateFromString(startTime: schedule.startTime, duration: totalDuration)
@@ -327,7 +324,7 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
                     continue
                 }
                 
-                self.scheduleTwo[index].startTime = previousEndTime
+                self.schedule[index].startTime = previousEndTime
                 
                 let newDate = try TimeManager.getDateFromString(startTime: previousEndTime, duration: totalDuration)
                 
