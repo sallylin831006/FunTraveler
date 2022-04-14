@@ -8,13 +8,13 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
-    
+
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
         
     var trip: Trip? {
         didSet {
             tableView.reloadData()
-    }
+        }
     }
     
     var schedule: [Schedule] = [] {
@@ -28,23 +28,15 @@ class PlanPickerViewController: UIViewController {
     }
     
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
-    
+    private var headerView: PlanCardHeaderView!
     private var selectedDepartmentTimes: String = "09:00" {
         didSet {
             headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-            self.scheduleTwo[0].startTime = selectedDepartmentTimes
-            
+            self.schedule[0].startTime = selectedDepartmentTimes
+                        
         }
     }
-    
-    private var headerView: PlanCardHeaderView!
 
-    var departureDate: String = ""
-    var backDate: String = ""
-    var tripTitle: String = ""
-    
-    private var isMoveDown: Bool = false
-    
     private let daySource = [
         DayModel(color: .red, title: "第一天"),
         DayModel(color: .yellow, title: "第二天"),
@@ -57,22 +49,18 @@ class PlanPickerViewController: UIViewController {
         didSet {
             
             tableView.dataSource = self
-            
+
             tableView.delegate = self
             
         }
     }
     
-    var tripSchedule: Trips? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
+    private var isMoveDown: Bool = false
     @IBOutlet weak var zoomButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
@@ -82,13 +70,12 @@ class PlanPickerViewController: UIViewController {
         fetchData()
         
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
-            PlanPickerViewController.longPressGestureRecognized(_:)))
+            PlanPickerViewController.longPress(_:)))
         tableView.addGestureRecognizer(longpress)
-        
-        // fetchData()
+
     }
     
-    // MARK: - Action
+// MARK: - Action
     private func fetchData() {
         let tripProvider = TripProvider()
         
@@ -146,11 +133,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
-        
+
         headerView.titleLabel.text = trip?.title
-        
+
         headerView.dateLabel.text = "\(trip?.startDate)- \(trip?.endDate)"
-        
+
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
       
@@ -183,9 +170,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapScheduleButton() {
-        //        planCard.append("new") // HARD CODE
-        //        tableView.reloadData()
-        //
+
         guard let searchVC = storyboard?.instantiateViewController(
             withIdentifier: UIStoryboard.searchVC) as? SearchViewController else { return }
         searchVC.scheduleArray = schedule
@@ -194,7 +179,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             self.schedule = newSchedule
         }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
-        navSearchVC.modalPresentationStyle = .fullScreen
         self.present(navSearchVC, animated: true)
         
     }
@@ -202,8 +186,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
             tableView.isEditing = false
-            
-            self.scheduleTwo.remove(at: index.row)
+
+            self.schedule.remove(at: index.row)
         }
         return [deleteAction]
     }
@@ -219,21 +203,21 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         tripCell.selectionStyle = .none
-        
+
         tripCell.nameLabel.text = schedule[indexPath.row].name
         tripCell.addressLabel.text = schedule[indexPath.row].address
         tripCell.startTime = schedule[indexPath.row].startTime
-        
+
         tripCell.durationTime = schedule[indexPath.row].duration
-        
+
         tripCell.trafficTime = schedule[indexPath.row].trafficTime
-        
+
         tripCell.orderLabel.text = String(indexPath.row + 1)
-        
+
         tripCell.index = indexPath.row
-        
+
         tripCell.delegate = self
-        
+
         return tripCell
     }
     
@@ -245,7 +229,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
-    
 }
 
 extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -278,9 +261,6 @@ extension PlanPickerViewController: TimePickerViewDelegate {
     }
     
 }
-
-
-
 
 extension PlanPickerViewController: SelectionViewDataSource {
     

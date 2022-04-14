@@ -18,7 +18,7 @@ class SearchProvider {
     // MARK: - Public method
     func fetchSearch(keyword: String, position: String, radius: Int, completion: @escaping SearchHanlder) {
         
-        HTTPClient.shared.request(
+        HTTPClient.shared.maprequest(
             SearchRequest.mapSearch(keyword: keyword, position: position, radius: radius),
             completion: { result in
                 
@@ -53,7 +53,7 @@ class SearchProvider {
     // MARK: - Public method
     func fetchSearchDetail(placeId: String, completion: @escaping SearchDetailHanlder) {
         
-        HTTPClient.shared.request(
+        HTTPClient.shared.maprequest(
             SearchRequest.searchDetail(placeId: placeId),
             completion: { result in
                 
@@ -88,7 +88,7 @@ class SearchProvider {
     // MARK: - Public method
     func fetchPhotos(maxwidth: Int, photoreference: String, completion: @escaping (UIImage?) -> Void) {
         
-        HTTPClient.shared.request(
+        HTTPClient.shared.maprequest(
             SearchRequest.searchPhoto(maxwidth: maxwidth, photoreference: photoreference),
             completion: { result in
                 
