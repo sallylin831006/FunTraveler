@@ -8,6 +8,9 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    var scheduleArray: [Schedule] = []
+    
+    var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
     var searchData: [Results] = [] {
         didSet {
@@ -36,13 +39,17 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        scheduleClosure?(scheduleArray)
+    }
+    
 }
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // searchData.count
-        1
+        searchData.count
+        //1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,32 +57,48 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: SearchTableViewCell.self), for: indexPath)
                 as? SearchTableViewCell else { return UITableViewCell() }
-        
-//        cell.nameLabel?.text = searchData[indexPath.row].name
-//        cell.ratingLabel?.text = "★★★★☆\(searchData[indexPath.row].rating ?? 0.0)"
-//        cell.addressLabel?.text = searchData[indexPath.row].vicinity
+//        // MOCK DATA
+//        cell.nameLabel?.text = "searchData[indexPath.row].name"
+//        cell.ratingLabel?.text = "1.0"
+//        cell.addressLabel?.text = "searchData[indexPath.row].vicinity"
 //        cell.searchData = searchData
+        
+        cell.nameLabel?.text = searchData[indexPath.row].name
+        cell.ratingLabel?.text = "★★★★☆\(searchData[indexPath.row].rating ?? 0.0)"
+        cell.addressLabel?.text = searchData[indexPath.row].vicinity
+        cell.searchData = searchData
         
         cell.actionBtn.addTarget(target, action: #selector(tapActionButton), for: .touchUpInside)
         
-        // USER TAP ADD TO SCHEDULE
-        cell.searchDataClosure = { cell in
-//            print("成功加入行程！searchData:\(self.searchData[indexPath.row])", "indexPath:\(indexPath)")
-            
-            // POST API TO SEVER
-            
+//         USER TAP ADD TO SCHEDULE IMPORTANT!
+        cell.searchDataClosure = { searchData in
+            print("成功加入行程！searchData:\(self.searchData[indexPath.row])", "indexPath:\(indexPath)")
+
         }
         
         return cell
         
     }
-    
-    @objc func tapActionButton() {
-        print("成功加入行程！")
-        //POST DATA: PlaceId name address 
 
+    @objc func tapActionButton(_ sender: UIButton) {
+        let point = sender.convert(CGPoint.zero, to: tableView)
+        guard let indexPath = tableView.indexPathForRow(at: point) else { return }
+
+        let schedule = Schedule(
+            name: searchData[indexPath.row].name,
+            address: searchData[indexPath.row].vicinity,
+            startTime: "09:00", duration: 1.0,
+            trafficTime: 1.0,
+            type: "attraction",
+            position: Position(
+                lat: Double(searchData[indexPath.row].geometry.location.lat),
+                long: Double(searchData[indexPath.row].geometry.location.lng)
+            )
+        )
+        print("成功加入行程！")
+        scheduleArray.append(schedule)
     }
-        
+            
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let searchDetailVC = SearchDetailViewController()
@@ -108,9 +131,22 @@ extension SearchViewController: UISearchBarDelegate {
                 self.searchData = searchData.results
                 
             case .failure:
-                print("讀取資料失敗！")
+                print("searchProvider讀取資料失敗！")
             }
         })
     }
     
 }
+
+
+//        let schedule = Schedule(
+//            name: "測試name",
+//            address: "測試address",
+//            startTime: "09:00", duration: 1.0,
+//            trafficTime: 1.0,
+//            type: "attraction",
+//            position: Position(
+//                lat: 121.564461,
+//                long: 25.034012
+//            )
+//        )

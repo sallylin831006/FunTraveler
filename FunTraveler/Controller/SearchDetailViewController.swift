@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import GoogleMaps
+import GoogleMaps
 
 class SearchDetailViewController: UIViewController {
     
@@ -34,7 +34,6 @@ class SearchDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addMap()
         // API
         let searchProvider = SearchProvider()
         guard let placeId = searchResoponse?.placeId else { return }
@@ -81,25 +80,6 @@ class SearchDetailViewController: UIViewController {
         
         tableView.heightAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
     }
-
-    func addMap() {
-//        let mapView = GMSMapView()
-//        mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.width)
-//        self.view.addSubview(mapView)
-//
-//        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
-//        mapView.camera = camera
-//
-//
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(Float((searchResoponse?.geometry.location.lat)!)),CLLocationDegrees(Float((searchResoponse?.geometry.location.lng)!)))
-//        marker.map = mapView
-//        marker.title = "\(String(describing: searchResoponse?.name))"
-//        marker.snippet = "副標題1"
-//        print("成功接到！", searchDetails?.name)
-    
-    }
-    
 }
 
 extension SearchDetailViewController: UITableViewDataSource, UITableViewDelegate {

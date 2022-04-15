@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 typealias TripHanlder = (Result<Trips>) -> Void
+typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
+
 
 class TripProvider {
     
@@ -50,12 +52,14 @@ class TripProvider {
     }
     
     // MARK: - Public method
-    func fetchSchedule(tripId: Int, completion: @escaping TripHanlder) {
+    func fetchSchedule(tripId: Int, completion: @escaping ScheduleInfoHanlder) {
         
         HTTPClient.shared.request(
             TripRequest.getSchdule(token: "mockToken", tripId: tripId) ,
-            completion: { result in
+            completion: { [weak self] result in
                 
+                //guard let strongSelf = self else { return }
+
                 switch result {
                     
                 case .success(let data):
@@ -63,7 +67,7 @@ class TripProvider {
                     do {
 
                         let tripSchedule = try JSONDecoder().decode(
-                            Trips.self,
+                            ScheduleInfo.self,
                             from: data
                         )
                         
