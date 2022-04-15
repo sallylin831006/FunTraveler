@@ -38,6 +38,8 @@
 		3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5828058D6B004F5BB3 /* MapObject.swift */; };
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
 		3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5E280735F3004F5BB3 /* MapConstants.swift */; };
+		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
+		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -99,6 +101,8 @@
 		3A185C5828058D6B004F5BB3 /* MapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObject.swift; sourceTree = "<group>"; };
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
 		3A185C5E280735F3004F5BB3 /* MapConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConstants.swift; sourceTree = "<group>"; };
+		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
+		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 			children = (
 				3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */,
 				3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */,
+				3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */,
+				3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */,
 			);
 			path = SharePlan;
 			sourceTree = "<group>";
@@ -353,7 +359,7 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				DF5A8F93FD5674D97CA828D6 /* [CP] Copy Pods Resources */,
+				E659A4156F6D01445FC2CB91 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -416,6 +422,7 @@
 				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
 				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
+				3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */,
 				3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -479,7 +486,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DF5A8F93FD5674D97CA828D6 /* [CP] Copy Pods Resources */ = {
+		E659A4156F6D01445FC2CB91 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -511,6 +518,7 @@
 				3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */,
 				3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */,
 				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
+				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
 				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
