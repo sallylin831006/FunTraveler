@@ -59,10 +59,12 @@ class PlanDetailViewController: UIViewController {
         guard let shareVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         shareVC.schedules = schedules
-
-        shareVC.modalPresentationStyle = .fullScreen
-        let navShareVC = UINavigationController(rootViewController: shareVC)
-        self.present(navShareVC, animated: true)
+        
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        if let tabBarController = self.presentingViewController as? UITabBarController {
+                tabBarController.selectedIndex = 0
+            }
     }
     
     let label = UILabel()
