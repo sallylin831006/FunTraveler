@@ -1,13 +1,13 @@
 //
-//  SharePlanTableViewCell.swift
+//  ShareExperienceTableViewCell.swift
 //  FunTraveler
 //
-//  Created by 林翊婷 on 2022/4/15.
+//  Created by 林翊婷 on 2022/4/16.
 //
 
 import UIKit
 
-class SharePlanTableViewCell: UITableViewCell {
+class ShareExperienceTableViewCell: UITableViewCell {
     
     @IBOutlet weak var orderLbael: UILabel!
     
@@ -17,7 +17,10 @@ class SharePlanTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tripTimeLabel: UILabel!
     
-
+    @IBOutlet weak var tripImage: UIImageView!
+    
+    @IBOutlet weak var storiesTextView: UITextView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
