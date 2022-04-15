@@ -93,7 +93,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     @objc func tapScheduleButton() {
         
         guard let addPlanVC = storyboard?.instantiateViewController(
-            withIdentifier: UIStoryboard.addPlanVC) as? AddPlanViewController else { return }
+            withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
         let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
         navAddPlanVC.modalPresentationStyle = .fullScreen
         self.present(navAddPlanVC, animated: true)

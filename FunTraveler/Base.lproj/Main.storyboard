@@ -1,221 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Raf-iY-6DG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wwc-hw-oLZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Share Plan Controller-->
-        <scene sceneID="GQm-0V-fdY">
+        <!--Tab Bar View Controller-->
+        <scene sceneID="Tq5-Yw-Z0r">
             <objects>
-                <viewController storyboardIdentifier="AddPlanViewController" id="W48-Y1-gML" customClass="SharePlanController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="swL-Ry-cCa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2wQ-vH-r3J">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="j0e-OT-kv9"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2wQ-vH-r3J" secondAttribute="trailing" id="FDZ-lv-TmH"/>
-                            <constraint firstItem="2wQ-vH-r3J" firstAttribute="top" secondItem="j0e-OT-kv9" secondAttribute="top" id="RTn-cC-Xjb"/>
-                            <constraint firstItem="2wQ-vH-r3J" firstAttribute="leading" secondItem="j0e-OT-kv9" secondAttribute="leading" id="exw-GM-ISp"/>
-                            <constraint firstItem="j0e-OT-kv9" firstAttribute="bottom" secondItem="2wQ-vH-r3J" secondAttribute="bottom" id="peu-fd-p5C"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="2wQ-vH-r3J" id="Z3P-zs-ydR"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pBf-XQ-DlW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5722" y="-171"/>
-        </scene>
-        <!--Plan Detail View Controller-->
-        <scene sceneID="cPx-gs-fch">
-            <objects>
-                <viewController storyboardIdentifier="PlanDetailViewController" id="Raf-iY-6DG" customClass="PlanDetailViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="c5G-Uu-or6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="UG8-NS-Y0W"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="fJf-xG-eqv"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PKN-Hj-132" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6742.0289855072469" y="-153.34821428571428"/>
-        </scene>
-        <!--Plan Picker View Controller-->
-        <scene sceneID="g7e-YC-H8T">
-            <objects>
-                <viewController storyboardIdentifier="PlanPickerViewController" id="vQp-QU-xvl" customClass="PlanPickerViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="nx1-E1-i10">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kE1-6t-6pR">
-                                <rect key="frame" x="0.0" y="212" width="414" height="600"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="t1X-Tk-cMy"/>
-                                </constraints>
-                            </tableView>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQg-tk-eNA">
-                                <rect key="frame" x="359" y="157" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="LRm-o7-7LM"/>
-                                    <constraint firstAttribute="height" constant="30" id="ORj-sa-oer"/>
-                                </constraints>
-                                <color key="tintColor" systemColor="systemRedColor"/>
-                                <state key="normal" title="" image="zoomIn">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration"/>
-                                </state>
-                                <connections>
-                                    <action selector="tapZoomButton:" destination="vQp-QU-xvl" eventType="touchUpInside" id="mBC-Va-2PC"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="eCG-Dv-YsX"/>
+                <tabBarController id="wwc-hw-oLZ" customClass="TabBarViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rZ1-Wi-Mka">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="eCG-Dv-YsX" firstAttribute="trailing" secondItem="kE1-6t-6pR" secondAttribute="trailing" id="854-he-b50"/>
-                            <constraint firstItem="kE1-6t-6pR" firstAttribute="leading" secondItem="eCG-Dv-YsX" secondAttribute="leading" id="HYP-kz-aUl"/>
-                            <constraint firstItem="eCG-Dv-YsX" firstAttribute="bottom" secondItem="kE1-6t-6pR" secondAttribute="bottom" constant="50" id="g3A-M3-16w"/>
-                            <constraint firstItem="eCG-Dv-YsX" firstAttribute="trailing" secondItem="KQg-tk-eNA" secondAttribute="trailing" constant="25" id="tJo-Lo-Lpt"/>
-                            <constraint firstItem="kE1-6t-6pR" firstAttribute="top" secondItem="KQg-tk-eNA" secondAttribute="bottom" constant="25" id="zvx-gD-Ouc"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="KHL-7C-LJl"/>
-                    <connections>
-                        <outlet property="tableView" destination="kE1-6t-6pR" id="jnb-o4-1oo"/>
-                        <outlet property="zoomButton" destination="KQg-tk-eNA" id="Q5e-sO-oHB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4ex-9Z-0n0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iAr-DV-GSr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7760.8695652173919" y="-153.34821428571428"/>
-        </scene>
-        <!--Search View Controller-->
-        <scene sceneID="VpN-Fi-kJU">
-            <objects>
-                <viewController storyboardIdentifier="SearchViewController" id="E2M-Ib-x9u" customClass="SearchViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0f6-C1-6el">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="VRo-xL-SbT">
-                                <rect key="frame" x="0.0" y="262" width="414" height="600"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="4Xw-zB-Z3g"/>
-                                </constraints>
-                            </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="fPr-7m-cd8">
-                                <rect key="frame" x="0.0" y="218" width="414" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="1dX-5P-7XX"/>
-                                </constraints>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="U1Z-al-Lj4"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="fPr-7m-cd8" firstAttribute="trailing" secondItem="U1Z-al-Lj4" secondAttribute="trailing" id="5BY-hf-AbY"/>
-                            <constraint firstItem="VRo-xL-SbT" firstAttribute="leading" secondItem="U1Z-al-Lj4" secondAttribute="leading" id="TU6-tL-neD"/>
-                            <constraint firstItem="VRo-xL-SbT" firstAttribute="top" secondItem="fPr-7m-cd8" secondAttribute="bottom" id="XqO-YF-aFb"/>
-                            <constraint firstItem="U1Z-al-Lj4" firstAttribute="bottom" secondItem="VRo-xL-SbT" secondAttribute="bottom" id="awM-Sd-XVJ"/>
-                            <constraint firstItem="fPr-7m-cd8" firstAttribute="leading" secondItem="U1Z-al-Lj4" secondAttribute="leading" id="epc-uc-Hkb"/>
-                            <constraint firstItem="U1Z-al-Lj4" firstAttribute="trailing" secondItem="VRo-xL-SbT" secondAttribute="trailing" id="tsJ-sg-Zga"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="D9C-x8-1D0"/>
-                    <connections>
-                        <outlet property="searchBar" destination="fPr-7m-cd8" id="MwM-Ca-Xad"/>
-                        <outlet property="tableView" destination="VRo-xL-SbT" id="6YS-WR-hPR"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oFH-B9-Vyh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8549" y="-153"/>
-        </scene>
-        <!--Share Plan View Controller-->
-        <scene sceneID="3tA-S1-6gu">
-            <objects>
-                <viewController storyboardIdentifier="SharePlanViewController" id="PHi-oo-SAr" customClass="SharePlanViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="r14-Gf-Bis">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fWu-LS-qp9">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="XT3-Z9-X1z"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="XT3-Z9-X1z" firstAttribute="trailing" secondItem="fWu-LS-qp9" secondAttribute="trailing" id="egz-oH-R6Y"/>
-                            <constraint firstItem="XT3-Z9-X1z" firstAttribute="bottom" secondItem="fWu-LS-qp9" secondAttribute="bottom" id="gl0-W6-91u"/>
-                            <constraint firstItem="fWu-LS-qp9" firstAttribute="leading" secondItem="XT3-Z9-X1z" secondAttribute="leading" id="ijk-6M-cPz"/>
-                            <constraint firstItem="fWu-LS-qp9" firstAttribute="top" secondItem="XT3-Z9-X1z" secondAttribute="top" id="rAE-ZQ-HuM"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="fWu-LS-qp9" id="bZ1-TF-4vw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x2C-jD-lIT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="9352" y="-153"/>
-        </scene>
-        <!--Plan Over View View Controller-->
-        <scene sceneID="VbJ-Dq-TPz">
-            <objects>
-                <viewController id="pBT-bH-4iO" customClass="PlanOverViewViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Yg8-cw-pqm">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="RVC-JZ-h9f">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="cE1-bv-Vf7"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="RVC-JZ-h9f" firstAttribute="leading" secondItem="cE1-bv-Vf7" secondAttribute="leading" id="6dB-lz-73n"/>
-                            <constraint firstItem="cE1-bv-Vf7" firstAttribute="trailing" secondItem="RVC-JZ-h9f" secondAttribute="trailing" id="aEt-4f-DbO"/>
-                            <constraint firstItem="RVC-JZ-h9f" firstAttribute="top" secondItem="cE1-bv-Vf7" secondAttribute="top" id="wkv-6G-zbS"/>
-                            <constraint firstItem="cE1-bv-Vf7" firstAttribute="bottom" secondItem="RVC-JZ-h9f" secondAttribute="bottom" id="zjc-6y-L0m"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="RVC-JZ-h9f" id="zeY-ay-oK7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Vg-XR-WtF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4909" y="-171"/>
+            <point key="canvasLocation" x="3910" y="-171"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="zoomIn" width="128" height="128"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-    </resources>
 </document>
