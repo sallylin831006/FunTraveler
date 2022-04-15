@@ -46,7 +46,9 @@
 		3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352792801802900B4D8D3 /* TimePickerView.swift */; };
 		3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */; };
 		3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A73527B2801802A00B4D8D3 /* PlanCardHeaderView.xib */; };
-		3A7E4D922808818200281E17 /* SharePlanController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D912808818200281E17 /* SharePlanController.swift */; };
+		3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D912808818200281E17 /* SharePlanViewController.swift */; };
+		3A7E4D962808DD1A00281E17 /* SharePlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */; };
+		3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
 		3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */; };
@@ -101,7 +103,9 @@
 		3A7352792801802900B4D8D3 /* TimePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardTableViewCell.swift; sourceTree = "<group>"; };
 		3A73527B2801802A00B4D8D3 /* PlanCardHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanCardHeaderView.xib; sourceTree = "<group>"; };
-		3A7E4D912808818200281E17 /* SharePlanController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePlanController.swift; sourceTree = "<group>"; };
+		3A7E4D912808818200281E17 /* SharePlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePlanViewController.swift; sourceTree = "<group>"; };
+		3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePlanTableViewCell.swift; sourceTree = "<group>"; };
+		3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePlanTableViewCell.xib; sourceTree = "<group>"; };
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -226,6 +230,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3A7E4D932808905600281E17 /* SharePlan */ = {
+			isa = PBXGroup;
+			children = (
+				3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */,
+				3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */,
+			);
+			path = SharePlan;
+			sourceTree = "<group>";
+		};
 		3A9E9CB82800912000C7B8D3 = {
 			isa = PBXGroup;
 			children = (
@@ -283,7 +296,7 @@
 				3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */,
 				3A185C4128058BF5004F5BB3 /* SearchViewController.swift */,
 				3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */,
-				3A7E4D912808818200281E17 /* SharePlanController.swift */,
+				3A7E4D912808818200281E17 /* SharePlanViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -291,6 +304,7 @@
 		3A9E9CE428010D4C00C7B8D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A7E4D932808905600281E17 /* SharePlan */,
 				3A185C4528058C5A004F5BB3 /* SearchView */,
 				3A185C1D280438AB004F5BB3 /* PlanCard */,
 				3A185C1E280438C3004F5BB3 /* AddPlan */,
@@ -385,6 +399,7 @@
 				3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */,
 				3A185C0A2803CA04004F5BB3 /* FooterView.xib in Resources */,
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
+				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
 				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
 				3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */,
@@ -498,6 +513,7 @@
 				3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */,
 				3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */,
 				3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */,
+				3A7E4D962808DD1A00281E17 /* SharePlanTableViewCell.swift in Sources */,
 				3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */,
 				3A185C5228058D16004F5BB3 /* SearchRequest.swift in Sources */,
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
@@ -512,7 +528,7 @@
 				3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* PlanOverViewTableViewCell.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
-				3A7E4D922808818200281E17 /* SharePlanController.swift in Sources */,
+				3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

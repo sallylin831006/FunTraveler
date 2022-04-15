@@ -15,5 +15,8 @@ extension UIStoryboard {
     static let planPickerVC = "PlanPickerViewController"
     
     static let addPlanVC = "AddPlanViewController"
+    
     static let searchVC = "SearchViewController"
+    
+    static let shareVC = "SharePlanViewController"
 }
