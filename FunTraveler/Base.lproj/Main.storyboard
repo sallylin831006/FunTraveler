@@ -148,10 +148,10 @@
             </objects>
             <point key="canvasLocation" x="8549" y="-153"/>
         </scene>
-        <!--Publish View Controller-->
+        <!--Share Plan View Controller-->
         <scene sceneID="3tA-S1-6gu">
             <objects>
-                <viewController id="PHi-oo-SAr" customClass="PublishViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SharePlanViewController" id="PHi-oo-SAr" customClass="SharePlanViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="r14-Gf-Bis">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
