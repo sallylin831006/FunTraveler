@@ -8,6 +8,7 @@ target 'FunTraveler' do
   # Pods for FunTraveler
     pod 'SwiftLint'
     pod 'IQKeyboardManagerSwift'
-
+    pod 'GoogleMaps'
+    pod 'GooglePlaces'  
 
 end

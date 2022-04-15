@@ -7,14 +7,17 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import GoogleMaps
+import GooglePlaces
 
-@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true
-        // Override point for customization after application launch.
+        GMSPlacesClient.provideAPIKey(MapConstants.mapKey)
+        GMSServices.provideAPIKey(MapConstants.mapKey)
         return true
     }
 

@@ -10,7 +10,7 @@ import UIKit
 // MARK: - Long press
 extension PlanPickerViewController {
     
-    @objc func longPressGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
+    @objc func longPress(_ gestureRecognizer: UIGestureRecognizer) {
         guard let longPress = gestureRecognizer as? UILongPressGestureRecognizer else { return }
         let state = longPress.state
         let locationInView = longPress.location(in: tableView)
@@ -65,7 +65,7 @@ extension PlanPickerViewController {
                 center.y = locationInView.y
                 cellSnapshot.center = center
                 if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
-                    scheduleTwo.insert(scheduleTwo.remove(at: Path.initialIndexPath!.row), at: indexPath!.row)
+                    schedule.insert(schedule.remove(at: Path.initialIndexPath!.row), at: indexPath!.row)
                     tableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
                     Path.initialIndexPath = indexPath
                 }
