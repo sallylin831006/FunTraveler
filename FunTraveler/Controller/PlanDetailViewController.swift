@@ -55,7 +55,13 @@ class PlanDetailViewController: UIViewController {
         
     }
     @objc func tapToShare() {
-        
+        guard let shareVC = storyboard?.instantiateViewController(
+            withIdentifier: UIStoryboard.shareVC) as? SharePlanViewController else { return }
+        shareVC.schedules = schedules
+
+        shareVC.modalPresentationStyle = .fullScreen
+        let navShareVC = UINavigationController(rootViewController: shareVC)
+        self.present(navShareVC, animated: true)
     }
     
     let label = UILabel()
