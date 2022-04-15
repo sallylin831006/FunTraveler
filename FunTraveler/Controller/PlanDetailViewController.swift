@@ -8,6 +8,7 @@
 import UIKit
 import GoogleMaps
 
+
 class PlanDetailViewController: UIViewController {
     var schedules: [Schedule] = []
     var departureTime: String = ""
@@ -16,7 +17,7 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addMap()
+        //addMap()
         showPlanPicker()
         self.navigationItem.hidesBackButton = true
         
@@ -24,7 +25,7 @@ class PlanDetailViewController: UIViewController {
     
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
-            withIdentifier: UIStoryboard.planPickerVC) as? PlanPickerViewController else { return }
+            withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
         
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
@@ -56,7 +57,7 @@ class PlanDetailViewController: UIViewController {
     }
     @objc func tapToShare() {
         guard let shareVC = storyboard?.instantiateViewController(
-            withIdentifier: UIStoryboard.shareVC) as? SharePlanViewController else { return }
+            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         shareVC.schedules = schedules
 
         shareVC.modalPresentationStyle = .fullScreen
