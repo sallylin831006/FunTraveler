@@ -18,7 +18,6 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -81,7 +80,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapSaveButton() {
         
         guard let planDetailViewController = storyboard?.instantiateViewController(
-            withIdentifier: UIStoryboard.planDetailVC) as? PlanDetailViewController else { return }
+            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
         
         textFieldClosure = { titleText in
             planDetailViewController.tripTitle = titleText

@@ -172,7 +172,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapScheduleButton() {
 
         guard let searchVC = storyboard?.instantiateViewController(
-            withIdentifier: UIStoryboard.searchVC) as? SearchViewController else { return }
+            withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
         searchVC.scheduleArray = schedule
         
         searchVC.scheduleClosure = { newSchedule in
