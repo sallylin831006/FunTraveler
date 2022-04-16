@@ -22,7 +22,6 @@ private enum Tab {
             
         case .planOverView: controller = UIStoryboard.planOverView.instantiateInitialViewController()!
 
-
         }
 
         controller.tabBarItem = tabBarItem()
@@ -39,15 +38,15 @@ private enum Tab {
         case .explore:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.zoomIn),
-                selectedImage: UIImage.asset(.zoomOut)
+                image: UIImage.asset(.exploreNormal),
+                selectedImage: UIImage.asset(.exploreSelected)
             )
             
         case .planOverView:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.zoomIn),
-                selectedImage: UIImage.asset(.zoomIn)
+                image: UIImage.asset(.tripNormal),
+                selectedImage: UIImage.asset(.tripSelected)
             )
         }
     }
@@ -79,7 +78,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         _ tabBarController: UITabBarController,
         shouldSelect viewController: UIViewController
     ) -> Bool {
-
 
         return true
     }
