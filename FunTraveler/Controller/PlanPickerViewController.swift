@@ -60,14 +60,14 @@ class PlanPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchData()
 
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
-        
-        fetchData()
         
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPress(_:)))
@@ -125,7 +125,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 200.0
+        return 250.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -133,10 +133,15 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
+        
+        guard let trip = trip,
+        let tripStartDate = trip.startDate,
+        let tripEndtDate = trip.endDate
+        else { return nil}
 
-        headerView.titleLabel.text = trip?.title
+        headerView.titleLabel.text = trip.title
 
-        headerView.dateLabel.text = "\(trip?.startDate)- \(trip?.endDate)"
+        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
 
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
@@ -163,6 +168,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
+        footerView.scheduleButton.setTitle("+新增景點", for: .normal)
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
         

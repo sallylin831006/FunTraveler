@@ -93,14 +93,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7gH-LC-QFq">
-                                <rect key="frame" x="0.0" y="182" width="414" height="600"/>
+                                <rect key="frame" x="0.0" y="212" width="414" height="600"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="600" id="O7v-Zy-Mha"/>
                                 </constraints>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Er-F4-1TE">
-                                <rect key="frame" x="336" y="141" width="62" height="31"/>
+                                <rect key="frame" x="336" y="171" width="62" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Zoom"/>
                                 <connections>
@@ -111,7 +111,7 @@
                         <viewLayoutGuide key="safeArea" id="aVy-ZK-8So"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aVy-ZK-8So" firstAttribute="bottom" secondItem="7gH-LC-QFq" secondAttribute="bottom" constant="80" id="6oT-z2-fcg"/>
+                            <constraint firstItem="aVy-ZK-8So" firstAttribute="bottom" secondItem="7gH-LC-QFq" secondAttribute="bottom" constant="50" id="6oT-z2-fcg"/>
                             <constraint firstItem="7gH-LC-QFq" firstAttribute="top" secondItem="3Er-F4-1TE" secondAttribute="bottom" constant="10" id="FMi-fC-U0D"/>
                             <constraint firstItem="7gH-LC-QFq" firstAttribute="leading" secondItem="aVy-ZK-8So" secondAttribute="leading" id="X1s-TE-tsn"/>
                             <constraint firstItem="aVy-ZK-8So" firstAttribute="trailing" secondItem="3Er-F4-1TE" secondAttribute="trailing" constant="16" id="hJI-SU-a2v"/>

@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7A-oP-O6h">
-                    <rect key="frame" x="30" y="5" width="302" height="44"/>
+                    <rect key="frame" x="40" y="0.0" width="282" height="54"/>
                     <color key="backgroundColor" name="themeRed"/>
                     <color key="tintColor" name="themeApricotDeep"/>
                     <state key="normal" title="Button"/>
@@ -28,11 +28,11 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="U7A-oP-O6h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="1Ls-Al-LWg"/>
+                <constraint firstItem="U7A-oP-O6h" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1Ls-Al-LWg"/>
                 <constraint firstItem="U7A-oP-O6h" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="iEd-8D-meo"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="U7A-oP-O6h" secondAttribute="bottom" constant="5" id="n9q-Wu-zVI"/>
-                <constraint firstItem="U7A-oP-O6h" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="s0t-jj-XP8"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="U7A-oP-O6h" secondAttribute="trailing" constant="30" id="tKd-z9-No9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="U7A-oP-O6h" secondAttribute="bottom" id="n9q-Wu-zVI"/>
+                <constraint firstItem="U7A-oP-O6h" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40" id="s0t-jj-XP8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="U7A-oP-O6h" secondAttribute="trailing" constant="40" id="tKd-z9-No9"/>
                 <constraint firstItem="U7A-oP-O6h" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vun-0Y-H1M"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
