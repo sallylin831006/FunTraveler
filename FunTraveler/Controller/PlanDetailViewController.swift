@@ -19,7 +19,39 @@ class PlanDetailViewController: UIViewController {
         super.viewDidLoad()
         //addMap()
         showPlanPicker()
+        addCustomBackButton()
+        
+    }
+    
+    func addCustomBackButton() {
         self.navigationItem.hidesBackButton = true
+        let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
+                                               style: UIBarButtonItem.Style.plain,
+                                               target: self, action: #selector(backTap))
+        customBackButton.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem = customBackButton
+    }
+    
+    @objc func backTap(_ sender: UIButton) {
+        addAlert()
+        
+    }
+    
+    func addAlert() {
+        let alertController = UIAlertController(title: "確定要返回嗎？", message: "現在返回所有編輯將會消失喔！", preferredStyle: .alert)
+        
+        let backAction = UIAlertAction(title: "忍痛放棄", style: .default, handler: { (_) in
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
+        })
+        
+        alertController.addAction(backAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
         
     }
     
@@ -59,20 +91,10 @@ class PlanDetailViewController: UIViewController {
         guard let shareVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         shareVC.schedules = schedules
-
+        
         let navShareVC = UINavigationController(rootViewController: shareVC)
-//        navShareVC.modalPresentationStyle = .fullScreen
+        //        navShareVC.modalPresentationStyle = .fullScreen
         self.present(navShareVC, animated: true)
-
-//        guard let shareVC = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
-//        shareVC.schedules = schedules
-//
-//        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-//
-//        if let tabBarController = self.presentingViewController as? UITabBarController {
-//                tabBarController.selectedIndex = 0
-//            }
     }
     
     let label = UILabel()
