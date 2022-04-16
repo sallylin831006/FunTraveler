@@ -10,7 +10,7 @@
         <scene sceneID="Tq5-Yw-Z0r">
             <objects>
                 <tabBarController id="wwc-hw-oLZ" customClass="TabBarViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rZ1-Wi-Mka">
+                    <tabBar key="tabBar" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="rZ1-Wi-Mka">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

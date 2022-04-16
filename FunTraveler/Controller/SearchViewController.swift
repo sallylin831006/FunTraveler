@@ -52,7 +52,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         searchData.count
-        //1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -160,16 +159,3 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
 }
-
-
-//        let schedule = Schedule(
-//            name: "測試name",
-//            address: "測試address",
-//            startTime: "09:00", duration: 1.0,
-//            trafficTime: 1.0,
-//            type: "attraction",
-//            position: Position(
-//                lat: 121.564461,
-//                long: 25.034012
-//            )
-//        )
