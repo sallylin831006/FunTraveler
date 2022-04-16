@@ -35,15 +35,18 @@ struct Trip: Codable {
 
 struct Schedule: Codable {
     var name: String
+//    var tripId: Int?
+//    var day: Int?
     var address: String
     var startTime: String
     var duration: Double
     var trafficTime: Double
-    var type: String?
+    var type: String
     var position: Position
 
     enum CodingKeys: String, CodingKey {
         case name, address, duration, type, position
+//        case tripId = "trip_id"
         case startTime = "start_time"
         case trafficTime = "traffic_time"
         

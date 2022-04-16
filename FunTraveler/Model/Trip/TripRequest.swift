@@ -13,13 +13,13 @@ enum TripRequest: STRequest {
     
     case addTrip(token: String, title: String, startDate: String, endDate: String)
     
-    case getSchdule(token: String, tripId: Int)
+    case getSchdule(token: String, tripId: Int, days:Int)
 
     var headers: [String: String] {
 
         switch self {
 
-        case .getTrip(let token), .addTrip(let token, _, _, _), .getSchdule(let token, _):
+        case .getTrip(let token), .addTrip(let token, _, _, _), .getSchdule(let token, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -65,8 +65,8 @@ enum TripRequest: STRequest {
         case .getTrip:
             return "/api/v1/trips"
             
-        case .getSchdule(_, let tripId):
-            return "/api/v1/trips/\(tripId)"
+        case .getSchdule(_, let tripId, let days):
+            return "/api/v1/trips/\(tripId)?day=\(days)"
             
         case .addTrip:
             return "/api/v1/trips"

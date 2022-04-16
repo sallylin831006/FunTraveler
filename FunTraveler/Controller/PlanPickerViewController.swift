@@ -10,7 +10,12 @@ import UIKit
 class PlanPickerViewController: UIViewController {
 
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
-        
+    
+    var tripId: Int? {
+        didSet {
+            fetchData(days: 1)
+        }
+    }
     var trip: Trip? {
         didSet {
             tableView.reloadData()
@@ -37,7 +42,7 @@ class PlanPickerViewController: UIViewController {
         }
     }
 
-    private let daySource = [
+    private var daySource = [
         DayModel(color: .red, title: "第一天"),
         DayModel(color: .yellow, title: "第二天"),
         DayModel(color: .green, title: "第三天"),
@@ -61,8 +66,6 @@ class PlanPickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
-
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
@@ -76,10 +79,12 @@ class PlanPickerViewController: UIViewController {
     }
     
 // MARK: - Action
-    private func fetchData() {
+    private func fetchData(days: Int) {
         let tripProvider = TripProvider()
-        
-        tripProvider.fetchSchedule(tripId: 1, completion: { [weak self] result in
+
+        guard let tripId = tripId else { return  }
+
+        tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
             switch result {
                 
@@ -89,11 +94,13 @@ class PlanPickerViewController: UIViewController {
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
 
-                self?.schedule = schedules[0]
+                guard let schedule = schedules.first else { return }
+                
+                self?.schedule = schedule
                 print("tripSchedule", tripSchedule)
                 
             case .failure:
-                print("讀取資料失敗！")
+                print("tripSchedule讀取資料失敗！")
             }
         })
         
@@ -181,8 +188,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
         searchVC.scheduleArray = schedule
         
-        searchVC.scheduleClosure = { newSchedule in
-            self.schedule = newSchedule
+        searchVC.scheduleClosure = { [weak self] newSchedule in
+            self?.schedule = newSchedule
         }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
         self.present(navSearchVC, animated: true)
@@ -288,7 +295,7 @@ extension PlanPickerViewController: SelectionViewDataSource {
 
 @objc extension PlanPickerViewController: SelectionViewDelegate {
     func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-        // tableView.backgroundColor = daySource[index].color
+        fetchData(days: index)
     }
     
     func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {

@@ -10,6 +10,10 @@ import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
+    var tripIdClosure: ((_ tripId: Int) -> Void)?
+    
+    var tripId: Int?
+
     private var startDate: String?
     
     private var endDate: String?
@@ -94,6 +98,10 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         textFieldClosure = { titleText in
             planDetailViewController.tripTitle = titleText
         }
+        
+        tripIdClosure = { tripId in
+            planDetailViewController.tripId = tripId
+        }
         navigationController?.pushViewController(planDetailViewController, animated: true)
         
     }
@@ -113,10 +121,8 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 switch result {
                     
                 case .success(let tripIdResponse):
-
-//                    self?.trip = tripSchedule.data
                 
-                    print("tripIdResponse", tripIdResponse)
+                    self.tripIdClosure?(tripIdResponse.data.id)
                     
                 case .failure:
                     print("tripIdResponse讀取資料失敗！")
@@ -148,12 +154,12 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.titleDelegate = self
         
-        cell.departurePickerVIew.dateClosure = { startDate in
-            self.startDate = startDate
+        cell.departurePickerVIew.dateClosure = { [weak self] startDate in
+            self?.startDate = startDate
         }
 
-        cell.backPickerVIew.dateClosure = { endDate in
-            self.endDate =  endDate
+        cell.backPickerVIew.dateClosure = { [weak self] endDate in
+            self?.endDate =  endDate
         }
         
         return cell
