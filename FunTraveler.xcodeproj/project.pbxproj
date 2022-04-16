@@ -66,6 +66,8 @@
 		3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */; };
 		3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */; };
 		3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */; };
+		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
+		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
 		3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE61C8280A85FE0018394E /* CalculateHelper.swift */; };
 		C3AEEE3C6189C8F8028B1D36 /* Pods_FunTraveler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */; };
 /* End PBXBuildFile section */
@@ -132,6 +134,8 @@
 		3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3AFE61C8280A85FE0018394E /* CalculateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHelper.swift; sourceTree = "<group>"; };
 		73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunTraveler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.release.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.release.xcconfig"; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				3A9E9CCA2800912000C7B8D3 /* Main.storyboard */,
 				3A7E4DA02809453500281E17 /* PlanOverView.storyboard */,
 				3A7E4D9C2809436100281E17 /* Explore.storyboard */,
+				3AF4DC99280AF069008029D7 /* Profile.storyboard */,
 				3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */,
 				3A9E9CCF2800912300C7B8D3 /* LaunchScreen.storyboard */,
 				3A9E9CD22800912300C7B8D3 /* Info.plist */,
@@ -318,6 +323,7 @@
 				3A7E4D912808818200281E17 /* SharePlanViewController.swift */,
 				3A7E4D982809149100281E17 /* TabBarViewController.swift */,
 				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
+				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
 				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
+				3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */,
 				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
 				3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */,
 				3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */,
@@ -555,6 +562,7 @@
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* PlanOverViewTableViewCell.swift in Sources */,
+				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
 				3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */,
 			);
