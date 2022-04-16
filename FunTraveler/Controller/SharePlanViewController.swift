@@ -11,12 +11,16 @@ class SharePlanViewController: UIViewController {
     
     var schedules: [Schedule] = []
     
-    var isSimpleMode: Bool = true {
+    var imageIndex: Int?
+    
+    var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
         }
     }
-
+    
+    var photoImageArray: [UIImageView] = []
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -34,6 +38,10 @@ class SharePlanViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: SharePlanTableViewCell.self), bundle: nil)
         
         addSwitchButton()
+        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     func addSwitchButton() {
@@ -65,7 +73,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
                     as? SharePlanTableViewCell else { return UITableViewCell() }
             
             cell.selectionStyle = .none
-  
+            
             cell.orderLbael.text = String(indexPath.row+1)
             cell.nameLabel.text = schedules[indexPath.row].name
             cell.addressLabel.text = schedules[indexPath.row].address
@@ -77,16 +85,85 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: String(describing: ShareExperienceTableViewCell.self), for: indexPath)
                     as? ShareExperienceTableViewCell else { return UITableViewCell() }
             experienceCell.selectionStyle = .none
-
+            
             experienceCell.orderLbael.text = String(indexPath.row+1)
             experienceCell.nameLabel.text = schedules[indexPath.row].name
             experienceCell.addressLabel.text = schedules[indexPath.row].address
             experienceCell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
-            experienceCell.imageView?.backgroundColor = .red
             
+            experienceCell.tripImage.layer.borderColor = UIColor.lightGray.cgColor
+            experienceCell.tripImage.layer.borderWidth = 2
+            experienceCell.tripImage.layer.cornerRadius = 10.0
+            experienceCell.tripImage.layer.masksToBounds = true
+            
+            experienceCell.tripImage.tag = indexPath.row
+            let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+            imageTapGesture.view?.tag = indexPath.row
+            experienceCell.tripImage.addGestureRecognizer(imageTapGesture)
+            experienceCell.tripImage.isUserInteractionEnabled = true
+            
+            photoImageArray.append(experienceCell.tripImage)
             return experienceCell
         }
-       
+    }
+    
+    @objc func profileTapped(sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .actionSheet)
+        
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self
+                
+                imagePicker.view?.tag = view.tag
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        })
+        
+        let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                
+                imagePicker.view?.tag = view.tag
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
+        })
+        
+        photoSourceRequestController.addAction(photoLibraryAction)
+        photoSourceRequestController.addAction(cameraAction)
+        photoSourceRequestController.addAction(cancelAction)
+        
+        present(photoSourceRequestController, animated: true, completion: nil)
+        
+    }
+    
+}
+
+extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
+                               info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let photo =  photoImageArray[picker.view.tag]
+            photo.image = selectedImage
+            photo.contentMode = .scaleAspectFill
+            photo.clipsToBounds = true
+            
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
     
 }
