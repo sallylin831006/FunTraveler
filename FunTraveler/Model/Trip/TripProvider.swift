@@ -54,7 +54,8 @@ class TripProvider {
     func addTrip(title: String, startDate: String, endDate: String, completion: @escaping ScheduleInfoHanlder) {
         
         HTTPClient.shared.request(
-            TripRequest.addTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate), completion: { [weak self] result in
+            TripRequest.addTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate),
+            completion: { [weak self] result in
                
                 switch result {
                     
@@ -85,15 +86,12 @@ class TripProvider {
             })
     }
     
-    
     // MARK: - Public method
-    func fetchSchedule(tripId: Int, completion: @escaping ScheduleInfoHanlder) {
+    func fetchSchedule(tripId: Int, days: Int, completion: @escaping ScheduleInfoHanlder) {
         
         HTTPClient.shared.request(
-            TripRequest.getSchdule(token: "mockToken", tripId: tripId) ,
+            TripRequest.getSchdule(token: "mockToken", tripId: tripId, days: days) ,
             completion: { [weak self] result in
-                
-                //guard let strongSelf = self else { return }
 
                 switch result {
                     

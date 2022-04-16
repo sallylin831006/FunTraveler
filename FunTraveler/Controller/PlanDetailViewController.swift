@@ -9,6 +9,15 @@ import UIKit
 import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
+    
+    var tripIdClosure: ((_ tripId: Int) -> Void)?
+
+    var tripId: Int? {
+        didSet {
+            tripIdClosure?(tripId ?? 0)
+        }
+    }
+
     var schedules: [Schedule] = []
     var departureTime: String = ""
     var backTime: String = ""
@@ -65,6 +74,10 @@ class PlanDetailViewController: UIViewController {
         
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
+        
+        tripIdClosure  = { tripId in
+            planPickerViewController.tripId = tripId
+        }
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()
