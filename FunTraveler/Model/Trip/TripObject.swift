@@ -20,7 +20,7 @@ struct ScheduleInfo: Codable {
 struct Trip: Codable {
     var id: Int
     var days: Int?
-    var title: String
+    var title: String?
     var startDate: String?
     var endDate: String?
     
@@ -39,7 +39,7 @@ struct Schedule: Codable {
     var startTime: String
     var duration: Double
     var trafficTime: Double
-    var type: String
+    var type: String?
     var position: Position
 
     enum CodingKeys: String, CodingKey {
