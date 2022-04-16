@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
     
@@ -45,6 +46,9 @@ class SharePlanViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
+        tableView.shouldIgnoreScrollingAdjustment = true
     }
     
     func addSwitchButton() {

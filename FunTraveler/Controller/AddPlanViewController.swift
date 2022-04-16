@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
@@ -37,6 +38,9 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: AddPlanTableViewCell.self), bundle: nil)
+        
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
+        tableView.shouldIgnoreScrollingAdjustment = true
     }
     
 }
