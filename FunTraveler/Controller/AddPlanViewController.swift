@@ -90,7 +90,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             planDetailViewController.tripTitle = titleText
             
         }
-        self.navigationController?.pushViewController(planDetailViewController, animated: true)
+        navigationController?.pushViewController(planDetailViewController, animated: true)
         
     }
     
