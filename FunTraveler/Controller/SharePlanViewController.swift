@@ -34,6 +34,9 @@ class SharePlanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
+        
         tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: SharePlanTableViewCell.self), bundle: nil)
         
@@ -61,6 +64,49 @@ class SharePlanViewController: UIViewController {
 }
 
 extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
+    // MARK: - Section Header
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 100.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: HeaderView.identifier)
+                as? HeaderView else { return nil }
+        
+        headerView.titleLabel.text = "行程分享"
+        
+        return headerView
+    }
+    
+    // MARK: - Section Footer
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        150.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: FooterView.identifier)
+                as? FooterView else { return nil }
+        
+        footerView.saveButton.addTarget(target, action: #selector(tapSaveButton), for: .touchUpInside)
+        
+        return footerView
+    }
+    @objc func tapSaveButton() {
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+
+        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+                tabBarController.selectedIndex = 0
+            }
+        print("已成功分享貼文！")
+        // Explore Page GET API
+ 
+    }
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         schedules.count
     }
