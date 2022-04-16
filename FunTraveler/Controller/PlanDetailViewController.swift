@@ -8,7 +8,6 @@
 import UIKit
 import GoogleMaps
 
-
 class PlanDetailViewController: UIViewController {
     var schedules: [Schedule] = []
     var departureTime: String = ""

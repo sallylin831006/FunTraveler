@@ -66,6 +66,7 @@
 		3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */; };
 		3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */; };
 		3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */; };
+		3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE61C8280A85FE0018394E /* CalculateHelper.swift */; };
 		C3AEEE3C6189C8F8028B1D36 /* Pods_FunTraveler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +132,7 @@
 		3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		3AFE61C8280A85FE0018394E /* CalculateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHelper.swift; sourceTree = "<group>"; };
 		73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunTraveler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.release.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.release.xcconfig"; sourceTree = "<group>"; };
 		CB413D7F6C05AB4EFC0A0F9E /* Pods-FunTraveler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.debug.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.debug.xcconfig"; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */,
 				3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */,
 				3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */,
+				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -359,7 +362,7 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				E659A4156F6D01445FC2CB91 /* [CP] Copy Pods Resources */,
+				B0158B20FFF79E0C0529DFA9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -486,7 +489,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E659A4156F6D01445FC2CB91 /* [CP] Copy Pods Resources */ = {
+		B0158B20FFF79E0C0529DFA9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -516,6 +519,7 @@
 				3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */,
 				3A185C5028058CF7004F5BB3 /* SearchProvider.swift in Sources */,
 				3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */,
+				3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */,
 				3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */,
 				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
 				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
