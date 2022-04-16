@@ -14,6 +14,8 @@ struct StoryboardCategory {
 
     static let explore = "Explore"
     
+    static let profile = "Profile"
+    
     static let planOverView = "PlanOverView"
 
     static let planDetailVC = "PlanDetailViewController"
@@ -35,6 +37,7 @@ extension UIStoryboard {
     static var explore: UIStoryboard { return stStoryboard(name: StoryboardCategory.explore) }
 
     static var planOverView: UIStoryboard { return stStoryboard(name: StoryboardCategory.planOverView) }
+    static var profile: UIStoryboard { return stStoryboard(name: StoryboardCategory.profile) }
 
     private static func stStoryboard(name: String) -> UIStoryboard {
 
