@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,12 +58,6 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdE-d0-znp">
-                        <rect key="frame" x="37" y="62" width="8" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vmz-31-bb6">
                         <rect key="frame" x="30" y="181" width="1" height="30"/>
                         <color key="backgroundColor" systemColor="systemGrayColor"/>
@@ -85,6 +80,12 @@
                             <constraint firstAttribute="width" constant="40" id="c6G-Hg-nOg"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdE-d0-znp">
+                        <rect key="frame" x="37" y="58" width="8" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" name="themeRed"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Ps1-aK-owa" secondAttribute="trailing" constant="16" id="36V-Lx-htQ"/>
@@ -103,11 +104,11 @@
                     <constraint firstItem="IwA-bK-0MV" firstAttribute="width" secondItem="xJL-at-h0T" secondAttribute="width" id="YJ1-43-ezk"/>
                     <constraint firstItem="exU-Mw-uIn" firstAttribute="top" secondItem="IwA-bK-0MV" secondAttribute="bottom" constant="16" id="Yd8-Cy-bx1"/>
                     <constraint firstItem="Ps1-aK-owa" firstAttribute="leading" secondItem="IwA-bK-0MV" secondAttribute="trailing" constant="20" id="Z9I-G9-IGs"/>
+                    <constraint firstItem="FdE-d0-znp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="47" id="aKA-qp-lVL"/>
                     <constraint firstItem="IwA-bK-0MV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="baM-UK-V0N"/>
                     <constraint firstItem="jUq-gs-q3V" firstAttribute="leading" secondItem="Vmz-31-bb6" secondAttribute="trailing" constant="18" id="cg8-ZI-JZi"/>
                     <constraint firstItem="xJL-at-h0T" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="dSn-XN-ipV"/>
                     <constraint firstItem="MB7-Z8-hKt" firstAttribute="centerY" secondItem="exU-Mw-uIn" secondAttribute="centerY" id="eVH-1l-O3d"/>
-                    <constraint firstItem="FdE-d0-znp" firstAttribute="centerY" secondItem="IwA-bK-0MV" secondAttribute="centerY" id="hCc-RF-S07"/>
                     <constraint firstItem="xC2-Ed-s4T" firstAttribute="top" secondItem="MB7-Z8-hKt" secondAttribute="bottom" constant="23" id="oCW-5W-9y6"/>
                     <constraint firstAttribute="bottom" secondItem="Vmz-31-bb6" secondAttribute="bottom" constant="16" id="rEB-5w-nhL"/>
                     <constraint firstItem="xC2-Ed-s4T" firstAttribute="top" secondItem="Vmz-31-bb6" secondAttribute="top" id="rNM-zS-krD"/>
@@ -131,6 +132,9 @@
     <resources>
         <image name="car.fill" catalog="system" width="128" height="93"/>
         <image name="orderMarker" width="86" height="125"/>
+        <namedColor name="themeRed">
+            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

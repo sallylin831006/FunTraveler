@@ -44,7 +44,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_closed_place_waypoint_alert_32pt.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fde-eh-yPv">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fde-eh-yPv">
                         <rect key="frame" x="56" y="88" width="140" height="140"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="Fde-eh-yPv" secondAttribute="height" id="H52-y1-yd0"/>
@@ -92,7 +92,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_closed_place_waypoint_alert_32pt.png" width="32" height="32"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
