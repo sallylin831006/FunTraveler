@@ -16,6 +16,13 @@ enum ImageAsset: String {
     case zoomOut
     
     case headerBackgroundImage
+    
+    // Tabs
+    case exploreSelected
+    case exploreNormal
+    
+    case tripSelected
+    case tripNormal
 
 }
 

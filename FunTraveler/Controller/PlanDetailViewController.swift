@@ -8,9 +8,23 @@
 import UIKit
 import GoogleMaps
 
-
 class PlanDetailViewController: UIViewController {
+    
+    var tripIdClosure: ((_ tripId: Int) -> Void)? {
+        didSet {
+            tripIdClosure?(tripId ?? 0)
+            print("當tripIdClosure有變化時再call一次")
+        }
+    }
+
+    var tripId: Int? {
+        didSet {
+            tripIdClosure?(tripId ?? 0)
+        }
+    }
+
     var schedules: [Schedule] = []
+    
     var departureTime: String = ""
     var backTime: String = ""
     var tripTitle: String = ""
@@ -19,8 +33,63 @@ class PlanDetailViewController: UIViewController {
         super.viewDidLoad()
         //addMap()
         showPlanPicker()
-        self.navigationItem.hidesBackButton = true
+        addCustomBackButton()
         
+    }
+    
+    func addCustomBackButton() {
+        self.navigationItem.hidesBackButton = true
+        let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
+                                               style: UIBarButtonItem.Style.plain,
+                                               target: self, action: #selector(backTap))
+        customBackButton.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem = customBackButton
+    }
+    
+    @objc func backTap(_ sender: UIButton) {
+        addAlert()
+        
+    }
+    
+    func addAlert() {
+        let alertController = UIAlertController(title: "確定要離開編輯嗎？", message: "記得儲存您的旅遊規劃！", preferredStyle: .alert)
+        
+        let backAction = UIAlertAction(title: "儲存", style: .default, handler: { (_) in
+            self.postData()
+            
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
+        })
+        
+        alertController.addAction(backAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    // MARK: - Action
+    private func postData() {
+        let tripProvider = TripProvider()
+        guard let tripId = tripId else { return }
+        
+        if schedules.isEmpty { return }
+        
+        let day = schedules[0].day
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                print("POST TRIP DETAIL API成功！")
+                
+            case .failure:
+                print("POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
     }
     
     func showPlanPicker() {
@@ -32,8 +101,15 @@ class PlanDetailViewController: UIViewController {
             self?.addMarker()
         }
         
+        tripIdClosure  = { tripId in
+            planPickerViewController.tripId = tripId
+            print("[PlanDetail] planPickerViewController.tripId:",planPickerViewController.tripId)
+        }
+        
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
+        
+        
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()
@@ -58,13 +134,13 @@ class PlanDetailViewController: UIViewController {
     @objc func tapToShare() {
         guard let shareVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
-        shareVC.schedules = schedules
+        postData()
         
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        
-        if let tabBarController = self.presentingViewController as? UITabBarController {
-                tabBarController.selectedIndex = 0
-            }
+//        shareVC.schedules = schedules
+        shareVC.tripId = tripId
+        let navShareVC = UINavigationController(rootViewController: shareVC)
+        //        navShareVC.modalPresentationStyle = .fullScreen
+        self.present(navShareVC, animated: true)
     }
     
     let label = UILabel()

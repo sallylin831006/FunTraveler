@@ -30,6 +30,8 @@ enum STHTTPMethod: String {
     case GET
 
     case POST
+    
+    case PATCH
 }
 
 enum STHTTPHeaderField: String {
