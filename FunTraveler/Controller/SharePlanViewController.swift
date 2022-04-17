@@ -102,13 +102,16 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         return footerView
     }
     @objc func tapSaveButton() {
+        print("已成功分享貼文！")
+        // Explore Page GET API
+        
+        
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
 
         if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
                 tabBarController.selectedIndex = 0
             }
-        print("已成功分享貼文！")
-        // Explore Page GET API
+        
  
     }
         
@@ -208,6 +211,7 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let photo =  photoImageArray[picker.view.tag]
+            print("photo",photo)
             photo.image = selectedImage
             photo.contentMode = .scaleAspectFill
             photo.clipsToBounds = true
