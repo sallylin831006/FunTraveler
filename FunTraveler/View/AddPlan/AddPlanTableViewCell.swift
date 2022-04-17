@@ -14,7 +14,7 @@ protocol AddPlanTableViewCellDelegate: AnyObject {
 
 class AddPlanTableViewCell: UITableViewCell {
     
-    weak var delegate: AddPlanTableViewCellDelegate?
+    weak var titleDelegate: AddPlanTableViewCellDelegate?
     
     @IBOutlet weak var textField: UITextField!
     
@@ -41,7 +41,7 @@ extension AddPlanTableViewCell: UITextFieldDelegate {
         
         guard let title = textField.text else { return }
         
-        delegate?.didChangeTitleData(self, text: title)
+        titleDelegate?.didChangeTitleData(self, text: title)
         
     }
 }

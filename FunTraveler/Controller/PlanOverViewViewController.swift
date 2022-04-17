@@ -9,7 +9,7 @@ import UIKit
 
 class PlanOverViewViewController: UIViewController {
     
-    var tripData: Trips? {
+    var tripData: [Trip] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -28,7 +28,7 @@ class PlanOverViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
@@ -46,10 +46,12 @@ class PlanOverViewViewController: UIViewController {
             switch result {
                 
             case .success(let tripData):
-                self.tripData = tripData
+                
+                self.tripData = tripData.data
+                
                 
             case .failure:
-                print("讀取資料失敗！")
+                print("GET TRIP OVERVIEW API讀取資料失敗！")
             }
         })
     }
@@ -102,7 +104,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        tripData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -112,12 +114,34 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        guard let tripData = tripData else { return UITableViewCell() } // ?
-        cell.dayTitle.text = "\(tripData.data[indexPath.row].days)天 ｜ 旅遊回憶"
-        cell.tripTitle.text = tripData.data[indexPath.row].title
+        //guard let days = tripData[indexPath.row].days else { return UITableViewCell() }
+        let days = tripData[indexPath.row].days ?? 0
+        cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
+        cell.tripTitle.text = tripData[indexPath.row].title
+        
+        cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        cell.planImageView.layer.borderWidth = 3
+        cell.planImageView.layer.cornerRadius = 10.0
+        cell.planImageView.layer.masksToBounds = true
         
         return cell
         
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let planDetailViewController = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+        
+        //透過只要傳tripId進去，到detail頁面再傳給picker就可以
+        print("[PlanOverView] 我的tripId",tripData[indexPath.row].id)
+        
+        planDetailViewController.tripId = tripData[indexPath.row].id
+        print("[PlanOverView] tripData[indexPath.row].id:",tripData[indexPath.row].id)
+        print("[PlanOverView] planDetailViewController.tripId",planDetailViewController.tripId)
+        addChild(planDetailViewController)
+        //view.addSubview(planDetailViewController.view)
+        
+        navigationController?.pushViewController(planDetailViewController, animated: true)
+        planDetailViewController.tabBarController?.tabBar.isHidden = true
     }
     
 }

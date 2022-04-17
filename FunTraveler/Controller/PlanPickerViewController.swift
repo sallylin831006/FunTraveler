@@ -10,7 +10,12 @@ import UIKit
 class PlanPickerViewController: UIViewController {
 
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
-        
+    
+    var tripId: Int? {
+        didSet {
+            fetchData(days: 1)
+        }
+    }
     var trip: Trip? {
         didSet {
             tableView.reloadData()
@@ -22,7 +27,6 @@ class PlanPickerViewController: UIViewController {
             rearrangeTime()
             tableView.reloadData()
             scheduleClosure?(schedule)
-
             // scrollToBottom()
         }
     }
@@ -37,7 +41,7 @@ class PlanPickerViewController: UIViewController {
         }
     }
 
-    private let daySource = [
+    private var daySource = [
         DayModel(color: .red, title: "第一天"),
         DayModel(color: .yellow, title: "第二天"),
         DayModel(color: .green, title: "第三天"),
@@ -60,14 +64,12 @@ class PlanPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
-        
-        fetchData()
         
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPress(_:)))
@@ -75,11 +77,13 @@ class PlanPickerViewController: UIViewController {
 
     }
     
-// MARK: - Action
-    private func fetchData() {
+// MARK: - GET Action
+    private func fetchData(days: Int) {
         let tripProvider = TripProvider()
-        
-        tripProvider.fetchSchedule(tripId: 1, completion: { [weak self] result in
+
+        guard let tripId = tripId else { return  }
+
+        tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
             switch result {
                 
@@ -89,14 +93,33 @@ class PlanPickerViewController: UIViewController {
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
 
-                self?.schedule = schedules[0]
-                print("tripSchedule", tripSchedule)
+                guard let schedule = schedules.first else { return }
+                
+                self?.schedule = schedule
+                print("[PlanPicker] GET schedule Detail:", tripSchedule)
                 
             case .failure:
-                print("讀取資料失敗！")
+                print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
             }
         })
         
+    }
+    // MARK: - POST Action
+    private func postData(days: Int) {
+        let tripProvider = TripProvider()
+        guard let tripId = tripId else { return }
+        
+        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                print("POST TRIP DETAIL API成功！")
+                
+            case .failure:
+                print("POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
     }
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
@@ -125,7 +148,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 200.0
+        return 250.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -133,10 +156,15 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
+        
+        guard let trip = trip,
+        let tripStartDate = trip.startDate,
+        let tripEndtDate = trip.endDate
+        else { return nil}
 
-        headerView.titleLabel.text = trip?.title
+        headerView.titleLabel.text = trip.title
 
-        headerView.dateLabel.text = "\(trip?.startDate)- \(trip?.endDate)"
+        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
 
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
@@ -163,6 +191,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
+        footerView.scheduleButton.setTitle("+新增景點", for: .normal)
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
         
@@ -175,8 +204,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
         searchVC.scheduleArray = schedule
         
-        searchVC.scheduleClosure = { newSchedule in
-            self.schedule = newSchedule
+        searchVC.scheduleClosure = { [weak self] newSchedule in
+            self?.schedule = newSchedule
         }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
         self.present(navSearchVC, animated: true)
@@ -282,7 +311,8 @@ extension PlanPickerViewController: SelectionViewDataSource {
 
 @objc extension PlanPickerViewController: SelectionViewDelegate {
     func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-        // tableView.backgroundColor = daySource[index].color
+        postData(days: index)
+        fetchData(days: index)
     }
     
     func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {

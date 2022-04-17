@@ -77,6 +77,8 @@ class SelectionView: UIView {
             
             dayButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             
+            dayButton.tag = num
+            
             dayButton.addTarget(self, action: #selector(tapDayButton), for: .touchUpInside)
             
             self.addSubview(dayButton)
@@ -94,12 +96,12 @@ class SelectionView: UIView {
         
     }
     
-    @objc func tapDayButton(_ sender: UIButton) {
+    @objc func tapDayButton(sender: UIButton) {
         
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
 
         let width = UIScreen.main.bounds.width/CGFloat(numberOfButton)
-        let index = Int(sender.frame.origin.x / width)
+        let index = sender.tag + 1
         
         if delegate?.shouldSelectedButton?(self, at: index) == false {
             return

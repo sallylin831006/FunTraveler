@@ -36,8 +36,6 @@ struct Location: Codable {
     var lng: Float
 }
 
-//---------Place Details - Place Details Requests------start
-
 struct DetailResponse: Codable {
     var result: DetailResults
 }

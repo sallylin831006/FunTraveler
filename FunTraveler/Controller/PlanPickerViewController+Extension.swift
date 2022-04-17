@@ -64,7 +64,7 @@ extension PlanPickerViewController {
                 var center = Cell.cellSnapshot!.center
                 center.y = locationInView.y
                 cellSnapshot.center = center
-                if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
+                if (indexPath != nil) && (indexPath != Path.initialIndexPath) {
                     schedule.insert(schedule.remove(at: Path.initialIndexPath!.row), at: indexPath!.row)
                     tableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
                     Path.initialIndexPath = indexPath

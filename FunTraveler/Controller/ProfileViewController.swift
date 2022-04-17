@@ -1,15 +1,15 @@
 //
-//  ExploreViewController.swift
+//  ProfileViewController.swift
 //  FunTraveler
 //
-//  Created by 林翊婷 on 2022/4/15.
+//  Created by 林翊婷 on 2022/4/16.
 //
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet weak var tableView: UITableView!  {
         
         didSet {
             
@@ -30,7 +30,7 @@ class ExploreViewController: UIViewController {
 
 }
 
-extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -44,7 +44,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: HeaderView.identifier)
                 as? HeaderView else { return nil }
         
-        headerView.titleLabel.text = "探索"
+        headerView.titleLabel.text = "個人"
         
         return headerView
     }
@@ -62,8 +62,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.selectionStyle = .none
         
-        cell.dayTitle.text = "3天| 旅遊回憶"
-        cell.tripTitle.text = "墾丁好好玩"
+        cell.dayTitle.text = "5天| 旅遊回憶"
+        cell.tripTitle.text = "小琉球潛水趣"
         
         cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         cell.planImageView.layer.borderWidth = 3
@@ -74,11 +74,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let planDetailViewController = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-//
-//        navigationController?.pushViewController(planDetailViewController, animated: true)
-//        // API?
+
     }
 
 }

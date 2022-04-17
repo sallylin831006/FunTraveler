@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import CoreLocation
 
 class SearchViewController: UIViewController {
     var scheduleArray: [Schedule] = []
+    
+    private var newTrafficTime: Double = 1.0
     
     var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
@@ -49,7 +52,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         searchData.count
-        //1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,15 +88,36 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
         let schedule = Schedule(
             name: searchData[indexPath.row].name,
+            day: 1,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
-            trafficTime: 1.0,
+            trafficTime: newTrafficTime,
             type: "attraction",
             position: Position(
                 lat: Double(searchData[indexPath.row].geometry.location.lat),
                 long: Double(searchData[indexPath.row].geometry.location.lng)
             )
         )
+        
+        if indexPath.row == 0 {
+            newTrafficTime = 1.0
+            return
+        }
+        // calculate time
+        let coordinate₀ = CLLocation(
+            latitude: Double(searchData[indexPath.row-1].geometry.location.lat),
+            longitude: Double(searchData[indexPath.row-1].geometry.location.lat)
+        )
+        let coordinate₁ = CLLocation(
+            latitude: Double(searchData[indexPath.row].geometry.location.lat),
+            longitude: Double(searchData[indexPath.row].geometry.location.lat)
+        )
+
+        let distance = coordinate₀.distance(from: coordinate₁)/1000
+        
+        newTrafficTime = distance.rounding(toDecimal: 2)
+        // 距離約ＸＸ公里，開車約 X分鐘
+        
         print("成功加入行程！")
         scheduleArray.append(schedule)
     }
@@ -137,16 +160,3 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
 }
-
-
-//        let schedule = Schedule(
-//            name: "測試name",
-//            address: "測試address",
-//            startTime: "09:00", duration: 1.0,
-//            trafficTime: 1.0,
-//            type: "attraction",
-//            position: Position(
-//                lat: 121.564461,
-//                long: 25.034012
-//            )
-//        )

@@ -11,6 +11,8 @@ private enum Tab {
     case explore
     
     case planOverView
+    
+    case profile
 
     func controller() -> UIViewController {
 
@@ -22,6 +24,7 @@ private enum Tab {
             
         case .planOverView: controller = UIStoryboard.planOverView.instantiateInitialViewController()!
 
+        case .profile: controller = UIStoryboard.profile.instantiateInitialViewController()!
 
         }
 
@@ -39,15 +42,22 @@ private enum Tab {
         case .explore:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.zoomIn),
-                selectedImage: UIImage.asset(.zoomOut)
+                image: UIImage.asset(.exploreNormal),
+                selectedImage: UIImage.asset(.exploreSelected)
             )
             
         case .planOverView:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.zoomIn),
-                selectedImage: UIImage.asset(.zoomIn)
+                image: UIImage.asset(.tripNormal),
+                selectedImage: UIImage.asset(.tripSelected)
+            )
+            
+        case .profile:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage.asset(.tripNormal),
+                selectedImage: UIImage.asset(.tripSelected)
             )
         }
     }
@@ -55,7 +65,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private let tabs: [Tab] = [.explore, .planOverView]
+    private let tabs: [Tab] = [.explore, .planOverView, .profile]
     
     var trolleyTabBarItem: UITabBarItem!
     
@@ -79,7 +89,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         _ tabBarController: UITabBarController,
         shouldSelect viewController: UIViewController
     ) -> Bool {
-
 
         return true
     }
