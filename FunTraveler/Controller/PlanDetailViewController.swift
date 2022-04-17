@@ -10,11 +10,18 @@ import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
     
-    var tripIdClosure: ((_ tripId: Int) -> Void)?
+    var tripIdClosure: ((_ tripId: Int) -> Void)? {
+        didSet {
+            tripIdClosure?(tripId ?? 0)
+            print("當tripIdClosure有變化時再call一次")
+        }
+    }
 
     var tripId: Int? {
         didSet {
             tripIdClosure?(tripId ?? 0)
+            print("[PlanDetail] tripId didSet:",tripId)
+            //showPlanPicker() 再call一次會變白的
         }
     }
 
@@ -72,12 +79,15 @@ class PlanDetailViewController: UIViewController {
             self?.addMarker()
         }
         
+        tripIdClosure  = { tripId in
+            planPickerViewController.tripId = tripId
+            print("[PlanDetail] planPickerViewController.tripId:",planPickerViewController.tripId)
+        }
+        
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
         
-        tripIdClosure  = { tripId in
-            planPickerViewController.tripId = tripId
-        }
+        
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()

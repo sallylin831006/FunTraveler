@@ -14,6 +14,7 @@ class PlanPickerViewController: UIViewController {
     var tripId: Int? {
         didSet {
             fetchData(days: 1)
+            print("[PlanPicker] didSet tripId:", tripId)
         }
     }
     var trip: Trip? {
