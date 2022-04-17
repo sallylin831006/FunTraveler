@@ -32,7 +32,12 @@ class ExploreViewController: UIViewController {
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         fetchData()
+        tableView.reloadData()
     }
     
     // MARK: - GET Action
@@ -101,11 +106,15 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        guard let planDetailViewController = storyboard?.instantiateViewController(
-        //            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-        //
-        //        navigationController?.pushViewController(planDetailViewController, animated: true)
-        //        // API?
+        guard let exploreDeatilVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
+        
+        exploreDeatilVC.tripId = exploreData[indexPath.row].id
+        
+        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
+        //navExploreDeatilVC.modalPresentationStyle = .fullScreen
+        self.present(navExploreDeatilVC, animated: true)
+        
     }
     
 }

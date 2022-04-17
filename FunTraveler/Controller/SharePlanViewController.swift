@@ -12,7 +12,7 @@ class SharePlanViewController: UIViewController {
     
     var schedules: [Schedule] = [] {
         didSet {
-            tableView.reloadData()
+            //tableView.reloadData()
         }
     }
     var tripId: Int?
@@ -80,6 +80,7 @@ class SharePlanViewController: UIViewController {
                     guard let schedule = schedules.first else { return }
                     
                     self?.schedules = schedule
+                    self?.tableView.reloadData()
                     print("[SharePlanVC] schedules:",schedules)
                     
                 case .failure:
@@ -164,10 +165,12 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         }
         patchData()
         print("已成功分享貼文！")
+        
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
 
-        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+        if let tabBarController = self.presentingViewController as? UITabBarController {
                 tabBarController.selectedIndex = 0
+                tabBarController.tabBar.isHidden = false
             }
         
     }
@@ -275,7 +278,8 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             photo.clipsToBounds = true
             
             guard let image = photo.image else { return }
-            guard let imageData:NSData = image.pngData() as? NSData else { return }
+            let newImage = image.scale(newWidth: 30.0)
+            guard let imageData:NSData = newImage.pngData() as? NSData else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
             schedules[picker.view.tag].images.removeAll()
