@@ -20,12 +20,12 @@ class PlanDetailViewController: UIViewController {
     var tripId: Int? {
         didSet {
             tripIdClosure?(tripId ?? 0)
-            print("[PlanDetail] tripId didSet:",tripId)
-            //showPlanPicker() 再call一次會變白的
+            print("[PlanDetail] tripId didSet:", tripId)
         }
     }
 
     var schedules: [Schedule] = []
+    
     var departureTime: String = ""
     var backTime: String = ""
     var tripTitle: String = ""
@@ -53,14 +53,17 @@ class PlanDetailViewController: UIViewController {
     }
     
     func addAlert() {
-        let alertController = UIAlertController(title: "確定要返回嗎？", message: "現在返回所有編輯將會消失喔！", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "確定要離開編輯嗎？", message: "記得儲存您的旅遊規劃！", preferredStyle: .alert)
         
-        let backAction = UIAlertAction(title: "忍痛放棄", style: .default, handler: { (_) in
+        let backAction = UIAlertAction(title: "儲存", style: .default, handler: { (_) in
+            self.postData()
+            
             self.dismiss(animated: true, completion: nil)
             self.navigationController?.popViewController(animated: true)
         })
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
+        
+        let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
         })
         
         alertController.addAction(backAction)
@@ -68,6 +71,24 @@ class PlanDetailViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
         
+    }
+    
+    // MARK: - Action
+    private func postData() {
+        let tripProvider = TripProvider()
+        guard let tripId = tripId else { return }
+        let day = schedules[0].day
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                print("POST TRIP DETAIL API成功！")
+                
+            case .failure:
+                print("POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
     }
     
     func showPlanPicker() {
