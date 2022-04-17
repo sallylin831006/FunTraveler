@@ -9,6 +9,12 @@ import UIKit
 
 class ExploreViewController: UIViewController {
     
+    var exploreData: [Explore] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -26,8 +32,27 @@ class ExploreViewController: UIViewController {
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        fetchData()
     }
-
+    
+    // MARK: - GET Action
+    private func fetchData() {
+        let exploreProvider = ExploreProvider()
+                
+        exploreProvider.fetchExplore(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let exploreData):
+                
+                self?.exploreData = exploreData.data
+                
+            case .failure:
+                print("[ExploreVC] GET 讀取資料失敗！")
+            }
+        })
+    }
+    
 }
 
 extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
@@ -51,7 +76,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        exploreData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,8 +87,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.selectionStyle = .none
         
-        cell.dayTitle.text = "3天| 旅遊回憶"
-        cell.tripTitle.text = "墾丁好好玩"
+        cell.dayTitle.text = "\(exploreData[indexPath.row].days)天| 旅遊回憶"
+        cell.tripTitle.text = exploreData[indexPath.row].title
+        
+        cell.userName.text = exploreData[indexPath.row].user.name
         
         cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         cell.planImageView.layer.borderWidth = 3
@@ -74,11 +101,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let planDetailViewController = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-//
-//        navigationController?.pushViewController(planDetailViewController, animated: true)
-//        // API?
+        //        guard let planDetailViewController = storyboard?.instantiateViewController(
+        //            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+        //
+        //        navigationController?.pushViewController(planDetailViewController, animated: true)
+        //        // API?
     }
-
+    
 }

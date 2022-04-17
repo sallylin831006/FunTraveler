@@ -141,7 +141,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     // MARK: - Action
-    func fetchSearchData(searchText: String) {
+    private func fetchSearchData(searchText: String) {
         let searchProvider = SearchProvider()
         
         searchProvider.fetchSearch(keyword: "\(searchText)",

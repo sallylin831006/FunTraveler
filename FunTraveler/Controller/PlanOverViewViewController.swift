@@ -38,7 +38,7 @@ class PlanOverViewViewController: UIViewController {
     }
     
     // MARK: - Action
-    func fetchData() {
+    private func fetchData() {
         let tripProvider = TripProvider()
         
         tripProvider.fetchTrip(completion: { result in
@@ -48,7 +48,6 @@ class PlanOverViewViewController: UIViewController {
             case .success(let tripData):
                 
                 self.tripData = tripData.data
-                
                 
             case .failure:
                 print("GET TRIP OVERVIEW API讀取資料失敗！")
