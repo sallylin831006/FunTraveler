@@ -114,7 +114,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         cell.durationLabel.text = String(schedule[indexPath.row].duration)
         
         if schedule[indexPath.row].images.isEmpty {
-            cell.tripImage.backgroundColor = .red
+            cell.tripImage.backgroundColor = UIColor.themeApricotDeep
         } else {
             cell.tripImage.loadImage(schedule[indexPath.row].images.first)
             cell.tripImage.contentMode = .scaleAspectFill

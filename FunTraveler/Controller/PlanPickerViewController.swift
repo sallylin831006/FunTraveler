@@ -135,7 +135,7 @@ class PlanPickerViewController: UIViewController {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
                 self.view.frame = CGRect(x: 0, y: 550, width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)
-            zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .selected)
+            zoomButton.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
             zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 250, width: 50, height: 50)
             
             isMoveDown = true
