@@ -7,19 +7,17 @@
 
 import Foundation
 
-// --- GET TRIP OVERVIEW ---//
 struct Trips: Codable {
     var data: [Trip]
 }
 
-// --- GET TRIP DETAIL ---//
 struct ScheduleInfo: Codable {
     var data: Trip
 }
 
 struct Trip: Codable {
     var id: Int
-    var days: Int?
+    var days: Int
     var title: String?
     var startDate: String?
     var endDate: String?
@@ -27,7 +25,7 @@ struct Trip: Codable {
     var schedules: [[Schedule]]?
     
     enum CodingKeys: String, CodingKey {
-        case id, title, schedules
+        case id, days, title, schedules
         case startDate = "start_date"
         case endDate = "end_date"
     }
@@ -36,7 +34,7 @@ struct Trip: Codable {
 struct Schedule: Codable {
     var name: String
 //    var tripId: Int?
-//    var day: Int?
+    var day: Int
     var address: String
     var startTime: String
     var duration: Double
@@ -45,7 +43,7 @@ struct Schedule: Codable {
     var position: Position
 
     enum CodingKeys: String, CodingKey {
-        case name, address, duration, type, position
+        case name, day, address, duration, type, position
 //        case tripId = "trip_id"
         case startTime = "start_time"
         case trafficTime = "traffic_time"

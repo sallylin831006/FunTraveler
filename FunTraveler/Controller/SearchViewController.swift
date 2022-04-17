@@ -88,6 +88,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
         let schedule = Schedule(
             name: searchData[indexPath.row].name,
+            day: 1,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
             trafficTime: newTrafficTime,

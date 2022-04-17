@@ -10,6 +10,7 @@ import UIKit
 
 typealias TripHanlder = (Result<Trips>) -> Void
 typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
+typealias ResponseHanlder = (Result<String>) -> Void
 
 class TripProvider {
     
@@ -108,6 +109,42 @@ class TripProvider {
                             
                             completion(Result.success(tripSchedule))
                         }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
+    
+    
+    // MARK: - POST TO BUILD SCHEDULES FOR TRIP
+    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ResponseHanlder) {
+        
+        HTTPClient.shared.request(
+            TripRequest.postTrip(token: "mockToken", tripId: tripId, schedules: schedules, day: day), completion: { [weak self] result in
+               
+                switch result {
+                    
+                case .success :
+                    
+                    do {
+
+//                        let addTrip = try JSONDecoder().decode(
+//                            ScheduleInfo.self,
+//                            from: data
+//                        )
+                        
+//                        DispatchQueue.main.async {
+//
+//                            completion(Result.success(addTrip))
+//                        }
                         
                     } catch {
                         print(error)

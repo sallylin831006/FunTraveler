@@ -14,7 +14,6 @@ class PlanPickerViewController: UIViewController {
     var tripId: Int? {
         didSet {
             fetchData(days: 1)
-            print("[PlanPicker] didSet tripId:", tripId)
         }
     }
     var trip: Trip? {
@@ -28,7 +27,6 @@ class PlanPickerViewController: UIViewController {
             rearrangeTime()
             tableView.reloadData()
             scheduleClosure?(schedule)
-
             // scrollToBottom()
         }
     }
@@ -79,7 +77,7 @@ class PlanPickerViewController: UIViewController {
 
     }
     
-// MARK: - Action
+// MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
 
@@ -98,13 +96,30 @@ class PlanPickerViewController: UIViewController {
                 guard let schedule = schedules.first else { return }
                 
                 self?.schedule = schedule
-                print("tripSchedule", tripSchedule)
+                print("[PlanPicker] GET schedule Detail:", tripSchedule)
                 
             case .failure:
-                print("tripSchedule讀取資料失敗！")
+                print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
             }
         })
         
+    }
+    // MARK: - POST Action
+    private func postData(days: Int) {
+        let tripProvider = TripProvider()
+        guard let tripId = tripId else { return }
+        
+        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                print("POST TRIP DETAIL API成功！")
+                
+            case .failure:
+                print("POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
     }
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
@@ -296,6 +311,7 @@ extension PlanPickerViewController: SelectionViewDataSource {
 
 @objc extension PlanPickerViewController: SelectionViewDelegate {
     func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+        postData(days: index)
         fetchData(days: index)
     }
     
