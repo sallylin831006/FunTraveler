@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Kingfisher
 
 import UIKit
 class ExploreDetailViewController: UIViewController {
@@ -111,24 +112,18 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         cell.nameLabel.text = schedule[indexPath.row].name
         cell.addressLabel.text = schedule[indexPath.row].address
         cell.durationLabel.text = String(schedule[indexPath.row].duration)
-        cell.tripImage.backgroundColor = .red
+        
+        if schedule[indexPath.row].images.isEmpty {
+            cell.tripImage.backgroundColor = .red
+        } else {
+            cell.tripImage.loadImage(schedule[indexPath.row].images.first)
+            cell.tripImage.contentMode = .scaleAspectFill
+        }
+        
         cell.storiesTextLabel.text = schedule[indexPath.row].description
-        
-        
-        //
-        //        cell.dayTitle.text = "\(exploreData[indexPath.row].days)天| 旅遊回憶"
-        //        cell.tripTitle.text = exploreData[indexPath.row].title
-        //
-        //        cell.userName.text = exploreData[indexPath.row].user.name
-        //
-        //        cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        //        cell.planImageView.layer.borderWidth = 3
-        //        cell.planImageView.layer.cornerRadius = 10.0
-        //        cell.planImageView.layer.masksToBounds = true
         
         return cell
         
     }
     
 }
-
