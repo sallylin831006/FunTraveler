@@ -75,6 +75,9 @@ class PlanDetailViewController: UIViewController {
     private func postData() {
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
+        
+        if schedules.isEmpty { return }
+        
         let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
             
