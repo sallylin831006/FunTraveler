@@ -179,10 +179,6 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
                     tabBarController.tabBar.isHidden = false
                 }
         }
-        
-        
-       
-//        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
        
     }
         
