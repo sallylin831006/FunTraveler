@@ -7,139 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */; };
-		3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */; };
-		3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */; };
-		3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C032803C9D2004F5BB3 /* HeaderView.xib */; };
-		3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C052803C9E4004F5BB3 /* HeaderView.swift */; };
-		3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C072803C9FA004F5BB3 /* FooterView.swift */; };
-		3A185C0A2803CA04004F5BB3 /* FooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C092803CA04004F5BB3 /* FooterView.xib */; };
-		3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */; };
-		3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */; };
-		3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */; };
-		3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */; };
-		3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1328041A3A004F5BB3 /* Parser.swift */; };
-		3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1528041A4F004F5BB3 /* HTTPClient.swift */; };
-		3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1728041A93004F5BB3 /* TripProvider.swift */; };
-		3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1928041AA9004F5BB3 /* TripRequest.swift */; };
-		3A185C2228043A52004F5BB3 /* PlanOverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2028043A52004F5BB3 /* PlanOverViewTableViewCell.swift */; };
-		3A185C2328043A52004F5BB3 /* PlanOverViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C2128043A52004F5BB3 /* PlanOverViewTableViewCell.xib */; };
-		3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */; };
-		3A185C2828048481004F5BB3 /* TripObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2728048481004F5BB3 /* TripObject.swift */; };
-		3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C4128058BF5004F5BB3 /* SearchViewController.swift */; };
-		3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */; };
-		3A185C4A28058CA6004F5BB3 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C4628058CA6004F5BB3 /* SearchTableViewCell.swift */; };
-		3A185C4B28058CA6004F5BB3 /* SearchDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C4728058CA6004F5BB3 /* SearchDetailTableViewCell.swift */; };
-		3A185C4C28058CA6004F5BB3 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C4828058CA6004F5BB3 /* SearchTableViewCell.xib */; };
-		3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C4928058CA6004F5BB3 /* SearchDetailTableViewCell.xib */; };
-		3A185C5028058CF7004F5BB3 /* SearchProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C4F28058CF7004F5BB3 /* SearchProvider.swift */; };
-		3A185C5228058D16004F5BB3 /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5128058D16004F5BB3 /* SearchRequest.swift */; };
-		3A185C5728058D54004F5BB3 /* DomainConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5628058D54004F5BB3 /* DomainConstant.swift */; };
-		3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5828058D6B004F5BB3 /* MapObject.swift */; };
-		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
-		3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5E280735F3004F5BB3 /* MapConstants.swift */; };
-		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
-		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
-		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
-		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
-		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
-		3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352772801802900B4D8D3 /* SelectionView.swift */; };
-		3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */; };
-		3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352792801802900B4D8D3 /* TimePickerView.swift */; };
-		3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */; };
-		3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A73527B2801802A00B4D8D3 /* PlanCardHeaderView.xib */; };
-		3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D912808818200281E17 /* SharePlanViewController.swift */; };
-		3A7E4D962808DD1A00281E17 /* SharePlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */; };
-		3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */; };
-		3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D982809149100281E17 /* TabBarViewController.swift */; };
-		3A7E4D9D2809436100281E17 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9C2809436100281E17 /* Explore.storyboard */; };
-		3A7E4D9F2809437E00281E17 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */; };
-		3A7E4DA12809453500281E17 /* PlanOverView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4DA02809453500281E17 /* PlanOverView.storyboard */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
-		3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */; };
+		3A9E9CC92800912000C7B8D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* ViewController.swift */; };
 		3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A9E9CCA2800912000C7B8D3 /* Main.storyboard */; };
 		3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */; };
 		3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A9E9CCF2800912300C7B8D3 /* LaunchScreen.storyboard */; };
-		3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */; };
-		3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDB280092E100C7B8D3 /* UIScreen+Extension.swift */; };
-		3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */; };
-		3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */; };
-		3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */; };
-		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
-		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
-		3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE61C8280A85FE0018394E /* CalculateHelper.swift */; };
-		C3AEEE3C6189C8F8028B1D36 /* Pods_FunTraveler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanCardFooterView.xib; sourceTree = "<group>"; };
-		3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCardFooterView.swift; sourceTree = "<group>"; };
-		3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
-		3A185C032803C9D2004F5BB3 /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
-		3A185C052803C9E4004F5BB3 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		3A185C072803C9FA004F5BB3 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
-		3A185C092803CA04004F5BB3 /* FooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FooterView.xib; sourceTree = "<group>"; };
-		3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanTableViewCell.swift; sourceTree = "<group>"; };
-		3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddPlanTableViewCell.xib; sourceTree = "<group>"; };
-		3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
-		3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extension.swift"; sourceTree = "<group>"; };
-		3A185C1328041A3A004F5BB3 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		3A185C1528041A4F004F5BB3 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		3A185C1728041A93004F5BB3 /* TripProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripProvider.swift; sourceTree = "<group>"; };
-		3A185C1928041AA9004F5BB3 /* TripRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRequest.swift; sourceTree = "<group>"; };
-		3A185C2028043A52004F5BB3 /* PlanOverViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanOverViewTableViewCell.swift; sourceTree = "<group>"; };
-		3A185C2128043A52004F5BB3 /* PlanOverViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanOverViewTableViewCell.xib; sourceTree = "<group>"; };
-		3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanOverViewViewController.swift; sourceTree = "<group>"; };
-		3A185C2728048481004F5BB3 /* TripObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripObject.swift; sourceTree = "<group>"; };
-		3A185C4128058BF5004F5BB3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
-		3A185C4628058CA6004F5BB3 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
-		3A185C4728058CA6004F5BB3 /* SearchDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailTableViewCell.swift; sourceTree = "<group>"; };
-		3A185C4828058CA6004F5BB3 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
-		3A185C4928058CA6004F5BB3 /* SearchDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchDetailTableViewCell.xib; sourceTree = "<group>"; };
-		3A185C4F28058CF7004F5BB3 /* SearchProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProvider.swift; sourceTree = "<group>"; };
-		3A185C5128058D16004F5BB3 /* SearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
-		3A185C5628058D54004F5BB3 /* DomainConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainConstant.swift; sourceTree = "<group>"; };
-		3A185C5828058D6B004F5BB3 /* MapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObject.swift; sourceTree = "<group>"; };
-		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
-		3A185C5E280735F3004F5BB3 /* MapConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConstants.swift; sourceTree = "<group>"; };
-		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
-		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
-		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
-		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
-		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
-		3A7352772801802900B4D8D3 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
-		3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanCardTableViewCell.xib; sourceTree = "<group>"; };
-		3A7352792801802900B4D8D3 /* TimePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
-		3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardTableViewCell.swift; sourceTree = "<group>"; };
-		3A73527B2801802A00B4D8D3 /* PlanCardHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanCardHeaderView.xib; sourceTree = "<group>"; };
-		3A7E4D912808818200281E17 /* SharePlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePlanViewController.swift; sourceTree = "<group>"; };
-		3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePlanTableViewCell.swift; sourceTree = "<group>"; };
-		3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SharePlanTableViewCell.xib; sourceTree = "<group>"; };
-		3A7E4D982809149100281E17 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		3A7E4D9C2809436100281E17 /* Explore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
-		3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
-		3A7E4DA02809453500281E17 /* PlanOverView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlanOverView.storyboard; sourceTree = "<group>"; };
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
+		3A9E9CC82800912000C7B8D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3A9E9CCB2800912000C7B8D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A9E9CD02800912300C7B8D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A9E9CD22800912300C7B8D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanPickerViewController.swift; sourceTree = "<group>"; };
-		3A9E9CDB280092E100C7B8D3 /* UIScreen+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Extension.swift"; sourceTree = "<group>"; };
-		3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
-		3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
-		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		3AFE61C8280A85FE0018394E /* CalculateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHelper.swift; sourceTree = "<group>"; };
-		73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunTraveler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.release.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.release.xcconfig"; sourceTree = "<group>"; };
-		CB413D7F6C05AB4EFC0A0F9E /* Pods-FunTraveler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.debug.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,125 +31,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3AEEE3C6189C8F8028B1D36 /* Pods_FunTraveler.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		38B0D11C00FC5A524FF36F27 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3A185C1D280438AB004F5BB3 /* PlanCard */ = {
-			isa = PBXGroup;
-			children = (
-				3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */,
-				3A73527B2801802A00B4D8D3 /* PlanCardHeaderView.xib */,
-				3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */,
-				3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */,
-				3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */,
-				3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */,
-				3A7352772801802900B4D8D3 /* SelectionView.swift */,
-			);
-			path = PlanCard;
-			sourceTree = "<group>";
-		};
-		3A185C1E280438C3004F5BB3 /* AddPlan */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C0C2803D346004F5BB3 /* AddPlanTableViewCell.xib */,
-				3A185C0B2803D346004F5BB3 /* AddPlanTableViewCell.swift */,
-			);
-			path = AddPlan;
-			sourceTree = "<group>";
-		};
-		3A185C1F280439C0004F5BB3 /* TripOverView */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C2028043A52004F5BB3 /* PlanOverViewTableViewCell.swift */,
-				3A185C2128043A52004F5BB3 /* PlanOverViewTableViewCell.xib */,
-			);
-			path = TripOverView;
-			sourceTree = "<group>";
-		};
-		3A185C4528058C5A004F5BB3 /* SearchView */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C4728058CA6004F5BB3 /* SearchDetailTableViewCell.swift */,
-				3A185C4928058CA6004F5BB3 /* SearchDetailTableViewCell.xib */,
-				3A185C4628058CA6004F5BB3 /* SearchTableViewCell.swift */,
-				3A185C4828058CA6004F5BB3 /* SearchTableViewCell.xib */,
-			);
-			path = SearchView;
-			sourceTree = "<group>";
-		};
-		3A185C4E28058CDA004F5BB3 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C4F28058CF7004F5BB3 /* SearchProvider.swift */,
-				3A185C5128058D16004F5BB3 /* SearchRequest.swift */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
-		3A185C5328058D2D004F5BB3 /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C5628058D54004F5BB3 /* DomainConstant.swift */,
-				3A185C5828058D6B004F5BB3 /* MapObject.swift */,
-				3A185C5E280735F3004F5BB3 /* MapConstants.swift */,
-			);
-			path = Map;
-			sourceTree = "<group>";
-		};
-		3A185C602807C378004F5BB3 /* Trip */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C2728048481004F5BB3 /* TripObject.swift */,
-				3A185C1728041A93004F5BB3 /* TripProvider.swift */,
-				3A185C1928041AA9004F5BB3 /* TripRequest.swift */,
-			);
-			path = Trip;
-			sourceTree = "<group>";
-		};
-		3A73527528017FFF00B4D8D3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3A73527328017FF300B4D8D3 /* TimeManager.swift */,
-				3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */,
-				3A185C1328041A3A004F5BB3 /* Parser.swift */,
-				3A185C1528041A4F004F5BB3 /* HTTPClient.swift */,
-				3A185C5328058D2D004F5BB3 /* Map */,
-				3A185C4E28058CDA004F5BB3 /* Search */,
-				3A185C602807C378004F5BB3 /* Trip */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		3A7E4D932808905600281E17 /* SharePlan */ = {
-			isa = PBXGroup;
-			children = (
-				3A7E4D942808DD1A00281E17 /* SharePlanTableViewCell.swift */,
-				3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */,
-				3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */,
-				3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */,
-			);
-			path = SharePlan;
-			sourceTree = "<group>";
-		};
 		3A9E9CB82800912000C7B8D3 = {
 			isa = PBXGroup;
 			children = (
 				3A9E9CC32800912000C7B8D3 /* FunTraveler */,
 				3A9E9CC22800912000C7B8D3 /* Products */,
-				5A799DD875BE00BF1E7BBA1E /* Pods */,
-				38B0D11C00FC5A524FF36F27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,79 +56,15 @@
 		3A9E9CC32800912000C7B8D3 /* FunTraveler */ = {
 			isa = PBXGroup;
 			children = (
-				3A9E9CDA280092D100C7B8D3 /* Extension */,
-				3A9E9CE328010D4100C7B8D3 /* Controller */,
-				3A9E9CE428010D4C00C7B8D3 /* View */,
-				3A73527528017FFF00B4D8D3 /* Model */,
 				3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */,
 				3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */,
+				3A9E9CC82800912000C7B8D3 /* ViewController.swift */,
 				3A9E9CCA2800912000C7B8D3 /* Main.storyboard */,
-				3A7E4DA02809453500281E17 /* PlanOverView.storyboard */,
-				3A7E4D9C2809436100281E17 /* Explore.storyboard */,
-				3AF4DC99280AF069008029D7 /* Profile.storyboard */,
 				3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */,
 				3A9E9CCF2800912300C7B8D3 /* LaunchScreen.storyboard */,
 				3A9E9CD22800912300C7B8D3 /* Info.plist */,
 			);
 			path = FunTraveler;
-			sourceTree = "<group>";
-		};
-		3A9E9CDA280092D100C7B8D3 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */,
-				3A9E9CDB280092E100C7B8D3 /* UIScreen+Extension.swift */,
-				3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */,
-				3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */,
-				3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */,
-				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		3A9E9CE328010D4100C7B8D3 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */,
-				3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */,
-				3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */,
-				3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */,
-				3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */,
-				3A185C4128058BF5004F5BB3 /* SearchViewController.swift */,
-				3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */,
-				3A7E4D912808818200281E17 /* SharePlanViewController.swift */,
-				3A7E4D982809149100281E17 /* TabBarViewController.swift */,
-				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
-				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		3A9E9CE428010D4C00C7B8D3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3A7E4D932808905600281E17 /* SharePlan */,
-				3A185C4528058C5A004F5BB3 /* SearchView */,
-				3A185C1D280438AB004F5BB3 /* PlanCard */,
-				3A185C1E280438C3004F5BB3 /* AddPlan */,
-				3A185C1F280439C0004F5BB3 /* TripOverView */,
-				3A185C032803C9D2004F5BB3 /* HeaderView.xib */,
-				3A185C052803C9E4004F5BB3 /* HeaderView.swift */,
-				3A185C092803CA04004F5BB3 /* FooterView.xib */,
-				3A185C072803C9FA004F5BB3 /* FooterView.swift */,
-				3A185C0F2803DA48004F5BB3 /* DatePickerView.swift */,
-				3A7352792801802900B4D8D3 /* TimePickerView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		5A799DD875BE00BF1E7BBA1E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				CB413D7F6C05AB4EFC0A0F9E /* Pods-FunTraveler.debug.xcconfig */,
-				C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,13 +74,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A9E9CD52800912300C7B8D3 /* Build configuration list for PBXNativeTarget "FunTraveler" */;
 			buildPhases = (
-				AFC60E12D96E8C88082C0084 /* [CP] Check Pods Manifest.lock */,
 				3A9E9CBD2800912000C7B8D3 /* Sources */,
 				3A9E9CBE2800912000C7B8D3 /* Frameworks */,
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
-				3A73528228018C9A00B4D8D3 /* ShellScript */,
-				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				B0158B20FFF79E0C0529DFA9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -417,154 +125,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */,
-				3A7E4DA12809453500281E17 /* PlanOverView.storyboard in Resources */,
-				3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */,
-				3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */,
 				3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */,
-				3A185C2328043A52004F5BB3 /* PlanOverViewTableViewCell.xib in Resources */,
-				3A185C4C28058CA6004F5BB3 /* SearchTableViewCell.xib in Resources */,
-				3A7E4D9D2809436100281E17 /* Explore.storyboard in Resources */,
-				3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */,
-				3A185C0A2803CA04004F5BB3 /* FooterView.xib in Resources */,
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
-				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
-				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
-				3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */,
-				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
-				3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */,
 				3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3A73528228018C9A00B4D8D3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AFC60E12D96E8C88082C0084 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-FunTraveler-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B0158B20FFF79E0C0529DFA9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		3A9E9CBD2800912000C7B8D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
-				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
-				3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */,
-				3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */,
-				3A185C5028058CF7004F5BB3 /* SearchProvider.swift in Sources */,
-				3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */,
-				3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */,
-				3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */,
-				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
-				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
-				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
-				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
-				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
-				3A185C5728058D54004F5BB3 /* DomainConstant.swift in Sources */,
-				3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */,
-				3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */,
-				3A185C4B28058CA6004F5BB3 /* SearchDetailTableViewCell.swift in Sources */,
-				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
-				3A185C4A28058CA6004F5BB3 /* SearchTableViewCell.swift in Sources */,
-				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
-				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
-				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
-				3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */,
-				3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */,
+				3A9E9CC92800912000C7B8D3 /* ViewController.swift in Sources */,
 				3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */,
-				3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */,
-				3A7E4D962808DD1A00281E17 /* SharePlanTableViewCell.swift in Sources */,
-				3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */,
-				3A7E4D9F2809437E00281E17 /* ExploreViewController.swift in Sources */,
-				3A185C5228058D16004F5BB3 /* SearchRequest.swift in Sources */,
-				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
-				3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */,
-				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
-				3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */,
-				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
-				3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */,
-				3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */,
-				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
-				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
-				3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */,
-				3A185C2228043A52004F5BB3 /* PlanOverViewTableViewCell.swift in Sources */,
-				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
-				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
-				3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,7 +203,6 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -709,7 +284,6 @@
 		};
 		3A9E9CD62800912300C7B8D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB413D7F6C05AB4EFC0A0F9E /* Pods-FunTraveler.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -738,7 +312,6 @@
 		};
 		3A9E9CD72800912300C7B8D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
