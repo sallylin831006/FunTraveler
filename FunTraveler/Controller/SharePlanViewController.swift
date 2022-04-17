@@ -163,16 +163,27 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         for (index, story) in storiesTextViewArray.enumerated() {
             schedules[index].description = story.text
         }
-        patchData()
         print("已成功分享貼文！")
         
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-
-        if let tabBarController = self.presentingViewController as? UITabBarController {
-                tabBarController.selectedIndex = 0
-                tabBarController.tabBar.isHidden = false
-            }
+        let group = DispatchGroup()
         
+        group.enter()
+        patchData()
+        group.leave()
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+
+            if let tabBarController = self?.presentingViewController as? UITabBarController {
+                    tabBarController.selectedIndex = 0
+                    tabBarController.tabBar.isHidden = false
+                }
+        }
+        
+        
+       
+//        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+       
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -278,7 +289,7 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             photo.clipsToBounds = true
             
             guard let image = photo.image else { return }
-            let newImage = image.scale(newWidth: 30.0)
+            let newImage = image.scale(newWidth: 100.0)
             guard let imageData:NSData = newImage.pngData() as? NSData else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
