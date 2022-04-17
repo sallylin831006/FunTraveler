@@ -158,5 +158,25 @@ class TripProvider {
                 }
             })
     }
+    
+    // MARK: - PATCH to Update and publish schedules
+    func updateTrip(tripId: Int, schedules: [Schedule], completion: @escaping ResponseHanlder) {
+        
+        HTTPClient.shared.request(
+            TripRequest.updateTrip(token: "mockToken", tripId: tripId, schedules: schedules), completion: { [weak self] result in
+               
+                switch result {
+                    
+                case .success :
+                    
+                    print("updateTrip SUCCESS!")
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
 
 }

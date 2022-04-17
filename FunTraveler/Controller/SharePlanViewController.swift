@@ -10,7 +10,17 @@ import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
     
-    var schedules: [Schedule] = []
+    var schedules: [Schedule] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    var tripId: Int?
+
+    private var imageString: String?
+    private var stories: String?
+    
+    private var storiesTextViewArray: [UITextView] = []
     
     var imageIndex: Int?
     
@@ -49,7 +59,35 @@ class SharePlanViewController: UIViewController {
         
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
         tableView.shouldIgnoreScrollingAdjustment = true
+        
+        fetchData()
     }
+    
+    // MARK: - GET Action
+        private func fetchData() {
+            let tripProvider = TripProvider()
+
+            guard let tripId = tripId else { return  }
+            
+            tripProvider.fetchSchedule(tripId: tripId, days: 1, completion: { [weak self] result in
+                
+                switch result {
+                    
+                case .success(let tripSchedule):
+                    
+                    guard let schedules = tripSchedule.data.schedules else { return }
+
+                    guard let schedule = schedules.first else { return }
+                    
+                    self?.schedules = schedule
+                    print("[SharePlanVC] schedules:",schedules)
+                    
+                case .failure:
+                    print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
+                }
+            })
+            
+        }
     
     func addSwitchButton() {
         let switchButton = UIButton()
@@ -64,6 +102,24 @@ class SharePlanViewController: UIViewController {
     
     @objc func tapSwitchButton() {
         isSimpleMode = !isSimpleMode
+    }
+    
+    // MARK: - PATCH Action
+    private func patchData() {
+        let tripProvider = TripProvider()
+        guard let tripId = self.tripId else { return }
+        
+        tripProvider.updateTrip(tripId: tripId, schedules: schedules, completion: { result in
+
+            switch result {
+                
+            case .success:
+                print("PATCH TRIP API成功！")
+                
+            case .failure:
+                print("PATCH TRIPAPI讀取資料失敗！")
+            }
+        })
     }
     
 }
@@ -102,17 +158,18 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         return footerView
     }
     @objc func tapSaveButton() {
+        
+        for (index, story) in storiesTextViewArray.enumerated() {
+            schedules[index].description = story.text
+        }
+        patchData()
         print("已成功分享貼文！")
-        // Explore Page GET API
-        
-        
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
 
         if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
                 tabBarController.selectedIndex = 0
             }
         
- 
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,7 +189,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = schedules[indexPath.row].name
             cell.addressLabel.text = schedules[indexPath.row].address
             cell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
-            
+                        
             return cell
         } else {
             guard let experienceCell = tableView.dequeueReusableCell(
@@ -144,6 +201,8 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             experienceCell.nameLabel.text = schedules[indexPath.row].name
             experienceCell.addressLabel.text = schedules[indexPath.row].address
             experienceCell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
+            
+            self.storiesTextViewArray.append(experienceCell.storiesTextView)
             
             experienceCell.tripImage.layer.borderColor = UIColor.lightGray.cgColor
             experienceCell.tripImage.layer.borderWidth = 2
@@ -211,10 +270,16 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             let photo =  photoImageArray[picker.view.tag]
-            print("photo",photo)
             photo.image = selectedImage
             photo.contentMode = .scaleAspectFill
             photo.clipsToBounds = true
+            
+            guard let image = photo.image else { return }
+            guard let imageData:NSData = image.pngData() as? NSData else { return }
+            let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+            
+            schedules[picker.view.tag].images.removeAll()
+            schedules[picker.view.tag].images.append(strBase64)
             
         }
         

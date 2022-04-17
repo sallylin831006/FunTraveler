@@ -16,6 +16,8 @@ enum TripRequest: STRequest {
     case getSchdule(token: String, tripId: Int, days: Int)
     
     case postTrip(token: String, tripId: Int, schedules: [Schedule], day: Int)
+    
+    case updateTrip(token: String, tripId: Int, schedules: [Schedule])
 
     var headers: [String: String] {
 
@@ -24,7 +26,8 @@ enum TripRequest: STRequest {
         case .getTrip(let token),
                 .addTrip(let token, _, _, _),
                 .getSchdule(let token, _, _),
-                .postTrip(let token, _, _, _):
+                .postTrip(let token, _, _, _),
+                .updateTrip(let token, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -74,19 +77,39 @@ enum TripRequest: STRequest {
                 "day": day
             ] as [String : Any]
             
-            print("body", body)
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            
+        case .updateTrip(_, _, let schedules):
+            var scheduleData:  [[String : Any]] = []
+            
+            for schedule in schedules {
+                scheduleData.append([
+                    "id": schedule.id,
+                    "description": schedule.description,
+                    "images": schedule.images
+                    ]
+                )
+            }
+            
+            let body = [
+                "schedules": scheduleData,
+            ] as [String : Any]
+            
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         }
+        
     }
 
     var method: String {
 
         switch self {
 
-        case .getTrip, .getSchdule : return STHTTPMethod.GET.rawValue
+        case .getTrip : return STHTTPMethod.GET.rawValue
+        case .getSchdule : return STHTTPMethod.GET.rawValue
         case .addTrip: return STHTTPMethod.POST.rawValue
         case .postTrip: return STHTTPMethod.POST.rawValue
+        case .updateTrip: return STHTTPMethod.PATCH.rawValue
 
         }
     }
@@ -105,6 +128,9 @@ enum TripRequest: STRequest {
             return "/api/v1/trips"
             
         case .postTrip(_, let tripId, _, _):
+            return "/api/v1/trips/\(tripId)"
+            
+        case .updateTrip(_, let tripId, _):
             return "/api/v1/trips/\(tripId)"
         
         }

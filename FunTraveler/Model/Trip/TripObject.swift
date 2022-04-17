@@ -41,9 +41,12 @@ struct Schedule: Codable {
     var trafficTime: Double
     var type: String
     var position: Position
+    var id: Int = 0
+    var description: String = ""
+    var images: [String] = []
 
     enum CodingKeys: String, CodingKey {
-        case name, day, address, duration, type, position
+        case name, day, address, duration, type, position, id, description, images
 //        case tripId = "trip_id"
         case startTime = "start_time"
         case trafficTime = "traffic_time"

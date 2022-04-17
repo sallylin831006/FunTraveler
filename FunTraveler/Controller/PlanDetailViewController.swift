@@ -20,7 +20,6 @@ class PlanDetailViewController: UIViewController {
     var tripId: Int? {
         didSet {
             tripIdClosure?(tripId ?? 0)
-            print("[PlanDetail] tripId didSet:", tripId)
         }
     }
 
@@ -61,7 +60,6 @@ class PlanDetailViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
             self.navigationController?.popViewController(animated: true)
         })
-        
         
         let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
         })
@@ -133,8 +131,10 @@ class PlanDetailViewController: UIViewController {
     @objc func tapToShare() {
         guard let shareVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
-        shareVC.schedules = schedules
+        postData()
         
+//        shareVC.schedules = schedules
+        shareVC.tripId = tripId
         let navShareVC = UINavigationController(rootViewController: shareVC)
         //        navShareVC.modalPresentationStyle = .fullScreen
         self.present(navShareVC, animated: true)
