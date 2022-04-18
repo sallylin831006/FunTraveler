@@ -37,7 +37,6 @@
 		3A185C5728058D54004F5BB3 /* DomainConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5628058D54004F5BB3 /* DomainConstant.swift */; };
 		3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5828058D6B004F5BB3 /* MapObject.swift */; };
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
-		3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5E280735F3004F5BB3 /* MapConstants.swift */; };
 		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
 		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
@@ -66,6 +65,7 @@
 		3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */; };
 		3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */; };
 		3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */; };
+		3AC099A3280D48F20023A1C0 /* MapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099A2280D48F20023A1C0 /* MapConstants.swift */; };
 		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
 		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
 		3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9E280C1203008029D7 /* ExploreRequest.swift */; };
@@ -111,7 +111,6 @@
 		3A185C5628058D54004F5BB3 /* DomainConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainConstant.swift; sourceTree = "<group>"; };
 		3A185C5828058D6B004F5BB3 /* MapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObject.swift; sourceTree = "<group>"; };
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
-		3A185C5E280735F3004F5BB3 /* MapConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConstants.swift; sourceTree = "<group>"; };
 		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
@@ -142,6 +141,7 @@
 		3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		3AC099A2280D48F20023A1C0 /* MapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapConstants.swift; sourceTree = "<group>"; };
 		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3AF4DC9E280C1203008029D7 /* ExploreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRequest.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 			children = (
 				3A185C5628058D54004F5BB3 /* DomainConstant.swift */,
 				3A185C5828058D6B004F5BB3 /* MapObject.swift */,
-				3A185C5E280735F3004F5BB3 /* MapConstants.swift */,
+				3AC099A2280D48F20023A1C0 /* MapConstants.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -593,6 +593,7 @@
 				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
 				3A185C4A28058CA6004F5BB3 /* SearchTableViewCell.swift in Sources */,
 				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
+				3AC099A3280D48F20023A1C0 /* MapConstants.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
 				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
 				3AF4DCA2280C12DE008029D7 /* ExploreProvider.swift in Sources */,
@@ -606,7 +607,6 @@
 				3A185C5228058D16004F5BB3 /* SearchRequest.swift in Sources */,
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
-				3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
 				3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
@@ -698,7 +698,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -753,7 +753,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
