@@ -123,33 +123,20 @@ class TripProvider {
             })
     }
     
-    
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
     func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ResponseHanlder) {
         
         HTTPClient.shared.request(
-            TripRequest.postTrip(token: "mockToken", tripId: tripId, schedules: schedules, day: day), completion: { [weak self] result in
+            TripRequest.postTrip(token: "mockToken",
+                                 tripId: tripId,
+                                 schedules: schedules,
+                                 day: day), completion: { [weak self] result in
                
                 switch result {
                     
                 case .success :
                     
-                    do {
-
-//                        let addTrip = try JSONDecoder().decode(
-//                            ScheduleInfo.self,
-//                            from: data
-//                        )
-                        
-//                        DispatchQueue.main.async {
-//
-//                            completion(Result.success(addTrip))
-//                        }
-                        
-                    } catch {
-                        print(error)
-                        completion(Result.failure(error))
-                    }
+                    print("postTrip SUCCESS!")
                     
                 case .failure(let error):
                     print(error)
@@ -163,7 +150,9 @@ class TripProvider {
     func updateTrip(tripId: Int, schedules: [Schedule], completion: @escaping ResponseHanlder) {
         
         HTTPClient.shared.request(
-            TripRequest.updateTrip(token: "mockToken", tripId: tripId, schedules: schedules), completion: { [weak self] result in
+            TripRequest.updateTrip(token: "mockToken",
+                                   tripId: tripId,
+                                   schedules: schedules), completion: { [weak self] result in
                
                 switch result {
                     

@@ -21,8 +21,6 @@ class ExploreDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var storiesTextLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

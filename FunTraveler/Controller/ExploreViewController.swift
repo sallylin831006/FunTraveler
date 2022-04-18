@@ -112,7 +112,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
         
         let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-        //navExploreDeatilVC.modalPresentationStyle = .fullScreen
+        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
         self.present(navExploreDeatilVC, animated: true)
         
     }
