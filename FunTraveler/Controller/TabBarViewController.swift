@@ -13,6 +13,10 @@ private enum Tab {
     case planOverView
     
     case profile
+    
+    case find
+    
+    case camera
 
     func controller() -> UIViewController {
 
@@ -26,11 +30,14 @@ private enum Tab {
 
         case .profile: controller = UIStoryboard.profile.instantiateInitialViewController()!
 
+        case .find: controller = UIStoryboard.find.instantiateInitialViewController()!
+            
+        case .camera: controller = UIStoryboard.camera.instantiateInitialViewController()!
         }
 
         controller.tabBarItem = tabBarItem()
 
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 6.0, left: 0.0, bottom: -6.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: -10.0, right: 0.0)
 
         return controller
     }
@@ -56,8 +63,22 @@ private enum Tab {
         case .profile:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.tripNormal),
-                selectedImage: UIImage.asset(.tripSelected)
+                image: UIImage.asset(.profileNormal),
+                selectedImage: UIImage.asset(.profileSelected)
+            )
+            
+        case .find:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage.asset(.collectNormal),
+                selectedImage: UIImage.asset(.collectSelected)
+            )
+            
+        case .camera:
+            return UITabBarItem(
+                title: nil,
+                image: UIImage.asset(.collectNormal),
+                selectedImage: UIImage.asset(.cameraSelected)
             )
         }
     }
@@ -65,7 +86,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private let tabs: [Tab] = [.explore, .planOverView, .profile]
+    private let tabs: [Tab] = [.explore, .find, .planOverView, .profile ]
     
     var trolleyTabBarItem: UITabBarItem!
     
