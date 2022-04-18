@@ -9,12 +9,18 @@ import Foundation
 import UIKit
 
 struct StoryboardCategory {
-    
+    // TAB
     static let main = "Main"
 
     static let explore = "Explore"
     
     static let profile = "Profile"
+    
+    static let find = "Find"
+    
+    static let camera = "Camera"
+    
+    // ------- //
     
     static let planOverView = "PlanOverView"
 
@@ -43,6 +49,10 @@ extension UIStoryboard {
     static var profile: UIStoryboard { return stStoryboard(name: StoryboardCategory.profile) }
     
     static var exploreDetailVC: UIStoryboard { return stStoryboard(name: StoryboardCategory.exploreDetailVC) }
+    
+    static var find: UIStoryboard { return stStoryboard(name: StoryboardCategory.find) }
+    
+    static var camera: UIStoryboard { return stStoryboard(name: StoryboardCategory.camera) }
 
     private static func stStoryboard(name: String) -> UIStoryboard {
 
