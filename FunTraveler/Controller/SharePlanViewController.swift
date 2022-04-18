@@ -10,11 +10,7 @@ import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
     
-    var schedules: [Schedule] = [] {
-        didSet {
-            //tableView.reloadData()
-        }
-    }
+    var schedules: [Schedule] = [] 
     var tripId: Int?
 
     private var imageString: String?
@@ -285,7 +281,7 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             photo.clipsToBounds = true
             
             guard let image = photo.image else { return }
-            let newImage = image.scale(newWidth: 100.0)
+            let newImage = image.scale(newWidth: 50.0)
             guard let imageData:NSData = newImage.pngData() as? NSData else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             

@@ -113,7 +113,6 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        //guard let days = tripData[indexPath.row].days else { return UITableViewCell() }
         let days = tripData[indexPath.row].days ?? 0
         cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
         cell.tripTitle.text = tripData[indexPath.row].title
@@ -129,15 +128,10 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-        
-        //透過只要傳tripId進去，到detail頁面再傳給picker就可以
-        print("[PlanOverView] 我的tripId",tripData[indexPath.row].id)
-        
+
         planDetailViewController.tripId = tripData[indexPath.row].id
-        print("[PlanOverView] tripData[indexPath.row].id:",tripData[indexPath.row].id)
-        print("[PlanOverView] planDetailViewController.tripId",planDetailViewController.tripId)
+      
         addChild(planDetailViewController)
-        //view.addSubview(planDetailViewController.view)
         
         navigationController?.pushViewController(planDetailViewController, animated: true)
         planDetailViewController.tabBarController?.tabBar.isHidden = true

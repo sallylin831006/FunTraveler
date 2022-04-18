@@ -105,12 +105,10 @@ class PlanDetailViewController: UIViewController {
         
         tripIdClosure  = { tripId in
             planPickerViewController.tripId = tripId
-            print("[PlanDetail] planPickerViewController.tripId:",planPickerViewController.tripId)
         }
         
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
-        
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()
@@ -159,7 +157,7 @@ class PlanDetailViewController: UIViewController {
     func addMarker() {
         var markerArray: [CLLocationCoordinate2D] = []
         mapView.clear()
-        for (index,schedule) in schedules.enumerated() {
+        for (index, schedule) in schedules.enumerated() {
             
             let marker = GMSMarker()
             let markerView = UIImageView(image: UIImage.asset(.orderMarker))

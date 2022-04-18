@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!  {
+    @IBOutlet weak var tableView: UITableView! {
         
         didSet {
             
