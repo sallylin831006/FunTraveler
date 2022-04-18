@@ -100,7 +100,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         )
         
         if indexPath.row == 0 {
-            newTrafficTime = 1.0
+            newTrafficTime = 0.5
             return
         }
         // calculate time
@@ -115,7 +115,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
         let distance = coordinate₀.distance(from: coordinate₁)/1000
         
-        newTrafficTime = distance.rounding(toDecimal: 2)
+        newTrafficTime = Double(distance.rounding(toDecimal: 2)/60)
         // 距離約ＸＸ公里，開車約 X分鐘
         
         print("成功加入行程！")
@@ -141,7 +141,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     // MARK: - Action
-    func fetchSearchData(searchText: String) {
+    private func fetchSearchData(searchText: String) {
         let searchProvider = SearchProvider()
         
         searchProvider.fetchSearch(keyword: "\(searchText)",

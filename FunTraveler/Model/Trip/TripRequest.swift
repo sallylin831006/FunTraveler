@@ -54,7 +54,7 @@ enum TripRequest: STRequest {
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .postTrip(_, _, let schedules, let day):
-            var scheduleData:  [[String : Any]] = []
+            var scheduleData: [[String: Any]] = []
             
             for schedule in schedules {
                 scheduleData.append([
@@ -75,12 +75,12 @@ enum TripRequest: STRequest {
             let body = [
                 "schedules": scheduleData,
                 "day": day
-            ] as [String : Any]
+            ] as [String: Any]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .updateTrip(_, _, let schedules):
-            var scheduleData:  [[String : Any]] = []
+            var scheduleData:  [[String: Any]] = []
             
             for schedule in schedules {
                 scheduleData.append([
@@ -92,8 +92,8 @@ enum TripRequest: STRequest {
             }
             
             let body = [
-                "schedules": scheduleData,
-            ] as [String : Any]
+                "schedules": scheduleData
+            ] as [String: Any]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             

@@ -31,7 +31,7 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //addMap()
+        addMap()
         showPlanPicker()
         addCustomBackButton()
         
@@ -59,6 +59,8 @@ class PlanDetailViewController: UIViewController {
             
             self.dismiss(animated: true, completion: nil)
             self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.tabBar.isHidden = false
+            
         })
         
         let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
@@ -103,13 +105,10 @@ class PlanDetailViewController: UIViewController {
         
         tripIdClosure  = { tripId in
             planPickerViewController.tripId = tripId
-            print("[PlanDetail] planPickerViewController.tripId:",planPickerViewController.tripId)
         }
         
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
-        
-        
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()
@@ -158,7 +157,7 @@ class PlanDetailViewController: UIViewController {
     func addMarker() {
         var markerArray: [CLLocationCoordinate2D] = []
         mapView.clear()
-        for schedule in schedules {
+        for (index, schedule) in schedules.enumerated() {
             
             let marker = GMSMarker()
             let markerView = UIImageView(image: UIImage.asset(.orderMarker))
@@ -171,6 +170,18 @@ class PlanDetailViewController: UIViewController {
             marker.title = schedule.name
             marker.snippet = schedule.address
             markerArray.append(marker.position)
+            
+            let orderLabel = UILabel()
+            orderLabel.text = String(index + 1)
+            orderLabel.font = orderLabel.font.withSize(30)
+
+            orderLabel.textColor = UIColor.themeRed
+            marker.iconView?.addSubview(orderLabel)
+            
+            orderLabel.translatesAutoresizingMaskIntoConstraints = false
+            orderLabel.topAnchor.constraint(
+                equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
+            orderLabel.centerXAnchor.constraint(equalTo: marker.iconView!.centerXAnchor).isActive = true
         }
         
         let path = GMSMutablePath()
