@@ -10,11 +10,7 @@ import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
     
-    var schedules: [Schedule] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var schedules: [Schedule] = [] 
     var tripId: Int?
 
     private var imageString: String?
@@ -80,6 +76,7 @@ class SharePlanViewController: UIViewController {
                     guard let schedule = schedules.first else { return }
                     
                     self?.schedules = schedule
+                    self?.tableView.reloadData()
                     print("[SharePlanVC] schedules:",schedules)
                     
                 case .failure:
@@ -162,14 +159,23 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         for (index, story) in storiesTextViewArray.enumerated() {
             schedules[index].description = story.text
         }
-        patchData()
         print("已成功分享貼文！")
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-
-        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-                tabBarController.selectedIndex = 0
-            }
         
+        let group = DispatchGroup()
+        
+        group.enter()
+        patchData()
+        group.leave()
+        
+        group.notify(queue: .main) { [weak self] in
+            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+
+            if let tabBarController = self?.presentingViewController as? UITabBarController {
+                    tabBarController.selectedIndex = 0
+                    tabBarController.tabBar.isHidden = false
+                }
+        }
+       
     }
         
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -275,7 +281,8 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             photo.clipsToBounds = true
             
             guard let image = photo.image else { return }
-            guard let imageData:NSData = image.pngData() as? NSData else { return }
+            let newImage = image.scale(newWidth: 50.0)
+            guard let imageData:NSData = newImage.pngData() as? NSData else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
             schedules[picker.view.tag].images.removeAll()

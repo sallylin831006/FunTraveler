@@ -52,7 +52,7 @@ extension DatePickerView {
     
     @objc func tapToChangeDate(datePicker: UIDatePicker) {
         let formatter = DateFormatter()
-        //formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        // formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.dateFormat = "yyyy-MM-dd"
 
         dateClosure?(formatter.string(from: datePicker.date))

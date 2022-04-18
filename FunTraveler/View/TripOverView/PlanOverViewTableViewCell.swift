@@ -15,6 +15,10 @@ class PlanOverViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tripTitle: UILabel!
     
+    @IBOutlet weak var userImage: UIImageView!
+    
+    @IBOutlet weak var userName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
