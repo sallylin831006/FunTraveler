@@ -25,7 +25,8 @@ class SharePlanViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    
+    private var daySource: [DayModel] = []
+    private var days: Int = 1
     var photoImageArray: [UIImageView] = []
     
     @IBOutlet weak var tableView: UITableView! {
@@ -41,7 +42,9 @@ class SharePlanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
+
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
@@ -56,28 +59,37 @@ class SharePlanViewController: UIViewController {
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
         tableView.shouldIgnoreScrollingAdjustment = true
         
-        fetchData()
+        fetchData(days: 1)
     }
     
     // MARK: - GET Action
-        private func fetchData() {
+        private func fetchData(days: Int) {
             let tripProvider = TripProvider()
 
-            guard let tripId = tripId else { return  }
+            guard let tripId = tripId else { return }
             
-            tripProvider.fetchSchedule(tripId: tripId, days: 1, completion: { [weak self] result in
+            var day: Int = 1
+            if schedules.isEmpty {
+                day = 1
+            } else {
+                day = schedules[0].day
+            }
+            
+            tripProvider.fetchSchedule(tripId: tripId, days: 0, completion: { [weak self] result in
                 
                 switch result {
                     
                 case .success(let tripSchedule):
                     
+                    guard let days = tripSchedule.data.days else { return }
+
                     guard let schedules = tripSchedule.data.schedules else { return }
 
                     guard let schedule = schedules.first else { return }
-                    
+                    self?.days = days
                     self?.schedules = schedule
                     self?.tableView.reloadData()
-                    print("[SharePlanVC] schedules:",schedules)
+                    print("[SharePlanVC] schedules:", schedules)
                     
                 case .failure:
                     print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
@@ -125,16 +137,19 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 300.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
+            withIdentifier: PlanCardHeaderView.identifier)
+                as? PlanCardHeaderView else { return nil }
         
+        headerView.departmentPickerView.isHidden = true
         headerView.titleLabel.text = "行程分享"
+        headerView.selectionView.delegate = self
+        headerView.selectionView.dataSource = self
         
         return headerView
     }
@@ -293,4 +308,31 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension SharePlanViewController: SelectionViewDataSource {
+    
+    func configureNumberOfButton(_ selectionView: SelectionView) -> Int {
+        schedules.count
+    }
+    
+    func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel] {
+        return daySource
+        
+    }
+    
+    func colorOfindicator() -> UIColor { .black }
+    
+    func colorOfText() -> UIColor { .black }
+    
+}
+
+@objc extension SharePlanViewController: SelectionViewDelegate {
+    func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+        fetchData(days: index)
+    }
+    
+    func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
+        return true
+    }
 }

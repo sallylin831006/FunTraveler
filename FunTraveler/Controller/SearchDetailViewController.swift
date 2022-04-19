@@ -45,7 +45,7 @@ class SearchDetailViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: SearchDetailTableViewCell.self), bundle: nil)
         
         layoutOfTableView()
-        fetchData()
+        //fetchData()
         
     }
     

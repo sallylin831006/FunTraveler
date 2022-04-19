@@ -41,12 +41,12 @@ class PlanPickerViewController: UIViewController {
         }
     }
 
-    private var daySource = [
-        DayModel(color: .red, title: "第一天"),
-        DayModel(color: .yellow, title: "第二天"),
-        DayModel(color: .green, title: "第三天"),
-        DayModel(color: .green, title: "第四天")
-    ]
+    private var daySource: [DayModel] = []
+    
+//    DayModel(color: .red, title: "第一天"),
+//    DayModel(color: .yellow, title: "第二天"),
+//    DayModel(color: .green, title: "第三天"),
+//    DayModel(color: .green, title: "第四天")
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -204,6 +204,12 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
         searchVC.scheduleArray = schedule
         
+        if schedule.isEmpty {
+            searchVC.day = 1
+        } else {
+            searchVC.day = schedule[0].day
+        }
+        
         searchVC.scheduleClosure = { [weak self] newSchedule in
             self?.schedule = newSchedule
         }
@@ -295,7 +301,8 @@ extension PlanPickerViewController: SelectionViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SelectionView) -> Int {
         
-        return daySource.count
+        //return daySource.count
+        trip?.days ?? 1
     }
     
     func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel] {
@@ -311,8 +318,8 @@ extension PlanPickerViewController: SelectionViewDataSource {
 
 @objc extension PlanPickerViewController: SelectionViewDelegate {
     func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
-        postData(days: index)
         fetchData(days: index)
+        postData(days: index)
     }
     
     func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {

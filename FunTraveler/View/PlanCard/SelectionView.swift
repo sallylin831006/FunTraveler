@@ -8,7 +8,7 @@
 import UIKit
 
 struct DayModel {
-    let color: UIColor
+    let days: Int
     let title: String
 }
 
@@ -55,8 +55,12 @@ class SelectionView: UIView {
     
     func configureButton() {
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
-
+        if numberOfButton < 1 {
+            print("numberOfButton數量有誤！")
+            return
+        }
         for num in 0...numberOfButton - 1 {
+            
             // SET BUTTON POSITION
             let dayButton = UIButton()
             
@@ -68,8 +72,10 @@ class SelectionView: UIView {
             // SET BUTTON TITLE
             let titleOfButton = dataSource?.configureDetailOfButton(self)
             
-            dayButton.setTitle("\(titleOfButton?[num].title ?? "")", for: .normal)
-            
+            //guard let buttonTitle = titleOfButton?[num].title else { return }
+//            dayButton.setTitle("\(buttonTitle)", for: .normal)
+            dayButton.setTitle("按鈕", for: .normal)
+
             // SET BUTTON TITLE COLOR & FONT
             let colorOfText = dataSource?.colorOfText() ?? .black
             

@@ -10,6 +10,7 @@ import CoreLocation
 
 class SearchViewController: UIViewController {
     var scheduleArray: [Schedule] = []
+    var day: Int = 1
     
     private var newTrafficTime: Double = 1.0
     
@@ -59,12 +60,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: SearchTableViewCell.self), for: indexPath)
                 as? SearchTableViewCell else { return UITableViewCell() }
-//        // MOCK DATA
-//        cell.nameLabel?.text = "searchData[indexPath.row].name"
-//        cell.ratingLabel?.text = "1.0"
-//        cell.addressLabel?.text = "searchData[indexPath.row].vicinity"
-//        cell.searchData = searchData
-        
         cell.nameLabel?.text = searchData[indexPath.row].name
         cell.ratingLabel?.text = "★★★★☆\(searchData[indexPath.row].rating ?? 0.0)"
         cell.addressLabel?.text = searchData[indexPath.row].vicinity
@@ -73,10 +68,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         cell.actionBtn.addTarget(target, action: #selector(tapActionButton), for: .touchUpInside)
         
 //         USER TAP ADD TO SCHEDULE IMPORTANT!
-        cell.searchDataClosure = { searchData in
-            print("成功加入行程！searchData:\(self.searchData[indexPath.row])", "indexPath:\(indexPath)")
-
-        }
+//        cell.searchDataClosure = { searchData in
+//            print("成功加入行程！searchData:\(self.searchData[indexPath.row])", "indexPath:\(indexPath)")
+//
+//        }
         
         return cell
         
@@ -88,7 +83,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
         let schedule = Schedule(
             name: searchData[indexPath.row].name,
-            day: 1,
+            day: day,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
             trafficTime: newTrafficTime,
@@ -98,6 +93,8 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
                 long: Double(searchData[indexPath.row].geometry.location.lng)
             )
         )
+        scheduleArray.append(schedule)
+        print("成功加入行程！！")
         
         if indexPath.row == 0 {
             newTrafficTime = 0.5
@@ -117,9 +114,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         
         newTrafficTime = Double(distance.rounding(toDecimal: 2)/60)
         // 距離約ＸＸ公里，開車約 X分鐘
-        
-        print("成功加入行程！")
-        scheduleArray.append(schedule)
     }
             
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -143,7 +137,7 @@ extension SearchViewController: UISearchBarDelegate {
     // MARK: - Action
     private func fetchSearchData(searchText: String) {
         let searchProvider = SearchProvider()
-        
+        if searchText == "" { return }
         searchProvider.fetchSearch(keyword: "\(searchText)",
         position: "25.0338,121.5646", radius: 1000, completion: { result in
             
