@@ -96,12 +96,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         cell.tripTitle.text = exploreData[indexPath.row].title
         
         cell.userName.text = exploreData[indexPath.row].user.name
-        
-        cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        cell.planImageView.layer.borderWidth = 3
-        cell.planImageView.layer.cornerRadius = 10.0
-        cell.planImageView.layer.masksToBounds = true
-        
+       
         return cell
         
     }

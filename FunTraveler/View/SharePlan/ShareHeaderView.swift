@@ -17,7 +17,6 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var headerImageView: UIImageView!
     
-    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     
@@ -31,13 +30,7 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setupHeaderView() {
-//        contentView.backgroundColor = UIColor.themeApricotDeep
-//
-//        contentView.layer.cornerRadius = 40
-//        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
 
     }
 }
-
-
