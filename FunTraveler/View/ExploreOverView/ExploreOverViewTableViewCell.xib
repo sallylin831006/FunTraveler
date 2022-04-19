@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="281" id="KGk-i7-Jjw" customClass="PlanOverViewTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="281" id="KGk-i7-Jjw" customClass="ExploreOverViewTableViewCell" customModule="FunTraveler" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="365" height="281"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -49,15 +49,17 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJ3-Qa-9hi">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJ3-Qa-9hi">
                         <rect key="frame" x="30" y="240" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Ahh-Ox-hkk"/>
                             <constraint firstAttribute="height" constant="40" id="sOL-jV-ZZB"/>
                         </constraints>
                         <color key="tintColor" name="themeRed"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=""/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" image="heart" catalog="system">
+                            <attributedString key="attributedTitle"/>
+                        </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100個讚  20則留言" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mw6-fS-mee">
                         <rect key="frame" x="80" y="252.5" width="104" height="15"/>
@@ -71,9 +73,19 @@
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8T3-UM-aZN">
+                        <rect key="frame" x="304" y="16" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="BJF-jm-kj7"/>
+                            <constraint firstAttribute="height" constant="45" id="NHD-RU-Ild"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="" image="collectSelected"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="HCu-i2-BWH" firstAttribute="top" secondItem="LXi-3M-QXv" secondAttribute="bottom" constant="16" id="5C0-IF-tL1"/>
+                    <constraint firstAttribute="trailing" secondItem="8T3-UM-aZN" secondAttribute="trailing" constant="16" id="5eG-56-UAp"/>
                     <constraint firstItem="m9L-ao-1UQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="7dh-ac-L8f"/>
                     <constraint firstItem="PQJ-go-cQn" firstAttribute="leading" secondItem="m9L-ao-1UQ" secondAttribute="trailing" constant="16" id="CZs-we-0cu"/>
                     <constraint firstItem="mw6-fS-mee" firstAttribute="leading" secondItem="iJ3-Qa-9hi" secondAttribute="trailing" constant="10" id="D40-1W-ur1"/>
@@ -90,6 +102,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="Ek6-oK-l1u" secondAttribute="trailing" constant="16" id="mWv-Ml-Wrx"/>
                     <constraint firstItem="l45-X5-BuB" firstAttribute="top" secondItem="m9L-ao-1UQ" secondAttribute="bottom" constant="5" id="pCA-Vy-VXL"/>
                     <constraint firstAttribute="bottom" secondItem="l45-X5-BuB" secondAttribute="bottom" constant="40" id="szD-Dt-D1b"/>
+                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="tqk-Do-xLl"/>
                     <constraint firstItem="l45-X5-BuB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vuX-Wx-XBo"/>
                     <constraint firstItem="HCu-i2-BWH" firstAttribute="bottom" secondItem="l45-X5-BuB" secondAttribute="bottom" constant="-16" id="y4p-gw-7iA"/>
                     <constraint firstItem="Ek6-oK-l1u" firstAttribute="centerY" secondItem="mw6-fS-mee" secondAttribute="centerY" id="ytN-VO-XMP"/>
@@ -97,7 +110,11 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="collectButton" destination="8T3-UM-aZN" id="7jT-D5-O5i"/>
+                <outlet property="dateLabel" destination="ytN-VO-XMP" id="Nne-30-Rbn"/>
                 <outlet property="dayTitle" destination="LXi-3M-QXv" id="qei-Pk-xl0"/>
+                <outlet property="heartButton" destination="iJ3-Qa-9hi" id="6Ud-sa-ke7"/>
+                <outlet property="infoLabel" destination="dwa-oU-AvJ" id="x28-1j-zeE"/>
                 <outlet property="planImageView" destination="l45-X5-BuB" id="p5C-LT-MT2"/>
                 <outlet property="tripTitle" destination="HCu-i2-BWH" id="oJf-GT-7Kj"/>
                 <outlet property="userImage" destination="m9L-ao-1UQ" id="DCf-r1-W0J"/>
@@ -107,6 +124,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="collectSelected" width="86.199996948242188" height="84.870002746582031"/>
         <image name="headerBackgroundImage" width="1127" height="289"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>

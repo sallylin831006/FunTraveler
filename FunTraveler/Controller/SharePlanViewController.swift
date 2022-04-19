@@ -42,7 +42,6 @@ class SharePlanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
 
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
@@ -321,10 +320,6 @@ extension SharePlanViewController: SegmentControlViewDataSource {
         return daySource
         
     }
-    
-    func colorOfindicator() -> UIColor { .black }
-    
-    func colorOfText() -> UIColor { .black }
     
 }
 

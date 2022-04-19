@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
-        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
     }
 
 }
@@ -57,8 +57,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
-                as? PlanOverViewTableViewCell else { return UITableViewCell() }
+            withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
+                as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
         

@@ -310,10 +310,6 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
         
     }
     
-    func colorOfindicator() -> UIColor { .black }
-    
-    func colorOfText() -> UIColor { .black }
-    
 }
 
 @objc extension PlanPickerViewController: SegmentControlViewDelegate {
