@@ -15,7 +15,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var departmentPickerView: TimePickerView!
     
-    @IBOutlet weak var selectionView: SelectionView!
+    @IBOutlet weak var selectionView: SegmentControlView!
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)

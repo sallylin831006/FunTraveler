@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -52,7 +53,7 @@
                             <constraint firstAttribute="width" secondItem="UEl-AH-wa4" secondAttribute="height" id="p15-Rj-MQH"/>
                         </constraints>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45E-pd-iDp" customClass="SelectionView" customModule="FunTraveler" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45E-pd-iDp" customClass="SegmentControlView" customModule="FunTraveler" customModuleProvider="target">
                         <rect key="frame" x="20" y="124" width="388" height="40"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>

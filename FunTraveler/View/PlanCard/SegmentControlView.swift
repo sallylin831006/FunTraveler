@@ -1,5 +1,5 @@
 //
-//  SelectionView.swift
+//  SegmentControlView.swift
 //  DI-Part-1---Delegate_Sally
 //
 //  Created by 林翊婷 on 2022/3/28.
@@ -12,10 +12,10 @@ struct DayModel {
     let title: String
 }
 
-protocol SelectionViewDataSource: AnyObject {
-    func configureNumberOfButton(_ selectionView: SelectionView) -> Int
+protocol SegmentControlViewDataSource: AnyObject {
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int
     
-    func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel]
+    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel]
     
     func colorOfindicator() -> UIColor
     
@@ -23,20 +23,20 @@ protocol SelectionViewDataSource: AnyObject {
     
 }
 
-@objc protocol SelectionViewDelegate: AnyObject {
+@objc protocol SegmentControlViewDelegate: AnyObject {
     
-    @objc optional func didSelectedButton(_ selectionView: SelectionView, at index: Int)
+    @objc optional func didSelectedButton(_ selectionView: SegmentControlView, at index: Int)
     
-    @objc optional func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool
+    @objc optional func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool
 }
 
-class SelectionView: UIView {
+class SegmentControlView: UIView {
     
     let indicatorView = UIView()
     let button = UIButton()
     
-    weak var dataSource: SelectionViewDataSource?
-    weak var delegate: SelectionViewDelegate?
+    weak var dataSource: SegmentControlViewDataSource?
+    weak var delegate: SegmentControlViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,7 +67,7 @@ class SelectionView: UIView {
             let width = UIScreen.main.bounds.width/CGFloat(numberOfButton) * 5/6
             dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: 40)
             
-            dayButton.backgroundColor = .white
+            dayButton.backgroundColor = .clear
             
             // SET BUTTON TITLE
             let titleOfButton = dataSource?.configureDetailOfButton(self)
