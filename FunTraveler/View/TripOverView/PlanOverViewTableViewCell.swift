@@ -21,13 +21,26 @@ class PlanOverViewTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+       
+        let margins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        contentView.frame = contentView.frame.inset(by: margins)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        contentView.layer.borderWidth = 4
+        contentView.layer.cornerRadius = 10.0
+        contentView.layer.masksToBounds = true
+        
+        planImageView.backgroundColor = UIColor.themeApricotDeep
+
     }
     
 }
