@@ -8,6 +8,9 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
+    
+    var model = [DayModel]()
+
 
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
@@ -43,11 +46,6 @@ class PlanPickerViewController: UIViewController {
 
     private var daySource: [DayModel] = []
     
-//    DayModel(color: .red, title: "第一天"),
-//    DayModel(color: .yellow, title: "第二天"),
-//    DayModel(color: .green, title: "第三天"),
-//    DayModel(color: .green, title: "第四天")
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -74,6 +72,10 @@ class PlanPickerViewController: UIViewController {
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPress(_:)))
         tableView.addGestureRecognizer(longpress)
+        
+        for num in 0...6 {
+            model.append(DayModel(title: "DAY\(num+1)"))
+        }
 
     }
     
@@ -306,8 +308,9 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
     }
     
     func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
-        return daySource
-        
+//        return daySource
+        return model
+
     }
     
 }

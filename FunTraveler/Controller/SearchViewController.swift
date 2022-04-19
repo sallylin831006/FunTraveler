@@ -67,12 +67,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.actionBtn.addTarget(target, action: #selector(tapActionButton), for: .touchUpInside)
         
-//         USER TAP ADD TO SCHEDULE IMPORTANT!
-//        cell.searchDataClosure = { searchData in
-//            print("成功加入行程！searchData:\(self.searchData[indexPath.row])", "indexPath:\(indexPath)")
-//
-//        }
-        
+        cell.searchDataClosure = {
+            
+        }
+
         return cell
         
     }

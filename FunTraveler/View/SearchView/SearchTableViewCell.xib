@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -43,9 +44,6 @@
                         <rect key="frame" x="307" y="46" width="96" height="31"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="＋加入行程"/>
-                        <connections>
-                            <action selector="addToPlanButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bNe-D8-CWK"/>
-                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -62,7 +60,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="actionBtn" destination="yuf-mw-g8e" id="QmO-UO-h2k"/>
+                <outlet property="actionBtn" destination="yuf-mw-g8e" id="Gqd-me-dG6"/>
                 <outlet property="addressLabel" destination="oLj-c9-gJt" id="GND-VX-6OH"/>
                 <outlet property="nameLabel" destination="JAK-ef-T2d" id="2Rd-n4-7AV"/>
                 <outlet property="ratingLabel" destination="2E1-GV-VFo" id="yiK-jQ-Riu"/>

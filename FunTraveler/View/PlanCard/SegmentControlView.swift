@@ -8,7 +8,6 @@
 import UIKit
 
 struct DayModel {
-    let days: Int
     let title: String
 }
 
@@ -68,12 +67,13 @@ class SegmentControlView: UIView {
             // SET BUTTON TITLE
             let titleOfButton = dataSource?.configureDetailOfButton(self)
             
-            //guard let buttonTitle = titleOfButton?[num].title else { return }
-//            dayButton.setTitle("\(buttonTitle)", for: .normal)
-            dayButton.setTitle("DAY", for: .normal)
+            guard let buttonTitle = titleOfButton else { return }
+            
+            dayButton.setTitle("\(buttonTitle[num].title)", for: .normal)
+//            dayButton.setTitle("DAY", for: .normal)
 
             // SET BUTTON TITLE COLOR & FONT
-            let colorOfText = UIColor.themeApricotDeep
+            let colorOfText = UIColor.themeRed
 
             dayButton.setTitleColor(colorOfText, for: .normal)
             
