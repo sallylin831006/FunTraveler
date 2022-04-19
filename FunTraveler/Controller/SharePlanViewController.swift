@@ -43,7 +43,7 @@ class SharePlanViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
+        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
 
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         
@@ -137,19 +137,19 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 300.0
+        return 150.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: PlanCardHeaderView.identifier)
-                as? PlanCardHeaderView else { return nil }
+            withIdentifier: ShareHeaderView.identifier)
+                as? ShareHeaderView else { return nil }
         
-        headerView.departmentPickerView.isHidden = true
         headerView.titleLabel.text = "行程分享"
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
+//        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
         
         return headerView
     }
@@ -310,13 +310,14 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
     
 }
 
-extension SharePlanViewController: SelectionViewDataSource {
+extension SharePlanViewController: SegmentControlViewDataSource {
     
-    func configureNumberOfButton(_ selectionView: SelectionView) -> Int {
-        schedules.count
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+        //schedules.count HARD code
+        3
     }
     
-    func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel] {
+    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
         return daySource
         
     }
@@ -327,12 +328,12 @@ extension SharePlanViewController: SelectionViewDataSource {
     
 }
 
-@objc extension SharePlanViewController: SelectionViewDelegate {
-    func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+@objc extension SharePlanViewController: SegmentControlViewDelegate {
+    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
         fetchData(days: index)
     }
     
-    func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
+    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
         return true
     }
 }

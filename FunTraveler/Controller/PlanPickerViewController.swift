@@ -297,15 +297,15 @@ extension PlanPickerViewController: TimePickerViewDelegate {
     
 }
 
-extension PlanPickerViewController: SelectionViewDataSource {
+extension PlanPickerViewController: SegmentControlViewDataSource {
     
-    func configureNumberOfButton(_ selectionView: SelectionView) -> Int {
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
         
         //return daySource.count
         trip?.days ?? 1
     }
     
-    func configureDetailOfButton(_ selectionView: SelectionView) -> [DayModel] {
+    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
         return daySource
         
     }
@@ -316,13 +316,13 @@ extension PlanPickerViewController: SelectionViewDataSource {
     
 }
 
-@objc extension PlanPickerViewController: SelectionViewDelegate {
-    func didSelectedButton(_ selectionView: SelectionView, at index: Int) {
+@objc extension PlanPickerViewController: SegmentControlViewDelegate {
+    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
         fetchData(days: index)
         postData(days: index)
     }
     
-    func shouldSelectedButton(_ selectionView: SelectionView, at index: Int) -> Bool {
+    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
         return true
     }
 }
