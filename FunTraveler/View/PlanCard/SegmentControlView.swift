@@ -16,11 +16,7 @@ protocol SegmentControlViewDataSource: AnyObject {
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int
     
     func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel]
-    
-    func colorOfindicator() -> UIColor
-    
-    func colorOfText() -> UIColor
-    
+
 }
 
 @objc protocol SegmentControlViewDelegate: AnyObject {
@@ -74,11 +70,11 @@ class SegmentControlView: UIView {
             
             //guard let buttonTitle = titleOfButton?[num].title else { return }
 //            dayButton.setTitle("\(buttonTitle)", for: .normal)
-            dayButton.setTitle("按鈕", for: .normal)
+            dayButton.setTitle("DAY", for: .normal)
 
             // SET BUTTON TITLE COLOR & FONT
-            let colorOfText = dataSource?.colorOfText() ?? .black
-            
+            let colorOfText = UIColor.themeApricotDeep
+
             dayButton.setTitleColor(colorOfText, for: .normal)
             
             dayButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
@@ -90,9 +86,9 @@ class SegmentControlView: UIView {
             self.addSubview(dayButton)
             
             // SET INDICATOR
-            indicatorView.frame = CGRect(x: 0, y: 45, width: width, height: 3)
+            indicatorView.frame = CGRect(x: 0, y: 45, width: width, height: 6)
 
-            let colorOfindicator = dataSource?.colorOfindicator() ?? .blue
+            let colorOfindicator = UIColor.themeRed
             
             indicatorView.backgroundColor = colorOfindicator
             
@@ -115,7 +111,7 @@ class SegmentControlView: UIView {
         delegate?.didSelectedButton?(self, at: index)
         
         UIView.transition(with: self, duration: 0.3, options: [.curveEaseOut], animations: {
-            self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 45, width: width * 5/6, height: 3)
+            self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 45, width: width * 5/6, height: 6)
 
         })
     }

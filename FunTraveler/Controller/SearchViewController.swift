@@ -118,9 +118,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
             
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let searchDetailVC = SearchDetailViewController()
-        self.navigationController?.pushViewController(searchDetailVC, animated: true)
-        searchDetailVC.searchResoponse = searchData[indexPath.row]
+//        let searchDetailVC = SearchDetailViewController()
+//        self.navigationController?.pushViewController(searchDetailVC, animated: true)
+//        searchDetailVC.searchResoponse = searchData[indexPath.row]
     }
     
 }

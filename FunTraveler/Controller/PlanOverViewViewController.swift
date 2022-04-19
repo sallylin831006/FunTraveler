@@ -31,7 +31,7 @@ class PlanOverViewViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
-        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
         fetchData()
@@ -109,8 +109,8 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
-                as? PlanOverViewTableViewCell else { return UITableViewCell() }
+            withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
+                as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
         let days = tripData[indexPath.row].days ?? 0

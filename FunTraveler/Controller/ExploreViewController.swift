@@ -15,6 +15,7 @@ class ExploreViewController: UIViewController {
         }
     }
     
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -31,7 +32,7 @@ class ExploreViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
-        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         
     }
     
@@ -43,7 +44,7 @@ class ExploreViewController: UIViewController {
     // MARK: - GET Action
     private func fetchData() {
         let exploreProvider = ExploreProvider()
-                
+        
         exploreProvider.fetchExplore(completion: { [weak self] result in
             
             switch result {
@@ -79,6 +80,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     
+    
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         exploreData.count
@@ -87,8 +89,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
-                as? PlanOverViewTableViewCell else { return UITableViewCell() }
+            withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
+                as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
         
@@ -96,7 +98,33 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         cell.tripTitle.text = exploreData[indexPath.row].title
         
         cell.userName.text = exploreData[indexPath.row].user.name
-       
+        cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        cell.collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        
+        cell.heartClosure = { cell, isHeartTapped in
+            
+            if isHeartTapped {
+                cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+                // POST API?
+            } else {
+                cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                // POST API?
+            }
+            
+        }
+        
+        cell.collectClosure = { cell, isCollected in
+            
+            if isCollected {
+                cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
+                // POST API?
+            } else {
+                cell.collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+                // POST API?
+            }
+            
+        }
+        
         return cell
         
     }
@@ -111,5 +139,4 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(navExploreDeatilVC, animated: true)
         
     }
-    
 }

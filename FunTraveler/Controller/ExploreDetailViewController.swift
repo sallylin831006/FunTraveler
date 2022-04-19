@@ -12,23 +12,14 @@ import UIKit
 class ExploreDetailViewController: UIViewController {
     
     var tripId: Int?
-    //    {
-    //        didSet {
-    //            tableView.reloadData()
-    //        }
-    //    }
-    //    var trip: Trip? {
-    //        didSet {
-    //            tableView.reloadData()
-    //        }
-    //    }
-    //
+
     var schedule: [Schedule] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
+    private var daySource: [DayModel] = []
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -43,9 +34,12 @@ class ExploreDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
+        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
+
         tableView.registerCellWithNib(identifier: String(describing: ExploreDetailTableViewCell.self), bundle: nil)
+        
+        tableView.registerFooterWithNib(identifier: String(describing: ExploreDetailFooterView.self), bundle: nil)
+
         fetchData()
     }
     
@@ -81,18 +75,41 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 150.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
+            withIdentifier: ShareHeaderView.identifier)
+                as? ShareHeaderView else { return nil }
         
         headerView.titleLabel.text = "看看別人的旅遊"
+        headerView.selectionView.delegate = self
+        headerView.selectionView.dataSource = self
+//        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
         
         return headerView
+    }
+    
+    // MARK: - Section Footer
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        60.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: ExploreDetailFooterView.identifier)
+                as? ExploreDetailFooterView else { return nil }
+        
+        footerView.copyClosure = { [weak self] in
+            
+            print("一鍵複製行程！")
+            
+        }
+        
+        return footerView
     }
     
     // MARK: - Section Row
@@ -126,4 +143,28 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         
     }
     
+}
+
+extension ExploreDetailViewController: SegmentControlViewDataSource {
+    
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+        //schedules.count HARD code
+        3
+    }
+    
+    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
+        return daySource
+        
+    }
+
+}
+
+@objc extension ExploreDetailViewController: SegmentControlViewDelegate {
+    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+        //fetchData(days: index)
+    }
+    
+    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
+        return true
+    }
 }
