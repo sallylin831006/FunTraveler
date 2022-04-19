@@ -31,7 +31,7 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addMap()
+        //addMap()
         showPlanPicker()
         addCustomBackButton()
         
