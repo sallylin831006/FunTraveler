@@ -13,12 +13,15 @@ class ExploreDetailViewController: UIViewController {
     
     var tripId: Int?
 
+    var trip: Trip?
+    
     var schedule: [Schedule] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     private var daySource: [DayModel] = []
+    private var dayModel = [DayModel]()
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -57,8 +60,13 @@ class ExploreDetailViewController: UIViewController {
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
                 
+                self?.trip = tripSchedule.data
                 self?.schedule = schedules[0]
-
+                
+                guard let day = tripSchedule.data.days else { return }
+                for num in 0...day {
+                    self?.dayModel.append(DayModel(title: "DAY\(num+1)"))
+                }
 //                guard let schedule = schedules.first else { return }
 //
                 print("[Explore Detail] GET schedule Detail:", tripSchedule)
@@ -83,11 +91,14 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ShareHeaderView.identifier)
                 as? ShareHeaderView else { return nil }
-        
-        headerView.titleLabel.text = "看看別人的旅遊"
+        guard let tripTitle = trip?.title else { return nil }
+        headerView.titleLabel.text = tripTitle
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
-//        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
+        
+        guard let tripStartDate = trip?.startDate else { return nil }
+        guard let tripEndtDate = trip?.endDate else { return nil }
+        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
         
         return headerView
     }
@@ -134,7 +145,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         cell.orderLabel.text = String(indexPath.row + 1)
         cell.nameLabel.text = schedule[indexPath.row].name
         cell.addressLabel.text = schedule[indexPath.row].address
-        cell.durationLabel.text = String(schedule[indexPath.row].duration)
+        cell.durationLabel.text = "停留時間：\(schedule[indexPath.row].duration)"
         
         if schedule[indexPath.row].images.isEmpty {
             cell.tripImage.backgroundColor = UIColor.themeApricotDeep
@@ -154,12 +165,11 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
 extension ExploreDetailViewController: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-        //schedules.count HARD CODE
-        3
+        trip?.days ?? 1
     }
     
     func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
-        return daySource
+        return dayModel
         
     }
 
@@ -167,7 +177,7 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
 
 @objc extension ExploreDetailViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-        //fetchData(days: index)
+        // fetchData(days: index)
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {

@@ -14,8 +14,7 @@ class ExploreViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    
-    
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -79,7 +78,6 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-    
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

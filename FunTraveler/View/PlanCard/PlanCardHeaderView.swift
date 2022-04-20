@@ -16,7 +16,11 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var departmentPickerView: TimePickerView!
     
     @IBOutlet weak var selectionView: SegmentControlView!
-
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var inviteButton: UIButton!
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     

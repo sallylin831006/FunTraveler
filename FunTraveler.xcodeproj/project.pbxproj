@@ -11,6 +11,10 @@
 		3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134945280E5C6C008CECEA /* ShareHeaderView.swift */; };
 		3A134948280E8D3F008CECEA /* ExploreDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */; };
 		3A13494A280E8D46008CECEA /* ExploreDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134949280E8D46008CECEA /* ExploreDetailFooterView.swift */; };
+		3A134952280F9BE5008CECEA /* PlanOverViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134950280F9BE5008CECEA /* PlanOverViewTableViewCell.xib */; };
+		3A134953280F9BE5008CECEA /* PlanOverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134951280F9BE5008CECEA /* PlanOverViewTableViewCell.swift */; };
+		3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134954280FAB1C008CECEA /* FriendsCollectionViewCell.swift */; };
+		3A134957280FAB1C008CECEA /* FriendsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */; };
 		3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */; };
 		3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */; };
 		3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */; };
@@ -93,6 +97,10 @@
 		3A134945280E5C6C008CECEA /* ShareHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHeaderView.swift; sourceTree = "<group>"; };
 		3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreDetailFooterView.xib; sourceTree = "<group>"; };
 		3A134949280E8D46008CECEA /* ExploreDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreDetailFooterView.swift; sourceTree = "<group>"; };
+		3A134950280F9BE5008CECEA /* PlanOverViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanOverViewTableViewCell.xib; sourceTree = "<group>"; };
+		3A134951280F9BE5008CECEA /* PlanOverViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanOverViewTableViewCell.swift; sourceTree = "<group>"; };
+		3A134954280FAB1C008CECEA /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsCollectionViewCell.xib; sourceTree = "<group>"; };
 		3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanCardFooterView.xib; sourceTree = "<group>"; };
 		3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCardFooterView.swift; sourceTree = "<group>"; };
 		3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +205,8 @@
 		3A13494B280F9B2E008CECEA /* PlanOverView */ = {
 			isa = PBXGroup;
 			children = (
+				3A134951280F9BE5008CECEA /* PlanOverViewTableViewCell.swift */,
+				3A134950280F9BE5008CECEA /* PlanOverViewTableViewCell.xib */,
 			);
 			path = PlanOverView;
 			sourceTree = "<group>";
@@ -211,6 +221,8 @@
 				3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */,
 				3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */,
 				3A7352772801802900B4D8D3 /* SegmentControlView.swift */,
+				3A134954280FAB1C008CECEA /* FriendsCollectionViewCell.swift */,
+				3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */,
 			);
 			path = PlanCard;
 			sourceTree = "<group>";
@@ -521,6 +533,7 @@
 				3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */,
 				3A185C2328043A52004F5BB3 /* ExploreOverViewTableViewCell.xib in Resources */,
 				3A185C4C28058CA6004F5BB3 /* SearchTableViewCell.xib in Resources */,
+				3A134957280FAB1C008CECEA /* FriendsCollectionViewCell.xib in Resources */,
 				3A7E4D9D2809436100281E17 /* Explore.storyboard in Resources */,
 				3AC099AC280D62AF0023A1C0 /* Camera.storyboard in Resources */,
 				3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */,
@@ -529,6 +542,7 @@
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
 				3A134944280E5C42008CECEA /* ShareHeaderView.xib in Resources */,
 				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
+				3A134952280F9BE5008CECEA /* PlanOverViewTableViewCell.xib in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
 				3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */,
 				3A134948280E8D3F008CECEA /* ExploreDetailFooterView.xib in Resources */,
@@ -622,6 +636,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AF4DCAA280C30BE008029D7 /* ExploreDetailTableViewCell.swift in Sources */,
+				3A134953280F9BE5008CECEA /* PlanOverViewTableViewCell.swift in Sources */,
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
 				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
 				3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */,
@@ -674,6 +689,7 @@
 				3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,
 				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
+				3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
 				3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */,
 				3AF4DCAD280C39AA008029D7 /* ImageHelper.swift in Sources */,

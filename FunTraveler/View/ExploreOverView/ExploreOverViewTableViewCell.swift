@@ -13,7 +13,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     var collectClosure: ((_ cell: ExploreOverViewTableViewCell, _ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
 
-
     @IBOutlet weak var planImageView: UIImageView!
     
     @IBOutlet weak var dayTitle: UILabel!
@@ -29,7 +28,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     @IBOutlet weak var heartButton: UIButton!
     
     @IBOutlet weak var followButton: UIButton!
-    
     
     @IBOutlet weak var infoLabel: NSLayoutConstraint!
     

@@ -56,7 +56,7 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.addTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate),
-            completion: { [weak self] result in
+            completion: { result in
                
                 switch result {
                     
@@ -92,7 +92,7 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.getSchdule(token: "mockToken", tripId: tripId, days: days) ,
-            completion: { [weak self] result in
+            completion: { result in
 
                 switch result {
                     
@@ -130,7 +130,7 @@ class TripProvider {
             TripRequest.postTrip(token: "mockToken",
                                  tripId: tripId,
                                  schedules: schedules,
-                                 day: day), completion: { [weak self] result in
+                                 day: day), completion: {  result in
                
                 switch result {
                     
@@ -152,7 +152,7 @@ class TripProvider {
         HTTPClient.shared.request(
             TripRequest.updateTrip(token: "mockToken",
                                    tripId: tripId,
-                                   schedules: schedules), completion: { [weak self] result in
+                                   schedules: schedules), completion: {  result in
                
                 switch result {
                     

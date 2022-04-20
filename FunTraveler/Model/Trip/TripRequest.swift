@@ -80,7 +80,7 @@ enum TripRequest: STRequest {
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .updateTrip(_, _, let schedules):
-            var scheduleData:  [[String: Any]] = []
+            var scheduleData: [[String: Any]] = []
             
             for schedule in schedules {
                 scheduleData.append([
