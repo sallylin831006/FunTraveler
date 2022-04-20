@@ -30,8 +30,6 @@ class PlanPickerViewController: UIViewController {
             // scrollToBottom()
         }
     }
-    private var dayModel = [DayModel]()
-    private var daySource: [DayModel] = []
     private var currentDay = 1
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     private var headerView: PlanCardHeaderView!
@@ -92,13 +90,7 @@ class PlanPickerViewController: UIViewController {
                 
                 self?.schedule = schedule
                 print("[PlanPicker] GET schedule Detail:", tripSchedule)
-                
-                guard let day = tripSchedule.data.days else { return }
-                
-                for num in 0...day {
-                    self?.dayModel.append(DayModel(title: "DAY\(num+1)"))
-                }
-                
+ 
             case .failure:
                 print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
             }
@@ -312,13 +304,7 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
         trip?.days ?? 1
     }
-    
-    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
-//        return daySource
-        return dayModel
 
-    }
-    
 }
 
 @objc extension PlanPickerViewController: SegmentControlViewDelegate {

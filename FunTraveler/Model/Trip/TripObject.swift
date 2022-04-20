@@ -17,8 +17,8 @@ struct ScheduleInfo: Codable {
 
 struct Trip: Codable {
     var id: Int
-    var days: Int?
-    var title: String?
+    var days: Int
+    var title: String
     var startDate: String?
     var endDate: String?
     

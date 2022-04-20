@@ -124,7 +124,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
-    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ResponseHanlder) {
+    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping TripHanlder) {
         
         HTTPClient.shared.request(
             TripRequest.postTrip(token: "mockToken",
@@ -134,9 +134,24 @@ class TripProvider {
                
                 switch result {
                     
-                case .success :
+                case .success(let data) :
                     
-                    print("postTrip SUCCESS!")
+                    do {
+
+                        let tripSchedule = try JSONDecoder().decode(
+                            Trips.self,
+                            from: data
+                        )
+                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(tripSchedule))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
                     
                 case .failure(let error):
                     print(error)

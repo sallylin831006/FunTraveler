@@ -15,13 +15,13 @@ class ExploreOverViewTableViewCell: UITableViewCell {
 
     @IBOutlet weak var planImageView: UIImageView!
     
-    @IBOutlet weak var dayTitle: UILabel!
+    @IBOutlet weak var dayTitleLabel: UILabel!
     
-    @IBOutlet weak var tripTitle: UILabel!
+    @IBOutlet weak var tripTitleLabel: UILabel!
     
-    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var collectButton: UIButton!
     
@@ -29,12 +29,31 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var followButton: UIButton!
     
-    @IBOutlet weak var infoLabel: NSLayoutConstraint!
+    @IBOutlet weak var infoLabel: UILabel!
     
-    @IBOutlet weak var dateLabel: NSLayoutConstraint!
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    func layoutCell(days: Int, tripTitle: String, userName: String) {
+        
+        dayTitleLabel.text = "\(days)天| 旅遊回憶"
+        
+        tripTitleLabel.text = tripTitle
+        
+        userNameLabel.text = userName
+        
+        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        
+        followButton.setTitle("追蹤", for: .normal)
+        followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
+        followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        
+        collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
         collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
         followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
@@ -78,7 +97,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+        self.selectionStyle = .none
     }
     
 }

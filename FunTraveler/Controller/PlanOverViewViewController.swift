@@ -113,7 +113,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        let days = tripData[indexPath.row].days ?? 0
+        let days = tripData[indexPath.row].days 
         cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
         cell.tripTitle.text = tripData[indexPath.row].title
         

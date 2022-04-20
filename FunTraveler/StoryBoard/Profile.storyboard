@@ -45,6 +45,36 @@
             </objects>
             <point key="canvasLocation" x="1034.7826086956522" y="80.357142857142847"/>
         </scene>
+        <!--Collected View Controller-->
+        <scene sceneID="oBu-Xu-C1i">
+            <objects>
+                <viewController storyboardIdentifier="CollectedViewController" id="CaZ-GS-iPK" customClass="CollectedViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="758-vv-2oY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="w9x-Y8-XdZ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="78d-wD-bXh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="w9x-Y8-XdZ" firstAttribute="leading" secondItem="78d-wD-bXh" secondAttribute="leading" id="IIM-1E-co1"/>
+                            <constraint firstItem="w9x-Y8-XdZ" firstAttribute="top" secondItem="78d-wD-bXh" secondAttribute="top" id="O64-jk-up6"/>
+                            <constraint firstItem="78d-wD-bXh" firstAttribute="bottom" secondItem="w9x-Y8-XdZ" secondAttribute="bottom" id="V4q-jC-W0A"/>
+                            <constraint firstItem="78d-wD-bXh" firstAttribute="trailing" secondItem="w9x-Y8-XdZ" secondAttribute="trailing" id="irD-cZ-7ed"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="w9x-Y8-XdZ" id="pdU-Q5-wod"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1fo-81-c67" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1835" y="85"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hIS-p5-4MG">
             <objects>

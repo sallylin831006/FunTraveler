@@ -7,15 +7,9 @@
 
 import UIKit
 
-struct DayModel {
-    let title: String
-}
-
 protocol SegmentControlViewDataSource: AnyObject {
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int
     
-    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel]
-
 }
 
 @objc protocol SegmentControlViewDelegate: AnyObject {
@@ -62,17 +56,17 @@ class SegmentControlView: UIView {
             dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: 40)
             
             dayButton.backgroundColor = .clear
-            
+            dayButton.setTitle("Day \(num + 1)", for: .normal)
             // SET BUTTON TITLE
             
-            guard let buttonTitle = dataSource?.configureDetailOfButton(self) else { return }
-            var title = "1"
-            if buttonTitle.isEmpty {
-                title = "DAY1"
-            } else {
-                title = buttonTitle[num].title
-            }
-            dayButton.setTitle("\(title)", for: .normal)
+//            guard let buttonTitle = dataSource?.configureDetailOfButton(self) else { return }
+//            var title = "1"
+//            if buttonTitle.isEmpty {
+//                title = "DAY1"
+//            } else {
+//                title = buttonTitle[num].title
+//            }
+//            dayButton.setTitle("\(title)", for: .normal)
 //            dayButton.setTitle("按鈕", for: .normal)
 
             // SET BUTTON TITLE COLOR & FONT

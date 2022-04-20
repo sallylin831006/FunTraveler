@@ -85,11 +85,13 @@ class PlanDetailViewController: UIViewController {
             
             switch result {
                 
-            case .success:
+            case .success(let tripResponse):
+            print("tripResponse!!!", tripResponse)
+
                 print("POST TRIP DETAIL API成功！")
                 
             case .failure:
-                print("POST TRIP DETAIL API讀取資料失敗！")
+                print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
         })
     }
@@ -137,16 +139,16 @@ class PlanDetailViewController: UIViewController {
             return
         }
         
-        guard let shareVC = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         postData()
         
-        tripIdClosure  = { tripId in
+        guard let shareVC = self.storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
+        self.tripIdClosure  = { tripId in
             shareVC.tripId = tripId
         }
-        
         let navShareVC = UINavigationController(rootViewController: shareVC)
         self.present(navShareVC, animated: true)
+        
     }
     
     let label = UILabel()
