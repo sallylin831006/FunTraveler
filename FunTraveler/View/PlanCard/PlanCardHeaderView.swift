@@ -40,4 +40,6 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 
     }
+    
+    // input
 }

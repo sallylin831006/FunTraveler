@@ -36,6 +36,8 @@ struct StoryboardCategory {
     
     static let exploreDetailVC = "ExploreDetailViewController"
     
+    static let collectedVC = "CollectedViewController"
+    
 }
 
 extension UIStoryboard {

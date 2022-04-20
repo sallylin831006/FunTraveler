@@ -119,15 +119,15 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="collectButton" destination="8T3-UM-aZN" id="7jT-D5-O5i"/>
-                <outlet property="dateLabel" destination="ytN-VO-XMP" id="Nne-30-Rbn"/>
-                <outlet property="dayTitle" destination="LXi-3M-QXv" id="qei-Pk-xl0"/>
+                <outlet property="dateLabel" destination="Ek6-oK-l1u" id="ME8-wb-CQ8"/>
+                <outlet property="dayTitleLabel" destination="LXi-3M-QXv" id="Uj1-X2-1yS"/>
                 <outlet property="followButton" destination="Mpm-AC-aBC" id="ZHc-8U-qHG"/>
                 <outlet property="heartButton" destination="iJ3-Qa-9hi" id="6Ud-sa-ke7"/>
-                <outlet property="infoLabel" destination="dwa-oU-AvJ" id="x28-1j-zeE"/>
+                <outlet property="infoLabel" destination="mw6-fS-mee" id="mMa-m6-wVq"/>
                 <outlet property="planImageView" destination="l45-X5-BuB" id="p5C-LT-MT2"/>
-                <outlet property="tripTitle" destination="HCu-i2-BWH" id="oJf-GT-7Kj"/>
-                <outlet property="userImage" destination="m9L-ao-1UQ" id="DCf-r1-W0J"/>
-                <outlet property="userName" destination="PQJ-go-cQn" id="in0-dQ-TPE"/>
+                <outlet property="tripTitleLabel" destination="HCu-i2-BWH" id="dpq-Er-WSp"/>
+                <outlet property="userImageView" destination="m9L-ao-1UQ" id="QI1-8A-ZkQ"/>
+                <outlet property="userNameLabel" destination="PQJ-go-cQn" id="6QB-1f-6zo"/>
             </connections>
             <point key="canvasLocation" x="163.04347826086959" y="144.97767857142856"/>
         </tableViewCell>

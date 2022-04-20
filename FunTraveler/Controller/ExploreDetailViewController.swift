@@ -20,8 +20,6 @@ class ExploreDetailViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    private var daySource: [DayModel] = []
-    private var dayModel = [DayModel]()
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -62,13 +60,8 @@ class ExploreDetailViewController: UIViewController {
                 
                 self?.trip = tripSchedule.data
                 self?.schedule = schedules[0]
-                
-                guard let day = tripSchedule.data.days else { return }
-                for num in 0...day {
-                    self?.dayModel.append(DayModel(title: "DAY\(num+1)"))
-                }
-//                guard let schedule = schedules.first else { return }
-//
+   
+
                 print("[Explore Detail] GET schedule Detail:", tripSchedule)
                 
             case .failure:
@@ -168,11 +161,6 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
         trip?.days ?? 1
     }
     
-    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
-        return dayModel
-        
-    }
-
 }
 
 @objc extension ExploreDetailViewController: SegmentControlViewDelegate {

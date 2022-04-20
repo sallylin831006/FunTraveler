@@ -14,19 +14,16 @@ class SharePlanViewController: UIViewController {
     
     var trip: Trip? {
         didSet {
-            tableView.reloadData()
+            tableView?.reloadData()
         }
     }
     
     var tripId: Int? {
         didSet {
-            fetchData(days: 1)
+          fetchData(days: 1)
         }
     }
-    
-    private var dayModel = [DayModel]()
-    private var daySource: [DayModel] = []
-    
+      
     private var photoImageArray: [UIImageView] = []
     private var storiesTextViewArray: [UITextView] = []
     private var isSimpleMode: Bool = false {
@@ -83,14 +80,7 @@ class SharePlanViewController: UIViewController {
                     guard let schedule = schedules.first else { return }
                     self?.trip = tripSchedule.data
                     self?.schedules = schedule
-                    self?.tableView.reloadData()
-                    print("[SharePlanVC] schedules:", schedules)
-                    
-                    guard let day = tripSchedule.data.days else { return }
-                    for num in 0...day {
-                        self?.dayModel.append(DayModel(title: "DAY\(num+1)"))
-                    }
-                    
+                 
                 case .failure:
                     print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
                 }
@@ -124,6 +114,13 @@ class SharePlanViewController: UIViewController {
                 
             case .success:
                 print("PATCH TRIP API成功！")
+                
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+
+                if let tabBarController = self.presentingViewController as? UITabBarController {
+                        tabBarController.selectedIndex = 0
+                        tabBarController.tabBar.isHidden = false
+                    }
                 
             case .failure:
                 print("PATCH TRIPAPI讀取資料失敗！")
@@ -183,12 +180,12 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         group.leave()
         
         group.notify(queue: .main) { [weak self] in
-            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-
-            if let tabBarController = self?.presentingViewController as? UITabBarController {
-                    tabBarController.selectedIndex = 0
-                    tabBarController.tabBar.isHidden = false
-                }
+//            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//
+//            if let tabBarController = self?.presentingViewController as? UITabBarController {
+//                    tabBarController.selectedIndex = 0
+//                    tabBarController.tabBar.isHidden = false
+//                }
         }
        
     }
@@ -314,11 +311,6 @@ extension SharePlanViewController: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
         trip?.days ?? 1
-    }
-    
-    func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
-        return dayModel
-        
     }
     
 }
