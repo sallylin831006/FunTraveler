@@ -8,9 +8,6 @@
 import UIKit
 
 class PlanPickerViewController: UIViewController {
-    
-    var model = [DayModel]()
-
 
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
@@ -33,7 +30,9 @@ class PlanPickerViewController: UIViewController {
             // scrollToBottom()
         }
     }
-    
+    private var dayModel = [DayModel]()
+    private var daySource: [DayModel] = []
+    private var currentDay = 1
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     private var headerView: PlanCardHeaderView!
     private var selectedDepartmentTimes: String = "09:00" {
@@ -43,8 +42,7 @@ class PlanPickerViewController: UIViewController {
                         
         }
     }
-
-    private var daySource: [DayModel] = []
+    private var isMoveDown: Bool = false
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -57,7 +55,7 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
-    private var isMoveDown: Bool = false
+    
     @IBOutlet weak var zoomButton: UIButton!
     
     override func viewDidLoad() {
@@ -73,10 +71,6 @@ class PlanPickerViewController: UIViewController {
             PlanPickerViewController.longPress(_:)))
         tableView.addGestureRecognizer(longpress)
         
-        for num in 0...6 {
-            model.append(DayModel(title: "DAY\(num+1)"))
-        }
-
     }
     
 // MARK: - GET Action
@@ -95,10 +89,16 @@ class PlanPickerViewController: UIViewController {
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
 
-                guard let schedule = schedules.first else { return }
+                let schedule = schedules.first ?? []
                 
                 self?.schedule = schedule
                 print("[PlanPicker] GET schedule Detail:", tripSchedule)
+                
+                guard let day = tripSchedule.data.days else { return }
+                
+                for num in 0...day {
+                    self?.dayModel.append(DayModel(title: "DAY\(num+1)"))
+                }
                 
             case .failure:
                 print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
@@ -309,7 +309,7 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
     
     func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
 //        return daySource
-        return model
+        return dayModel
 
     }
     
@@ -317,8 +317,10 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
 
 @objc extension PlanPickerViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+        postData(days: currentDay)
+        currentDay = index
         fetchData(days: index)
-        postData(days: index)
+        
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {

@@ -11,6 +11,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     var heartClosure: ((_ cell: ExploreOverViewTableViewCell, _ isHeartTapped: Bool) -> Void)?
     var collectClosure: ((_ cell: ExploreOverViewTableViewCell, _ isCollected: Bool) -> Void)?
+    var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
+
 
     @IBOutlet weak var planImageView: UIImageView!
     
@@ -26,28 +28,41 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var heartButton: UIButton!
     
+    @IBOutlet weak var followButton: UIButton!
+    
+    
     @IBOutlet weak var infoLabel: NSLayoutConstraint!
     
     @IBOutlet weak var dateLabel: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        heartButton.addTarget(self, action: #selector(tapheartButton), for: .touchUpInside)
-        collectButton.addTarget(self, action: #selector(tapcollectButton), for: .touchUpInside)
+        heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
+        collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
+        followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
     }
     var isHeartTapped: Bool = false
     var isCollected: Bool = false
-
-    @objc func tapheartButton(_ sender: UIButton) {
-        isHeartTapped = !isHeartTapped
+    var isfollowed: Bool = false
+    
+    @objc func tapHeartButton(_ sender: UIButton) {
         sender.isSelected = !isHeartTapped
+        isHeartTapped = !isHeartTapped
         heartClosure?(self, isHeartTapped)
     }
     
-    @objc func tapcollectButton(_ sender: UIButton) {
-        isCollected = !isCollected
+    @objc func tapCollectButton(_ sender: UIButton) {
         sender.isSelected = !isCollected
+        isCollected = !isCollected
         collectClosure?(self, isCollected)
+        
+    }
+    
+    @objc func tapFollowButton(_ sender: UIButton) {
+        sender.isSelected = !isfollowed
+        isfollowed = !isfollowed
+        followClosure?(self, isfollowed)
+        
     }
     
     override func layoutSubviews() {

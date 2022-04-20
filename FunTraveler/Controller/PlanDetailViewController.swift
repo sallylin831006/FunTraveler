@@ -131,12 +131,22 @@ class PlanDetailViewController: UIViewController {
         
     }
     @objc func tapToShare() {
+
+        if schedules.isEmpty {
+            //  提醒請加入行程
+            return
+        }
+        
         guard let shareVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         postData()
         
 //        shareVC.schedules = schedules
-        shareVC.tripId = tripId
+        tripIdClosure  = { tripId in
+            shareVC.tripId = tripId
+        }
+        
+        //shareVC.tripId = tripId
         let navShareVC = UINavigationController(rootViewController: shareVC)
         //        navShareVC.modalPresentationStyle = .fullScreen
         self.present(navShareVC, animated: true)

@@ -104,8 +104,14 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
                 as? ExploreDetailFooterView else { return nil }
         
         footerView.copyClosure = { [weak self] in
-            
             print("一鍵複製行程！")
+            
+            guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
+                withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
+            let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
+            //  navAddPlanVC.modalPresentationStyle = .fullScreen
+            self?.present(navAddPlanVC, animated: true)
+            print("已儲存行程！")
             
         }
         
@@ -148,7 +154,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
 extension ExploreDetailViewController: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-        //schedules.count HARD code
+        //schedules.count HARD CODE
         3
     }
     
