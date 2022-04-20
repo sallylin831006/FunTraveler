@@ -7,6 +7,7 @@ PODS:
   - GooglePlaces (6.1.1)
   - IQKeyboardManagerSwift (6.5.9)
   - Kingfisher (7.2.1)
+  - lottie-ios (3.3.0)
   - SwiftLint (0.47.0)
 
 DEPENDENCIES:
@@ -14,6 +15,7 @@ DEPENDENCIES:
   - GooglePlaces
   - IQKeyboardManagerSwift
   - Kingfisher
+  - lottie-ios
   - SwiftLint
 
 SPEC REPOS:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - GooglePlaces
     - IQKeyboardManagerSwift
     - Kingfisher
+    - lottie-ios
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -29,8 +32,9 @@ SPEC CHECKSUMS:
   GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
+  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
 
-PODFILE CHECKSUM: 41662a6586f81ed0754b9b63cc8fc31fd1ed537a
+PODFILE CHECKSUM: eff2f165103760028516c0e7ed8aa36924befcfa
 
 COCOAPODS: 1.11.2
