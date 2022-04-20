@@ -10,24 +10,30 @@ import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
     
-    var schedules: [Schedule] = [] 
-    var tripId: Int?
-
-    private var imageString: String?
-    private var stories: String?
+    var schedules: [Schedule] = []
     
-    private var storiesTextViewArray: [UITextView] = []
-    
-    var imageIndex: Int?
-    
-    var isSimpleMode: Bool = false {
+    var trip: Trip? {
         didSet {
             tableView.reloadData()
         }
     }
+    
+    var tripId: Int? {
+        didSet {
+            fetchData(days: 1)
+        }
+    }
+    
+    private var dayModel = [DayModel]()
     private var daySource: [DayModel] = []
-    private var days: Int = 1
-    var photoImageArray: [UIImageView] = []
+    
+    private var photoImageArray: [UIImageView] = []
+    private var storiesTextViewArray: [UITextView] = []
+    private var isSimpleMode: Bool = false {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -57,8 +63,7 @@ class SharePlanViewController: UIViewController {
         
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
         tableView.shouldIgnoreScrollingAdjustment = true
-        
-        fetchData(days: 1)
+     
     }
     
     // MARK: - GET Action
@@ -67,28 +72,24 @@ class SharePlanViewController: UIViewController {
 
             guard let tripId = tripId else { return }
             
-            var day: Int = 1
-            if schedules.isEmpty {
-                day = 1
-            } else {
-                day = schedules[0].day
-            }
-            
-            tripProvider.fetchSchedule(tripId: tripId, days: 0, completion: { [weak self] result in
+            tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
                 
                 switch result {
                     
                 case .success(let tripSchedule):
-                    
-                    guard let days = tripSchedule.data.days else { return }
-
+   
                     guard let schedules = tripSchedule.data.schedules else { return }
 
                     guard let schedule = schedules.first else { return }
-                    self?.days = days
+                    self?.trip = tripSchedule.data
                     self?.schedules = schedule
                     self?.tableView.reloadData()
                     print("[SharePlanVC] schedules:", schedules)
+                    
+                    guard let day = tripSchedule.data.days else { return }
+                    for num in 0...day {
+                        self?.dayModel.append(DayModel(title: "DAY\(num+1)"))
+                    }
                     
                 case .failure:
                     print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
@@ -312,12 +313,11 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
 extension SharePlanViewController: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-        //schedules.count HARD code
-        3
+        trip?.days ?? 1
     }
     
     func configureDetailOfButton(_ selectionView: SegmentControlView) -> [DayModel] {
-        return daySource
+        return dayModel
         
     }
     

@@ -107,7 +107,7 @@ class HTTPClient {
             let httpResponse = response as! HTTPURLResponse
             // swiftlint:enable force_cast
             let statusCode = httpResponse.statusCode
-                print("STATUS CODE: \(httpResponse.statusCode), \(stRequest.endPoint)")
+                print("STATUS CODE: \(httpResponse.statusCode),MAP, \(stRequest.endPoint)")
 
             switch statusCode {
 
@@ -150,7 +150,7 @@ class HTTPClient {
             let httpResponse = response as! HTTPURLResponse
             // swiftlint:enable force_cast
             let statusCode = httpResponse.statusCode
-                print("STATUS CODE: \(httpResponse.statusCode),\(stRequest.endPoint)")
+                print("STATUS CODE: \(httpResponse.statusCode),\(stRequest.method),\(stRequest.endPoint)")
 
             switch statusCode {
 

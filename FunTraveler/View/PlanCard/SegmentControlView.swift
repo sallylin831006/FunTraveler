@@ -55,7 +55,6 @@ class SegmentControlView: UIView {
             return
         }
         for num in 0...numberOfButton - 1 {
-            
             // SET BUTTON POSITION
             let dayButton = UIButton()
             
@@ -67,10 +66,15 @@ class SegmentControlView: UIView {
             // SET BUTTON TITLE
             let titleOfButton = dataSource?.configureDetailOfButton(self)
             
-            guard let buttonTitle = titleOfButton else { return }
-            
-            dayButton.setTitle("\(buttonTitle[num].title)", for: .normal)
-//            dayButton.setTitle("DAY", for: .normal)
+            guard let buttonTitle = dataSource?.configureDetailOfButton(self) else { return }
+            var title = "1"
+            if buttonTitle.isEmpty {
+                title = "DAY1"
+            } else {
+                title = buttonTitle[num].title
+            }
+            dayButton.setTitle("\(title)", for: .normal)
+//            dayButton.setTitle("按鈕", for: .normal)
 
             // SET BUTTON TITLE COLOR & FONT
             let colorOfText = UIColor.themeRed

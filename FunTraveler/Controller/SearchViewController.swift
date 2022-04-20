@@ -110,7 +110,8 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
 
         let distance = coordinate₀.distance(from: coordinate₁)/1000
         
-        newTrafficTime = Double(distance.rounding(toDecimal: 2)/60)
+        newTrafficTime = Double(distance.rounding(toDecimal: 2)*60)
+        print("newTrafficTime", newTrafficTime)
         // 距離約ＸＸ公里，開車約 X分鐘
     }
             
