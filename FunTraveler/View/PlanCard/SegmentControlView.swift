@@ -64,7 +64,6 @@ class SegmentControlView: UIView {
             dayButton.backgroundColor = .clear
             
             // SET BUTTON TITLE
-            let titleOfButton = dataSource?.configureDetailOfButton(self)
             
             guard let buttonTitle = dataSource?.configureDetailOfButton(self) else { return }
             var title = "1"

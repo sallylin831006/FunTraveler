@@ -55,7 +55,6 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
-    
     @IBOutlet weak var zoomButton: UIButton!
     
     override func viewDidLoad() {
@@ -154,7 +153,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
@@ -179,8 +178,17 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
         
         headerView.departmentPickerView.delegate = self
+        headerView.collectionView.registerCellWithNib(identifier: String(
+            describing: FriendsCollectionViewCell.self), bundle: nil)
+        headerView.collectionView.dataSource = self
+        headerView.collectionView.delegate = self
+        
+        headerView.inviteButton.addTarget(target, action: #selector(tapToInvite), for: .touchUpInside)
         
         return headerView
+    }
+    @objc func tapToInvite() {
+        shareLink()
     }
     
     // MARK: - Section Footer
@@ -302,8 +310,6 @@ extension PlanPickerViewController: TimePickerViewDelegate {
 extension PlanPickerViewController: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-        
-        //return daySource.count
         trip?.days ?? 1
     }
     
@@ -365,4 +371,79 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         }
     }
     
+}
+// MARK: - CollectionView
+extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    private var numberOfFriends: Int {
+        get {
+            return 5
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return numberOfFriends
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
+            for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
+        
+        let last = max(numberOfFriends, 0) - 1
+        if indexPath.item == last {
+            cell.contentView.backgroundColor = .themeApricotDeep
+            collectionView.reloadData()
+        }
+       
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let last = max(numberOfFriends, 0) - 1
+        if indexPath.item == last {
+            // shareLink() 行為很奇怪要按很多下
+            
+        }
+        
+    }
+    
+    func shareLink() {
+        let shareURl = URL(string: "https://game.dev.newideas.com.tw/")!
+        let shareText = "Sally邀請你共同編輯旅遊行程"
+        let items: [Any] = [shareURl, shareText]
+        
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
+    }
+}
+
+extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
+    var itemSize: CGSize {
+        get {
+            return CGSize(width: 45, height: 45)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return itemSize
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+//                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        let maxWidth = UIScreen.main.bounds.width - 30
+//
+//        let numberInSection = CGFloat(5)
+//        let totoalItemWidth = numberInSection * itemSize.width
+//        let interitemSpacting = (maxWidth - totoalItemWidth) / (numberInSection - 1)
+//        return CGFloat(Int(interitemSpacting))
+//
+//    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(10)
+    }
 }

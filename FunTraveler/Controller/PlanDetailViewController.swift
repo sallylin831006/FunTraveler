@@ -31,7 +31,7 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //addMap()
+        // addMap()
         showPlanPicker()
         addCustomBackButton()
         
@@ -141,14 +141,11 @@ class PlanDetailViewController: UIViewController {
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         postData()
         
-//        shareVC.schedules = schedules
         tripIdClosure  = { tripId in
             shareVC.tripId = tripId
         }
         
-        //shareVC.tripId = tripId
         let navShareVC = UINavigationController(rootViewController: shareVC)
-        //        navShareVC.modalPresentationStyle = .fullScreen
         self.present(navShareVC, animated: true)
     }
     
