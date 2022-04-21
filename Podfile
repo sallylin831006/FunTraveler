@@ -12,6 +12,8 @@ target 'FunTraveler' do
     pod 'GooglePlaces'
     pod 'Kingfisher'
     pod 'lottie-ios'
+    pod 'PusherSwift'
+
 
 post_install do |installer|
     installer.pods_project.build_configurations.each do |config|

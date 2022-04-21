@@ -76,7 +76,7 @@
 		3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */; };
 		3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */; };
 		3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */; };
-		3AC099A3280D48F20023A1C0 /* MapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099A2280D48F20023A1C0 /* MapConstants.swift */; };
+		3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099A2280D48F20023A1C0 /* KeyConstants.swift */; };
 		3AC099A5280D62370023A1C0 /* Find.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099A4280D62370023A1C0 /* Find.storyboard */; };
 		3AC099AC280D62AF0023A1C0 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099AB280D62AF0023A1C0 /* Camera.storyboard */; };
 		3AC099AE280D62D70023A1C0 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AD280D62D70023A1C0 /* FindViewController.swift */; };
@@ -167,7 +167,7 @@
 		3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		3AC099A2280D48F20023A1C0 /* MapConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapConstants.swift; sourceTree = "<group>"; };
+		3AC099A2280D48F20023A1C0 /* KeyConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
 		3AC099A4280D62370023A1C0 /* Find.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Find.storyboard; sourceTree = "<group>"; };
 		3AC099AB280D62AF0023A1C0 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		3AC099AD280D62D70023A1C0 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
@@ -285,7 +285,7 @@
 			children = (
 				3A185C5628058D54004F5BB3 /* DomainConstant.swift */,
 				3A185C5828058D6B004F5BB3 /* MapObject.swift */,
-				3AC099A2280D48F20023A1C0 /* MapConstants.swift */,
+				3AC099A2280D48F20023A1C0 /* KeyConstants.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -493,6 +493,7 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
+				01453295E4B1C7BFF027F477 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -571,6 +572,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01453295E4B1C7BFF027F477 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3A73528228018C9A00B4D8D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -661,7 +679,7 @@
 				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
 				3A185C4A28058CA6004F5BB3 /* SearchTableViewCell.swift in Sources */,
 				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
-				3AC099A3280D48F20023A1C0 /* MapConstants.swift in Sources */,
+				3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */,
 				3AC099AE280D62D70023A1C0 /* FindViewController.swift in Sources */,
 				3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,

@@ -223,7 +223,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
             tableView.isEditing = false
-
             self.schedule.remove(at: index.row)
         }
         return [deleteAction]
@@ -363,7 +362,7 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
     
     private var numberOfFriends: Int {
         get {
-            return 5
+            return 3
         }
     }
     

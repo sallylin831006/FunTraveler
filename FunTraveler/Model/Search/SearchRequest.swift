@@ -48,15 +48,15 @@ enum SearchRequest: STRequest {
         
         case .mapSearch(let keyword, let position, let radius):
             return
-            "/place/nearbysearch/json?location=\(position)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(MapConstants.mapKey)"
+            "/place/nearbysearch/json?location=\(position)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(KeyConstants.mapKey)"
             
         case .searchDetail(let placeId):
 
-            return "/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(MapConstants.mapKey)"
+            return "/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(KeyConstants.mapKey)"
             
         case .searchPhoto(let maxwidth, let photoreference):
             
-            return "/place/photo?maxwidth=\(maxwidth)&&photoreference=\(photoreference)&key=\(MapConstants.mapKey)"
+            return "/place/photo?maxwidth=\(maxwidth)&&photoreference=\(photoreference)&key=\(KeyConstants.mapKey)"
                 
         }
         
