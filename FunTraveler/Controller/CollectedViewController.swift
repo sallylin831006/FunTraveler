@@ -11,10 +11,11 @@ class CollectedViewController: UIViewController {
     
     var collectedData: [Explore] = [] {
         didSet {
-            tableView.reloadData()
+//            tableView.reloadData()
         }
     }
-
+    
+    var collectedDataArray: [[Explore]] = []
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -43,15 +44,19 @@ class CollectedViewController: UIViewController {
     
     // MARK: - GET Action
     private func fetchData() {
-        let exploreProvider = ExploreProvider() //再改
+        let exploreProvider = CollectedProvider()
         
-        exploreProvider.fetchExplore(completion: { [weak self] result in //再改
+        exploreProvider.fetchCollected(token: "mockToken", completion: { [weak self] result in
             
             switch result {
                 
             case .success(let collectedData):
                 
                 self?.collectedData = collectedData.data
+//                guard let collectedData = collectedData.data else{ return }
+                self?.collectedDataArray.append(self!.collectedData)
+                self?.tableView.reloadData()
+                print("collectedData.data", collectedData.data)
                 
             case .failure:
                 print("[CollectedVC] GET 讀取資料失敗！")
@@ -83,6 +88,7 @@ extension CollectedViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         collectedData.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,8 +98,18 @@ extension CollectedViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         let item = collectedData[indexPath.row]
-        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name)
-
+        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
+        
+        cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .normal) //不太好的做法
+        cell.collectClosure = { isCollected in
+            print("取消蒐藏", isCollected)
+            self.postData(isCollected: item.isCollected, tripId: self.collectedData[indexPath.row].id)
+            self.collectedData.remove(at: indexPath.row)
+            tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .left)
+            tableView.reloadData()
+            
+        }
+        
         cell.heartClosure = { cell, isHeartTapped in
             
             if isHeartTapped {
@@ -101,17 +117,6 @@ extension CollectedViewController: UITableViewDataSource, UITableViewDelegate {
                 // POST API?
             } else {
                 cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            }
-            
-        }
-        
-        cell.collectClosure = { cell, isCollected in
-            
-            if !isCollected {
-                print("取消蒐藏")
-//                guard let indexpath = self.tableView.indexPath(for: cell) else {return}
-//                self.mockData.remove(at: indexpath.row)
-//                tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
             }
             
         }
@@ -144,4 +149,25 @@ extension CollectedViewController: UITableViewDataSource, UITableViewDelegate {
 //        self.present(navExploreDeatilVC, animated: true)
         
     }
+}
+
+extension CollectedViewController {
+    // MARK: - POST TO ADJUST COLLECTED status
+    private func postData(isCollected: Bool, tripId: Int) {
+            let collectedProvider = CollectedProvider()
+        
+            collectedProvider.addCollected(token: "mockToken", isCollected: isCollected,
+                                           tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success(let postResponse):
+                    print("已取消收藏～", postResponse)
+                                    
+                case .failure:
+                    print("[Explore] collected postResponse失敗！")
+                }
+            })
+            
+        }
 }

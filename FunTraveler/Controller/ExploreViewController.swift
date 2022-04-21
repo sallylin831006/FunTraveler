@@ -91,27 +91,21 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         let item = exploreData[indexPath.row]
-        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name)
+        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
+        
+        cell.collectClosure = { isCollected in
+            self.postData(isCollected: !item.isCollected, tripId: self.exploreData[indexPath.row].id)
+            self.fetchData()
+            let indexPath = IndexPath(item: indexPath.row, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
         
         cell.heartClosure = { cell, isHeartTapped in
-            
             if isHeartTapped {
                 cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
                 // POST API?
             } else {
                 cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                // POST API?
-            }
-            
-        }
-        
-        cell.collectClosure = { cell, isCollected in
-            
-            if isCollected {
-                cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
-                // POST API?
-            } else {
-                cell.collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
                 // POST API?
             }
             
@@ -145,4 +139,25 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(navExploreDeatilVC, animated: true)
         
     }
+}
+
+extension ExploreViewController {
+    // MARK: - POST TO ADD NEW COLLECTED
+    private func postData(isCollected: Bool, tripId: Int) {
+            let collectedProvider = CollectedProvider()
+        
+            collectedProvider.addCollected(token: "mockToken", isCollected: isCollected,
+                                           tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success(let postResponse):
+                    print("收藏成功！", postResponse)
+                                    
+                case .failure:
+                    print("[Explore] collected postResponse失敗！")
+                }
+            })
+            
+        }
 }
