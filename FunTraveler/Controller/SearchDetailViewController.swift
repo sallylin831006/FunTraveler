@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import GoogleMaps
+//import GoogleMaps
 
 class SearchDetailViewController: UIViewController {
     

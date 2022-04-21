@@ -9,13 +9,15 @@ import Foundation
 
 enum CollectedRequest: STRequest {
     
-    case collectedTrip(token: String, isCollected: Bool, tripId: Int)
+    case postCollected(token: String, isCollected: Bool, tripId: Int)
+    
+    case getCollected(token: String)
     
     var headers: [String: String] {
         
         switch self {
             
-        case .collectedTrip(let token, _, _):
+        case .postCollected(let token, _, _), .getCollected(let token):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -29,22 +31,26 @@ enum CollectedRequest: STRequest {
         
         switch self {
  
-        case .collectedTrip(_, let isCollected, let tripId):
+        case .postCollected(_, let isCollected, let tripId):
 
             let body = [
-                "isCollected": isCollected,
-                "tripId": tripId
-            ] as [String : Any]
+                "trip_id": tripId,
+                "is_collected": isCollected
+            ] as [String: Any]
 
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
+        case .getCollected: return nil
+
         }
     }
     var method: String {
         
         switch self {
             
-        case .collectedTrip : return STHTTPMethod.POST.rawValue
+        case .postCollected : return STHTTPMethod.POST.rawValue
+            
+        case .getCollected : return STHTTPMethod.GET.rawValue
             
         }
     }
@@ -53,8 +59,11 @@ enum CollectedRequest: STRequest {
         
         switch self {
             
-        case .collectedTrip(_, let isCollected, let tripId):
-            return "/api/v1/trips/\(tripId)" //要改
+        case .postCollected:
+            return "/api/v1/collections"
+            
+        case .getCollected:
+            return "/api/v1/collections"
             
         }
         

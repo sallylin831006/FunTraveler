@@ -10,7 +10,7 @@ import UIKit
 class ExploreOverViewTableViewCell: UITableViewCell {
     
     var heartClosure: ((_ cell: ExploreOverViewTableViewCell, _ isHeartTapped: Bool) -> Void)?
-    var collectClosure: ((_ cell: ExploreOverViewTableViewCell, _ isCollected: Bool) -> Void)?
+    var collectClosure: ((_ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
 
     @IBOutlet weak var planImageView: UIImageView!
@@ -33,7 +33,9 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
     
-    func layoutCell(days: Int, tripTitle: String, userName: String) {
+    private var isCollected: Bool = false
+    
+    func layoutCell(days: Int, tripTitle: String, userName: String, isCollected: Bool) {
         
         dayTitleLabel.text = "\(days)天| 旅遊回憶"
         
@@ -43,11 +45,24 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         
         heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
         
+        self.isCollected = isCollected
+        
+        if isCollected {
+            collectButton.setImage(UIImage.asset(.collectSelected), for: .normal)
+        } else {
+            collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        }
+        
+//        if isCollectedTapped && isCollected {
+//            collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
+//        }
+//        if isCollectedTapped && !isCollected {
+//            collectButton.setImage(UIImage.asset(.collectNormal), for: .selected)
+//        }
+     
         followButton.setTitle("追蹤", for: .normal)
         followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
         followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        
-        collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
         
     }
     
@@ -59,7 +74,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
     }
     var isHeartTapped: Bool = false
-    var isCollected: Bool = false
+    var isCollectedTapped: Bool = false
     var isfollowed: Bool = false
     
     @objc func tapHeartButton(_ sender: UIButton) {
@@ -69,10 +84,9 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
-        sender.isSelected = !isCollected
-        isCollected = !isCollected
-        collectClosure?(self, isCollected)
-        
+        sender.isSelected = !isCollectedTapped
+        isCollectedTapped = !isCollectedTapped
+        collectClosure?(isCollected)
     }
     
     @objc func tapFollowButton(_ sender: UIButton) {

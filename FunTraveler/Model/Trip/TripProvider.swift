@@ -124,7 +124,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
-    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping TripHanlder) {
+    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ScheduleInfoHanlder) {
         
         HTTPClient.shared.request(
             TripRequest.postTrip(token: "mockToken",
@@ -139,7 +139,7 @@ class TripProvider {
                     do {
 
                         let tripSchedule = try JSONDecoder().decode(
-                            Trips.self,
+                            ScheduleInfo.self,
                             from: data
                         )
                         
