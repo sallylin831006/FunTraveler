@@ -21,6 +21,8 @@ class ShareHeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
     
         setupHeaderView()
+        titleLabel.text = "行程分享"
+
     }
 
     required init?(coder aDecoder: NSCoder) {

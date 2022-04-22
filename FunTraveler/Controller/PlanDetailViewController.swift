@@ -16,12 +16,17 @@ class PlanDetailViewController: UIViewController {
             print("當tripIdClosure有變化時再call一次")
         }
     }
+    
+    var tripId: Int?
+    
+    var trip: Trip?
 
-    var tripId: Int? {
-        didSet {
-            tripIdClosure?(tripId ?? 0)
-        }
-    }
+
+//    var tripId: Int? {
+//        didSet {
+//            tripIdClosure?(tripId ?? 0)
+//        }
+//    }
 
     var schedules: [Schedule] = []
     
@@ -75,6 +80,8 @@ class PlanDetailViewController: UIViewController {
     
     // MARK: - Action
     private func postData() {
+        ProgressHUD.show()
+        
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
         
@@ -82,13 +89,14 @@ class PlanDetailViewController: UIViewController {
         
         let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
+            ProgressHUD.dismiss()
             
             switch result {
                 
             case .success(let tripResponse):
 //            print("tripResponse!!!", tripResponse)
-                
-                print("POST TRIP DETAIL API成功！")
+                ProgressHUD.showSuccess(text: "開始發布貼文！")
+//                print("POST TRIP DETAIL API成功！")
                 
             case .failure:
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
@@ -103,6 +111,10 @@ class PlanDetailViewController: UIViewController {
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
 //            self?.addMarker()
+        }
+        
+        planPickerViewController.tripClosure = { [weak self] trip in
+            self?.trip = trip
         }
         
         tripIdClosure  = { tripId in
@@ -145,9 +157,14 @@ class PlanDetailViewController: UIViewController {
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         self.tripIdClosure  = { tripId in
             shareVC.tripId = tripId
+            shareVC.trip = self.trip
         }
         let navShareVC = UINavigationController(rootViewController: shareVC)
         self.present(navShareVC, animated: true)
+        
+    }
+    
+    func moveToSharePage() {
         
     }
     

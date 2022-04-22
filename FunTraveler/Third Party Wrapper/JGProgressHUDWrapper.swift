@@ -7,6 +7,7 @@
 
 import Foundation
 import JGProgressHUD
+import UIKit
 
 enum HUDType {
 
@@ -15,15 +16,17 @@ enum HUDType {
     case failure(String)
 }
 
-class LKProgressHUD {
+class ProgressHUD {
 
-    static let shared = LKProgressHUD()
+    static let shared = ProgressHUD()
 
     private init() { }
 
-    let hud = JGProgressHUD(style: .dark)
+    let hud = JGProgressHUD(style: .light)
 
     var view: UIView {
+        
+//        guard let view = AppDelegate.shared.window?.rootViewController?.view else { return UIView() }
 
         return AppDelegate.shared.window!.rootViewController!.view
     }
