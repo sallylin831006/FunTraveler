@@ -44,10 +44,10 @@ class SegmentControlView: UIView {
     
     func configureButton() {
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
-        if numberOfButton < 1 {
-            print("numberOfButton數量有誤！")
-            return
-        }
+//        if numberOfButton < 1 {
+//            print("numberOfButton數量有誤！")
+//            return
+//        }
         for num in 0...numberOfButton - 1 {
             // SET BUTTON POSITION
             let dayButton = UIButton()

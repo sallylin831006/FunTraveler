@@ -13,6 +13,9 @@ class PlanPickerViewController: UIViewController {
     
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
+    var tripClosure: ((_ schedule: Trip) -> Void)?
+
+    
     var tripId: Int? {
         didSet {
             fetchData(days: 1)
@@ -21,6 +24,8 @@ class PlanPickerViewController: UIViewController {
     var trip: Trip? {
         didSet {
             tableView.reloadData()
+            guard let trip = trip else { return  }
+            tripClosure?(trip)
         }
     }
     
@@ -29,6 +34,7 @@ class PlanPickerViewController: UIViewController {
             rearrangeTime()
             tableView.reloadData()
             scheduleClosure?(schedule)
+            
             // scrollToBottom()
         }
     }
@@ -466,7 +472,7 @@ extension PlanPickerViewController: PusherDelegate {
                             Schedules.self,
                             from: data.data(using: .utf8)!
                         )
-                        print("Decode Data:", tripSchedule)
+//                        print("Decode Data:", tripSchedule)
                         if tripSchedule.tripId != self.tripId { return }
                         if tripSchedule.schedules.first?.day != self.currentDay { return }
                         self.schedule = tripSchedule.schedules
@@ -482,8 +488,8 @@ extension PlanPickerViewController: PusherDelegate {
             pusher.connect()
     
         }
-    func debugLog(message: String) {
-        print("Pusher debug messages:", message)
-    }
+//    func debugLog(message: String) {
+//        print("Pusher debug messages:", message)
+//    }
     
 }
