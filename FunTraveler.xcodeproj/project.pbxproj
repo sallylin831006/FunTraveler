@@ -50,6 +50,7 @@
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
 		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
 		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
+		3A2B6A8B2812586D00D00638 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6A8A2812586D00D00638 /* JGProgressHUDWrapper.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -139,6 +140,7 @@
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
 		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
+		3A2B6A8A2812586D00D00638 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF4DCAF280C3E26008029D7 /* KingFisherWrapper.swift */,
+				3A2B6A8A2812586D00D00638 /* JGProgressHUDWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
 				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
 				3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */,
+				3A2B6A8B2812586D00D00638 /* JGProgressHUDWrapper.swift in Sources */,
 				3A13494A280E8D46008CECEA /* ExploreDetailFooterView.swift in Sources */,
 				3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */,
 				3AF4DCB0280C3E26008029D7 /* KingFisherWrapper.swift in Sources */,
