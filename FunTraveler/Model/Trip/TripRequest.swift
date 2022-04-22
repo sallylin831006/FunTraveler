@@ -8,7 +8,7 @@
 import Foundation
 
 enum TripRequest: STRequest {
-
+    
     case getTrip(token: String)
     
     case addTrip(token: String, title: String, startDate: String, endDate: String)
@@ -18,29 +18,32 @@ enum TripRequest: STRequest {
     case postTrip(token: String, tripId: Int, schedules: [Schedule], day: Int)
     
     case updateTrip(token: String, tripId: Int, schedules: [Schedule])
-
+    
+    case copyTrip(token: String, title: String, startDate: String, endDate: String, tripId: Int)
+    
     var headers: [String: String] {
-
+        
         switch self {
             
         case .getTrip(let token),
                 .addTrip(let token, _, _, _),
                 .getSchdule(let token, _, _),
                 .postTrip(let token, _, _, _),
-                .updateTrip(let token, _, _):
+                .updateTrip(let token, _, _),
+                .copyTrip(let token, _, _, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
-
+            
         }
     }
-
+    
     var body: Data? {
-
+        
         switch self {
-
+            
         case .getTrip, .getSchdule: return nil
             
         case .addTrip(_, let title, let startDate, let endDate):
@@ -49,7 +52,7 @@ enum TripRequest: STRequest {
                 "title": title,
                 "start_date": startDate,
                 "end_date": endDate
-              ]
+            ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
@@ -87,7 +90,7 @@ enum TripRequest: STRequest {
                     "id": schedule.id,
                     "description": schedule.description,
                     "images": schedule.images
-                    ]
+                ]
                 )
             }
             
@@ -97,27 +100,39 @@ enum TripRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
+            
+            
+        case .copyTrip(_, let title, let startDate, let endDate, let tripId):
+            
+            let body = [
+                "title": title,
+                "start_date": startDate,
+                "end_date": endDate,
+                "trip_id": tripId
+            ] as [String: Any]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
         }
-        
     }
-
+    
     var method: String {
-
+        
         switch self {
-
+            
         case .getTrip : return STHTTPMethod.GET.rawValue
         case .getSchdule : return STHTTPMethod.GET.rawValue
         case .addTrip: return STHTTPMethod.POST.rawValue
         case .postTrip: return STHTTPMethod.POST.rawValue
         case .updateTrip: return STHTTPMethod.PATCH.rawValue
+        case .copyTrip: return STHTTPMethod.POST.rawValue
 
         }
     }
-
+    
     var endPoint: String {
-
-        switch self {
         
+        switch self {
+            
         case .getTrip:
             return "/api/v1/trips"
             
@@ -132,9 +147,12 @@ enum TripRequest: STRequest {
             
         case .updateTrip(_, let tripId, _):
             return "/api/v1/trips/\(tripId)"
-        
+            
+        case .copyTrip:
+            return "/api/v1/trips/duplicate"
+            
         }
         
     }
-
+    
 }

@@ -182,5 +182,40 @@ class TripProvider {
                 }
             })
     }
+    
+    // MARK: - POST TO COPY TRIP
+    func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping ScheduleInfoHanlder) {
+        
+        HTTPClient.shared.request(
+            TripRequest.copyTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate, tripId: tripId),
+            completion: { result in
+               
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
 
+                        let copyTrip = try JSONDecoder().decode(
+                            ScheduleInfo.self,
+                            from: data
+                        )
+                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(copyTrip))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
 }

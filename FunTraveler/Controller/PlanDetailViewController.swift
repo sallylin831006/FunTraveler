@@ -17,16 +17,15 @@ class PlanDetailViewController: UIViewController {
         }
     }
     
-    var tripId: Int?
+//    var tripId: Int?
     
     var trip: Trip?
 
-
-//    var tripId: Int? {
-//        didSet {
-//            tripIdClosure?(tripId ?? 0)
-//        }
-//    }
+    var tripId: Int? {
+        didSet {
+            tripIdClosure?(tripId ?? 0)
+        }
+    }
 
     var schedules: [Schedule] = []
     

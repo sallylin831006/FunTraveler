@@ -109,13 +109,14 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         
         footerView.copyClosure = { [weak self] in
             print("一鍵複製行程！")
-            
+            self?.postCopyTrip()
             guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
                 withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
+            addPlanVC.isCopiedTrip = true
+            addPlanVC.copyTextField = self?.trip?.title
             let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
             //  navAddPlanVC.modalPresentationStyle = .fullScreen
             self?.present(navAddPlanVC, animated: true)
-            print("已儲存行程！")
             
         }
         
@@ -171,4 +172,32 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
         return true
     }
+}
+
+
+extension ExploreDetailViewController {
+    // MARK: - POST API TO COPY TRIP
+        private func postCopyTrip() {
+            let tripProvider = TripProvider()
+            guard let titleText = trip?.title,
+                  let startDate = trip?.startDate,
+                  let endDate = trip?.endDate,
+                  let tripId = tripId else { return }
+            
+            tripProvider.copyTrip(title: titleText,
+                                  startDate: startDate,
+                                  endDate: endDate,
+                                  tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success(let tripIdResponse):
+                print("copy tripIdResponse", tripIdResponse)
+                    
+                case .failure:
+                    print("POST COPY TRIP 失敗！")
+                }
+            })
+            
+        }
 }
