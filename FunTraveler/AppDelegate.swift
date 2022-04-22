@@ -14,6 +14,11 @@ import PusherSwift
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     
+    // swiftlint:disable force_cast
+    static let shared = UIApplication.shared.delegate as! AppDelegate
+    // swiftlint:enable force_cast
+    var window: UIWindow?
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         IQKeyboardManager.shared.enable = true

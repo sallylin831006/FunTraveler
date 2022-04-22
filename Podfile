@@ -13,6 +13,8 @@ target 'FunTraveler' do
     pod 'Kingfisher'
     pod 'lottie-ios'
     pod 'PusherSwift'
+    pod 'JGProgressHUD'
+
 
 
 post_install do |installer|
