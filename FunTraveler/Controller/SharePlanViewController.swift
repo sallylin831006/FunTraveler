@@ -81,9 +81,8 @@ class SharePlanViewController: UIViewController {
             case .success(let tripSchedule):
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
-                guard let schedule = schedules.first else { return }
                 self?.trip = tripSchedule.data
-                self?.schedules = schedule
+                self?.schedules = schedules.first ?? []
                 self?.tableView.reloadData()
                 
             case .failure:
@@ -216,8 +215,8 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             experienceCell.addressLabel.text = schedules[indexPath.row].address
             experienceCell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
             
+            if schedules[indexPath.row].name.isEmpty { return UITableViewCell() }
             self.storiesTextViewArray.append(experienceCell.storiesTextView)
-            
             
             experienceCell.tripImage.tag = indexPath.row
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))

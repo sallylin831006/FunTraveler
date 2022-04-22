@@ -13,6 +13,10 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     var tripIdClosure: ((_ tripId: Int) -> Void)?
     
     var tripId: Int?
+    
+    var isCopiedTrip: Bool = false
+    
+    var copyTextField: String?
 
     private var startDate: String?
     
@@ -92,18 +96,22 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapSaveButton() {
-        postData()
-        guard let planDetailViewController = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-        textFieldClosure = { titleText in
-            planDetailViewController.tripTitle = titleText
+        if isCopiedTrip {
+            dismiss(animated: true, completion: nil)
+            print("成功複製行程！")
+        } else {
+            postData()
+            guard let planDetailViewController = storyboard?.instantiateViewController(
+                withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+            textFieldClosure = { titleText in
+                planDetailViewController.tripTitle = titleText
+            }
+            
+            tripIdClosure = { tripId in
+                planDetailViewController.tripId = tripId
+            }
+            navigationController?.pushViewController(planDetailViewController, animated: true)
         }
-        
-        tripIdClosure = { tripId in
-            planDetailViewController.tripId = tripId
-        }
-        navigationController?.pushViewController(planDetailViewController, animated: true)
-        
     }
     
     // MARK: - POST API TO ADD NEW TRIP
@@ -131,6 +139,8 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
     
+    
+    
     @objc func tapCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -151,6 +161,8 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 as? AddPlanTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
+        
+        cell.textField.text = "複製 - \(copyTextField!)"
         
         cell.titleDelegate = self
         

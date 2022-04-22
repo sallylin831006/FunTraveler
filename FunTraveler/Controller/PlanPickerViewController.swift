@@ -15,7 +15,6 @@ class PlanPickerViewController: UIViewController {
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
 
-    
     var tripId: Int? {
         didSet {
             fetchData(days: 1)
@@ -126,6 +125,7 @@ class PlanPickerViewController: UIViewController {
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
         if isMoveDown == true {
+            sender.isSelected = true
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
                 self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)
@@ -134,6 +134,7 @@ class PlanPickerViewController: UIViewController {
             zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 400, width: 50, height: 50)
             isMoveDown = false
         } else {
+            sender.isSelected = false
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
                 self.view.frame = CGRect(x: 0, y: 550, width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)

@@ -12,7 +12,7 @@ class SearchViewController: UIViewController {
     var scheduleArray: [Schedule] = []
     var day: Int = 1
     
-    private var newTrafficTime: Double = 1.0
+//    private var newTrafficTime: Double = 1.0
     
     var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
@@ -84,37 +84,50 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
             day: day,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
-            trafficTime: newTrafficTime,
+            trafficTime: 0,
             type: "attraction",
             position: Position(
                 lat: Double(searchData[indexPath.row].geometry.location.lat),
                 long: Double(searchData[indexPath.row].geometry.location.lng)
             )
         )
+        if scheduleArray.isEmpty {
+            scheduleArray.append(schedule)
+            return
+            
+        }
+        let newTrafficTime = calculateTrafficTime(index: indexPath.row)
+        scheduleArray[scheduleArray.endIndex-1].trafficTime = newTrafficTime
         scheduleArray.append(schedule)
         print("成功加入行程！！")
         
-        if indexPath.row == 0 {
-            newTrafficTime = 0.5
-            return
+    }
+    
+    func calculateTrafficTime(index: Int) -> Double {
+
+        if index == 0 {
+            return 0
+        }
+        let lastIndex = searchData.count - 1
+        if index == lastIndex {
+            return 0
         }
         // calculate time
         let coordinate₀ = CLLocation(
-            latitude: Double(searchData[indexPath.row-1].geometry.location.lat),
-            longitude: Double(searchData[indexPath.row-1].geometry.location.lat)
+            latitude: Double(searchData[index-1].geometry.location.lat),
+            longitude: Double(searchData[index-1].geometry.location.lat)
         )
         let coordinate₁ = CLLocation(
-            latitude: Double(searchData[indexPath.row].geometry.location.lat),
-            longitude: Double(searchData[indexPath.row].geometry.location.lat)
+            latitude: Double(searchData[index].geometry.location.lat),
+            longitude: Double(searchData[index].geometry.location.lat)
         )
 
         let distance = coordinate₀.distance(from: coordinate₁)/1000
+        let carSpeed: Double = 60
         
-        newTrafficTime = Double(distance.rounding(toDecimal: 2)*60)
-        print("newTrafficTime", newTrafficTime)
-        // 距離約ＸＸ公里，開車約 X分鐘
+       return Double(distance.rounding(toDecimal: 2)/carSpeed)
     }
-            
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
 //        let searchDetailVC = SearchDetailViewController()
