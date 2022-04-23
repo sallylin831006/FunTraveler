@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A134944280E5C42008CECEA /* ShareHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134943280E5C42008CECEA /* ShareHeaderView.xib */; };
+		3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134945280E5C6C008CECEA /* ShareHeaderView.swift */; };
+		3A134948280E8D3F008CECEA /* ExploreDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */; };
+		3A13494A280E8D46008CECEA /* ExploreDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134949280E8D46008CECEA /* ExploreDetailFooterView.swift */; };
+		3A134952280F9BE5008CECEA /* PlanOverViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134950280F9BE5008CECEA /* PlanOverViewTableViewCell.xib */; };
+		3A134953280F9BE5008CECEA /* PlanOverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134951280F9BE5008CECEA /* PlanOverViewTableViewCell.swift */; };
+		3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134954280FAB1C008CECEA /* FriendsCollectionViewCell.swift */; };
+		3A134957280FAB1C008CECEA /* FriendsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */; };
+		3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134959281027D5008CECEA /* CollectedProvider.swift */; };
+		3A13495C281027F7008CECEA /* CollectedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13495B281027F7008CECEA /* CollectedRequest.swift */; };
+		3A13495E2810325B008CECEA /* CollectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13495D2810325B008CECEA /* CollectedViewController.swift */; };
 		3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */; };
 		3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */; };
 		3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */; };
@@ -22,8 +33,8 @@
 		3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1528041A4F004F5BB3 /* HTTPClient.swift */; };
 		3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1728041A93004F5BB3 /* TripProvider.swift */; };
 		3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C1928041AA9004F5BB3 /* TripRequest.swift */; };
-		3A185C2228043A52004F5BB3 /* PlanOverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2028043A52004F5BB3 /* PlanOverViewTableViewCell.swift */; };
-		3A185C2328043A52004F5BB3 /* PlanOverViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C2128043A52004F5BB3 /* PlanOverViewTableViewCell.xib */; };
+		3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2028043A52004F5BB3 /* ExploreOverViewTableViewCell.swift */; };
+		3A185C2328043A52004F5BB3 /* ExploreOverViewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185C2128043A52004F5BB3 /* ExploreOverViewTableViewCell.xib */; };
 		3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */; };
 		3A185C2828048481004F5BB3 /* TripObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C2728048481004F5BB3 /* TripObject.swift */; };
 		3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C4128058BF5004F5BB3 /* SearchViewController.swift */; };
@@ -37,13 +48,13 @@
 		3A185C5728058D54004F5BB3 /* DomainConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5628058D54004F5BB3 /* DomainConstant.swift */; };
 		3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5828058D6B004F5BB3 /* MapObject.swift */; };
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
-		3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5E280735F3004F5BB3 /* MapConstants.swift */; };
 		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
 		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
+		3A2B6A8B2812586D00D00638 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6A8A2812586D00D00638 /* JGProgressHUDWrapper.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
-		3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352772801802900B4D8D3 /* SelectionView.swift */; };
+		3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352772801802900B4D8D3 /* SegmentControlView.swift */; };
 		3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */; };
 		3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352792801802900B4D8D3 /* TimePickerView.swift */; };
 		3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */; };
@@ -66,6 +77,11 @@
 		3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */; };
 		3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */; };
 		3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */; };
+		3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099A2280D48F20023A1C0 /* KeyConstants.swift */; };
+		3AC099A5280D62370023A1C0 /* Find.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099A4280D62370023A1C0 /* Find.storyboard */; };
+		3AC099AC280D62AF0023A1C0 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099AB280D62AF0023A1C0 /* Camera.storyboard */; };
+		3AC099AE280D62D70023A1C0 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AD280D62D70023A1C0 /* FindViewController.swift */; };
+		3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AF280D62E10023A1C0 /* CameraViewController.swift */; };
 		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
 		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
 		3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9E280C1203008029D7 /* ExploreRequest.swift */; };
@@ -81,6 +97,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A134943280E5C42008CECEA /* ShareHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareHeaderView.xib; sourceTree = "<group>"; };
+		3A134945280E5C6C008CECEA /* ShareHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHeaderView.swift; sourceTree = "<group>"; };
+		3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreDetailFooterView.xib; sourceTree = "<group>"; };
+		3A134949280E8D46008CECEA /* ExploreDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreDetailFooterView.swift; sourceTree = "<group>"; };
+		3A134950280F9BE5008CECEA /* PlanOverViewTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanOverViewTableViewCell.xib; sourceTree = "<group>"; };
+		3A134951280F9BE5008CECEA /* PlanOverViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanOverViewTableViewCell.swift; sourceTree = "<group>"; };
+		3A134954280FAB1C008CECEA /* FriendsCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsCollectionViewCell.xib; sourceTree = "<group>"; };
+		3A134959281027D5008CECEA /* CollectedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedProvider.swift; sourceTree = "<group>"; };
+		3A13495B281027F7008CECEA /* CollectedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedRequest.swift; sourceTree = "<group>"; };
+		3A13495D2810325B008CECEA /* CollectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedViewController.swift; sourceTree = "<group>"; };
 		3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanCardFooterView.xib; sourceTree = "<group>"; };
 		3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCardFooterView.swift; sourceTree = "<group>"; };
 		3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
@@ -96,8 +123,8 @@
 		3A185C1528041A4F004F5BB3 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3A185C1728041A93004F5BB3 /* TripProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripProvider.swift; sourceTree = "<group>"; };
 		3A185C1928041AA9004F5BB3 /* TripRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRequest.swift; sourceTree = "<group>"; };
-		3A185C2028043A52004F5BB3 /* PlanOverViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanOverViewTableViewCell.swift; sourceTree = "<group>"; };
-		3A185C2128043A52004F5BB3 /* PlanOverViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanOverViewTableViewCell.xib; sourceTree = "<group>"; };
+		3A185C2028043A52004F5BB3 /* ExploreOverViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreOverViewTableViewCell.swift; sourceTree = "<group>"; };
+		3A185C2128043A52004F5BB3 /* ExploreOverViewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreOverViewTableViewCell.xib; sourceTree = "<group>"; };
 		3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanOverViewViewController.swift; sourceTree = "<group>"; };
 		3A185C2728048481004F5BB3 /* TripObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripObject.swift; sourceTree = "<group>"; };
 		3A185C4128058BF5004F5BB3 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -111,13 +138,13 @@
 		3A185C5628058D54004F5BB3 /* DomainConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainConstant.swift; sourceTree = "<group>"; };
 		3A185C5828058D6B004F5BB3 /* MapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObject.swift; sourceTree = "<group>"; };
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
-		3A185C5E280735F3004F5BB3 /* MapConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapConstants.swift; sourceTree = "<group>"; };
 		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
+		3A2B6A8A2812586D00D00638 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
-		3A7352772801802900B4D8D3 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		3A7352772801802900B4D8D3 /* SegmentControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlView.swift; sourceTree = "<group>"; };
 		3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanCardTableViewCell.xib; sourceTree = "<group>"; };
 		3A7352792801802900B4D8D3 /* TimePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardTableViewCell.swift; sourceTree = "<group>"; };
@@ -142,6 +169,11 @@
 		3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		3AC099A2280D48F20023A1C0 /* KeyConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
+		3AC099A4280D62370023A1C0 /* Find.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Find.storyboard; sourceTree = "<group>"; };
+		3AC099AB280D62AF0023A1C0 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		3AC099AD280D62D70023A1C0 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		3AC099AF280D62E10023A1C0 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3AF4DC9E280C1203008029D7 /* ExploreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRequest.swift; sourceTree = "<group>"; };
@@ -178,6 +210,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3A13494B280F9B2E008CECEA /* PlanOverView */ = {
+			isa = PBXGroup;
+			children = (
+				3A134951280F9BE5008CECEA /* PlanOverViewTableViewCell.swift */,
+				3A134950280F9BE5008CECEA /* PlanOverViewTableViewCell.xib */,
+			);
+			path = PlanOverView;
+			sourceTree = "<group>";
+		};
+		3A13495828102793008CECEA /* Collected */ = {
+			isa = PBXGroup;
+			children = (
+				3A134959281027D5008CECEA /* CollectedProvider.swift */,
+				3A13495B281027F7008CECEA /* CollectedRequest.swift */,
+			);
+			path = Collected;
+			sourceTree = "<group>";
+		};
 		3A185C1D280438AB004F5BB3 /* PlanCard */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +237,9 @@
 				3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */,
 				3A73527A2801802900B4D8D3 /* PlanCardTableViewCell.swift */,
 				3A7352782801802900B4D8D3 /* PlanCardTableViewCell.xib */,
-				3A7352772801802900B4D8D3 /* SelectionView.swift */,
+				3A7352772801802900B4D8D3 /* SegmentControlView.swift */,
+				3A134954280FAB1C008CECEA /* FriendsCollectionViewCell.swift */,
+				3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */,
 			);
 			path = PlanCard;
 			sourceTree = "<group>";
@@ -201,13 +253,13 @@
 			path = AddPlan;
 			sourceTree = "<group>";
 		};
-		3A185C1F280439C0004F5BB3 /* TripOverView */ = {
+		3A185C1F280439C0004F5BB3 /* ExploreOverView */ = {
 			isa = PBXGroup;
 			children = (
-				3A185C2028043A52004F5BB3 /* PlanOverViewTableViewCell.swift */,
-				3A185C2128043A52004F5BB3 /* PlanOverViewTableViewCell.xib */,
+				3A185C2028043A52004F5BB3 /* ExploreOverViewTableViewCell.swift */,
+				3A185C2128043A52004F5BB3 /* ExploreOverViewTableViewCell.xib */,
 			);
-			path = TripOverView;
+			path = ExploreOverView;
 			sourceTree = "<group>";
 		};
 		3A185C4528058C5A004F5BB3 /* SearchView */ = {
@@ -235,7 +287,7 @@
 			children = (
 				3A185C5628058D54004F5BB3 /* DomainConstant.swift */,
 				3A185C5828058D6B004F5BB3 /* MapObject.swift */,
-				3A185C5E280735F3004F5BB3 /* MapConstants.swift */,
+				3AC099A2280D48F20023A1C0 /* KeyConstants.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -254,12 +306,12 @@
 			isa = PBXGroup;
 			children = (
 				3A73527328017FF300B4D8D3 /* TimeManager.swift */,
-				3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */,
-				3A185C1328041A3A004F5BB3 /* Parser.swift */,
-				3A185C1528041A4F004F5BB3 /* HTTPClient.swift */,
+				3A13495828102793008CECEA /* Collected */,
+				3AC099B1280D6A2E0023A1C0 /* HTTP */,
 				3A185C5328058D2D004F5BB3 /* Map */,
 				3A185C4E28058CDA004F5BB3 /* Search */,
 				3A185C602807C378004F5BB3 /* Trip */,
+				3AF4DC9D280C11CF008029D7 /* Explore */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +323,8 @@
 				3A7E4D952808DD1A00281E17 /* SharePlanTableViewCell.xib */,
 				3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */,
 				3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */,
+				3A134943280E5C42008CECEA /* ShareHeaderView.xib */,
+				3A134945280E5C6C008CECEA /* ShareHeaderView.swift */,
 			);
 			path = SharePlan;
 			sourceTree = "<group>";
@@ -299,15 +353,11 @@
 				3AF4DCAE280C3E0A008029D7 /* Third Party Wrapper */,
 				3A9E9CDA280092D100C7B8D3 /* Extension */,
 				3A9E9CE328010D4100C7B8D3 /* Controller */,
-				3A9E9CE428010D4C00C7B8D3 /* View */,
 				3A73527528017FFF00B4D8D3 /* Model */,
-				3AF4DC9D280C11CF008029D7 /* Explore */,
+				3A9E9CE428010D4C00C7B8D3 /* View */,
 				3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */,
 				3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */,
-				3A9E9CCA2800912000C7B8D3 /* Main.storyboard */,
-				3A7E4DA02809453500281E17 /* PlanOverView.storyboard */,
-				3A7E4D9C2809436100281E17 /* Explore.storyboard */,
-				3AF4DC99280AF069008029D7 /* Profile.storyboard */,
+				3AC099B2280D6A750023A1C0 /* StoryBoard */,
 				3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */,
 				3A9E9CCF2800912300C7B8D3 /* LaunchScreen.storyboard */,
 				3A9E9CD22800912300C7B8D3 /* Info.plist */,
@@ -318,6 +368,7 @@
 		3A9E9CDA280092D100C7B8D3 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				3A185C1128041A23004F5BB3 /* Bundle+Extension.swift */,
 				3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */,
 				3A9E9CDB280092E100C7B8D3 /* UIScreen+Extension.swift */,
 				3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */,
@@ -344,6 +395,9 @@
 				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
 				3AF4DCA5280C2169008029D7 /* ExploreDetailViewController.swift */,
 				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
+				3A13495D2810325B008CECEA /* CollectedViewController.swift */,
+				3AC099AD280D62D70023A1C0 /* FindViewController.swift */,
+				3AC099AF280D62E10023A1C0 /* CameraViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -351,11 +405,12 @@
 		3A9E9CE428010D4C00C7B8D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A13494B280F9B2E008CECEA /* PlanOverView */,
 				3A7E4D932808905600281E17 /* SharePlan */,
 				3A185C4528058C5A004F5BB3 /* SearchView */,
 				3A185C1D280438AB004F5BB3 /* PlanCard */,
 				3A185C1E280438C3004F5BB3 /* AddPlan */,
-				3A185C1F280439C0004F5BB3 /* TripOverView */,
+				3A185C1F280439C0004F5BB3 /* ExploreOverView */,
 				3AF4DCA7280C3092008029D7 /* ExploreDetail */,
 				3A185C032803C9D2004F5BB3 /* HeaderView.xib */,
 				3A185C052803C9E4004F5BB3 /* HeaderView.swift */,
@@ -365,6 +420,28 @@
 				3A7352792801802900B4D8D3 /* TimePickerView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3AC099B1280D6A2E0023A1C0 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				3A185C1328041A3A004F5BB3 /* Parser.swift */,
+				3A185C1528041A4F004F5BB3 /* HTTPClient.swift */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		3AC099B2280D6A750023A1C0 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				3A9E9CCA2800912000C7B8D3 /* Main.storyboard */,
+				3A7E4DA02809453500281E17 /* PlanOverView.storyboard */,
+				3A7E4D9C2809436100281E17 /* Explore.storyboard */,
+				3AF4DC99280AF069008029D7 /* Profile.storyboard */,
+				3AC099A4280D62370023A1C0 /* Find.storyboard */,
+				3AC099AB280D62AF0023A1C0 /* Camera.storyboard */,
+			);
+			path = StoryBoard;
 			sourceTree = "<group>";
 		};
 		3AF4DC9D280C11CF008029D7 /* Explore */ = {
@@ -382,6 +459,8 @@
 			children = (
 				3AF4DCA8280C30BE008029D7 /* ExploreDetailTableViewCell.swift */,
 				3AF4DCA9280C30BE008029D7 /* ExploreDetailTableViewCell.xib */,
+				3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */,
+				3A134949280E8D46008CECEA /* ExploreDetailFooterView.swift */,
 			);
 			path = ExploreDetail;
 			sourceTree = "<group>";
@@ -390,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF4DCAF280C3E26008029D7 /* KingFisherWrapper.swift */,
+				3A2B6A8A2812586D00D00638 /* JGProgressHUDWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -416,7 +496,6 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				65489708827255B9EBDA9068 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -471,15 +550,21 @@
 				3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */,
 				3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */,
 				3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */,
-				3A185C2328043A52004F5BB3 /* PlanOverViewTableViewCell.xib in Resources */,
+				3A185C2328043A52004F5BB3 /* ExploreOverViewTableViewCell.xib in Resources */,
 				3A185C4C28058CA6004F5BB3 /* SearchTableViewCell.xib in Resources */,
+				3A134957280FAB1C008CECEA /* FriendsCollectionViewCell.xib in Resources */,
 				3A7E4D9D2809436100281E17 /* Explore.storyboard in Resources */,
+				3AC099AC280D62AF0023A1C0 /* Camera.storyboard in Resources */,
 				3A185C042803C9D2004F5BB3 /* HeaderView.xib in Resources */,
 				3A185C0A2803CA04004F5BB3 /* FooterView.xib in Resources */,
+				3AC099A5280D62370023A1C0 /* Find.storyboard in Resources */,
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
+				3A134944280E5C42008CECEA /* ShareHeaderView.xib in Resources */,
 				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
+				3A134952280F9BE5008CECEA /* PlanOverViewTableViewCell.xib in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
 				3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */,
+				3A134948280E8D3F008CECEA /* ExploreDetailFooterView.xib in Resources */,
 				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
 				3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */,
 				3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */,
@@ -505,23 +590,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		65489708827255B9EBDA9068 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -570,9 +638,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AF4DCAA280C30BE008029D7 /* ExploreDetailTableViewCell.swift in Sources */,
+				3A134953280F9BE5008CECEA /* PlanOverViewTableViewCell.swift in Sources */,
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
 				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
 				3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */,
+				3A2B6A8B2812586D00D00638 /* JGProgressHUDWrapper.swift in Sources */,
+				3A13494A280E8D46008CECEA /* ExploreDetailFooterView.swift in Sources */,
 				3A185C082803C9FA004F5BB3 /* FooterView.swift in Sources */,
 				3AF4DCB0280C3E26008029D7 /* KingFisherWrapper.swift in Sources */,
 				3AF4DCA4280C1479008029D7 /* ExploreObject.swift in Sources */,
@@ -586,6 +657,7 @@
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
 				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
+				3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */,
 				3A185C5728058D54004F5BB3 /* DomainConstant.swift in Sources */,
 				3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */,
 				3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */,
@@ -593,6 +665,9 @@
 				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
 				3A185C4A28058CA6004F5BB3 /* SearchTableViewCell.swift in Sources */,
 				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
+				3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */,
+				3AC099AE280D62D70023A1C0 /* FindViewController.swift in Sources */,
+				3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
 				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
 				3AF4DCA2280C12DE008029D7 /* ExploreProvider.swift in Sources */,
@@ -600,13 +675,14 @@
 				3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */,
 				3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */,
 				3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */,
+				3A13495C281027F7008CECEA /* CollectedRequest.swift in Sources */,
 				3A7E4D962808DD1A00281E17 /* SharePlanTableViewCell.swift in Sources */,
 				3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */,
 				3A7E4D9F2809437E00281E17 /* ExploreViewController.swift in Sources */,
 				3A185C5228058D16004F5BB3 /* SearchRequest.swift in Sources */,
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
-				3A185C5F280735F3004F5BB3 /* MapConstants.swift in Sources */,
+				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
 				3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
@@ -615,9 +691,11 @@
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
 				3AF4DCA6280C2169008029D7 /* ExploreDetailViewController.swift in Sources */,
-				3A73527D2801802A00B4D8D3 /* SelectionView.swift in Sources */,
-				3A185C2228043A52004F5BB3 /* PlanOverViewTableViewCell.swift in Sources */,
+				3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */,
+				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,
+				3A13495E2810325B008CECEA /* CollectedViewController.swift in Sources */,
 				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
+				3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
 				3A7E4D922808818200281E17 /* SharePlanViewController.swift in Sources */,
 				3AF4DCAD280C39AA008029D7 /* ImageHelper.swift in Sources */,
@@ -698,7 +776,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -753,7 +831,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

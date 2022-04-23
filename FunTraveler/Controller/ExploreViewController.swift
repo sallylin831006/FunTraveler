@@ -31,7 +31,7 @@ class ExploreViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
-        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         
     }
     
@@ -43,7 +43,7 @@ class ExploreViewController: UIViewController {
     // MARK: - GET Action
     private func fetchData() {
         let exploreProvider = ExploreProvider()
-                
+        
         exploreProvider.fetchExplore(completion: { [weak self] result in
             
             switch result {
@@ -87,21 +87,44 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
-                as? PlanOverViewTableViewCell else { return UITableViewCell() }
+            withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
+                as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
-        cell.selectionStyle = .none
+        let item = exploreData[indexPath.row]
+        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
         
-        cell.dayTitle.text = "\(exploreData[indexPath.row].days)天| 旅遊回憶"
-        cell.tripTitle.text = exploreData[indexPath.row].title
+        cell.collectClosure = { isCollected in
+            self.postData(isCollected: !item.isCollected, tripId: self.exploreData[indexPath.row].id)
+            self.fetchData()
+            let indexPath = IndexPath(item: indexPath.row, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
         
-        cell.userName.text = exploreData[indexPath.row].user.name
+        cell.heartClosure = { cell, isHeartTapped in
+            if isHeartTapped {
+                cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
+                // POST API?
+            } else {
+                cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                // POST API?
+            }
+            
+        }
         
-        cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        cell.planImageView.layer.borderWidth = 3
-        cell.planImageView.layer.cornerRadius = 10.0
-        cell.planImageView.layer.masksToBounds = true
-        
+        cell.followClosure = { cell, isfollowed in
+            
+            if isfollowed {
+                cell.followButton.setTitle("已追蹤", for: .selected)
+                cell.followButton.setTitleColor(UIColor.themeRed, for: .selected)
+                cell.followButton.layer.borderColor = UIColor.themeRed?.cgColor
+                
+            } else {
+                cell.followButton.setTitle("追蹤", for: .normal)
+                cell.followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
+                cell.followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+                
+            }
+        }
         return cell
         
     }
@@ -110,11 +133,32 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
         
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
-        
+        exploreDeatilVC.days = exploreData[indexPath.row].days
+
         let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
         // navExploreDeatilVC.modalPresentationStyle = .fullScreen
         self.present(navExploreDeatilVC, animated: true)
         
     }
-    
+}
+
+extension ExploreViewController {
+    // MARK: - POST TO ADD NEW COLLECTED
+    private func postData(isCollected: Bool, tripId: Int) {
+            let collectedProvider = CollectedProvider()
+        
+            collectedProvider.addCollected(token: "mockToken", isCollected: isCollected,
+                                           tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success(let postResponse):
+                    print("收藏成功！", postResponse)
+                                    
+                case .failure:
+                    print("[Explore] collected postResponse失敗！")
+                }
+            })
+            
+        }
 }

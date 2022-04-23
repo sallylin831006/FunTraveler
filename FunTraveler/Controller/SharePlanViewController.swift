@@ -10,23 +10,27 @@ import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
     
-    var schedules: [Schedule] = [] 
-    var tripId: Int?
-
-    private var imageString: String?
-    private var stories: String?
+    var schedules: [Schedule] = []
     
-    private var storiesTextViewArray: [UITextView] = []
+    var trip: Trip? {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
     
-    var imageIndex: Int?
+    var tripId: Int? {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
     
-    var isSimpleMode: Bool = false {
+    private var photoImageArray: [UIImageView] = []
+    private var storiesTextViewArray: [Int: [UITextView]] = [:]
+    private var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    var photoImageArray: [UIImageView] = []
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -39,9 +43,14 @@ class SharePlanViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData(days: 1)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
+        
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
@@ -56,35 +65,32 @@ class SharePlanViewController: UIViewController {
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
         tableView.shouldIgnoreScrollingAdjustment = true
         
-        fetchData()
     }
     
     // MARK: - GET Action
-        private func fetchData() {
-            let tripProvider = TripProvider()
-
-            guard let tripId = tripId else { return  }
+    private func fetchData(days: Int) {
+        let tripProvider = TripProvider()
+        
+        guard let tripId = tripId else { return }
+        //            guard let tripId = trip?.id else { return }
+        
+        tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
-            tripProvider.fetchSchedule(tripId: tripId, days: 1, completion: { [weak self] result in
+            switch result {
                 
-                switch result {
-                    
-                case .success(let tripSchedule):
-                    
-                    guard let schedules = tripSchedule.data.schedules else { return }
-
-                    guard let schedule = schedules.first else { return }
-                    
-                    self?.schedules = schedule
-                    self?.tableView.reloadData()
-                    print("[SharePlanVC] schedules:",schedules)
-                    
-                case .failure:
-                    print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
-                }
-            })
-            
-        }
+            case .success(let tripSchedule):
+                
+                guard let schedules = tripSchedule.data.schedules else { return }
+                self?.trip = tripSchedule.data
+                self?.schedules = schedules.first ?? []
+                self?.tableView.reloadData()
+                
+            case .failure:
+                print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
+            }
+        })
+        
+    }
     
     func addSwitchButton() {
         let switchButton = UIButton()
@@ -107,11 +113,13 @@ class SharePlanViewController: UIViewController {
         guard let tripId = self.tripId else { return }
         
         tripProvider.updateTrip(tripId: tripId, schedules: schedules, completion: { result in
-
+            
             switch result {
                 
             case .success:
                 print("PATCH TRIP API成功！")
+                
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 
             case .failure:
                 print("PATCH TRIPAPI讀取資料失敗！")
@@ -125,17 +133,18 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 150.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
+            withIdentifier: ShareHeaderView.identifier)
+                as? ShareHeaderView else { return nil }
         
-        headerView.titleLabel.text = "行程分享"
-        
+        headerView.selectionView.delegate = self
+        headerView.selectionView.dataSource = self
+
         return headerView
     }
     
@@ -155,12 +164,13 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         return footerView
     }
     @objc func tapSaveButton() {
+        let day = schedules.first?.day ?? 1
         
-        for (index, story) in storiesTextViewArray.enumerated() {
+        let viewArray = storiesTextViewArray[day] ?? []
+        
+        for (index, story) in viewArray.enumerated() {
             schedules[index].description = story.text
         }
-        print("已成功分享貼文！")
-        
         let group = DispatchGroup()
         
         group.enter()
@@ -169,20 +179,21 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         group.notify(queue: .main) { [weak self] in
             self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-
+            
             if let tabBarController = self?.presentingViewController as? UITabBarController {
-                    tabBarController.selectedIndex = 0
-                    tabBarController.tabBar.isHidden = false
-                }
+                tabBarController.selectedIndex = 0
+                tabBarController.tabBar.isHidden = false
+            }
         }
-       
-    }
         
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         schedules.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        storiesTextViewArray = [:]
         
         if isSimpleMode {
             guard let cell = tableView.dequeueReusableCell(
@@ -195,7 +206,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.text = schedules[indexPath.row].name
             cell.addressLabel.text = schedules[indexPath.row].address
             cell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
-                        
+            
             return cell
         } else {
             guard let experienceCell = tableView.dequeueReusableCell(
@@ -208,19 +219,19 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             experienceCell.addressLabel.text = schedules[indexPath.row].address
             experienceCell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
             
-            self.storiesTextViewArray.append(experienceCell.storiesTextView)
+            if schedules[indexPath.row].name.isEmpty { return UITableViewCell() }
             
-            experienceCell.tripImage.layer.borderColor = UIColor.lightGray.cgColor
-            experienceCell.tripImage.layer.borderWidth = 2
-            experienceCell.tripImage.layer.cornerRadius = 10.0
-            experienceCell.tripImage.layer.masksToBounds = true
+            let day = schedules[indexPath.row].day
+            
+            var storiesViewArray = self.storiesTextViewArray[day] ?? []
+            storiesViewArray.append(experienceCell.storiesTextView)
+            self.storiesTextViewArray[day] = storiesViewArray
             
             experienceCell.tripImage.tag = indexPath.row
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
             imageTapGesture.view?.tag = indexPath.row
             experienceCell.tripImage.addGestureRecognizer(imageTapGesture)
             experienceCell.tripImage.isUserInteractionEnabled = true
-            
             photoImageArray.append(experienceCell.tripImage)
             return experienceCell
         }
@@ -282,7 +293,7 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             
             guard let image = photo.image else { return }
             let newImage = image.scale(newWidth: 50.0)
-            guard let imageData:NSData = newImage.pngData() as? NSData else { return }
+            guard let imageData: NSData = newImage.pngData() as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
             schedules[picker.view.tag].images.removeAll()
@@ -293,4 +304,22 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension SharePlanViewController: SegmentControlViewDataSource {
+    
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+        trip?.days ?? 1
+    }
+    
+}
+
+@objc extension SharePlanViewController: SegmentControlViewDelegate {
+    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+        fetchData(days: index)
+    }
+    
+    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
+        return true
+    }
 }

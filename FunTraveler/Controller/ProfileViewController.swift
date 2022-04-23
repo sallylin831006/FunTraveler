@@ -25,7 +25,24 @@ class ProfileViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
-        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
+        movingToCollectedPage()
+    }
+    
+    func movingToCollectedPage() {
+        let collectedButton = UIButton()
+        collectedButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        collectedButton.backgroundColor = .themeRed
+        collectedButton.addTarget(target, action: #selector(tapCollectedButton), for: .touchUpInside)
+        self.tableView.addSubview(collectedButton)
+    }
+
+    @objc func tapCollectedButton() {
+        guard let collectedVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.collectedVC) as? CollectedViewController else { return }
+        let navCollectedVC = UINavigationController(rootViewController: collectedVC)
+        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
+        self.present(navCollectedVC, animated: true)
     }
 
 }
@@ -57,13 +74,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
-                as? PlanOverViewTableViewCell else { return UITableViewCell() }
+            withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
+                as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
         
-        cell.dayTitle.text = "5天| 旅遊回憶"
-        cell.tripTitle.text = "小琉球潛水趣"
+        cell.dayTitleLabel.text = "5天| 旅遊回憶"
+        cell.tripTitleLabel.text = "小琉球潛水趣"
         
         cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         cell.planImageView.layer.borderWidth = 3

@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImage {
     func scale(newWidth: CGFloat) -> UIImage {
-        guard self.size.width != newWidth else{ return self }
+        guard self.size.width != newWidth else { return self }
         
         let scaleFactor = newWidth / self.size.width
         

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 enum ImageAsset: String {
 
@@ -23,6 +24,14 @@ enum ImageAsset: String {
     
     case tripSelected
     case tripNormal
+    
+    case collectSelected
+    case collectNormal
+    
+    case profileSelected
+    case profileNormal
+    
+    case cameraSelected
 
 }
 
