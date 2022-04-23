@@ -161,8 +161,11 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 as? AddPlanTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        
-        cell.textField.text = "複製 - \(copyTextField!)"
+        if copyTextField == nil {
+            cell.textField.text = ""
+        } else {
+            cell.textField.text = "複製 - \(copyTextField!)"
+        }
         
         cell.titleDelegate = self
         

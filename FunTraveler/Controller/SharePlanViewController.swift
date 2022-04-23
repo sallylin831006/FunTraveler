@@ -25,7 +25,7 @@ class SharePlanViewController: UIViewController {
     }
     
     private var photoImageArray: [UIImageView] = []
-    private var storiesTextViewArray: [UITextView] = []
+    private var storiesTextViewArray: [Int: [UITextView]] = [:]
     private var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
@@ -164,8 +164,11 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         return footerView
     }
     @objc func tapSaveButton() {
+        let day = schedules.first?.day ?? 1
         
-        for (index, story) in storiesTextViewArray.enumerated() {
+        let viewArray = storiesTextViewArray[day] ?? []
+        
+        for (index, story) in viewArray.enumerated() {
             schedules[index].description = story.text
         }
         let group = DispatchGroup()
@@ -190,6 +193,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        storiesTextViewArray = [:]
         
         if isSimpleMode {
             guard let cell = tableView.dequeueReusableCell(
@@ -216,7 +220,12 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             experienceCell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
             
             if schedules[indexPath.row].name.isEmpty { return UITableViewCell() }
-            self.storiesTextViewArray.append(experienceCell.storiesTextView)
+            
+            let day = schedules[indexPath.row].day
+            
+            var storiesViewArray = self.storiesTextViewArray[day] ?? []
+            storiesViewArray.append(experienceCell.storiesTextView)
+            self.storiesTextViewArray[day] = storiesViewArray
             
             experienceCell.tripImage.tag = indexPath.row
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
