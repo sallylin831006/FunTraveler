@@ -44,6 +44,7 @@ class SearchViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         scheduleClosure?(scheduleArray)
     }
     
