@@ -133,7 +133,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
         
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
-        
+        exploreDeatilVC.days = exploreData[indexPath.row].days
+
         let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
         // navExploreDeatilVC.modalPresentationStyle = .fullScreen
         self.present(navExploreDeatilVC, animated: true)

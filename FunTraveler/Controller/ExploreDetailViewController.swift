@@ -12,6 +12,8 @@ import UIKit
 class ExploreDetailViewController: UIViewController {
     
     var tripId: Int?
+    
+    var days: Int?
 
     var trip: Trip?
     
@@ -41,16 +43,17 @@ class ExploreDetailViewController: UIViewController {
         
         tableView.registerFooterWithNib(identifier: String(describing: ExploreDetailFooterView.self), bundle: nil)
 
-        fetchData()
+        fetchData(days: 1)
     }
     
     // MARK: - GET Action
-    private func fetchData() {
+    private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         
-        guard let tripId = tripId else { return  }
-        
-        tripProvider.fetchSchedule(tripId: tripId, days: 1, completion: { [weak self] result in
+        guard let tripId = tripId else { return }
+//        guard let days = days else { return }
+
+        tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
             switch result {
                 
@@ -59,9 +62,9 @@ class ExploreDetailViewController: UIViewController {
                 guard let schedules = tripSchedule.data.schedules else { return }
                 
                 self?.trip = tripSchedule.data
-                self?.schedule = schedules[0]
-   
 
+                self?.schedule = schedules.first ?? []
+   
                 print("[Explore Detail] GET schedule Detail:", tripSchedule)
                 
             case .failure:
@@ -166,7 +169,7 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
 
 @objc extension ExploreDetailViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-        // fetchData(days: index)
+         fetchData(days: index)
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
