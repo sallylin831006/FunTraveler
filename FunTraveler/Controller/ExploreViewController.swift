@@ -36,6 +36,7 @@ class ExploreViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
     }
