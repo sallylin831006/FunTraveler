@@ -6,16 +6,20 @@
 //
 
 import UIKit
-import GoogleMaps
+//import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
-    
+        
     var tripIdClosure: ((_ tripId: Int) -> Void)? {
         didSet {
             tripIdClosure?(tripId ?? 0)
             print("當tripIdClosure有變化時再call一次")
         }
     }
+    
+//    var tripId: Int?
+    
+    var trip: Trip?
 
     var tripId: Int? {
         didSet {
@@ -31,7 +35,7 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addMap()
+        // addMap()
         showPlanPicker()
         addCustomBackButton()
         
@@ -75,6 +79,8 @@ class PlanDetailViewController: UIViewController {
     
     // MARK: - Action
     private func postData() {
+        ProgressHUD.show()
+        
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
         
@@ -82,14 +88,17 @@ class PlanDetailViewController: UIViewController {
         
         let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
+            ProgressHUD.dismiss()
             
             switch result {
                 
-            case .success:
-                print("POST TRIP DETAIL API成功！")
+            case .success(let tripResponse):
+//            print("tripResponse!!!", tripResponse)
+                ProgressHUD.showSuccess(text: "開始發布貼文！")
+//                print("POST TRIP DETAIL API成功！")
                 
             case .failure:
-                print("POST TRIP DETAIL API讀取資料失敗！")
+                print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
         })
     }
@@ -100,7 +109,11 @@ class PlanDetailViewController: UIViewController {
         
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
-            self?.addMarker()
+//            self?.addMarker()
+        }
+        
+        planPickerViewController.tripClosure = { [weak self] trip in
+            self?.trip = trip
         }
         
         tripIdClosure  = { tripId in
@@ -131,68 +144,80 @@ class PlanDetailViewController: UIViewController {
         
     }
     @objc func tapToShare() {
-        guard let shareVC = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
+
+        if schedules.isEmpty {
+            //  提醒請加入行程
+            return
+        }
+        
         postData()
         
-//        shareVC.schedules = schedules
-        shareVC.tripId = tripId
+        guard let shareVC = self.storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
+        self.tripIdClosure  = { tripId in
+            shareVC.tripId = tripId
+            shareVC.trip = self.trip
+        }
         let navShareVC = UINavigationController(rootViewController: shareVC)
-        //        navShareVC.modalPresentationStyle = .fullScreen
         self.present(navShareVC, animated: true)
+        
+    }
+    
+    func moveToSharePage() {
+        
     }
     
     let label = UILabel()
-    let mapView = GMSMapView()
+//    let mapView = GMSMapView()
 
-    func addMap() {
-        mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        self.view.addSubview(mapView)
-
-        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
-        mapView.camera = camera
-        
-    }
+//    func addMap() {
+//        mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+//        self.view.addSubview(mapView)
+//
+//        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
+//        mapView.camera = camera
+//
+//    }
     
-    func addMarker() {
-        var markerArray: [CLLocationCoordinate2D] = []
-        mapView.clear()
-        for (index, schedule) in schedules.enumerated() {
-            
-            let marker = GMSMarker()
-            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
-            marker.iconView = markerView
-            marker.position = CLLocationCoordinate2DMake(
-                CLLocationDegrees(schedule.position.lat),
-                CLLocationDegrees(schedule.position.long))
-            
-            marker.map = mapView
-            marker.title = schedule.name
-            marker.snippet = schedule.address
-            markerArray.append(marker.position)
-            
-            let orderLabel = UILabel()
-            orderLabel.text = String(index + 1)
-            orderLabel.font = orderLabel.font.withSize(30)
-
-            orderLabel.textColor = UIColor.themeRed
-            marker.iconView?.addSubview(orderLabel)
-            
-            orderLabel.translatesAutoresizingMaskIntoConstraints = false
-            orderLabel.topAnchor.constraint(
-                equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
-            orderLabel.centerXAnchor.constraint(equalTo: marker.iconView!.centerXAnchor).isActive = true
-        }
-        
-        let path = GMSMutablePath()
-        
-        for coord in markerArray {
-            path.add(coord)
-        }
-        let line = GMSPolyline(path: path)
-        line.strokeColor = UIColor.themeRed!
-        line.strokeWidth = 4.0
-        line.map = mapView
-    }
-    
+//    func addMarker() {
+//        var markerArray: [CLLocationCoordinate2D] = []
+//        mapView.clear()
+//        for (index, schedule) in schedules.enumerated() {
+//
+//            let marker = GMSMarker()
+//            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
+//            marker.iconView = markerView
+//            marker.position = CLLocationCoordinate2DMake(
+//                CLLocationDegrees(schedule.position.lat),
+//                CLLocationDegrees(schedule.position.long))
+//
+//            marker.map = mapView
+//            marker.title = schedule.name
+//            marker.snippet = schedule.address
+//            markerArray.append(marker.position)
+//
+//            let orderLabel = UILabel()
+//            orderLabel.text = String(index + 1)
+//            orderLabel.font = orderLabel.font.withSize(30)
+//
+//            orderLabel.textColor = UIColor.themeRed
+//            marker.iconView?.addSubview(orderLabel)
+//
+//            orderLabel.translatesAutoresizingMaskIntoConstraints = false
+//            orderLabel.topAnchor.constraint(
+//                equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
+//            orderLabel.centerXAnchor.constraint(equalTo: marker.iconView!.centerXAnchor).isActive = true
+//        }
+//
+//        let path = GMSMutablePath()
+//
+//        for coord in markerArray {
+//            path.add(coord)
+//        }
+//        let line = GMSPolyline(path: path)
+//        line.strokeColor = UIColor.themeRed!
+//        line.strokeWidth = 4.0
+//        line.map = mapView
+//    }
+//
 }

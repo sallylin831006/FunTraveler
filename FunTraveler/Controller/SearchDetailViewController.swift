@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import GoogleMaps
+//import GoogleMaps
 
 class SearchDetailViewController: UIViewController {
     
@@ -45,7 +45,7 @@ class SearchDetailViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: SearchDetailTableViewCell.self), bundle: nil)
         
         layoutOfTableView()
-        fetchData()
+        // fetchData()
         
     }
     
@@ -104,8 +104,6 @@ extension SearchDetailViewController: UITableViewDataSource, UITableViewDelegate
         // PHoto
         //        let searchProvider = SearchProvider()
         //        //沒有按照順序
-        //        let ref = "Aap_uECwf470ClozmUqSNB8Ta15J4lFCZRv7i-WSuDIPrmvJJM8nuxgSlk
-        //-JO1uvRdkwZf9UNxxN04G3gR1VZSGyGmgwETdnE1OCG7gtthni29R0IckrsAx5VOHAjMBKXRtXAPWu4OURYHyGhnnxP0ibQ7I4KqqKMZKbBkbAIwzuxHMyxmRV"
         //        let photoReference = searchDetails?.photos[indexPath.row].photoReference ?? ref
         //        searchProvider.fetchPhotos(maxwidth: 400, photoreference: photoReference, completion: { result in
         //            cell.detailImageView.image = result
