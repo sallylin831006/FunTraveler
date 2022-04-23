@@ -103,6 +103,16 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
         delegate = self
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tabBar.frame.size.height = 120
+        tabBar.frame.origin.y = view.frame.height - 100
+        
+        tabBar.layer.borderWidth = 0
+        tabBar.clipsToBounds = true
+        tabBar.backgroundColor = .themeApricotDeep
+    }
 
     // MARK: - UITabBarControllerDelegate
 

@@ -39,6 +39,8 @@ class ExploreViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        
     }
     
     // MARK: - GET Action

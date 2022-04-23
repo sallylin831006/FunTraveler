@@ -34,18 +34,32 @@ class PlayerViewController: UIViewController {
             PHAssetChangeRequest.creationRequestForAssetFromVideo(
                 atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
             if isSaved {
+                self?.postVideoData(url: (self?.videoURL)!)
                 print("Video saved.")
             } else {
                 print("Cannot save video.")
                 print(error ?? "unknown error")
             }
             DispatchQueue.main.async {
+                
                 self?.dismiss(animated: true, completion: nil)
                 self?.presentingViewController?.navigationController?.popViewController(animated: true)
 
 //                self?.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    func postVideoData(url: URL) {
+        let video = try? Data(contentsOf: url, options: .mappedIfSafe)
+        let dataPath = ["file": video!]
+        
+        APIManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/video", dataPath: dataPath, completion: { (data) in
+            print("成功傳影片")
+//            DispatchQueue.main.async {
+//                self.processData(data: data)
+//            }
+        })
     }
     
     override func viewDidLoad() {

@@ -28,6 +28,10 @@ class ProfileViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         movingToCollectedPage()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     
     func movingToCollectedPage() {
         let collectedButton = UIButton()
