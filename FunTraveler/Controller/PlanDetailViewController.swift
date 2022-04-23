@@ -40,6 +40,11 @@ class PlanDetailViewController: UIViewController {
         addCustomBackButton()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+
+    }
     
     func addCustomBackButton() {
         self.navigationItem.hidesBackButton = true
@@ -79,7 +84,6 @@ class PlanDetailViewController: UIViewController {
     
     // MARK: - Action
     private func postData() {
-        ProgressHUD.show()
         
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
@@ -88,13 +92,11 @@ class PlanDetailViewController: UIViewController {
         
         let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
-            ProgressHUD.dismiss()
             
             switch result {
                 
             case .success(let tripResponse):
-//            print("tripResponse!!!", tripResponse)
-                ProgressHUD.showSuccess(text: "開始發布貼文！")
+            print("tripResponse!!!", tripResponse)
 //                print("POST TRIP DETAIL API成功！")
                 
             case .failure:

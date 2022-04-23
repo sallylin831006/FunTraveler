@@ -109,7 +109,7 @@ class PlanPickerViewController: UIViewController {
     func postData(days: Int) {
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
-        
+        showLoadingView()
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
             
             switch result {
@@ -426,18 +426,7 @@ extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return itemSize
     }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-    //                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    //        let maxWidth = UIScreen.main.bounds.width - 30
-    //
-    //        let numberInSection = CGFloat(5)
-    //        let totoalItemWidth = numberInSection * itemSize.width
-    //        let interitemSpacting = (maxWidth - totoalItemWidth) / (numberInSection - 1)
-    //        return CGFloat(Int(interitemSpacting))
-    //
-    //    }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return CGFloat(10)
@@ -492,4 +481,19 @@ extension PlanPickerViewController: PusherDelegate {
 //        print("Pusher debug messages:", message)
 //    }
     
+}
+
+extension PlanPickerViewController {
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        self.view.addSubview(loadingView)
+        
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100).isActive = true
+        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100).isActive = true
+        loadingView.topAnchor.constraint(equalTo: view.topAnchor, constant: -100).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 100).isActive = true
+        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+    }
 }
