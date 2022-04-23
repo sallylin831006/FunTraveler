@@ -33,6 +33,9 @@ class VideoCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpUI()
+        containerView.backgroundColor = .clear
+        containerView.backgroundColor = .clear
+        playerView.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {

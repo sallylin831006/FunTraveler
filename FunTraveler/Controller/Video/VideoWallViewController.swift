@@ -36,12 +36,19 @@ class VideoWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.setUpUI()
         self.setUpDataSource()
+        containerView.backgroundColor = .clear
+        collectionView.backgroundColor = .clear
+        collectionView.registerCellWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.view.backgroundColor = .themeApricotDeep
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.playFirstVisibleVideo()
@@ -51,6 +58,8 @@ class VideoWallViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.playFirstVisibleVideo(false)
     }
+    
+    
     
     func setUpUI() {
         
