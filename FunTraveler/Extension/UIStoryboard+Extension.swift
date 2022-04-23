@@ -16,7 +16,7 @@ struct StoryboardCategory {
     
     static let profile = "Profile"
     
-    static let find = "Find"
+    static let video = "Video"
     
     static let camera = "Camera"
     
@@ -52,7 +52,7 @@ extension UIStoryboard {
     
     static var exploreDetailVC: UIStoryboard { return stStoryboard(name: StoryboardCategory.exploreDetailVC) }
     
-    static var find: UIStoryboard { return stStoryboard(name: StoryboardCategory.find) }
+    static var video: UIStoryboard { return stStoryboard(name: StoryboardCategory.video) }
     
     static var camera: UIStoryboard { return stStoryboard(name: StoryboardCategory.camera) }
 
