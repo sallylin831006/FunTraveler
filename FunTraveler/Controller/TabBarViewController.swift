@@ -77,7 +77,7 @@ private enum Tab {
         case .camera:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.collectNormal),
+                image: UIImage.asset(.cameraSelected),
                 selectedImage: UIImage.asset(.cameraSelected)
             )
         }
@@ -86,7 +86,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private let tabs: [Tab] = [.explore, .find, .planOverView, .profile ]
+    private let tabs: [Tab] = [.explore, .find, .camera, .planOverView, .profile ]
     
     var trolleyTabBarItem: UITabBarItem!
     
