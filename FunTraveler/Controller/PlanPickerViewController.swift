@@ -64,6 +64,7 @@ class PlanPickerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
         listenEvent()
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
         
@@ -76,8 +77,7 @@ class PlanPickerViewController: UIViewController {
         tableView.addGestureRecognizer(longpress)
         
     }
-    
-    
+        
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
@@ -124,25 +124,24 @@ class PlanPickerViewController: UIViewController {
     }
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
-        if isMoveDown == true {
-            sender.isSelected = true
+        sender.isSelected = isMoveDown
+        if isMoveDown {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
                 self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)
             
             zoomButton.setImage(UIImage.asset(.zoomIn), for: .selected)
             zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 400, width: 50, height: 50)
-            isMoveDown = false
+            
         } else {
-            sender.isSelected = false
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: 550, width: UIScreen.width, height: UIScreen.height)
+                self.view.frame = CGRect(x: 0, y: 600, width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)
             zoomButton.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
             zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 250, width: 50, height: 50)
             
-            isMoveDown = true
         }
+        isMoveDown = !isMoveDown
     }
     
 }
