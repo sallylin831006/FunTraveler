@@ -30,6 +30,7 @@ class PlanPickerViewController: UIViewController {
     
     var schedule: [Schedule] = [] {
         didSet {
+            showLoadingView()
             rearrangeTime()
             tableView.reloadData()
             scheduleClosure?(schedule)

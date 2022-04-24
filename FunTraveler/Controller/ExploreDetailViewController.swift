@@ -64,9 +64,7 @@ class ExploreDetailViewController: UIViewController {
                 self?.trip = tripSchedule.data
 
                 self?.schedule = schedules.first ?? []
-   
-                print("[Explore Detail] GET schedule Detail:", tripSchedule)
-                
+                   
             case .failure:
                 print("[Explore Detail] GET schedule Detai 讀取資料失敗！")
             }

@@ -13,7 +13,6 @@ class PlanDetailViewController: UIViewController {
     var tripIdClosure: ((_ tripId: Int) -> Void)? {
         didSet {
             tripIdClosure?(tripId ?? 0)
-            print("當tripIdClosure有變化時再call一次")
         }
     }
     
@@ -95,9 +94,8 @@ class PlanDetailViewController: UIViewController {
             
             switch result {
                 
-            case .success(let tripResponse):
-            print("tripResponse!!!", tripResponse)
-//                print("POST TRIP DETAIL API成功！")
+            case .success: break
+
                 
             case .failure:
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")

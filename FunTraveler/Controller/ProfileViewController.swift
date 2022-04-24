@@ -35,8 +35,8 @@ class ProfileViewController: UIViewController {
     
     func movingToCollectedPage() {
         let collectedButton = UIButton()
-        collectedButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        collectedButton.backgroundColor = .themeRed
+        collectedButton.frame = CGRect(x: 300, y: 300, width: 100, height: 100)
+        collectedButton.setBackgroundImage(UIImage.asset(.collectNormal), for: .normal)
         collectedButton.addTarget(target, action: #selector(tapCollectedButton), for: .touchUpInside)
         self.tableView.addSubview(collectedButton)
     }
