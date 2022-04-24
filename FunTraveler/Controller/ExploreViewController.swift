@@ -97,8 +97,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
         
         cell.collectClosure = { isCollected in
-            self.postData(isCollected: !item.isCollected, tripId: self.exploreData[indexPath.row].id)
-            self.fetchData()
+            self.postData(isCollected: isCollected, tripId: self.exploreData[indexPath.row].id)
+            self.exploreData[indexPath.row].isCollected = isCollected
             let indexPath = IndexPath(item: indexPath.row, section: 0)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
@@ -156,7 +156,7 @@ extension ExploreViewController {
                 switch result {
                     
                 case .success(let postResponse):
-                    print("收藏成功！", postResponse)
+                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
                     print("[Explore] collected postResponse失敗！")
