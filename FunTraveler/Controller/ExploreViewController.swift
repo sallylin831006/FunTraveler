@@ -46,7 +46,7 @@ class ExploreViewController: UIViewController {
     // MARK: - GET Action
     private func fetchData() {
         let exploreProvider = ExploreProvider()
-        
+        showLoadingView()
         exploreProvider.fetchExplore(completion: { [weak self] result in
             
             switch result {
@@ -59,6 +59,11 @@ class ExploreViewController: UIViewController {
                 print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
+    }
+    
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.layoutLoadingView(loadingView, view)
     }
     
 }

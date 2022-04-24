@@ -127,7 +127,7 @@ class PlanPickerViewController: UIViewController {
     }
     private func showLoadingView() {
         let loadingView = LoadingView()
-        view.stickSubView(loadingView, view)
+        view.layoutLoadingView(loadingView, view)
     }
     
     @IBAction func tapZoomButton(_ sender: UIButton) {

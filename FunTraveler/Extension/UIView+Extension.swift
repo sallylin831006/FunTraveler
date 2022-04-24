@@ -9,7 +9,7 @@ import UIKit
 
 @IBDesignable
 extension UIView {
-    func stickSubView(_ objectView: UIView, _ view: UIView) {
+    func layoutLoadingView(_ objectView: UIView, _ view: UIView) {
 
         objectView.removeFromSuperview()
 
