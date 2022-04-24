@@ -133,7 +133,7 @@ class PlanDetailViewController: UIViewController {
         
         // ADD SHARE BUTTON
         let shareButton = UIButton()
-        shareButton.backgroundColor = .lightGray
+        shareButton.setTitleColor(.themeRed, for: .normal)
         shareButton.setTitle("分享", for: .normal)
         bottomView.addSubview(shareButton)
         shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
