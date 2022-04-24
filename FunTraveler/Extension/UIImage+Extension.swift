@@ -36,6 +36,8 @@ enum ImageAsset: String {
     // Camera
     case topLayer
     case bottomLayer
+    
+    case planBackground
 
 }
 

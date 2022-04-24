@@ -34,7 +34,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setupHeaderView() {
-        contentView.backgroundColor = UIColor.themeApricotDeep
+        contentView.backgroundColor = UIColor.themeLightBlue
 
         contentView.layer.cornerRadius = 40
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]

@@ -54,8 +54,7 @@ class PlayerViewController: UIViewController {
         let video = try? Data(contentsOf: url, options: .mappedIfSafe)
         let dataPath = ["file": video!]
         
-        APIManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/video", dataPath: dataPath, completion: { (data) in
-            print("成功傳影片")
+        APIManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos", dataPath: dataPath, completion: { (data) in
 //            DispatchQueue.main.async {
 //                self.processData(data: data)
 //            }

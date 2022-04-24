@@ -75,7 +75,10 @@ class PlanPickerViewController: UIViewController {
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPress(_:)))
         tableView.addGestureRecognizer(longpress)
-        
+        tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
+        tableView.backgroundView?.contentMode = .scaleAspectFill
+//        tableView.backgroundView?.alpha = 0.9
+
     }
         
     // MARK: - GET Action
@@ -150,7 +153,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 250.0
+        return 200.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -249,6 +252,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let tripCell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
                 as? PlanCardTableViewCell else { return UITableViewCell() }
+        
+        tableView.separatorColor = .clear
         tripCell.selectionStyle = .none
         
         tripCell.nameLabel.text = schedule[indexPath.row].name
@@ -264,6 +269,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         tripCell.index = indexPath.row
         
         tripCell.delegate = self
+        
+        tripCell.backgroundColor = .clear
         
         return tripCell
     }
@@ -418,7 +425,7 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
 extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
     var itemSize: CGSize {
         get {
-            return CGSize(width: 45, height: 45)
+            return CGSize(width: 35, height: 35)
         }
     }
     
