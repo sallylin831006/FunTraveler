@@ -39,22 +39,29 @@ class LoadingView: UIView {
         loadingView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         loadingView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         loadingView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        loadingView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        loadingView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+//        loadingView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+//        loadingView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+//        loadingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        loadingView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
     }
     
     private func lottieSetting() {
-        loadingView.animation = Animation.named("LoadingDot")
+        loadingView.animation = Animation.named("Loading")
         loadingView.contentMode = .scaleAspectFit
         loadingView.animationSpeed = 1.5
-        loadingView.loopMode = .repeat(1)
-        
-        loadingView.play(completion: { [weak self] _ in
-            guard let self = self else { return }
-            self.loadingView.removeFromSuperview()
-            
+        loadingView.loopMode = .playOnce
+
+        loadingView.play(fromProgress: 0,
+                           toProgress: 1,
+                           loopMode: LottieLoopMode.playOnce,
+                           completion: { (finished) in
+            if finished {
+                self.loadingView.isHidden = true
+                self.loadingView.removeFromSuperview()
+            }
         })
+        
     }
     
 }

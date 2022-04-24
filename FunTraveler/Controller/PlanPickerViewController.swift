@@ -109,13 +109,13 @@ class PlanPickerViewController: UIViewController {
     func postData(days: Int) {
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
-        showLoadingView()
+        
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
             
             switch result {
                 
             case .success:
-                print("POST TRIP DETAIL API成功！")
+                self.showLoadingView()
                 
             case .failure:
                 print("POST TRIP DETAIL API讀取資料失敗！")
@@ -489,11 +489,9 @@ extension PlanPickerViewController {
         self.view.addSubview(loadingView)
         
         loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100).isActive = true
-        loadingView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100).isActive = true
-        loadingView.topAnchor.constraint(equalTo: view.topAnchor, constant: -100).isActive = true
-        loadingView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 100).isActive = true
-        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
-        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        loadingView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+
     }
 }
