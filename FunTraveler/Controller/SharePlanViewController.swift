@@ -45,7 +45,12 @@ class SharePlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        showLoadingView()
         fetchData(days: 1)
+    }
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.layoutLoadingView(loadingView, view)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -249,6 +254,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .actionSheet)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
+            self.showLoadingView()
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = true
@@ -262,6 +268,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         })
         
         let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
+            self.showLoadingView()
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = true
@@ -323,6 +330,7 @@ extension SharePlanViewController: SegmentControlViewDataSource {
 
 @objc extension SharePlanViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+        showLoadingView()
         for (index, story) in storiesTextViewArray.enumerated() {
             schedules[index].description = story.text
         }
