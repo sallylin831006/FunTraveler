@@ -82,7 +82,7 @@ class APIManager: NSObject{
         for (key, value) in dataPath {
             body.appendString(string: "--\(boundary)\r\n")
             body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"; filename=\"\(arc4random())\"\r\n") //此處放入file name，以隨機數代替，可自行放入
-            body.appendString(string: "Content-Type: image/png\r\n\r\n") //image/png 可改為其他檔案類型 ex:jpeg
+            body.appendString(string: "Content-Type: video/mov\r\n\r\n") //image/png 可改為其他檔案類型 ex:jpeg
             body.append(value)
             body.appendString(string: "\r\n")
         }
@@ -115,7 +115,7 @@ class APIManager: NSObject{
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             if error != nil{
-                print(error as Any)
+                print("Upload video error:", error as Any)
             }else{
                 guard let data = data else{return}
                 completion(data)

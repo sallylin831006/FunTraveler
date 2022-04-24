@@ -52,7 +52,8 @@ extension TimePickerView {
             title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
 
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-         
+        timeTextField.font = UIFont.systemFont(ofSize: 12)
+        timeTextField.backgroundColor = .themeApricotDeep
         timeTextField.inputView = picker
 //        timeTextField.inputAccessoryView = UIView()
         timeTextField.inputAccessoryView = toolBar
@@ -79,7 +80,7 @@ extension TimePickerView {
         timeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
         timeTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
         timeTextField.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
-        timeTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        timeTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
 }
