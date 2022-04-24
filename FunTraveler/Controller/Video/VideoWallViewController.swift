@@ -10,36 +10,27 @@ import AVKit
 
 class VideoWallViewController: UIViewController {
     
+    private var videoDataSource: [Video] = []
+    
     let containerView: UIView = {
         let view = UIView()
-        return view
-    }()
+        return view }()
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
         layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 0
-        layout.footerReferenceSize = .zero
-        layout.headerReferenceSize = .zero
+        layout.minimumLineSpacing = 15
+        
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
-        collectionView.isPagingEnabled = false
-        collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .white
-        collectionView.showsVerticalScrollIndicator = true
-        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        return collectionView
-    }()
+        return collectionView }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpUI()
-        self.setUpDataSource()
-        containerView.backgroundColor = .clear
-        collectionView.backgroundColor = .clear
         collectionView.registerCellWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
     }
@@ -47,8 +38,10 @@ class VideoWallViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.backgroundColor = .themeApricotDeep
+        showLoadingView()
+        fetchData()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.playFirstVisibleVideo()
@@ -59,31 +52,15 @@ class VideoWallViewController: UIViewController {
         self.playFirstVisibleVideo(false)
     }
     
-    
-    
     func setUpUI() {
-        
         self.view.backgroundColor = .white
         setupContainerView()
         setupCollectionView()
         
     }
-    
-    var videoDataSource: [String] = []
-    
-    func setUpDataSource() {
-        videoDataSource = [
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV",
-            "https://travel-schedule-images.s3.ap-northeast-1.amazonaws.com/6B6A5E7E-127B-4DED-805B-7F3DCE5512BF.MOV"
-        ]
-        
-        collectionView.reloadData()
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.stickSubView(loadingView, view)
     }
     
 }
@@ -97,8 +74,10 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cell", for: indexPath) as? VideoCollectionViewCell else {  return UICollectionViewCell() }
-        cell.configure(videoDataSource[indexPath.item])
+            withReuseIdentifier: "cell", for: indexPath)
+                as? VideoCollectionViewCell else {  return UICollectionViewCell() }
+        cell.configure(videoDataSource[indexPath.item].url)
+        
         return cell
     }
     
@@ -146,6 +125,25 @@ extension VideoWallViewController {
         return collectionView.frame.contains(cellRect)
     }
     
+}
+
+extension VideoWallViewController {
+    // MARK: - GET Videos
+    private func fetchData() {
+        let videoProvider = VideoProvider()
+        videoProvider.fetchVideo(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let videoData):
+                self?.videoDataSource = videoData
+                self?.collectionView.reloadData()
+                
+            case .failure:
+                print("[CameraVC] GET video失敗！")
+            }
+        })
+    }
 }
 
 extension VideoWallViewController {

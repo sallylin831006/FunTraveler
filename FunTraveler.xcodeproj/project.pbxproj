@@ -54,12 +54,13 @@
 		3A2B6AB228138A6300D00638 /* VideoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6AB128138A6300D00638 /* VideoEditor.swift */; };
 		3A2B6B2E2814213500D00638 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B2D2814213500D00638 /* VideoCollectionViewCell.swift */; };
 		3A2B6B302814215000D00638 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B2F2814215000D00638 /* PlayerView.swift */; };
-		3A2B6B322814230700D00638 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B312814230700D00638 /* APIManager.swift */; };
+		3A2B6B322814230700D00638 /* VideoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B312814230700D00638 /* VideoManager.swift */; };
 		3A2B6B5A2814B54300D00638 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B592814B54300D00638 /* LoadingView.swift */; };
 		3A2B6B6C2814D3CA00D00638 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B6B2814D3CA00D00638 /* Loading.json */; };
 		3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B6E2814D68B00D00638 /* SuccessView.swift */; };
 		3A2B6B712814D6A400D00638 /* Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B702814D6A300D00638 /* Success.json */; };
 		3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B722814D89400D00638 /* LottieConstant.swift */; };
+		3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4653B72815069F005051EB /* UIView+Extension.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -75,6 +76,9 @@
 		3A7E4D9D2809436100281E17 /* Explore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9C2809436100281E17 /* Explore.storyboard */; };
 		3A7E4D9F2809437E00281E17 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */; };
 		3A7E4DA12809453500281E17 /* PlanOverView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A7E4DA02809453500281E17 /* PlanOverView.storyboard */; };
+		3A8E50682814F58B00DF40AE /* VideoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50672814F58B00DF40AE /* VideoRequest.swift */; };
+		3A8E506A2814F5B700DF40AE /* VideoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50692814F5B700DF40AE /* VideoProvider.swift */; };
+		3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E506B2814F5C200DF40AE /* VideoObject.swift */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
 		3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */; };
@@ -153,12 +157,13 @@
 		3A2B6AB128138A6300D00638 /* VideoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditor.swift; sourceTree = "<group>"; };
 		3A2B6B2D2814213500D00638 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		3A2B6B2F2814215000D00638 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		3A2B6B312814230700D00638 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		3A2B6B312814230700D00638 /* VideoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoManager.swift; sourceTree = "<group>"; };
 		3A2B6B592814B54300D00638 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3A2B6B6B2814D3CA00D00638 /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Loading.json; path = ../../../../../../Downloads/Loading.json; sourceTree = "<group>"; };
 		3A2B6B6E2814D68B00D00638 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
 		3A2B6B702814D6A300D00638 /* Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Success.json; sourceTree = "<group>"; };
 		3A2B6B722814D89400D00638 /* LottieConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieConstant.swift; sourceTree = "<group>"; };
+		3A4653B72815069F005051EB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -174,6 +179,9 @@
 		3A7E4D9C2809436100281E17 /* Explore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Explore.storyboard; sourceTree = "<group>"; };
 		3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		3A7E4DA02809453500281E17 /* PlanOverView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlanOverView.storyboard; sourceTree = "<group>"; };
+		3A8E50672814F58B00DF40AE /* VideoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRequest.swift; sourceTree = "<group>"; };
+		3A8E50692814F5B700DF40AE /* VideoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProvider.swift; sourceTree = "<group>"; };
+		3A8E506B2814F5C200DF40AE /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -371,7 +379,8 @@
 		3A73527528017FFF00B4D8D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3A2B6B312814230700D00638 /* APIManager.swift */,
+				3A8E50662814F57200DF40AE /* Video */,
+				3A2B6B312814230700D00638 /* VideoManager.swift */,
 				3A73527328017FF300B4D8D3 /* TimeManager.swift */,
 				3A13495828102793008CECEA /* Collected */,
 				3AC099B1280D6A2E0023A1C0 /* HTTP */,
@@ -393,6 +402,16 @@
 				3A134945280E5C6C008CECEA /* ShareHeaderView.swift */,
 			);
 			path = SharePlan;
+			sourceTree = "<group>";
+		};
+		3A8E50662814F57200DF40AE /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				3A8E506B2814F5C200DF40AE /* VideoObject.swift */,
+				3A8E50692814F5B700DF40AE /* VideoProvider.swift */,
+				3A8E50672814F58B00DF40AE /* VideoRequest.swift */,
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 		3A9E9CB82800912000C7B8D3 = {
@@ -443,6 +462,7 @@
 				3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */,
 				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
 				3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */,
+				3A4653B72815069F005051EB /* UIView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -722,8 +742,10 @@
 				3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */,
 				3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */,
 				3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */,
+				3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */,
 				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
 				3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */,
+				3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */,
 				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
@@ -738,11 +760,12 @@
 				3A185C4A28058CA6004F5BB3 /* SearchTableViewCell.swift in Sources */,
 				3A2B6B2E2814213500D00638 /* VideoCollectionViewCell.swift in Sources */,
 				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
-				3A2B6B322814230700D00638 /* APIManager.swift in Sources */,
+				3A2B6B322814230700D00638 /* VideoManager.swift in Sources */,
 				3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */,
 				3AC099AE280D62D70023A1C0 /* VideoWallViewController.swift in Sources */,
 				3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
+				3A8E506A2814F5B700DF40AE /* VideoProvider.swift in Sources */,
 				3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */,
 				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
 				3AF4DCA2280C12DE008029D7 /* ExploreProvider.swift in Sources */,
@@ -761,6 +784,7 @@
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
 				3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
+				3A8E50682814F58B00DF40AE /* VideoRequest.swift in Sources */,
 				3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */,
 				3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,

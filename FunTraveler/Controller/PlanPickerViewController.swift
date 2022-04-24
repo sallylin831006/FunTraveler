@@ -125,6 +125,10 @@ class PlanPickerViewController: UIViewController {
             }
         })
     }
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.stickSubView(loadingView, view)
+    }
     
     @IBAction func tapZoomButton(_ sender: UIButton) {
         sender.isSelected = isMoveDown
@@ -488,17 +492,4 @@ extension PlanPickerViewController: PusherDelegate {
 //        print("Pusher debug messages:", message)
 //    }
     
-}
-
-extension PlanPickerViewController {
-    private func showLoadingView() {
-        let loadingView = LoadingView()
-        self.view.addSubview(loadingView)
-        
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        loadingView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-
-    }
 }
