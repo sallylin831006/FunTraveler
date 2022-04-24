@@ -45,6 +45,7 @@ class SharePlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         showLoadingView()
         fetchData(days: 1)
     }
@@ -129,8 +130,6 @@ class SharePlanViewController: UIViewController {
                 
             case .success:
                 print("PATCH TRIP API成功！")
-                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                
             case .failure:
                 print("PATCH TRIPAPI讀取資料失敗！")
             }
@@ -151,7 +150,10 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ShareHeaderView.identifier)
                 as? ShareHeaderView else { return nil }
-        
+        guard let trip = trip else { return nil }
+        headerView.titleLabel.text = trip.title
+        headerView.dateLabel.text = "\(trip.startDate!) - \(trip.endDate!)"
+
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
 
@@ -175,8 +177,13 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     @objc func tapSaveButton() {
         for (index, story) in storiesTextViewArray.enumerated() {
+            if index >= schedules.count {
+                print("ERROR: index out of range!")
+                break
+            }
             schedules[index].description = story.text
         }
+        
         let group = DispatchGroup()
         
         group.enter()
@@ -184,7 +191,9 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         group.leave()
         
         group.notify(queue: .main) { [weak self] in
-            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            self?.dismiss(animated: true, completion: nil)
+            self?.presentingViewController?.presentingViewController?.navigationController?.popViewController(animated: true)
             
             if let tabBarController = self?.presentingViewController as? UITabBarController {
                 tabBarController.selectedIndex = 0
@@ -332,13 +341,17 @@ extension SharePlanViewController: SegmentControlViewDataSource {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
         showLoadingView()
         for (index, story) in storiesTextViewArray.enumerated() {
+            if index >= schedules.count {
+                print("ERROR: index out of range!")
+                break
+            }
             schedules[index].description = story.text
         }
+        
         self.storiesTextViewArray = []
         self.photoImageArray = []
         patchData()
         fetchData(days: index)
-        print("Bug好多")
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
