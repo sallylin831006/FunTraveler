@@ -57,6 +57,9 @@
 		3A2B6B322814230700D00638 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B312814230700D00638 /* APIManager.swift */; };
 		3A2B6B5A2814B54300D00638 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B592814B54300D00638 /* LoadingView.swift */; };
 		3A2B6B6C2814D3CA00D00638 /* Loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B6B2814D3CA00D00638 /* Loading.json */; };
+		3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B6E2814D68B00D00638 /* SuccessView.swift */; };
+		3A2B6B712814D6A400D00638 /* Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B702814D6A300D00638 /* Success.json */; };
+		3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B722814D89400D00638 /* LottieConstant.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -153,6 +156,9 @@
 		3A2B6B312814230700D00638 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		3A2B6B592814B54300D00638 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		3A2B6B6B2814D3CA00D00638 /* Loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Loading.json; path = ../../../../../../Downloads/Loading.json; sourceTree = "<group>"; };
+		3A2B6B6E2814D68B00D00638 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
+		3A2B6B702814D6A300D00638 /* Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Success.json; sourceTree = "<group>"; };
+		3A2B6B722814D89400D00638 /* LottieConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieConstant.swift; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -337,6 +343,8 @@
 		3A2B6B572814B52800D00638 /* LottieView */ = {
 			isa = PBXGroup;
 			children = (
+				3A2B6B722814D89400D00638 /* LottieConstant.swift */,
+				3A2B6B6D2814D67A00D00638 /* Success */,
 				3A2B6B582814B53100D00638 /* Loading */,
 			);
 			path = LottieView;
@@ -349,6 +357,15 @@
 				3A2B6B6B2814D3CA00D00638 /* Loading.json */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		3A2B6B6D2814D67A00D00638 /* Success */ = {
+			isa = PBXGroup;
+			children = (
+				3A2B6B6E2814D68B00D00638 /* SuccessView.swift */,
+				3A2B6B702814D6A300D00638 /* Success.json */,
+			);
+			path = Success;
 			sourceTree = "<group>";
 		};
 		3A73527528017FFF00B4D8D3 /* Model */ = {
@@ -597,6 +614,7 @@
 				3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */,
 				3A7E4DA12809453500281E17 /* PlanOverView.storyboard in Resources */,
 				3AF4DCAB280C30BE008029D7 /* ExploreDetailTableViewCell.xib in Resources */,
+				3A2B6B712814D6A400D00638 /* Success.json in Resources */,
 				3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */,
 				3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */,
 				3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */,
@@ -699,6 +717,7 @@
 				3AF4DCB0280C3E26008029D7 /* KingFisherWrapper.swift in Sources */,
 				3AF4DCA4280C1479008029D7 /* ExploreObject.swift in Sources */,
 				3A2B6AB228138A6300D00638 /* VideoEditor.swift in Sources */,
+				3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */,
 				3A185C5028058CF7004F5BB3 /* SearchProvider.swift in Sources */,
 				3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */,
 				3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */,
@@ -724,6 +743,7 @@
 				3AC099AE280D62D70023A1C0 /* VideoWallViewController.swift in Sources */,
 				3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
+				3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */,
 				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
 				3AF4DCA2280C12DE008029D7 /* ExploreProvider.swift in Sources */,
 				3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */,

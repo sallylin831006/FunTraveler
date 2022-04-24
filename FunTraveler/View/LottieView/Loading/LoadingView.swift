@@ -39,15 +39,11 @@ class LoadingView: UIView {
         loadingView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         loadingView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         loadingView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-//        loadingView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//        loadingView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//        loadingView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-//        loadingView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
     }
     
     private func lottieSetting() {
-        loadingView.animation = Animation.named("Loading")
+        loadingView.animation = Animation.named(LottieConstants.loading)
         loadingView.contentMode = .scaleAspectFit
         loadingView.animationSpeed = 1.5
         loadingView.loopMode = .playOnce
