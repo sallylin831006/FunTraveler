@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,15 +95,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7gH-LC-QFq">
-                                <rect key="frame" x="0.0" y="212" width="414" height="600"/>
+                                <rect key="frame" x="0.0" y="167" width="414" height="650"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="O7v-Zy-Mha"/>
+                                    <constraint firstAttribute="height" constant="650" id="O7v-Zy-Mha"/>
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Er-F4-1TE">
-                                <rect key="frame" x="353" y="157" width="45" height="45"/>
+                                <rect key="frame" x="353" y="112" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="TiA-aW-zgb"/>
                                     <constraint firstAttribute="height" constant="45" id="uC8-V5-8E3"/>
@@ -117,7 +118,7 @@
                         <viewLayoutGuide key="safeArea" id="aVy-ZK-8So"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aVy-ZK-8So" firstAttribute="bottom" secondItem="7gH-LC-QFq" secondAttribute="bottom" constant="50" id="6oT-z2-fcg"/>
+                            <constraint firstItem="aVy-ZK-8So" firstAttribute="bottom" secondItem="7gH-LC-QFq" secondAttribute="bottom" constant="45" id="6oT-z2-fcg"/>
                             <constraint firstItem="7gH-LC-QFq" firstAttribute="top" secondItem="3Er-F4-1TE" secondAttribute="bottom" constant="10" id="FMi-fC-U0D"/>
                             <constraint firstItem="7gH-LC-QFq" firstAttribute="leading" secondItem="aVy-ZK-8So" secondAttribute="leading" id="X1s-TE-tsn"/>
                             <constraint firstItem="aVy-ZK-8So" firstAttribute="trailing" secondItem="3Er-F4-1TE" secondAttribute="trailing" constant="16" id="hJI-SU-a2v"/>
@@ -142,14 +143,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4tT-KH-b93">
-                                <rect key="frame" x="0.0" y="262" width="414" height="600"/>
+                                <rect key="frame" x="0.0" y="162" width="414" height="700"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="600" id="qHP-Az-zQw"/>
+                                    <constraint firstAttribute="height" constant="700" id="qHP-Az-zQw"/>
                                 </constraints>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-on-G65">
-                                <rect key="frame" x="0.0" y="211" width="414" height="51"/>
+                            <searchBar contentMode="redraw" text="" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-on-G65">
+                                <rect key="frame" x="0.0" y="111" width="414" height="51"/>
+                                <color key="barTintColor" name="themeApricotDeep"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
@@ -223,6 +225,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="themeApricotDeep">
+            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -39,7 +39,8 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.registerCellWithNib(identifier: String(describing: SearchTableViewCell.self), bundle: nil)
-        
+        tableView.backgroundColor = .themeApricotDeep
+        tableView.separatorColor = .themeApricotDeep
         searchBar.delegate = self
     }
     

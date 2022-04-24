@@ -25,7 +25,7 @@ class SharePlanViewController: UIViewController {
     }
     
     private var photoImageArray: [UIImageView] = []
-    private var storiesTextViewArray: [Int: [UITextView]] = [:]
+    private var storiesTextViewArray: [UITextView] = []
     private var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
@@ -46,6 +46,11 @@ class SharePlanViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData(days: 1)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        tableView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -119,7 +124,6 @@ class SharePlanViewController: UIViewController {
                 
             case .success:
                 print("PATCH TRIP API成功！")
-                
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 
             case .failure:
@@ -165,11 +169,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         return footerView
     }
     @objc func tapSaveButton() {
-        let day = schedules.first?.day ?? 1
-        
-        let viewArray = storiesTextViewArray[day] ?? []
-        
-        for (index, story) in viewArray.enumerated() {
+        for (index, story) in storiesTextViewArray.enumerated() {
             schedules[index].description = story.text
         }
         let group = DispatchGroup()
@@ -194,8 +194,6 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        storiesTextViewArray = [:]
-        
         if isSimpleMode {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: SharePlanTableViewCell.self), for: indexPath)
@@ -221,14 +219,22 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             experienceCell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
             
             if schedules[indexPath.row].name.isEmpty { return UITableViewCell() }
+
+            if schedules[indexPath.row].description.isEmpty {
+                experienceCell.storiesTextView.text = nil
+            } else {
+                experienceCell.storiesTextView.text = schedules[indexPath.row].description
+            }
             
-            let day = schedules[indexPath.row].day
-            
-            var storiesViewArray = self.storiesTextViewArray[day] ?? []
-            storiesViewArray.append(experienceCell.storiesTextView)
-            self.storiesTextViewArray[day] = storiesViewArray
+            self.storiesTextViewArray.append(experienceCell.storiesTextView)
             
             experienceCell.tripImage.tag = indexPath.row
+            if schedules[indexPath.row].images.isEmpty {
+                experienceCell.tripImage.image = nil
+            } else {
+                experienceCell.tripImage.loadImage(schedules[indexPath.row].images.first)
+            }
+            
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
             imageTapGesture.view?.tag = indexPath.row
             experienceCell.tripImage.addGestureRecognizer(imageTapGesture)
@@ -317,7 +323,14 @@ extension SharePlanViewController: SegmentControlViewDataSource {
 
 @objc extension SharePlanViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+        for (index, story) in storiesTextViewArray.enumerated() {
+            schedules[index].description = story.text
+        }
+        self.storiesTextViewArray = []
+        self.photoImageArray = []
+        patchData()
         fetchData(days: index)
+        print("Bug好多")
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {

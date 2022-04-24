@@ -146,13 +146,20 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         cell.durationLabel.text = "停留時間：\(schedule[indexPath.row].duration)"
         
         if schedule[indexPath.row].images.isEmpty {
+            cell.tripImage.image = nil
             cell.tripImage.backgroundColor = UIColor.themeApricotDeep
         } else {
             cell.tripImage.loadImage(schedule[indexPath.row].images.first)
             cell.tripImage.contentMode = .scaleAspectFill
         }
         
-        cell.storiesTextLabel.text = schedule[indexPath.row].description
+        if schedule[indexPath.row].description.isEmpty {
+            cell.storiesTextLabel.text = nil
+        } else {
+            cell.storiesTextLabel.text = schedule[indexPath.row].description
+        }
+        
+        
         
         return cell
         
