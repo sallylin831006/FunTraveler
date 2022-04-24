@@ -154,7 +154,7 @@ extension SearchViewController: UISearchBarDelegate {
         let searchProvider = SearchProvider()
         if searchText == "" { return }
         searchProvider.fetchSearch(keyword: "\(searchText)",
-        position: "25.0338,121.5646", radius: 1000, completion: { result in
+        position: "25.0338,121.5646", radius: 100000, completion: { result in
             
             switch result {
                 

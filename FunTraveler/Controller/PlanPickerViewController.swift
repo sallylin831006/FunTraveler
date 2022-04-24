@@ -31,6 +31,7 @@ class PlanPickerViewController: UIViewController {
     var schedule: [Schedule] = [] {
         didSet {
             showLoadingView()
+            self.schedule[0].startTime = selectedDepartmentTimes
             rearrangeTime()
             tableView.reloadData()
             scheduleClosure?(schedule)
@@ -41,13 +42,14 @@ class PlanPickerViewController: UIViewController {
     var currentDay = 1
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     private var headerView: PlanCardHeaderView!
-    private var selectedDepartmentTimes: String = "09:00" {
-        didSet {
-            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-            self.schedule[0].startTime = selectedDepartmentTimes
-            
-        }
-    }
+    private var selectedDepartmentTimes: String = "09:00"
+//    {
+//        didSet {
+//            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+//            self.schedule[0].startTime = selectedDepartmentTimes
+//
+//        }
+//    }
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var tableView: UITableView! {
@@ -99,7 +101,7 @@ class PlanPickerViewController: UIViewController {
                 guard let schedules = tripSchedule.data.schedules else { return }
                 
                 let schedule = schedules.first ?? []
-                
+                self?.selectedDepartmentTimes = schedule.first?.startTime ?? "9:00"
                 self?.schedule = schedule
                 //                print("[PlanPicker] GET schedule Detail:", tripSchedule)
                 
@@ -316,7 +318,8 @@ extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate
 
 extension PlanPickerViewController: TimePickerViewDelegate {
     func donePickerViewAction() {
-        
+        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+        self.schedule[0].startTime = selectedDepartmentTimes
     }
     
 }
