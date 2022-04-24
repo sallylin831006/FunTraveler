@@ -1,4 +1,10 @@
 PODS:
+  - GoogleMaps (6.1.1):
+    - GoogleMaps/Maps (= 6.1.1)
+  - GoogleMaps/Base (6.1.1)
+  - GoogleMaps/Maps (6.1.1):
+    - GoogleMaps/Base
+  - GooglePlaces (6.1.1)
   - IQKeyboardManagerSwift (6.5.9)
   - Kingfisher (7.2.1)
   - lottie-ios (3.3.0)
@@ -10,6 +16,8 @@ PODS:
   - TweetNacl (1.0.2)
 
 DEPENDENCIES:
+  - GoogleMaps
+  - GooglePlaces
   - IQKeyboardManagerSwift
   - Kingfisher
   - lottie-ios
@@ -18,6 +26,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - GoogleMaps
+    - GooglePlaces
     - IQKeyboardManagerSwift
     - Kingfisher
     - lottie-ios
@@ -27,6 +37,8 @@ SPEC REPOS:
     - TweetNacl
 
 SPEC CHECKSUMS:
+  GoogleMaps: 94e6e0851beece6678af9f508f4918b7a7c61722
+  GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
@@ -35,6 +47,6 @@ SPEC CHECKSUMS:
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   TweetNacl: 3abf4d1d2082b0114e7a67410e300892448951e6
 
-PODFILE CHECKSUM: 9167e6476a8444237c7bcda8a7ece2de453510e4
+PODFILE CHECKSUM: eb0fd2c8474f21c51b34b980ce8d5d58b675110b
 
 COCOAPODS: 1.11.2
