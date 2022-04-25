@@ -11,13 +11,17 @@ enum ExploreRequest: STRequest {
     
     case getExplore
     
+    case searchTrips(word: String)
+    
     var headers: [String: String] {
         
         switch self {
             
-        case .getExplore:
+        case .getExplore, .searchTrips:
             
-            return [:]
+            return [
+                STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
+            ]
             
         }
     }
@@ -28,6 +32,14 @@ enum ExploreRequest: STRequest {
             
         case .getExplore: return nil
             
+        case .searchTrips(let word):
+            
+            let body = [
+                "word": word
+            ]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            
         }
         
     }
@@ -37,6 +49,7 @@ enum ExploreRequest: STRequest {
         switch self {
             
         case .getExplore : return STHTTPMethod.GET.rawValue
+        case .searchTrips : return STHTTPMethod.POST.rawValue
             
         }
     }
@@ -47,6 +60,8 @@ enum ExploreRequest: STRequest {
             
         case .getExplore:
             return "/api/v1/home"
+        case .searchTrips:
+            return "/api/v1/search"
             
         }
         
