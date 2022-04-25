@@ -22,14 +22,27 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard KeyChainManager.shared.token != nil else {
+            return onShowLogin()
+        }
 //        tableView.separatorStyle = .none
 //        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
 //        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         movingToCollectedPage()
     }
+    
+    func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        onShowLogin()
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     

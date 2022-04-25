@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 
-typealias RegisterHanlder = (Result<String>) -> Void
+// typealias RegisterHanlder = (Result<String>) -> Void
+typealias RegisterErrorHanlder = (Result<RegisterError>) -> Void
+
 typealias LoginHanlder = (Result<Token>) -> Void
 
-enum FunTravelerSignInError: Error {
+typealias ErrorHanlder = (Result<ClientError>) -> Void
 
+enum FunTravelerSignInError: Error {
+    
     case noToken
 }
 
@@ -23,24 +27,34 @@ class UserProvider {
     // MARK: - POST TO Register
     func postToRegister(email: String,
                         password: String,
-                        name: String, completion: @escaping RegisterHanlder) {
+                        name: String, completion: @escaping ErrorHanlder) {
         
         HTTPClient.shared.request(UserRequest.register(
             email: email, password: password, name: name), completion: { result in
                 
                 switch result {
                     
-                case .success:
-                    
-                    DispatchQueue.main.async {
-                        
-                        completion(Result.success(name))
-                    }
-                    
+                case .success: break
+        
                 case .failure(let error):
+//                    do {
+//                        let errorResponse = try JSONDecoder().decode(
+//                            RegisterError.self,
+//                            from: data
+//                        )
+//
+//                        DispatchQueue.main.async {
+//
+//                            completion(Result.success(errorResponse))
+//                        }
+//
+//                    } catch {
+//                        print(error)
+//                        completion(Result.failure(error))
+//                    }
+                    
                     print(error)
                     completion(Result.failure(error))
-                    
                 }
             })
     }
@@ -73,7 +87,7 @@ class UserProvider {
                         print(error)
                         completion(Result.failure(error))
                     }
-
+                    
                 case .failure(let error):
                     print(error)
                     completion(Result.failure(error))
