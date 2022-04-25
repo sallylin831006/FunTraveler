@@ -14,3 +14,11 @@ struct Token: Codable {
         case token = "access_token"
     }
 }
+
+struct RegisterError: Codable {
+    var errorMessage: String
+    
+    enum CodingKeys: String, CodingKey {
+        case errorMessage = "error_message"
+    }
+}
