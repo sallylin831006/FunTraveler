@@ -6,6 +6,7 @@ PODS:
     - GoogleMaps/Base
   - GooglePlaces (6.1.1)
   - IQKeyboardManagerSwift (6.5.9)
+  - KeychainAccess (4.2.2)
   - Kingfisher (7.2.1)
   - lottie-ios (3.3.0)
   - NWWebSocket (0.5.2)
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
+  - KeychainAccess
   - Kingfisher
   - lottie-ios
   - PusherSwift
@@ -29,6 +31,7 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - IQKeyboardManagerSwift
+    - KeychainAccess
     - Kingfisher
     - lottie-ios
     - NWWebSocket
@@ -40,6 +43,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 94e6e0851beece6678af9f508f4918b7a7c61722
   GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
   NWWebSocket: 21f0c73639815da3272862c912275b26102aa80c
@@ -47,6 +51,6 @@ SPEC CHECKSUMS:
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   TweetNacl: 3abf4d1d2082b0114e7a67410e300892448951e6
 
-PODFILE CHECKSUM: 0701b34f157ddc4b75d36435f1cf1bcb8fd66592
+PODFILE CHECKSUM: 5291ea91c42ac3514da1f0f2727ead5b1171a2ec
 
 COCOAPODS: 1.11.2

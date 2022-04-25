@@ -13,5 +13,7 @@ target 'FunTraveler' do
     pod 'Kingfisher'
     pod 'lottie-ios'
     pod 'PusherSwift'
+    pod 'KeychainAccess'
+
 
 end
