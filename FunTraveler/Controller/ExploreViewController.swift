@@ -46,7 +46,7 @@ class ExploreViewController: UIViewController {
     // MARK: - GET Action
     private func fetchData() {
         let exploreProvider = ExploreProvider()
-        showLoadingView()
+//        showLoadingView()
         exploreProvider.fetchExplore(completion: { [weak self] result in
             
             switch result {

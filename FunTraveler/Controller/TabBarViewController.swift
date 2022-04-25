@@ -77,7 +77,7 @@ private enum Tab {
         case .camera:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.cameraSelected),
+                image: UIImage.asset(.cameraNormal),
                 selectedImage: UIImage.asset(.cameraSelected)
             )
         }

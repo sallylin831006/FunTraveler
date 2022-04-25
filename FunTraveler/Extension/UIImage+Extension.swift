@@ -32,7 +32,8 @@ enum ImageAsset: String {
     case profileNormal
     
     case cameraSelected
-    
+    case cameraNormal
+
     // Camera
     case topLayer
     case bottomLayer

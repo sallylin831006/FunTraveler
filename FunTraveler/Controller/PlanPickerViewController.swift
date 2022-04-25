@@ -31,7 +31,9 @@ class PlanPickerViewController: UIViewController {
     var schedule: [Schedule] = [] {
         didSet {
             showLoadingView()
-            self.schedule[0].startTime = selectedDepartmentTimes
+            if !self.schedule.isEmpty {
+                self.schedule[0].startTime = selectedDepartmentTimes
+            }
             rearrangeTime()
             tableView.reloadData()
             scheduleClosure?(schedule)
@@ -319,7 +321,9 @@ extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate
 extension PlanPickerViewController: TimePickerViewDelegate {
     func donePickerViewAction() {
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-        self.schedule[0].startTime = selectedDepartmentTimes
+        if !self.schedule.isEmpty {
+            self.schedule[0].startTime = selectedDepartmentTimes
+        }
     }
     
 }
