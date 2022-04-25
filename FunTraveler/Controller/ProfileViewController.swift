@@ -20,12 +20,14 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    @IBAction func logoutButton(_ sender: Any) {
+        print("按了登出按鈕！")
+        UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard KeyChainManager.shared.token != nil else {
-            return onShowLogin()
-        }
+        
 //        tableView.separatorStyle = .none
 //        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
@@ -42,7 +44,9 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        onShowLogin()
+        guard KeyChainManager.shared.token != nil else {
+            return onShowLogin()
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     

@@ -25,12 +25,22 @@
                                     <constraint firstAttribute="height" constant="200" id="0af-wD-CT4"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-t5-CDi">
+                                <rect key="frame" x="16" y="98" width="53" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="登出"/>
+                                <connections>
+                                    <action selector="logoutButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eLC-L1-DNE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="themeApricotDeep"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="anY-cS-b6L" secondAttribute="trailing" constant="20" id="KPL-oL-kAg"/>
                             <constraint firstItem="anY-cS-b6L" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="ehx-Yr-3PA"/>
+                            <constraint firstItem="w4y-t5-CDi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="lD3-86-her"/>
+                            <constraint firstItem="w4y-t5-CDi" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="topMargin" constant="10" id="v4O-oO-jg4"/>
                             <constraint firstItem="anY-cS-b6L" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="60" id="wXG-HH-PoN"/>
                         </constraints>
                     </view>
