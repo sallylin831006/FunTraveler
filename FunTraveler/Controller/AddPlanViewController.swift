@@ -13,6 +13,12 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     var tripIdClosure: ((_ tripId: Int) -> Void)?
     
     var tripId: Int?
+    
+    var copyTripId: Int?
+    
+    var isCopiedTrip: Bool = false
+    
+    var copyTextField: String?
 
     private var startDate: String?
     
@@ -92,18 +98,23 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapSaveButton() {
-        postData()
-        guard let planDetailViewController = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-        textFieldClosure = { titleText in
-            planDetailViewController.tripTitle = titleText
+        if isCopiedTrip {
+            postCopyTrip()
+            dismiss(animated: true, completion: nil)
+            print("成功複製行程！")
+        } else {
+            postData()
+            guard let planDetailViewController = storyboard?.instantiateViewController(
+                withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+            textFieldClosure = { titleText in
+                planDetailViewController.tripTitle = titleText
+            }
+            
+            tripIdClosure = { tripId in
+                planDetailViewController.tripId = tripId
+            }
+            navigationController?.pushViewController(planDetailViewController, animated: true)
         }
-        
-        tripIdClosure = { tripId in
-            planDetailViewController.tripId = tripId
-        }
-        navigationController?.pushViewController(planDetailViewController, animated: true)
-        
     }
     
     // MARK: - POST API TO ADD NEW TRIP
@@ -131,6 +142,8 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
     
+    
+    
     @objc func tapCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
@@ -151,6 +164,11 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 as? AddPlanTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
+        if copyTextField == nil {
+            cell.textField.text = ""
+        } else {
+            cell.textField.text = "複製 - \(copyTextField!)"
+        }
         
         cell.titleDelegate = self
         
@@ -178,4 +196,31 @@ extension AddPlanViewController: AddPlanTableViewCellDelegate {
 //        textFieldClosure(text) //closeure尚未生成，因此被RETURN
     }
     
+}
+
+extension AddPlanViewController {
+    // MARK: - POST API TO COPY TRIP
+        private func postCopyTrip() {
+            let tripProvider = TripProvider()
+            let titleText = titleText ?? "複製 - "
+            let startDate = startDate ?? "2022-04-27"
+            let endDate = endDate ?? "2022-04-30"
+            guard let tripId = copyTripId else { return }
+            
+            tripProvider.copyTrip(title: titleText,
+                                  startDate: startDate,
+                                  endDate: endDate,
+                                  tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success(let tripIdResponse):
+                print("copy tripIdResponse", tripIdResponse)
+                    
+                case .failure:
+                    print("POST COPY TRIP 失敗！")
+                }
+            })
+            
+        }
 }

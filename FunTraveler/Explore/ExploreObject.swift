@@ -17,6 +17,12 @@ struct Explore: Codable {
     var days: Int
     var user: User
     var editors: [User]
+    var isCollected: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case id, title, days, user, editors
+        case isCollected = "is_collected"
+    }
 }
 
 struct User: Codable {

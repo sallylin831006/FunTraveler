@@ -25,7 +25,7 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     }
 
     private func setupFooterView() {
-        contentView.backgroundColor = UIColor.white
+        contentView.backgroundColor = UIColor.clear
 
     }
     

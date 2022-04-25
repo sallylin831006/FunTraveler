@@ -34,6 +34,12 @@ class PlanOverViewViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
     }
     
@@ -70,7 +76,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             withIdentifier: HeaderView.identifier)
                 as? HeaderView else { return nil }
         
-        headerView.titleLabel.text = "行程總覽"
+        headerView.titleLabel.text = "行程編輯"
         
         return headerView
     }
@@ -113,7 +119,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
         cell.selectionStyle = .none
-        let days = tripData[indexPath.row].days ?? 0
+        let days = tripData[indexPath.row].days 
         cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
         cell.tripTitle.text = tripData[indexPath.row].title
         

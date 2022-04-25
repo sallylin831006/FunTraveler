@@ -10,8 +10,9 @@ import CoreLocation
 
 class SearchViewController: UIViewController {
     var scheduleArray: [Schedule] = []
+    var day: Int = 1
     
-    private var newTrafficTime: Double = 1.0
+//    private var newTrafficTime: Double = 1.0
     
     var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
@@ -36,13 +37,19 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.layer.borderWidth = 2
+        searchBar.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        searchBar.barTintColor = .themeApricotDeep
+        searchBar.searchTextField.backgroundColor = .white
         
         tableView.registerCellWithNib(identifier: String(describing: SearchTableViewCell.self), bundle: nil)
-        
+        tableView.backgroundColor = .themeApricotDeep
+        tableView.separatorColor = .themeApricotDeep
         searchBar.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         scheduleClosure?(scheduleArray)
     }
     
@@ -59,12 +66,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: SearchTableViewCell.self), for: indexPath)
                 as? SearchTableViewCell else { return UITableViewCell() }
-//        // MOCK DATA
-//        cell.nameLabel?.text = "searchData[indexPath.row].name"
-//        cell.ratingLabel?.text = "1.0"
-//        cell.addressLabel?.text = "searchData[indexPath.row].vicinity"
-//        cell.searchData = searchData
-        
         cell.nameLabel?.text = searchData[indexPath.row].name
         cell.ratingLabel?.text = "★★★★☆\(searchData[indexPath.row].rating ?? 0.0)"
         cell.addressLabel?.text = searchData[indexPath.row].vicinity
@@ -72,61 +73,73 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.actionBtn.addTarget(target, action: #selector(tapActionButton), for: .touchUpInside)
         
-//         USER TAP ADD TO SCHEDULE IMPORTANT!
-        cell.searchDataClosure = { searchData in
-            print("成功加入行程！searchData:\(self.searchData[indexPath.row])", "indexPath:\(indexPath)")
-
+        cell.searchDataClosure = {
+            
         }
-        
+
         return cell
         
     }
 
     @objc func tapActionButton(_ sender: UIButton) {
+        showSuccessView()
         let point = sender.convert(CGPoint.zero, to: tableView)
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
 
         let schedule = Schedule(
             name: searchData[indexPath.row].name,
-            day: 1,
+            day: day,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
-            trafficTime: newTrafficTime,
+            trafficTime: 0,
             type: "attraction",
             position: Position(
                 lat: Double(searchData[indexPath.row].geometry.location.lat),
                 long: Double(searchData[indexPath.row].geometry.location.lng)
             )
         )
-        
-        if indexPath.row == 0 {
-            newTrafficTime = 0.5
+        if scheduleArray.isEmpty {
+            scheduleArray.append(schedule)
             return
+            
+        }
+        let newTrafficTime = calculateTrafficTime(index: indexPath.row)
+        scheduleArray[scheduleArray.endIndex-1].trafficTime = newTrafficTime
+        scheduleArray.append(schedule)
+        print("成功加入行程！！")
+        
+    }
+    
+    func calculateTrafficTime(index: Int) -> Double {
+
+        if index == 0 {
+            return 0
+        }
+        let lastIndex = searchData.count - 1
+        if index == lastIndex {
+            return 0
         }
         // calculate time
         let coordinate₀ = CLLocation(
-            latitude: Double(searchData[indexPath.row-1].geometry.location.lat),
-            longitude: Double(searchData[indexPath.row-1].geometry.location.lat)
+            latitude: Double(searchData[index-1].geometry.location.lat),
+            longitude: Double(searchData[index-1].geometry.location.lat)
         )
         let coordinate₁ = CLLocation(
-            latitude: Double(searchData[indexPath.row].geometry.location.lat),
-            longitude: Double(searchData[indexPath.row].geometry.location.lat)
+            latitude: Double(searchData[index].geometry.location.lat),
+            longitude: Double(searchData[index].geometry.location.lat)
         )
 
         let distance = coordinate₀.distance(from: coordinate₁)/1000
+        let carSpeed: Double = 60
         
-        newTrafficTime = Double(distance.rounding(toDecimal: 2)/60)
-        // 距離約ＸＸ公里，開車約 X分鐘
-        
-        print("成功加入行程！")
-        scheduleArray.append(schedule)
+       return Double(distance.rounding(toDecimal: 2)/carSpeed)
     }
-            
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let searchDetailVC = SearchDetailViewController()
-        self.navigationController?.pushViewController(searchDetailVC, animated: true)
-        searchDetailVC.searchResoponse = searchData[indexPath.row]
+//        let searchDetailVC = SearchDetailViewController()
+//        self.navigationController?.pushViewController(searchDetailVC, animated: true)
+//        searchDetailVC.searchResoponse = searchData[indexPath.row]
     }
     
 }
@@ -143,9 +156,9 @@ extension SearchViewController: UISearchBarDelegate {
     // MARK: - Action
     private func fetchSearchData(searchText: String) {
         let searchProvider = SearchProvider()
-        
+        if searchText == "" { return }
         searchProvider.fetchSearch(keyword: "\(searchText)",
-        position: "25.0338,121.5646", radius: 1000, completion: { result in
+        position: "25.0338,121.5646", radius: 100000, completion: { result in
             
             switch result {
                 
@@ -159,4 +172,16 @@ extension SearchViewController: UISearchBarDelegate {
         })
     }
     
+}
+
+extension SearchViewController {
+    private func showSuccessView() {
+        let successView = SuccessView()
+        self.view.addSubview(successView)
+        
+        successView.translatesAutoresizingMaskIntoConstraints = false
+        successView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        successView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        successView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    }
 }

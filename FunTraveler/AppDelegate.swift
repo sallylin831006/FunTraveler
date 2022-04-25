@@ -7,17 +7,26 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import PusherSwift
 import GoogleMaps
 import GooglePlaces
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
+    
+    // swiftlint:disable force_cast
+    static let shared = UIApplication.shared.delegate as! AppDelegate
+    // swiftlint:enable force_cast
+    var window: UIWindow?
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = TabBarViewController()
+        window?.makeKeyAndVisible()
         IQKeyboardManager.shared.enable = true
-        GMSPlacesClient.provideAPIKey(MapConstants.mapKey)
-        GMSServices.provideAPIKey(MapConstants.mapKey)
+        GMSPlacesClient.provideAPIKey(KeyConstants.mapKey)
+        GMSServices.provideAPIKey(KeyConstants.mapKey)
         return true
     }
 

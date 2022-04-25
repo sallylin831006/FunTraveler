@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IOX-XL-iSw">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Camera View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="Camera" id="Y6W-OH-hqX" customClass="CameraViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-wB-QSa">
+                                <rect key="frame" x="0.0" y="476" width="414" height="86"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="" image="cameraSelected"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="oYs-DR-nid"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" name="themeApricotDeep"/>
+                        <constraints>
+                            <constraint firstItem="KOv-wB-QSa" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1ZM-Ze-VIT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KOv-wB-QSa" secondAttribute="trailing" id="rUF-om-pSJ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="KOv-wB-QSa" secondAttribute="bottom" constant="300" id="wRX-oJ-v16"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="oAI-Y0-0bU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="892.75362318840587" y="116.51785714285714"/>
+        </scene>
+        <!--Player View Controller-->
+        <scene sceneID="vOn-xl-18Q">
+            <objects>
+                <viewController storyboardIdentifier="PlayerViewController" id="kzK-jZ-sQc" customClass="PlayerViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eae-4v-Xch">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDR-mN-p1h">
+                                <rect key="frame" x="0.0" y="44" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GcT-HN-sLd">
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
+                                <color key="backgroundColor" name="themeRed"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="76U-az-eNI"/>
+                                </constraints>
+                                <color key="tintColor" name="themeApricotDeep"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="儲存相片"/>
+                                <connections>
+                                    <action selector="saveVideo:" destination="kzK-jZ-sQc" eventType="touchUpInside" id="u8g-YW-2fF"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mnY-Gi-Qix"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mnY-Gi-Qix" firstAttribute="bottom" secondItem="GcT-HN-sLd" secondAttribute="bottom" id="483-Tq-mZH"/>
+                            <constraint firstItem="kDR-mN-p1h" firstAttribute="leading" secondItem="mnY-Gi-Qix" secondAttribute="leading" id="NPU-ba-DUb"/>
+                            <constraint firstItem="GcT-HN-sLd" firstAttribute="leading" secondItem="mnY-Gi-Qix" secondAttribute="leading" id="OUY-7E-G9s"/>
+                            <constraint firstItem="kDR-mN-p1h" firstAttribute="top" secondItem="mnY-Gi-Qix" secondAttribute="top" id="ZK2-TT-Pgr"/>
+                            <constraint firstItem="GcT-HN-sLd" firstAttribute="top" secondItem="kDR-mN-p1h" secondAttribute="bottom" id="jMk-5L-u74"/>
+                            <constraint firstItem="mnY-Gi-Qix" firstAttribute="trailing" secondItem="GcT-HN-sLd" secondAttribute="trailing" id="kA1-w2-e1S"/>
+                            <constraint firstItem="mnY-Gi-Qix" firstAttribute="trailing" secondItem="kDR-mN-p1h" secondAttribute="trailing" id="xp5-NQ-h3U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="videoView" destination="kDR-mN-p1h" id="Cqu-Fw-pOX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z37-jF-xdJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1776" y="113"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7r3-V6-fY8">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IOX-XL-iSw" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G3S-Lk-ouo">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="fmi-Am-dyA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xIJ-WY-SrN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-17.39130434782609" y="116.51785714285714"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="cameraSelected" width="86.300003051757812" height="86.300003051757812"/>
+        <namedColor name="themeApricotDeep">
+            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeRed">
+            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

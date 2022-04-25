@@ -9,13 +9,16 @@ import UIKit
 import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
-    
+        
     var tripIdClosure: ((_ tripId: Int) -> Void)? {
         didSet {
             tripIdClosure?(tripId ?? 0)
-            print("當tripIdClosure有變化時再call一次")
         }
     }
+    
+//    var tripId: Int?
+    
+    var trip: Trip?
 
     var tripId: Int? {
         didSet {
@@ -34,6 +37,11 @@ class PlanDetailViewController: UIViewController {
         addMap()
         showPlanPicker()
         addCustomBackButton()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         
     }
     
@@ -75,6 +83,7 @@ class PlanDetailViewController: UIViewController {
     
     // MARK: - Action
     private func postData() {
+        
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
         
@@ -85,11 +94,11 @@ class PlanDetailViewController: UIViewController {
             
             switch result {
                 
-            case .success:
-                print("POST TRIP DETAIL API成功！")
+            case .success: break
+                
                 
             case .failure:
-                print("POST TRIP DETAIL API讀取資料失敗！")
+                print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
         })
     }
@@ -101,6 +110,10 @@ class PlanDetailViewController: UIViewController {
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
             self?.addMarker()
+        }
+        
+        planPickerViewController.tripClosure = { [weak self] trip in
+            self?.trip = trip
         }
         
         tripIdClosure  = { tripId in
@@ -118,11 +131,11 @@ class PlanDetailViewController: UIViewController {
         
         // ADD SHARE BUTTON
         let shareButton = UIButton()
-        shareButton.backgroundColor = .lightGray
+        shareButton.setTitleColor(.themeRed, for: .normal)
         shareButton.setTitle("分享", for: .normal)
         bottomView.addSubview(shareButton)
         shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
-
+        
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.leadingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -70).isActive = true
         shareButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: 0).isActive = true
@@ -131,24 +144,36 @@ class PlanDetailViewController: UIViewController {
         
     }
     @objc func tapToShare() {
-        guard let shareVC = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
+        
+        if schedules.isEmpty {
+            //  提醒請加入行程
+            return
+        }
+        
         postData()
         
-//        shareVC.schedules = schedules
-        shareVC.tripId = tripId
+        guard let shareVC = self.storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
+        self.tripIdClosure  = { tripId in
+            shareVC.tripId = tripId
+            shareVC.trip = self.trip
+        }
         let navShareVC = UINavigationController(rootViewController: shareVC)
-        //        navShareVC.modalPresentationStyle = .fullScreen
         self.present(navShareVC, animated: true)
+        
+    }
+    
+    func moveToSharePage() {
+        
     }
     
     let label = UILabel()
     let mapView = GMSMapView()
-
+    
     func addMap() {
         mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(mapView)
-
+        
         let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
         mapView.camera = camera
         
@@ -174,7 +199,7 @@ class PlanDetailViewController: UIViewController {
             let orderLabel = UILabel()
             orderLabel.text = String(index + 1)
             orderLabel.font = orderLabel.font.withSize(30)
-
+            
             orderLabel.textColor = UIColor.themeRed
             marker.iconView?.addSubview(orderLabel)
             
