@@ -10,7 +10,6 @@ import IQKeyboardManagerSwift
 
 class AuthViewController: UIViewController {
 
-
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
