@@ -171,10 +171,8 @@ class TripProvider {
                
                 switch result {
                     
-                case .success :
-                    
-                    print("updateTrip SUCCESS!")
-                    
+                case .success : break
+                                    
                 case .failure(let error):
                     print(error)
                     completion(Result.failure(error))

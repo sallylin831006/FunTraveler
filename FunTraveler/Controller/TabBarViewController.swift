@@ -14,7 +14,7 @@ private enum Tab {
     
     case profile
     
-    case find
+    case video
     
     case camera
 
@@ -30,7 +30,7 @@ private enum Tab {
 
         case .profile: controller = UIStoryboard.profile.instantiateInitialViewController()!
 
-        case .find: controller = UIStoryboard.find.instantiateInitialViewController()!
+        case .video: controller = UIStoryboard.video.instantiateInitialViewController()!
             
         case .camera: controller = UIStoryboard.camera.instantiateInitialViewController()!
         }
@@ -67,7 +67,7 @@ private enum Tab {
                 selectedImage: UIImage.asset(.profileSelected)
             )
             
-        case .find:
+        case .video:
             return UITabBarItem(
                 title: nil,
                 image: UIImage.asset(.collectNormal),
@@ -77,7 +77,7 @@ private enum Tab {
         case .camera:
             return UITabBarItem(
                 title: nil,
-                image: UIImage.asset(.collectNormal),
+                image: UIImage.asset(.cameraNormal),
                 selectedImage: UIImage.asset(.cameraSelected)
             )
         }
@@ -86,7 +86,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private let tabs: [Tab] = [.explore, .find, .planOverView, .profile ]
+    private let tabs: [Tab] = [.explore, .video, .camera, .planOverView, .profile ]
     
     var trolleyTabBarItem: UITabBarItem!
     
@@ -102,6 +102,16 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         trolleyTabBarItem.badgeColor = .brown
 
         delegate = self
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tabBar.frame.size.height = 120
+        tabBar.frame.origin.y = view.frame.height - 100
+        
+        tabBar.layer.borderWidth = 0
+        tabBar.clipsToBounds = true
+        tabBar.backgroundColor = .themeApricotDeep
     }
 
     // MARK: - UITabBarControllerDelegate

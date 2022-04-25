@@ -37,13 +37,19 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.layer.borderWidth = 2
+        searchBar.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        searchBar.barTintColor = .themeApricotDeep
+        searchBar.searchTextField.backgroundColor = .white
         
         tableView.registerCellWithNib(identifier: String(describing: SearchTableViewCell.self), bundle: nil)
-        
+        tableView.backgroundColor = .themeApricotDeep
+        tableView.separatorColor = .themeApricotDeep
         searchBar.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         scheduleClosure?(scheduleArray)
     }
     
@@ -76,6 +82,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     @objc func tapActionButton(_ sender: UIButton) {
+        showSuccessView()
         let point = sender.convert(CGPoint.zero, to: tableView)
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
 
@@ -151,7 +158,7 @@ extension SearchViewController: UISearchBarDelegate {
         let searchProvider = SearchProvider()
         if searchText == "" { return }
         searchProvider.fetchSearch(keyword: "\(searchText)",
-        position: "25.0338,121.5646", radius: 1000, completion: { result in
+        position: "25.0338,121.5646", radius: 100000, completion: { result in
             
             switch result {
                 
@@ -165,4 +172,16 @@ extension SearchViewController: UISearchBarDelegate {
         })
     }
     
+}
+
+extension SearchViewController {
+    private func showSuccessView() {
+        let successView = SuccessView()
+        self.view.addSubview(successView)
+        
+        successView.translatesAutoresizingMaskIntoConstraints = false
+        successView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        successView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        successView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+    }
 }

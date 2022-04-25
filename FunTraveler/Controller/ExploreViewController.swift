@@ -36,14 +36,17 @@ class ExploreViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        
     }
     
     // MARK: - GET Action
     private func fetchData() {
         let exploreProvider = ExploreProvider()
-        
+//        showLoadingView()
         exploreProvider.fetchExplore(completion: { [weak self] result in
             
             switch result {
@@ -56,6 +59,11 @@ class ExploreViewController: UIViewController {
                 print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
+    }
+    
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.layoutLoadingView(loadingView, view)
     }
     
 }
@@ -94,8 +102,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
         
         cell.collectClosure = { isCollected in
-            self.postData(isCollected: !item.isCollected, tripId: self.exploreData[indexPath.row].id)
-            self.fetchData()
+            self.postData(isCollected: isCollected, tripId: self.exploreData[indexPath.row].id)
+            self.exploreData[indexPath.row].isCollected = isCollected
             let indexPath = IndexPath(item: indexPath.row, section: 0)
             tableView.reloadRows(at: [indexPath], with: .none)
         }
@@ -153,7 +161,7 @@ extension ExploreViewController {
                 switch result {
                     
                 case .success(let postResponse):
-                    print("收藏成功！", postResponse)
+                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
                     print("[Explore] collected postResponse失敗！")

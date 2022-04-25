@@ -64,9 +64,7 @@ class ExploreDetailViewController: UIViewController {
                 self?.trip = tripSchedule.data
 
                 self?.schedule = schedules.first ?? []
-   
-                print("[Explore Detail] GET schedule Detail:", tripSchedule)
-                
+                   
             case .failure:
                 print("[Explore Detail] GET schedule Detai 讀取資料失敗！")
             }
@@ -112,10 +110,11 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         
         footerView.copyClosure = { [weak self] in
             print("一鍵複製行程！")
-            self?.postCopyTrip()
+//            self?.postCopyTrip()
             guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
                 withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
             addPlanVC.isCopiedTrip = true
+            addPlanVC.copyTripId = self?.trip?.id
             addPlanVC.copyTextField = self?.trip?.title
             let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
             //  navAddPlanVC.modalPresentationStyle = .fullScreen
@@ -145,13 +144,20 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         cell.durationLabel.text = "停留時間：\(schedule[indexPath.row].duration)"
         
         if schedule[indexPath.row].images.isEmpty {
+            cell.tripImage.image = nil
             cell.tripImage.backgroundColor = UIColor.themeApricotDeep
         } else {
             cell.tripImage.loadImage(schedule[indexPath.row].images.first)
             cell.tripImage.contentMode = .scaleAspectFill
         }
         
-        cell.storiesTextLabel.text = schedule[indexPath.row].description
+        if schedule[indexPath.row].description.isEmpty {
+            cell.storiesTextLabel.text = nil
+        } else {
+            cell.storiesTextLabel.text = schedule[indexPath.row].description
+        }
+        
+        
         
         return cell
         
@@ -177,30 +183,3 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
     }
 }
 
-
-extension ExploreDetailViewController {
-    // MARK: - POST API TO COPY TRIP
-        private func postCopyTrip() {
-            let tripProvider = TripProvider()
-            guard let titleText = trip?.title,
-                  let startDate = trip?.startDate,
-                  let endDate = trip?.endDate,
-                  let tripId = tripId else { return }
-            
-            tripProvider.copyTrip(title: titleText,
-                                  startDate: startDate,
-                                  endDate: endDate,
-                                  tripId: tripId, completion: { result in
-                
-                switch result {
-                    
-                case .success(let tripIdResponse):
-                print("copy tripIdResponse", tripIdResponse)
-                    
-                case .failure:
-                    print("POST COPY TRIP 失敗！")
-                }
-            })
-            
-        }
-}

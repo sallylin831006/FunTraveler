@@ -45,21 +45,12 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         
         heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
         
+        collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
+        collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        
         self.isCollected = isCollected
-        
-        if isCollected {
-            collectButton.setImage(UIImage.asset(.collectSelected), for: .normal)
-        } else {
-            collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
-        }
-        
-//        if isCollectedTapped && isCollected {
-//            collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
-//        }
-//        if isCollectedTapped && !isCollected {
-//            collectButton.setImage(UIImage.asset(.collectNormal), for: .selected)
-//        }
-     
+        collectButton.isSelected = isCollected
+
         followButton.setTitle("追蹤", for: .normal)
         followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
         followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
@@ -74,7 +65,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
     }
     var isHeartTapped: Bool = false
-    var isCollectedTapped: Bool = false
     var isfollowed: Bool = false
     
     @objc func tapHeartButton(_ sender: UIButton) {
@@ -84,9 +74,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
-        sender.isSelected = !isCollectedTapped
-        isCollectedTapped = !isCollectedTapped
-        collectClosure?(isCollected)
+        sender.isSelected = !isCollected
+        collectClosure?(!isCollected)
     }
     
     @objc func tapFollowButton(_ sender: UIButton) {

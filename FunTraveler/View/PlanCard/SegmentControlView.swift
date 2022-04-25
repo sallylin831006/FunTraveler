@@ -53,7 +53,7 @@ class SegmentControlView: UIView {
             let dayButton = UIButton()
             
             let width = UIScreen.main.bounds.width/CGFloat(numberOfButton) * 5/6
-            dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: 40)
+            dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: 20)
             
             dayButton.backgroundColor = .clear
             dayButton.setTitle("Day \(num + 1)", for: .normal)
@@ -83,7 +83,7 @@ class SegmentControlView: UIView {
             self.addSubview(dayButton)
             
             // SET INDICATOR
-            indicatorView.frame = CGRect(x: 0, y: 45, width: width, height: 6)
+            indicatorView.frame = CGRect(x: 0, y: 25, width: width, height: 5)
 
             let colorOfindicator = UIColor.themeRed
             
@@ -108,7 +108,7 @@ class SegmentControlView: UIView {
         delegate?.didSelectedButton?(self, at: index)
         
         UIView.transition(with: self, duration: 0.3, options: [.curveEaseOut], animations: {
-            self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 45, width: width * 5/6, height: 6)
+            self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 25, width: width * 5/6, height: 5)
 
         })
     }
