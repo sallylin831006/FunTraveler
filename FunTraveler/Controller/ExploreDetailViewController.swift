@@ -12,23 +12,17 @@ import UIKit
 class ExploreDetailViewController: UIViewController {
     
     var tripId: Int?
-    //    {
-    //        didSet {
-    //            tableView.reloadData()
-    //        }
-    //    }
-    //    var trip: Trip? {
-    //        didSet {
-    //            tableView.reloadData()
-    //        }
-    //    }
-    //
+    
+    var days: Int?
+
+    var trip: Trip?
+    
     var schedule: [Schedule] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -43,19 +37,23 @@ class ExploreDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
+        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
+
         tableView.registerCellWithNib(identifier: String(describing: ExploreDetailTableViewCell.self), bundle: nil)
-        fetchData()
+        
+        tableView.registerFooterWithNib(identifier: String(describing: ExploreDetailFooterView.self), bundle: nil)
+
+        fetchData(days: 1)
     }
     
     // MARK: - GET Action
-    private func fetchData() {
+    private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         
-        guard let tripId = tripId else { return  }
-        
-        tripProvider.fetchSchedule(tripId: tripId, days: 1, completion: { [weak self] result in
+        guard let tripId = tripId else { return }
+//        guard let days = days else { return }
+
+        tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
             switch result {
                 
@@ -63,12 +61,10 @@ class ExploreDetailViewController: UIViewController {
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
                 
-                self?.schedule = schedules[0]
+                self?.trip = tripSchedule.data
 
-//                guard let schedule = schedules.first else { return }
-//
-                print("[Explore Detail] GET schedule Detail:", tripSchedule)
-                
+                self?.schedule = schedules.first ?? []
+                   
             case .failure:
                 print("[Explore Detail] GET schedule Detai 讀取資料失敗！")
             }
@@ -81,18 +77,52 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 150.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
+            withIdentifier: ShareHeaderView.identifier)
+                as? ShareHeaderView else { return nil }
+        guard let tripTitle = trip?.title else { return nil }
+        headerView.titleLabel.text = tripTitle
+        headerView.selectionView.delegate = self
+        headerView.selectionView.dataSource = self
         
-        headerView.titleLabel.text = "看看別人的旅遊"
+        guard let tripStartDate = trip?.startDate else { return nil }
+        guard let tripEndtDate = trip?.endDate else { return nil }
+        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
         
         return headerView
+    }
+    
+    // MARK: - Section Footer
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        60.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: ExploreDetailFooterView.identifier)
+                as? ExploreDetailFooterView else { return nil }
+        
+        footerView.copyClosure = { [weak self] in
+            print("一鍵複製行程！")
+//            self?.postCopyTrip()
+            guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
+                withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
+            addPlanVC.isCopiedTrip = true
+            addPlanVC.copyTripId = self?.trip?.id
+            addPlanVC.copyTextField = self?.trip?.title
+            let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
+            //  navAddPlanVC.modalPresentationStyle = .fullScreen
+            self?.present(navAddPlanVC, animated: true)
+            
+        }
+        
+        return footerView
     }
     
     // MARK: - Section Row
@@ -111,19 +141,45 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         cell.orderLabel.text = String(indexPath.row + 1)
         cell.nameLabel.text = schedule[indexPath.row].name
         cell.addressLabel.text = schedule[indexPath.row].address
-        cell.durationLabel.text = String(schedule[indexPath.row].duration)
+        cell.durationLabel.text = "停留時間：\(schedule[indexPath.row].duration)"
         
         if schedule[indexPath.row].images.isEmpty {
+            cell.tripImage.image = nil
             cell.tripImage.backgroundColor = UIColor.themeApricotDeep
         } else {
             cell.tripImage.loadImage(schedule[indexPath.row].images.first)
             cell.tripImage.contentMode = .scaleAspectFill
         }
         
-        cell.storiesTextLabel.text = schedule[indexPath.row].description
+        if schedule[indexPath.row].description.isEmpty {
+            cell.storiesTextLabel.text = nil
+        } else {
+            cell.storiesTextLabel.text = schedule[indexPath.row].description
+        }
+        
+        
         
         return cell
         
     }
     
 }
+
+extension ExploreDetailViewController: SegmentControlViewDataSource {
+    
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+        trip?.days ?? 1
+    }
+    
+}
+
+@objc extension ExploreDetailViewController: SegmentControlViewDelegate {
+    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+         fetchData(days: index)
+    }
+    
+    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
+        return true
+    }
+}
+

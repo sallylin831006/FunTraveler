@@ -18,22 +18,18 @@ class SearchTableViewCell: UITableViewCell {
     
     @IBOutlet weak var actionBtn: UIButton!
     
-    var searchDataClosure: ((_ cell: SearchTableViewCell) -> Void)?
+    var searchDataClosure: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        contentView.backgroundColor = .themeApricotDeep
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        searchDataClosure?()
 
         // Configure the view for the selected state
-    }
-    
-    @IBAction func addToPlanButton(_ sender: UIButton) {
-        searchDataClosure?(self)
-
     }
     
 }

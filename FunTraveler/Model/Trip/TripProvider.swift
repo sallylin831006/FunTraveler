@@ -56,7 +56,7 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.addTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate),
-            completion: { [weak self] result in
+            completion: { result in
                
                 switch result {
                     
@@ -92,7 +92,7 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.getSchdule(token: "mockToken", tripId: tripId, days: days) ,
-            completion: { [weak self] result in
+            completion: { result in
 
                 switch result {
                     
@@ -124,19 +124,34 @@ class TripProvider {
     }
     
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
-    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ResponseHanlder) {
+    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ScheduleInfoHanlder) {
         
         HTTPClient.shared.request(
             TripRequest.postTrip(token: "mockToken",
                                  tripId: tripId,
                                  schedules: schedules,
-                                 day: day), completion: { [weak self] result in
+                                 day: day), completion: {  result in
                
                 switch result {
                     
-                case .success :
+                case .success(let data) :
                     
-                    print("postTrip SUCCESS!")
+                    do {
+
+                        let tripSchedule = try JSONDecoder().decode(
+                            ScheduleInfo.self,
+                            from: data
+                        )
+                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(tripSchedule))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
                     
                 case .failure(let error):
                     print(error)
@@ -152,13 +167,47 @@ class TripProvider {
         HTTPClient.shared.request(
             TripRequest.updateTrip(token: "mockToken",
                                    tripId: tripId,
-                                   schedules: schedules), completion: { [weak self] result in
+                                   schedules: schedules), completion: {  result in
                
                 switch result {
                     
-                case .success :
+                case .success : break
+                                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
                     
-                    print("updateTrip SUCCESS!")
+                }
+            })
+    }
+    
+    // MARK: - POST TO COPY TRIP
+    func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping ScheduleInfoHanlder) {
+        
+        HTTPClient.shared.request(
+            TripRequest.copyTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate, tripId: tripId),
+            completion: { result in
+               
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
+
+                        let copyTrip = try JSONDecoder().decode(
+                            ScheduleInfo.self,
+                            from: data
+                        )
+                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(copyTrip))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
                     
                 case .failure(let error):
                     print(error)
@@ -167,5 +216,4 @@ class TripProvider {
                 }
             })
     }
-
 }
