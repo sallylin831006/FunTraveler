@@ -191,11 +191,9 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         group.leave()
         
         group.notify(queue: .main) { [weak self] in
-//            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-            self?.dismiss(animated: true, completion: nil)
-            self?.presentingViewController?.presentingViewController?.navigationController?.popViewController(animated: true)
+            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             
-            if let tabBarController = self?.presentingViewController as? UITabBarController {
+            if let tabBarController = self?.presentingViewController?.presentingViewController as? UITabBarController {
                 tabBarController.selectedIndex = 0
                 tabBarController.tabBar.isHidden = false
             }

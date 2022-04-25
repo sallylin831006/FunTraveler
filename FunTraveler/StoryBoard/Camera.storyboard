@@ -18,21 +18,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-wB-QSa">
-                                <rect key="frame" x="0.0" y="731" width="414" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Camera"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-wB-QSa">
+                                <rect key="frame" x="0.0" y="476" width="414" height="86"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="" image="cameraSelected"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="oYs-DR-nid"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricotDeep"/>
                         <constraints>
                             <constraint firstItem="KOv-wB-QSa" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="1ZM-Ze-VIT"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KOv-wB-QSa" secondAttribute="trailing" id="rUF-om-pSJ"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="KOv-wB-QSa" secondAttribute="bottom" constant="100" id="wRX-oJ-v16"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="KOv-wB-QSa" secondAttribute="bottom" constant="300" id="wRX-oJ-v16"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oAI-Y0-0bU"/>
@@ -107,6 +109,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cameraSelected" width="86.300003051757812" height="86.300003051757812"/>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

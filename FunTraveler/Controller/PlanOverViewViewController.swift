@@ -76,7 +76,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             withIdentifier: HeaderView.identifier)
                 as? HeaderView else { return nil }
         
-        headerView.titleLabel.text = "行程總覽"
+        headerView.titleLabel.text = "行程編輯"
         
         return headerView
     }

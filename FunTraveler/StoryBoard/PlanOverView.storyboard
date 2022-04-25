@@ -150,7 +150,10 @@
                                 </constraints>
                             </tableView>
                             <searchBar contentMode="redraw" text="" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-on-G65">
-                                <rect key="frame" x="0.0" y="111" width="414" height="51"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="AEt-L2-S7I"/>
+                                </constraints>
                                 <color key="barTintColor" name="themeApricotDeep"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
