@@ -11,13 +11,23 @@ enum ReactionRequest: STRequest {
     
     case postComment(token: String, content: String, tripId: Int)
     
+    case deleteComment(token: String, content: String, tripId: Int)
+
     case getComment(tripId: Int)
     
+    case postLiked(token: String, tripId: Int)
+
+    case deleteUnLiked(token: String, tripId: Int)
+    
+    case getLiked(token: String, tripId: Int)
+
+
     var headers: [String: String] {
         
         switch self {
             
-        case .postComment(let token, _, _):
+        case .postComment(let token, _, _), .deleteComment(let token, _, _),
+                .postLiked(let token, _) , .deleteUnLiked(let token, _) , .getLiked(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -43,7 +53,7 @@ enum ReactionRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
-        case .getComment: return nil
+        case .getComment, .deleteComment, .postLiked, .deleteUnLiked, .getLiked: return nil
             
         }
         
@@ -54,8 +64,12 @@ enum ReactionRequest: STRequest {
         switch self {
             
         case .postComment : return STHTTPMethod.POST.rawValue
+        case .deleteComment : return STHTTPMethod.DELETE.rawValue
         case .getComment : return STHTTPMethod.GET.rawValue
-            
+        case .postLiked : return STHTTPMethod.POST.rawValue
+        case .deleteUnLiked : return STHTTPMethod.DELETE.rawValue
+        case .getLiked : return STHTTPMethod.DELETE.rawValue
+
         }
     }
     
@@ -65,8 +79,21 @@ enum ReactionRequest: STRequest {
             
         case .postComment(_, _, let tripId):
             return "/api/v1/trips/\(tripId)/comments"
+            
+        case .deleteComment(_, _, let tripId):
+            return "/api/v1/trips/\(tripId)/comments"
+            
         case .getComment(let tripId):
             return "/api/v1/trips/\(tripId)/comments"
+            
+        case .postLiked(_, let tripId):
+            return "/api/v1/trips/\(tripId)/likes"
+            
+        case .deleteUnLiked(_, let tripId):
+            return "/api/v1/trips/\(tripId)/likes"
+            
+        case .getLiked(_, let tripId):
+            return "/api/v1/trips/\(tripId)/likes"
             
         }
         
