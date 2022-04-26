@@ -23,11 +23,11 @@ class ExploreDetailViewController: UIViewController {
         }
     }
     
-    var commentData: [Comment] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+//    var commentData: [Comment] = [] {
+//        didSet {
+//            tableView.reloadData()
+//        }
+//    }
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -52,11 +52,11 @@ class ExploreDetailViewController: UIViewController {
         fetchData(days: 1)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchCommentData()
-    }
-    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        fetchCommentData()
+//    }
+//
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
@@ -83,26 +83,26 @@ class ExploreDetailViewController: UIViewController {
         
     }
     
-    // MARK: - GET Action
-    private func fetchCommentData() {
-        
-        let reactionProvider = ReactionProvider()
-        guard let tripId = tripId else { return }
-        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
-            
-            switch result {
-                
-            case .success(let commentData):
-                
-                self?.commentData = commentData.data
-
-                print("commentData", commentData)
-                
-            case .failure:
-                print("[CommentVC] GET 讀取資料失敗！")
-            }
-        })
-    }
+//    // MARK: - GET Action
+//    private func fetchCommentData() {
+//
+//        let reactionProvider = ReactionProvider()
+//        guard let tripId = tripId else { return }
+//        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
+//
+//            switch result {
+//
+//            case .success(let commentData):
+//
+//                self?.commentData = commentData.data
+//
+//                print("commentData", commentData)
+//
+//            case .failure:
+//                print("[CommentVC] GET 讀取資料失敗！")
+//            }
+//        })
+//    }
 }
 extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -155,7 +155,8 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
         
         footerView.moveToCommentButton.addTarget(self, action: #selector(tapToCommentView), for: .touchUpInside)
-        footerView.moveToCommentButton.setTitle("查看全部\(commentData.count)則留言", for: .normal)
+        guard let numberOfComment = trip?.commentCount else { return nil}
+        footerView.moveToCommentButton.setTitle("查看全部\(numberOfComment)則留言", for: .normal)
         return footerView
     }
     
@@ -163,7 +164,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let commentVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.commentVC) as? CommentViewController else { return }
         commentVC.tripId = trip?.id
-        commentVC.commentData = commentData
+//        commentVC.commentData = commentData
         let navCommentVC = UINavigationController(rootViewController: commentVC)
 
         self.present(navCommentVC, animated: true)

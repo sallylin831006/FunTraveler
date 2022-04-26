@@ -11,7 +11,7 @@ enum ReactionRequest: STRequest {
     
     case postComment(token: String, content: String, tripId: Int)
     
-    case deleteComment(token: String, content: String, tripId: Int)
+    case deleteComment(token: String, commentId: Int, tripId: Int)
 
     case getComment(tripId: Int)
     
@@ -20,7 +20,6 @@ enum ReactionRequest: STRequest {
     case deleteUnLiked(token: String, tripId: Int)
     
     case getLiked(token: String, tripId: Int)
-
 
     var headers: [String: String] {
         
@@ -80,8 +79,8 @@ enum ReactionRequest: STRequest {
         case .postComment(_, _, let tripId):
             return "/api/v1/trips/\(tripId)/comments"
             
-        case .deleteComment(_, _, let tripId):
-            return "/api/v1/trips/\(tripId)/comments"
+        case .deleteComment(_, let commentId, let tripId):
+            return "/api/v1/trips/\(tripId)/comments/\(commentId)"
             
         case .getComment(let tripId):
             return "/api/v1/trips/\(tripId)/comments"

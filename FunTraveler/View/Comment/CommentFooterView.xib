@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CommentFooterView" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="452" height="91"/>
+            <rect key="frame" x="0.0" y="0.0" width="452" height="72"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ogb-lZ-g20">
@@ -24,19 +24,15 @@
                     </constraints>
                 </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xkf-dk-6EJ">
-                    <rect key="frame" x="71" y="13.5" width="304" height="50"/>
+                    <rect key="frame" x="71" y="18.5" width="365" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="FFj-Gt-RoP"/>
+                        <constraint firstAttribute="height" constant="40" id="FFj-Gt-RoP"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-Ym-jXH">
-                    <rect key="frame" x="391" y="16" width="45" height="45"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="45" id="7sY-G2-x5Z"/>
-                        <constraint firstAttribute="height" constant="45" id="Ygs-hu-Uch"/>
-                    </constraints>
+                    <rect key="frame" x="391" y="18.5" width="46.5" height="40"/>
                     <color key="tintColor" name="themeRed"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=""/>
@@ -45,12 +41,13 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="qPd-Ym-jXH" firstAttribute="top" secondItem="xkf-dk-6EJ" secondAttribute="top" id="2uN-sc-eCO"/>
+                <constraint firstItem="qPd-Ym-jXH" firstAttribute="bottom" secondItem="xkf-dk-6EJ" secondAttribute="bottom" id="35D-is-uhO"/>
                 <constraint firstItem="ogb-lZ-g20" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="7eD-Wk-jZj"/>
                 <constraint firstItem="ogb-lZ-g20" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="8ok-0R-YIm"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="qPd-Ym-jXH" secondAttribute="trailing" constant="16" id="CUy-Td-tNV"/>
+                <constraint firstItem="qPd-Ym-jXH" firstAttribute="leading" secondItem="xkf-dk-6EJ" secondAttribute="trailing" constant="-45" id="DqC-0k-pNG"/>
                 <constraint firstItem="xkf-dk-6EJ" firstAttribute="leading" secondItem="ogb-lZ-g20" secondAttribute="trailing" constant="10" id="LiV-Q2-5Dm"/>
-                <constraint firstItem="qPd-Ym-jXH" firstAttribute="centerY" secondItem="xkf-dk-6EJ" secondAttribute="centerY" id="Wl6-wg-VQe"/>
-                <constraint firstItem="qPd-Ym-jXH" firstAttribute="leading" secondItem="xkf-dk-6EJ" secondAttribute="trailing" constant="16" id="iXu-Du-iA7"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xkf-dk-6EJ" secondAttribute="trailing" constant="16" id="QWd-WU-IwQ"/>
                 <constraint firstItem="xkf-dk-6EJ" firstAttribute="centerY" secondItem="ogb-lZ-g20" secondAttribute="centerY" id="ivf-ys-Sst"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -59,7 +56,7 @@
                 <outlet property="sendCommentButton" destination="qPd-Ym-jXH" id="yGU-e5-CU4"/>
                 <outlet property="userImageView" destination="ogb-lZ-g20" id="JZx-1j-j6w"/>
             </connections>
-            <point key="canvasLocation" x="162.31884057971016" y="-215.95982142857142"/>
+            <point key="canvasLocation" x="162.31884057971016" y="-222.32142857142856"/>
         </view>
     </objects>
     <resources>

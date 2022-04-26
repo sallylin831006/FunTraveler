@@ -29,7 +29,8 @@ class HeaderView: UITableViewHeaderFooterView {
 
     private func setupHeaderView() {
         contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-        
+        contentView.contentMode = .scaleToFill
+
     }
 
 }
