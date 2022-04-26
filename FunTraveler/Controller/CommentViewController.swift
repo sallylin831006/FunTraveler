@@ -22,7 +22,7 @@ class CommentViewController: UIViewController {
         didSet {
             
             tableView.dataSource = self
-//
+
             tableView.delegate = self
 
         }
@@ -41,7 +41,7 @@ class CommentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        fetchData()
+        fetchData()
     }
     
 }
@@ -118,6 +118,16 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
         
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
+            tableView.isEditing = false
+            self.deleteData(index: indexPath.row)
+            self.commentData.remove(at: index.row)
+            
+        }
+        return [deleteAction]
+    }
 
 }
 
@@ -139,24 +149,43 @@ extension CommentViewController {
             
         }
     
-//    // MARK: - GET Action
-//    private func fetchData() {
-//        
-//        let reactionProvider = ReactionProvider()
-//        guard let tripId = tripId else { return }
-//        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
-//            
-//            switch result {
-//                
-//            case .success(let commentData):
-//                
-//                self?.commentData = commentData.data
-//
-//                print("commentData", commentData)
-//                
-//            case .failure:
-//                print("[CommentVC] GET 讀取資料失敗！")
-//            }
-//        })
-//    }
+    // MARK: - DELETE COMMENTS
+    private func deleteData(index: Int) {
+        let reactionProvider = ReactionProvider()
+        guard let tripId = tripId else { return }
+        
+        let commentId = commentData[index].id
+        reactionProvider.deleteComment(tripId: tripId, commentId: commentId, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[CommetVC] delete Comment失敗！")
+                }
+            })
+            
+        }
+    
+    // MARK: - GET Action
+    private func fetchData() {
+        
+        let reactionProvider = ReactionProvider()
+        guard let tripId = tripId else { return }
+        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let commentData):
+                
+                self?.commentData = commentData.data
+                
+                print("commentData", commentData)
+                
+            case .failure:
+                print("[CommentVC] GET 讀取資料失敗！")
+            }
+        })
+    }
 }

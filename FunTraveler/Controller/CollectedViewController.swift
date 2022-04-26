@@ -111,7 +111,7 @@ extension CollectedViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         
-        cell.heartClosure = { cell, isHeartTapped in
+        cell.heartClosure = { isHeartTapped in
             
             if isHeartTapped {
                 cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)

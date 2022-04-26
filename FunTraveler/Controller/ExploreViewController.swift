@@ -107,15 +107,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
-        cell.heartClosure = { cell, isHeartTapped in
-            if isHeartTapped {
-                cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-                // POST API?
-            } else {
-                cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                // POST API?
-            }
-            
+        cell.heartClosure = { isHeartTapped in
+            self.postLiked(index: indexPath.row)
+            self.exploreData[indexPath.row].likeCount += 1 //不確定
+
         }
         
         cell.followClosure = { cell, isfollowed in
@@ -205,6 +200,22 @@ extension ExploreViewController {
         })
         
     }
+    
+    // MARK: - POST TO Like
+    private func postLiked(index: Int) {
+            let reactionProvider = ReactionProvider()
+        reactionProvider.postToLiked(tripId: exploreData[index].id, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] Liked postResponse失敗！")
+                }
+            })
+            
+        }
        
 }
 

@@ -12,7 +12,6 @@ typealias PostCommentHanlder = (Result<String>) -> Void
 typealias CommentHanlder = (Result<Comments>) -> Void
 typealias LikedHanlder = (Result<User>) -> Void
 
-
 class ReactionProvider {
     
     let decoder = JSONDecoder()
@@ -39,7 +38,7 @@ class ReactionProvider {
             })
     }
     // MARK: - DELETE COMMENTS
-    func deleteComment(content: String, tripId: Int, completion: @escaping PostCommentHanlder) {
+    func deleteComment(tripId: Int, commentId: Int, completion: @escaping PostCommentHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -47,7 +46,7 @@ class ReactionProvider {
         }
         
         HTTPClient.shared.request(
-            ReactionRequest.deleteComment(token: token, content: content, tripId: tripId), completion: { result in
+            ReactionRequest.deleteComment(token: token, commentId: commentId, tripId: tripId), completion: { result in
                 
                 switch result {
                     
@@ -141,7 +140,6 @@ class ReactionProvider {
                 }
             })
     }
-    
     
     // MARK: - GET Liked
     func fetchLiked(token: String, tripId: Int, completion: @escaping LikedHanlder) {

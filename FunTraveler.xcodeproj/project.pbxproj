@@ -79,6 +79,8 @@
 		3A40D36C2817880500A7BF51 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A40D36A2817880500A7BF51 /* CommentTableViewCell.xib */; };
 		3A40D372281790D800A7BF51 /* CommentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D371281790D800A7BF51 /* CommentFooterView.swift */; };
 		3A40D374281790F600A7BF51 /* CommentFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A40D373281790F600A7BF51 /* CommentFooterView.xib */; };
+		3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D39B281822FE00A7BF51 /* ProfileTableViewCell.swift */; };
+		3A40D39E281822FE00A7BF51 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */; };
 		3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4653B72815069F005051EB /* UIView+Extension.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
@@ -202,6 +204,8 @@
 		3A40D371281790D800A7BF51 /* CommentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentFooterView.swift; sourceTree = "<group>"; };
 		3A40D373281790F600A7BF51 /* CommentFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentFooterView.xib; sourceTree = "<group>"; };
 		3A40D3752817CC9C00A7BF51 /* FunTraveler.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FunTraveler.entitlements; sourceTree = "<group>"; };
+		3A40D39B281822FE00A7BF51 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		3A4653B72815069F005051EB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
@@ -457,6 +461,15 @@
 			path = Comment;
 			sourceTree = "<group>";
 		};
+		3A40D39A281822E200A7BF51 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				3A40D39B281822FE00A7BF51 /* ProfileTableViewCell.swift */,
+				3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		3A73527528017FFF00B4D8D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -577,6 +590,7 @@
 		3A9E9CE428010D4C00C7B8D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A40D39A281822E200A7BF51 /* Profile */,
 				3A40D3542816D5BE00A7BF51 /* Auth */,
 				3A2B6B572814B52800D00638 /* LottieView */,
 				3A13494B280F9B2E008CECEA /* PlanOverView */,
@@ -674,7 +688,7 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				AF9887947338D7FD56835C8E /* [CP] Copy Pods Resources */,
+				502F04ACC061D4F3A631C420 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -752,6 +766,7 @@
 				3A134948280E8D3F008CECEA /* ExploreDetailFooterView.xib in Resources */,
 				3A7352812801802A00B4D8D3 /* PlanCardHeaderView.xib in Resources */,
 				3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */,
+				3A40D39E281822FE00A7BF51 /* ProfileTableViewCell.xib in Resources */,
 				3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */,
 				3A2B6B6C2814D3CA00D00638 /* Loading.json in Resources */,
 			);
@@ -777,6 +792,23 @@
 			shellPath = /bin/sh;
 			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
+		502F04ACC061D4F3A631C420 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -792,23 +824,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF9887947338D7FD56835C8E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AFC60E12D96E8C88082C0084 /* [CP] Check Pods Manifest.lock */ = {
@@ -865,6 +880,7 @@
 				3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */,
 				3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */,
 				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
+				3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
 				3A2B6B5A2814B54300D00638 /* LoadingView.swift in Sources */,
