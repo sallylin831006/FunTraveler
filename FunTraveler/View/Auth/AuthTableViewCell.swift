@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class AuthTableViewCell: UITableViewCell {
     
     var loginClosure: ((_ cell: AuthTableViewCell) -> Void)?
-
+    
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -19,19 +20,43 @@ class AuthTableViewCell: UITableViewCell {
     
     @IBOutlet weak var moveToRegisterButton: UIButton!
     
+    @IBOutlet weak var siginView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         loginButton.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
-
+        setupSignInwithApple()
+        
     }
     
     @objc func tapLoginButton() {
         loginClosure?(self)
     }
-
+    
+    private let authorizationAppleIDButton: ASAuthorizationAppleIDButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
+    
+    func setupSignInwithApple() {
+        authorizationAppleIDButton.addTarget(
+            self, action: #selector(pressSignInWithAppleButton), for: UIControl.Event.touchUpInside)
+        layoutOfSignInWithApple()
+    }
+    
+    @objc func pressSignInWithAppleButton() {
+        let authorizationAppleIDRequest: ASAuthorizationAppleIDRequest = ASAuthorizationAppleIDProvider().createRequest()
+        authorizationAppleIDRequest.requestedScopes = [.fullName, .email]
+        
+        let controller: ASAuthorizationController = ASAuthorizationController(
+            authorizationRequests: [authorizationAppleIDRequest])
+        
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        
+        controller.performRequests()
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -39,4 +64,68 @@ class AuthTableViewCell: UITableViewCell {
         
     }
     
+}
+
+extension AuthTableViewCell: ASAuthorizationControllerDelegate {
+    
+    /// 授權成功
+    /// - Parameters:
+    ///   - controller: _
+    ///   - authorization: _
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            print("user: \(appleIDCredential.user)")
+            print("fullName: \(String(describing: appleIDCredential.fullName))")
+            print("Email: \(String(describing: appleIDCredential.email))")
+            print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
+        }
+    }
+    
+    /// 授權失敗
+    /// - Parameters:
+    ///   - controller: _
+    ///   - error: _
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        
+        switch (error) {
+        case ASAuthorizationError.canceled:
+            break
+        case ASAuthorizationError.failed:
+            break
+        case ASAuthorizationError.invalidResponse:
+            break
+        case ASAuthorizationError.notHandled:
+            break
+        case ASAuthorizationError.unknown:
+            break
+        default:
+            break
+        }
+        
+        print("didCompleteWithError: \(error.localizedDescription)")
+    }
+}
+
+extension AuthTableViewCell: ASAuthorizationControllerPresentationContextProviding {
+    
+    // - Parameter controller: _
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.window!
+    }
+    
+}
+
+extension AuthTableViewCell {
+    func layoutOfSignInWithApple() {
+        siginView.addSubview(authorizationAppleIDButton)
+        
+        authorizationAppleIDButton.translatesAutoresizingMaskIntoConstraints = false
+
+        authorizationAppleIDButton.centerXAnchor.constraint(equalTo: siginView.centerXAnchor).isActive = true
+        authorizationAppleIDButton.centerYAnchor.constraint(equalTo: siginView.centerYAnchor).isActive = true
+        authorizationAppleIDButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        authorizationAppleIDButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        
+    }
 }
