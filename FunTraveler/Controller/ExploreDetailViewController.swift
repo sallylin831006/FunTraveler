@@ -10,7 +10,7 @@ import Kingfisher
 
 import UIKit
 class ExploreDetailViewController: UIViewController {
-    
+
     var tripId: Int?
     
     var days: Int?
@@ -18,6 +18,12 @@ class ExploreDetailViewController: UIViewController {
     var trip: Trip?
     
     var schedule: [Schedule] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var commentData: [Comment] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -46,6 +52,11 @@ class ExploreDetailViewController: UIViewController {
         fetchData(days: 1)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchCommentData()
+    }
+    
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
@@ -70,6 +81,27 @@ class ExploreDetailViewController: UIViewController {
             }
         })
         
+    }
+    
+    // MARK: - GET Action
+    private func fetchCommentData() {
+        
+        let reactionProvider = ReactionProvider()
+        guard let tripId = tripId else { return }
+        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let commentData):
+                
+                self?.commentData = commentData.data
+
+                print("commentData", commentData)
+                
+            case .failure:
+                print("[CommentVC] GET 讀取資料失敗！")
+            }
+        })
     }
 }
 extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegate {
@@ -122,7 +154,20 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             
         }
         
+        footerView.moveToCommentButton.addTarget(self, action: #selector(tapToCommentView), for: .touchUpInside)
+        footerView.moveToCommentButton.setTitle("查看全部\(commentData.count)則留言", for: .normal)
         return footerView
+    }
+    
+    @objc func tapToCommentView() {
+        guard let commentVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.commentVC) as? CommentViewController else { return }
+        commentVC.tripId = trip?.id
+        commentVC.commentData = commentData
+        let navCommentVC = UINavigationController(rootViewController: commentVC)
+
+        self.present(navCommentVC, animated: true)
+     
     }
     
     // MARK: - Section Row
@@ -157,8 +202,6 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             cell.storiesTextLabel.text = schedule[indexPath.row].description
         }
         
-        
-        
         return cell
         
     }
@@ -182,4 +225,3 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
         return true
     }
 }
-

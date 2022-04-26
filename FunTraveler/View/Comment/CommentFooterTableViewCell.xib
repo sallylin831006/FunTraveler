@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="79" id="KGk-i7-Jjw" customClass="CommentFooterTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ES3-Dc-vhW">
+                        <rect key="frame" x="16" y="16" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="qBr-bx-yOl"/>
+                            <constraint firstAttribute="width" constant="45" id="zRi-Co-0wz"/>
+                        </constraints>
+                    </imageView>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2oT-QY-daL">
+                        <rect key="frame" x="71" y="21.5" width="233" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HnK-IP-Oh4">
+                        <rect key="frame" x="257" y="21.5" width="47" height="34"/>
+                        <color key="tintColor" name="themeRed"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=""/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ES3-Dc-vhW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="5TU-Vw-Q2U"/>
+                    <constraint firstItem="HnK-IP-Oh4" firstAttribute="leading" secondItem="2oT-QY-daL" secondAttribute="trailing" constant="-47" id="6JO-5S-MbC"/>
+                    <constraint firstItem="HnK-IP-Oh4" firstAttribute="bottom" secondItem="2oT-QY-daL" secondAttribute="bottom" id="7E3-sN-WOi"/>
+                    <constraint firstItem="HnK-IP-Oh4" firstAttribute="trailing" secondItem="2oT-QY-daL" secondAttribute="trailing" id="Ajg-lJ-UFb"/>
+                    <constraint firstItem="2oT-QY-daL" firstAttribute="centerY" secondItem="ES3-Dc-vhW" secondAttribute="centerY" id="Gay-dz-17Q"/>
+                    <constraint firstAttribute="trailing" secondItem="2oT-QY-daL" secondAttribute="trailing" constant="16" id="St9-UE-RfG"/>
+                    <constraint firstAttribute="bottom" secondItem="ES3-Dc-vhW" secondAttribute="bottom" constant="16" id="YPr-QP-QHd"/>
+                    <constraint firstItem="HnK-IP-Oh4" firstAttribute="top" secondItem="2oT-QY-daL" secondAttribute="top" id="mnh-CE-fBv"/>
+                    <constraint firstItem="ES3-Dc-vhW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="tvp-uY-B18"/>
+                    <constraint firstItem="2oT-QY-daL" firstAttribute="height" secondItem="ES3-Dc-vhW" secondAttribute="height" multiplier="0.755556" id="tzr-Cj-6X9"/>
+                    <constraint firstItem="2oT-QY-daL" firstAttribute="leading" secondItem="ES3-Dc-vhW" secondAttribute="trailing" constant="10" id="uFX-bR-WVf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="commentTextField" destination="2oT-QY-daL" id="CXS-DP-Wj8"/>
+                <outlet property="sendCommentButton" destination="HnK-IP-Oh4" id="elW-BS-LGI"/>
+                <outlet property="userImageView" destination="ES3-Dc-vhW" id="nNl-vd-0uj"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="101.45089285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="paperplane" catalog="system" width="128" height="118"/>
+        <namedColor name="themeRed">
+            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

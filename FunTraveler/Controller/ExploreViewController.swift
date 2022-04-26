@@ -41,7 +41,8 @@ class ExploreViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
-        
+        self.tabBarController?.tabBar.isHidden = false
+
     }
     
     private func setupSearchBar() {
@@ -140,10 +141,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
         exploreDeatilVC.days = exploreData[indexPath.row].days
-
-        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-        self.present(navExploreDeatilVC, animated: true)
+        navigationController?.pushViewController(exploreDeatilVC, animated: true)
+        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
+//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
+//        self.present(navExploreDeatilVC, animated: true)
         
     }
 }

@@ -44,6 +44,8 @@ struct StoryboardCategory {
     
     static let registerVC = "RegisterViewController"
     
+    static let commentVC = "CommentViewController"
+    
 }
 
 extension UIStoryboard {
