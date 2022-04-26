@@ -96,7 +96,6 @@ class PlanDetailViewController: UIViewController {
                 
             case .success: break
                 
-                
             case .failure:
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }

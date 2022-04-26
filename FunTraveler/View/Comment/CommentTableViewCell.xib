@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="67" id="KGk-i7-Jjw" customClass="CommentTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="379" height="67"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="379" height="67"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9PP-Ap-Ali">
+                        <rect key="frame" x="10" y="10" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="9cw-mR-ihi"/>
+                            <constraint firstAttribute="height" constant="45" id="j9n-TF-VNb"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jan-Gu-1rN">
+                        <rect key="frame" x="65" y="5" width="53" height="31"/>
+                        <color key="tintColor" name="themeRed"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="sally"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S91-Xz-N7C">
+                        <rect key="frame" x="310" y="16" width="53" height="31"/>
+                        <color key="tintColor" name="themeRed"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="回覆"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6分鐘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-TB-vRV">
+                        <rect key="frame" x="75" y="40" width="33" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="狗狗笑得好開心！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTG-yx-ATA">
+                        <rect key="frame" x="128" y="11.5" width="123" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9PP-Ap-Ali" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="0L3-J6-p0i"/>
+                    <constraint firstItem="vTG-yx-ATA" firstAttribute="leading" secondItem="Jan-Gu-1rN" secondAttribute="trailing" constant="10" id="E69-44-rM9"/>
+                    <constraint firstItem="Jan-Gu-1rN" firstAttribute="leading" secondItem="9PP-Ap-Ali" secondAttribute="trailing" constant="10" id="Nxc-H2-HBP"/>
+                    <constraint firstItem="vTG-yx-ATA" firstAttribute="centerY" secondItem="Jan-Gu-1rN" secondAttribute="centerY" id="O4K-TO-aAO"/>
+                    <constraint firstItem="9PP-Ap-Ali" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="PtZ-QR-0eH"/>
+                    <constraint firstAttribute="trailing" secondItem="S91-Xz-N7C" secondAttribute="trailing" constant="16" id="Yyg-HK-P5O"/>
+                    <constraint firstItem="S91-Xz-N7C" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="adT-Ee-m4n"/>
+                    <constraint firstItem="MTG-TB-vRV" firstAttribute="top" secondItem="Jan-Gu-1rN" secondAttribute="bottom" constant="4" id="eFr-9G-ipJ"/>
+                    <constraint firstItem="Jan-Gu-1rN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="gWr-6M-gzX"/>
+                    <constraint firstAttribute="bottom" secondItem="9PP-Ap-Ali" secondAttribute="bottom" constant="10" id="i8m-le-jzP"/>
+                    <constraint firstAttribute="bottom" secondItem="S91-Xz-N7C" secondAttribute="bottom" constant="16" id="o1b-QD-y7T"/>
+                    <constraint firstItem="MTG-TB-vRV" firstAttribute="leading" secondItem="9PP-Ap-Ali" secondAttribute="trailing" constant="20" id="piz-PO-hf9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="commentLabel" destination="vTG-yx-ATA" id="8qN-bI-gR9"/>
+                <outlet property="replyButton" destination="S91-Xz-N7C" id="IQp-JE-l8e"/>
+                <outlet property="userImageView" destination="9PP-Ap-Ali" id="MNj-dt-1Op"/>
+                <outlet property="userNameButton" destination="Jan-Gu-1rN" id="Gqw-2e-iOs"/>
+            </connections>
+            <point key="canvasLocation" x="180.43478260869566" y="124.21875"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="themeRed">
+            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

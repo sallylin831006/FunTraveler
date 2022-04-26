@@ -31,18 +31,27 @@
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="" image="collectNormal"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTg-qA-fsR">
+                    <rect key="frame" x="16" y="57" width="148" height="31"/>
+                    <color key="tintColor" name="themeRed"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="查看全部100則留言"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="UTg-qA-fsR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="MOa-KH-dTy"/>
                 <constraint firstAttribute="bottom" secondItem="Gdz-T3-O6O" secondAttribute="bottom" constant="16" id="SwH-AH-JDa"/>
                 <constraint firstItem="Gdz-T3-O6O" firstAttribute="leading" secondItem="9OZ-Gu-vbA" secondAttribute="trailing" id="VAn-IS-L9F"/>
+                <constraint firstAttribute="bottom" secondItem="UTg-qA-fsR" secondAttribute="bottom" constant="16" id="du7-D0-BGv"/>
                 <constraint firstAttribute="bottom" secondItem="9OZ-Gu-vbA" secondAttribute="bottom" constant="16" id="jSm-so-pPO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gdz-T3-O6O" secondAttribute="trailing" constant="16" id="xYr-DG-f3W"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="copyButton" destination="Gdz-T3-O6O" id="kr9-lX-Nzx"/>
+                <outlet property="moveToCommentButton" destination="UTg-qA-fsR" id="rxs-RO-JNp"/>
             </connections>
             <point key="canvasLocation" x="228.98550724637684" y="-165.40178571428569"/>
         </view>
