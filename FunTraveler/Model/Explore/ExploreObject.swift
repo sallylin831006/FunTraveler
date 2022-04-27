@@ -18,6 +18,7 @@ struct Explore: Codable {
     var user: User
     var editors: [User]
     var isCollected: Bool
+    var isLiked: Bool
     var likeCount: Int
     var commentCount: Int
     
@@ -26,6 +27,7 @@ struct Explore: Codable {
         case isCollected = "is_collected"
         case likeCount = "likes_count"
         case commentCount = "comments_count"
+        case isLiked = "is_liked"
     }
 }
 

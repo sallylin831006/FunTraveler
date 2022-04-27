@@ -17,8 +17,10 @@ class ExploreProvider {
     // MARK: - GET EXPLORE TRIPS
     func fetchExplore(completion: @escaping ExploreHanlder) {
         
+        let token = KeyChainManager.shared.token ?? ""
+        
         HTTPClient.shared.request(
-            ExploreRequest.getExplore, completion: { result in
+            ExploreRequest.getExplore(token: token), completion: { result in
                 
                 switch result {
                     
