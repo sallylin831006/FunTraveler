@@ -15,7 +15,9 @@ protocol ProfileTableViewCellDelegate: AnyObject {
 class ProfileTableViewCell: UITableViewCell {
     
     weak var changeNameDelegate: ProfileTableViewCellDelegate?
-
+    
+    @IBOutlet weak var settingButton: UIButton!
+    
     @IBOutlet weak var userImageView: UIImageView!
     
     @IBOutlet weak var userNameTextField: UITextField!
@@ -43,11 +45,15 @@ class ProfileTableViewCell: UITableViewCell {
         super.awakeFromNib()
         userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
         userNameTextField.delegate = self
+        
+        
 //        let textFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserNameTextField(_:)))
 //        userNameTextField.addGestureRecognizer(textFieldTapGesture)
 //        userNameTextField.isUserInteractionEnabled = true
 
     }
+    
+    
     
     @objc func editUserNameTextField(_ textField: UITextField) {
         editButton.isHidden = false //NOT WORKING

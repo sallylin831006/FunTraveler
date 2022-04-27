@@ -209,4 +209,25 @@ class UserProvider {
                 }
             })
     }
+    
+    // MARK: - DELETE USER
+    func deleteUser(completion: @escaping ErrorHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(UserRequest.deleteUser(token: token), completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+        
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                }
+            })
+    }
 }

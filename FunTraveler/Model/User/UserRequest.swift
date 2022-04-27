@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum UserRequest: STRequest {
     
@@ -18,6 +19,8 @@ enum UserRequest: STRequest {
     case getProfile(token: String)
     
     case updateProfile(token: String, name: String, image: String)
+    
+    case deleteUser(token: String)
     
     var headers: [String: String] {
         
@@ -36,7 +39,7 @@ enum UserRequest: STRequest {
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
-        case .getProfile(let token), .updateProfile(let token, _, _):
+        case .getProfile(let token), .updateProfile(let token, _, _), .deleteUser(let token):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -76,7 +79,7 @@ enum UserRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
-        case .getProfile: return nil
+        case .getProfile, .deleteUser: return nil
             
         case .updateProfile(_, let name, let image):
             
@@ -104,6 +107,8 @@ enum UserRequest: STRequest {
             
         case .updateProfile : return STHTTPMethod.PATCH.rawValue
 
+        case .deleteUser : return STHTTPMethod.DELETE.rawValue
+
         }
     }
     
@@ -117,7 +122,7 @@ enum UserRequest: STRequest {
         case .login, .appleLogin:
             return "/api/v1/auth/email/login"
             
-        case .getProfile, .updateProfile:
+        case .getProfile, .updateProfile, .deleteUser:
             return "/api/v1/user"
             
         }

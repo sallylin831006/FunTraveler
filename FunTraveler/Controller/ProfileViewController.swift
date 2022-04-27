@@ -121,9 +121,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         self.userNameTextField = cell.userNameTextField
         
         cell.changeNameDelegate = self
-        
+        cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
         return cell
 
+    }
+    
+    @objc func tapSettingButton() {
+        guard let settingVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
+        let navSettingVC = UINavigationController(rootViewController: settingVC)
+//        navSettingVC.modalPresentationStyle = .fullScreen
+        self.present(navSettingVC, animated: true)
     }
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
