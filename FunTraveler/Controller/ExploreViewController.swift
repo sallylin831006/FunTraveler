@@ -8,6 +8,7 @@
 import UIKit
 
 class ExploreViewController: UIViewController {
+    private let searchController = UISearchController(searchResultsController: nil)
     
     var exploreData: [Explore] = [] {
         didSet {
@@ -28,6 +29,7 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSearchBar()
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
@@ -39,26 +41,23 @@ class ExploreViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+        self.tabBarController?.tabBar.isHidden = false
+
     }
     
-    // MARK: - GET Action
-    private func fetchData() {
-        let exploreProvider = ExploreProvider()
-//        showLoadingView()
-        exploreProvider.fetchExplore(completion: { [weak self] result in
-            
-            switch result {
-                
-            case .success(let exploreData):
-                
-                self?.exploreData = exploreData.data
-                
-            case .failure:
-                print("[ExploreVC] GET 讀取資料失敗！")
-            }
-        })
+    private func setupSearchBar() {
+        
+        searchController.searchBar.placeholder = "搜尋行程..."
+        searchController.searchBar.delegate = self
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.barTintColor = .themeRed
+        searchController.searchBar.tintColor = .themeRed
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
+
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .themeRed
     }
     
     private func showLoadingView() {
@@ -108,15 +107,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
-        cell.heartClosure = { cell, isHeartTapped in
-            if isHeartTapped {
-                cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-                // POST API?
-            } else {
-                cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                // POST API?
-            }
-            
+        cell.heartClosure = { isHeartTapped in
+            self.postLiked(index: indexPath.row)
+            self.exploreData[indexPath.row].likeCount += 1 //不確定
+
         }
         
         cell.followClosure = { cell, isfollowed in
@@ -142,10 +136,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
         exploreDeatilVC.days = exploreData[indexPath.row].days
-
-        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-        self.present(navExploreDeatilVC, animated: true)
+        navigationController?.pushViewController(exploreDeatilVC, animated: true)
+        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
+//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
+//        self.present(navExploreDeatilVC, animated: true)
         
     }
 }
@@ -169,4 +164,79 @@ extension ExploreViewController {
             })
             
         }
+    // MARK: - GET Action
+    private func fetchData() {
+        let exploreProvider = ExploreProvider()
+        exploreProvider.fetchExplore(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let exploreData):
+                
+                self?.exploreData = exploreData.data
+                
+            case .failure:
+                print("[ExploreVC] GET 讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST TO SEARCH TRIP
+    private func postToSearchTrip(searchText: String) {
+        
+        let exploreProvider = ExploreProvider()
+        if searchText == "" { return }
+        exploreProvider.postToSearch(word: searchText, completion: { result in
+            
+            switch result {
+                
+            case .success(let searchResponse):
+                self.exploreData = searchResponse.data
+                print("searchResponse", searchResponse)
+                
+            case .failure:
+                print("POST TO SEARCH TRIP 失敗！")
+            }
+        })
+        
+    }
+    
+    // MARK: - POST TO Like
+    private func postLiked(index: Int) {
+            let reactionProvider = ReactionProvider()
+        reactionProvider.postToLiked(tripId: exploreData[index].id, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] Liked postResponse失敗！")
+                }
+            })
+            
+        }
+       
+}
+
+extension ExploreViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        postToSearchTrip(searchText: searchText)
+        if searchText.isEmpty {
+            fetchData()
+        }
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        fetchData()
+    }
 }

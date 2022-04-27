@@ -13,6 +13,7 @@ class FooterView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var cancelButton: UIButton!
     
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
        

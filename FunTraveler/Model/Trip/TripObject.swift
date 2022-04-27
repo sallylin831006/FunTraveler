@@ -30,6 +30,8 @@ struct Trip: Codable {
     var title: String
     var startDate: String?
     var endDate: String?
+    var likeCount: Int
+    var commentCount: Int
     
     var schedules: [[Schedule]]?
     
@@ -37,6 +39,8 @@ struct Trip: Codable {
         case id, days, title, schedules
         case startDate = "start_date"
         case endDate = "end_date"
+        case likeCount = "likes_count"
+        case commentCount = "comments_count"
     }
 }
 
