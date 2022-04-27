@@ -37,4 +37,13 @@ class ProfileTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func layoutCell(data: User) {
+        userNameLabel.text = "嗨，\(data.name)"
+        if data.imageUrl == "" {
+            userImageView.image = nil
+        } else {
+            userImageView.loadImage(data.imageUrl)
+        }
+    }
+    
 }

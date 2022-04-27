@@ -29,6 +29,10 @@ struct Explore: Codable {
     }
 }
 
+struct Users: Codable {
+    var data: User
+}
+
 struct User: Codable {
     var id: Int
     var name: String
