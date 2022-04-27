@@ -9,28 +9,48 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private var photoImageArray: [UIImageView] = []
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
             
-//            tableView.dataSource = self
-//
-//            tableView.delegate = self
+            tableView.dataSource = self
+
+            tableView.delegate = self
             
         }
     }
     
+    @IBAction func logoutButton(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
+        UserDefaults.standard.removeObject(forKey: "AppleToken")
+
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.separatorStyle = .none
-//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
-//        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
+        tableView.separatorStyle = .none
+        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        
+        tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
         movingToCollectedPage()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard KeyChainManager.shared.token != nil || KeyChainManager.shared.appleToken != nil
+        else {
+            return onShowLogin()
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     func movingToCollectedPage() {
@@ -53,53 +73,115 @@ class ProfileViewController: UIViewController {
 
 }
 
-//extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
-//extension ProfileViewController {
-//    
-//    // MARK: - Section Header
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        
-//        return 100.0
-//    }
-//    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-//            withIdentifier: HeaderView.identifier)
-//                as? HeaderView else { return nil }
-//        
-//        headerView.titleLabel.text = "個人"
-//        
-//        return headerView
-//    }
+    // MARK: - Section Header
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        return 100.0
+    }
     
-//    // MARK: - Section Row
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        1
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        guard let cell = tableView.dequeueReusableCell(
-//            withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
-//                as? ExploreOverViewTableViewCell else { return UITableViewCell() }
-//
-//        cell.selectionStyle = .none
-//
-//        cell.dayTitleLabel.text = "5天| 旅遊回憶"
-//        cell.tripTitleLabel.text = "小琉球潛水趣"
-//
-//        cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-//        cell.planImageView.layer.borderWidth = 3
-//        cell.planImageView.layer.cornerRadius = 10.0
-//        cell.planImageView.layer.masksToBounds = true
-//
-//        return cell
-//
-//    }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: HeaderView.identifier)
+                as? HeaderView else { return nil }
+        
+        headerView.titleLabel.text = "個人"
+        
+        return headerView
+    }
+    
+    // MARK: - Section Row
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
 
-// }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
+                as? ProfileTableViewCell else { return UITableViewCell() }
+
+        cell.selectionStyle = .none
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+        imageTapGesture.view?.tag = indexPath.row
+        cell.userImageView.addGestureRecognizer(imageTapGesture)
+        cell.userImageView.isUserInteractionEnabled = true
+        photoImageArray.append(cell.userImageView)
+
+        return cell
+
+    }
+    
+    @objc func profileTapped(sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        let photoSourceRequestController = UIAlertController(title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
+        
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
+//            self.showLoadingView()
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self
+                
+                imagePicker.view?.tag = view.tag
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        })
+        
+        let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
+//            self.showLoadingView()
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                
+                imagePicker.view?.tag = view.tag
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
+        })
+        
+        photoSourceRequestController.addAction(photoLibraryAction)
+        photoSourceRequestController.addAction(cameraAction)
+        photoSourceRequestController.addAction(cancelAction)
+        
+        present(photoSourceRequestController, animated: true, completion: nil)
+        
+    }
+    
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
+                               info: [UIImagePickerController.InfoKey: Any]) {
+        
+        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            let photo =  photoImageArray[picker.view.tag]
+            photo.image = selectedImage
+            photo.contentMode = .scaleAspectFill
+            photo.clipsToBounds = true
+            
+            guard let image = photo.image else { return }
+            let newImage = image.scale(newWidth: 50.0)
+            guard let imageData: NSData = newImage.pngData() as NSData? else { return }
+            let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+            
+//            schedules[picker.view.tag].images.removeAll()
+//            schedules[picker.view.tag].images.append(strBase64)
+            
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+}

@@ -18,10 +18,14 @@ struct Explore: Codable {
     var user: User
     var editors: [User]
     var isCollected: Bool
+    var likeCount: Int
+    var commentCount: Int
     
     enum CodingKeys: String, CodingKey {
         case id, title, days, user, editors
         case isCollected = "is_collected"
+        case likeCount = "likes_count"
+        case commentCount = "comments_count"
     }
 }
 

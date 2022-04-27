@@ -70,6 +70,36 @@
             </objects>
             <point key="canvasLocation" x="1701" y="60"/>
         </scene>
+        <!--Comment View Controller-->
+        <scene sceneID="g3P-7r-IIa">
+            <objects>
+                <viewController storyboardIdentifier="CommentViewController" id="WHz-Dp-pCp" customClass="CommentViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DfT-5J-yzD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qMM-My-CbU">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1Zc-32-TpZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1Zc-32-TpZ" firstAttribute="trailing" secondItem="qMM-My-CbU" secondAttribute="trailing" id="Ogv-G2-GTw"/>
+                            <constraint firstItem="1Zc-32-TpZ" firstAttribute="bottom" secondItem="qMM-My-CbU" secondAttribute="bottom" id="UCZ-VF-PiB"/>
+                            <constraint firstItem="qMM-My-CbU" firstAttribute="top" secondItem="1Zc-32-TpZ" secondAttribute="top" id="qJJ-1K-XuJ"/>
+                            <constraint firstItem="qMM-My-CbU" firstAttribute="leading" secondItem="1Zc-32-TpZ" secondAttribute="leading" id="yaG-ZG-TRW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="qMM-My-CbU" id="XuP-rJ-Unk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I51-hl-7tE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2568" y="61"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="cya-hn-12C">
             <objects>

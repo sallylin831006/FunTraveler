@@ -9,7 +9,7 @@ import UIKit
 
 class ExploreOverViewTableViewCell: UITableViewCell {
     
-    var heartClosure: ((_ cell: ExploreOverViewTableViewCell, _ isHeartTapped: Bool) -> Void)?
+    var heartClosure: ((_ isHeartTapped: Bool) -> Void)?
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
 
@@ -69,8 +69,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @objc func tapHeartButton(_ sender: UIButton) {
         sender.isSelected = !isHeartTapped
-        isHeartTapped = !isHeartTapped
-        heartClosure?(self, isHeartTapped)
+        heartClosure?(!isHeartTapped)
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
@@ -88,7 +87,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let margins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        let margins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         contentView.layer.borderWidth = 4

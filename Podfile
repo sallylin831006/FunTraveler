@@ -8,16 +8,12 @@ target 'FunTraveler' do
   # Pods for FunTraveler
     pod 'SwiftLint'
     pod 'IQKeyboardManagerSwift'
-    pod 'GoogleMaps'
-    pod 'GooglePlaces'
+#    pod 'GoogleMaps'
+#    pod 'GooglePlaces'
     pod 'Kingfisher'
     pod 'lottie-ios'
     pod 'PusherSwift'
+    pod 'KeychainAccess'
 
 
-post_install do |installer|
-    installer.pods_project.build_configurations.each do |config|
-      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
-   end
-end
 end
