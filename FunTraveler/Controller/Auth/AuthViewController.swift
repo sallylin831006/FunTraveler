@@ -105,8 +105,7 @@ extension AuthViewController {
             
             switch result {
                 
-            case .success(let token):
-                print("成功登入！token: \(token)")
+            case .success: break
                 
             case .failure(let error):
                 print("POST TO Login 失敗！\(error)")

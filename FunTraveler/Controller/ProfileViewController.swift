@@ -10,6 +10,11 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     private var photoImageArray: [UIImageView] = []
+    private var userData: User? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -43,6 +48,7 @@ class ProfileViewController: UIViewController {
         else {
             return onShowLogin()
         }
+        fetchData()
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
@@ -104,6 +110,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ProfileTableViewCell else { return UITableViewCell() }
 
         cell.selectionStyle = .none
+        guard let userData = userData else { return UITableViewCell()}
+        cell.layoutCell(data: userData)
         
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
         imageTapGesture.view?.tag = indexPath.row
@@ -117,7 +125,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         guard let view = sender.view else { return }
-        let photoSourceRequestController = UIAlertController(title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
+        let photoSourceRequestController = UIAlertController(
+            title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
 //            self.showLoadingView()
@@ -160,6 +169,24 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension ProfileViewController {
+    // MARK: - GET Action
+    private func fetchData() {
+        let userProvider = UserProvider()
+        userProvider.getProfile(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let userData):
+                self?.userData = userData.data
+                
+            case .failure:
+                print("[ProfileVC] GET Profile 資料失敗！")
+            }
+        })
+    }
+}
+
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
@@ -176,6 +203,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             guard let imageData: NSData = newImage.pngData() as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
+            userData?.imageUrl.removeAll()
+            userData?.imageUrl.append(strBase64)
 //            schedules[picker.view.tag].images.removeAll()
 //            schedules[picker.view.tag].images.append(strBase64)
             

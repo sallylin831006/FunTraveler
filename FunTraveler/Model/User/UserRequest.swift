@@ -15,6 +15,8 @@ enum UserRequest: STRequest {
     
     case appleLogin(appleToken: String)
     
+    case getProfile(token: String)
+    
     var headers: [String: String] {
         
         switch self {
@@ -32,6 +34,12 @@ enum UserRequest: STRequest {
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
+        case .getProfile(let token):
+            
+            return [
+                STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
+                STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
+            ]
         }
     }
     
@@ -66,6 +74,8 @@ enum UserRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
+        case .getProfile: return nil
+            
         }
     }
     var method: String {
@@ -77,6 +87,8 @@ enum UserRequest: STRequest {
         case .login : return STHTTPMethod.POST.rawValue
             
         case .appleLogin : return STHTTPMethod.POST.rawValue
+            
+        case .getProfile : return STHTTPMethod.GET.rawValue
 
         }
     }
@@ -93,6 +105,9 @@ enum UserRequest: STRequest {
             
         case .appleLogin:
             return "/api/v1/auth/apple/login"
+            
+        case .getProfile:
+            return "/api/v1/user"
         }
         
     }
