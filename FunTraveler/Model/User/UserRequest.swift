@@ -13,6 +13,8 @@ enum UserRequest: STRequest {
     
     case login(email: String, password: String)
     
+    case appleLogin(appleToken: String)
+    
     var headers: [String: String] {
         
         switch self {
@@ -20,6 +22,13 @@ enum UserRequest: STRequest {
         case .register, .login:
             
             return [
+                STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
+            ]
+            
+        case .appleLogin(let appleToken):
+            
+            return [
+                STHTTPHeaderField.auth.rawValue: "Bearer \(appleToken)",
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
@@ -49,6 +58,14 @@ enum UserRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
+        case .appleLogin(let appleToken):
+            
+            let body = [
+                "token": appleToken
+            ]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            
         }
     }
     var method: String {
@@ -59,6 +76,8 @@ enum UserRequest: STRequest {
             
         case .login : return STHTTPMethod.POST.rawValue
             
+        case .appleLogin : return STHTTPMethod.POST.rawValue
+
         }
     }
     
@@ -71,6 +90,9 @@ enum UserRequest: STRequest {
             
         case .login:
             return "/api/v1/auth/email/login"
+            
+        case .appleLogin:
+            return "/api/v1/auth/apple/login"
         }
         
     }

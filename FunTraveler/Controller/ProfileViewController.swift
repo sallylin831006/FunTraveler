@@ -23,8 +23,9 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func logoutButton(_ sender: Any) {
-        print("按了登出按鈕！")
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
+        UserDefaults.standard.removeObject(forKey: "AppleToken")
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,19 +37,20 @@ class ProfileViewController: UIViewController {
         movingToCollectedPage()
     }
     
-    func onShowLogin() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard KeyChainManager.shared.token != nil || KeyChainManager.shared.appleToken != nil
+        else {
+            return onShowLogin()
+        }
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    private func onShowLogin() {
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        guard KeyChainManager.shared.token != nil else {
-            return onShowLogin()
-        }
-        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     func movingToCollectedPage() {

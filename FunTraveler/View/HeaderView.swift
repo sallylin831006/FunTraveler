@@ -12,7 +12,15 @@ class HeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var backgroundImage: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
-   
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+//        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
+//        contentView.contentMode = .scaleToFill
+        
+    }
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         // -------改不動-------//
@@ -28,8 +36,8 @@ class HeaderView: UITableViewHeaderFooterView {
     }
 
     private func setupHeaderView() {
-        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-        contentView.contentMode = .scaleToFill
+//        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
+//        contentView.contentMode = .scaleToFill
 
     }
 

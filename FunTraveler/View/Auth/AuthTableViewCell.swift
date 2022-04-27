@@ -9,8 +9,10 @@ import UIKit
 import AuthenticationServices
 
 class AuthTableViewCell: UITableViewCell {
-    
+    private var appleToken: String = ""
     var loginClosure: ((_ cell: AuthTableViewCell) -> Void)?
+    
+    var siginInwithAppleClosure: (( _ appleToken: String) -> Void)?
     
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -33,7 +35,8 @@ class AuthTableViewCell: UITableViewCell {
         loginClosure?(self)
     }
     
-    private let authorizationAppleIDButton: ASAuthorizationAppleIDButton = ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
+    private let authorizationAppleIDButton: ASAuthorizationAppleIDButton =
+    ASAuthorizationAppleIDButton(type: .signIn, style: .whiteOutline)
     
     func setupSignInwithApple() {
         authorizationAppleIDButton.addTarget(
@@ -42,7 +45,9 @@ class AuthTableViewCell: UITableViewCell {
     }
     
     @objc func pressSignInWithAppleButton() {
-        let authorizationAppleIDRequest: ASAuthorizationAppleIDRequest = ASAuthorizationAppleIDProvider().createRequest()
+        
+        let authorizationAppleIDRequest: ASAuthorizationAppleIDRequest =
+        ASAuthorizationAppleIDProvider().createRequest()
         authorizationAppleIDRequest.requestedScopes = [.fullName, .email]
         
         let controller: ASAuthorizationController = ASAuthorizationController(
@@ -50,14 +55,12 @@ class AuthTableViewCell: UITableViewCell {
         
         controller.delegate = self
         controller.presentationContextProvider = self
-        
         controller.performRequests()
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     func layoutCell() {
@@ -68,48 +71,34 @@ class AuthTableViewCell: UITableViewCell {
 
 extension AuthTableViewCell: ASAuthorizationControllerDelegate {
     
-    /// 授權成功
-    /// - Parameters:
-    ///   - controller: _
-    ///   - authorization: _
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithAuthorization authorization: ASAuthorization) {
         
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            print("user: \(appleIDCredential.user)")
-            print("fullName: \(String(describing: appleIDCredential.fullName))")
-            print("Email: \(String(describing: appleIDCredential.email))")
-            print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
+            
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+            self.appleToken = idTokenString
+            siginInwithAppleClosure?(appleToken)
+            //            print("appleIDToken", idTokenString)
+            //            print("user: \(appleIDCredential.user)")
+            //            print("fullName: \(String(describing: appleIDCredential.fullName))")
+            //            print("Email: \(String(describing: appleIDCredential.email))")
+            //            print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
         }
+        
     }
     
-    /// 授權失敗
-    /// - Parameters:
-    ///   - controller: _
-    ///   - error: _
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        
-        switch (error) {
-        case ASAuthorizationError.canceled:
-            break
-        case ASAuthorizationError.failed:
-            break
-        case ASAuthorizationError.invalidResponse:
-            break
-        case ASAuthorizationError.notHandled:
-            break
-        case ASAuthorizationError.unknown:
-            break
-        default:
-            break
-        }
-        
-        print("didCompleteWithError: \(error.localizedDescription)")
-    }
 }
 
 extension AuthTableViewCell: ASAuthorizationControllerPresentationContextProviding {
-    
-    // - Parameter controller: _
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.window!
     }
@@ -119,9 +108,7 @@ extension AuthTableViewCell: ASAuthorizationControllerPresentationContextProvidi
 extension AuthTableViewCell {
     func layoutOfSignInWithApple() {
         siginView.addSubview(authorizationAppleIDButton)
-        
         authorizationAppleIDButton.translatesAutoresizingMaskIntoConstraints = false
-
         authorizationAppleIDButton.centerXAnchor.constraint(equalTo: siginView.centerXAnchor).isActive = true
         authorizationAppleIDButton.centerYAnchor.constraint(equalTo: siginView.centerYAnchor).isActive = true
         authorizationAppleIDButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
