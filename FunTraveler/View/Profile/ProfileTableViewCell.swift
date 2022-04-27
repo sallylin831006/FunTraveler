@@ -24,6 +24,8 @@ class ProfileTableViewCell: UITableViewCell {
         contentView.layer.masksToBounds = true
         contentView.backgroundColor = .themeApricotDeep
         userImageView.backgroundColor = UIColor.white
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
     }
 
     override func awakeFromNib() {

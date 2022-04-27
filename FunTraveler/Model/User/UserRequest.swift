@@ -17,6 +17,8 @@ enum UserRequest: STRequest {
     
     case getProfile(token: String)
     
+    case updateProfile(token: String, name: String, image: String)
+    
     var headers: [String: String] {
         
         switch self {
@@ -34,7 +36,7 @@ enum UserRequest: STRequest {
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
-        case .getProfile(let token):
+        case .getProfile(let token), .updateProfile(let token, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -76,7 +78,17 @@ enum UserRequest: STRequest {
             
         case .getProfile: return nil
             
+        case .updateProfile(_, let name, let image):
+            
+            let body = [
+                "name": name,
+                "image": image
+            ]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
         }
+        
+        
     }
     var method: String {
         
@@ -89,6 +101,8 @@ enum UserRequest: STRequest {
         case .appleLogin : return STHTTPMethod.POST.rawValue
             
         case .getProfile : return STHTTPMethod.GET.rawValue
+            
+        case .updateProfile : return STHTTPMethod.PATCH.rawValue
 
         }
     }
@@ -100,14 +114,12 @@ enum UserRequest: STRequest {
         case .register:
             return "/api/v1/auth/email/register"
             
-        case .login:
+        case .login, .appleLogin:
             return "/api/v1/auth/email/login"
             
-        case .appleLogin:
-            return "/api/v1/auth/apple/login"
-            
-        case .getProfile:
+        case .getProfile, .updateProfile:
             return "/api/v1/user"
+            
         }
         
     }
