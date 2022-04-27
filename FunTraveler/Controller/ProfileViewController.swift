@@ -9,7 +9,6 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    private var photoImageArray: [UIImageView] = []
     private var userData: User? {
         didSet {
             tableView.reloadData()
@@ -84,7 +83,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return UIScreen.main.bounds.width / 39 * 10
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -114,17 +113,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         cell.layoutCell(data: userData)
         
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
-        imageTapGesture.view?.tag = indexPath.row
         cell.userImageView.addGestureRecognizer(imageTapGesture)
         cell.userImageView.isUserInteractionEnabled = true
-        photoImageArray.append(cell.userImageView)
 
         return cell
 
     }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
-        guard let view = sender.view else { return }
         let photoSourceRequestController = UIAlertController(
             title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
         
@@ -136,7 +132,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 imagePicker.sourceType = .photoLibrary
                 imagePicker.delegate = self
                 
-                imagePicker.view?.tag = view.tag
+//                imagePicker.view?.tag = view.tag
                 
                 self.present(imagePicker, animated: true, completion: nil)
             }
@@ -150,7 +146,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 imagePicker.sourceType = .camera
                 imagePicker.delegate = self
                 
-                imagePicker.view?.tag = view.tag
                 
                 self.present(imagePicker, animated: true, completion: nil)
             }
@@ -185,6 +180,26 @@ extension ProfileViewController {
             }
         })
     }
+    
+    // MARK: - PATCH Action
+    private func patchData(name: String, image: String) {
+        let userProvider = UserProvider()
+        userProvider.updateProfile(name: name, image: image, completion: { result in
+            
+            switch result {
+                
+            case .success(let updateData):
+                
+                self.userData?.imageUrl = updateData.data.imageUrl
+                self.userData?.name = updateData.data.name
+                
+                self.tableView.reloadData()
+
+            case .failure:
+                print("PATCH Profile失敗！")
+            }
+        })
+    }
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -193,21 +208,14 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                                info: [UIImagePickerController.InfoKey: Any]) {
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            let photo =  photoImageArray[picker.view.tag]
-            photo.image = selectedImage
-            photo.contentMode = .scaleAspectFill
-            photo.clipsToBounds = true
+           
             
-            guard let image = photo.image else { return }
-            let newImage = image.scale(newWidth: 50.0)
+            let newImage = selectedImage.scale(newWidth: 50.0)
             guard let imageData: NSData = newImage.pngData() as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-            
-            userData?.imageUrl.removeAll()
-            userData?.imageUrl.append(strBase64)
-//            schedules[picker.view.tag].images.removeAll()
-//            schedules[picker.view.tag].images.append(strBase64)
-            
+
+            patchData(name: "你7", image: strBase64)
+
         }
         
         dismiss(animated: true, completion: nil)
