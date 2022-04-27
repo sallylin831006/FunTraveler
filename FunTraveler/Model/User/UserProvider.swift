@@ -95,4 +95,39 @@ class UserProvider {
                 }
             })
     }
+    
+    // MARK: - Sing in with apple
+    func siginInwithApple(appleToken: String, completion: @escaping LoginHanlder) {
+
+        HTTPClient.shared.request(UserRequest.appleLogin(appleToken: appleToken), completion: { result in
+                
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
+                        let loginResponse = try JSONDecoder().decode(
+                            Token.self,
+                            from: data
+                        )
+                        
+                        KeyChainManager.shared.appleToken = loginResponse.token
+                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(loginResponse))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
 }

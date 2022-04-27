@@ -78,6 +78,11 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
             self?.presentingViewController?.dismiss(animated: false, completion: nil)
         }
         
+        cell.siginInwithAppleClosure = { [weak self] appleToken in
+            self?.siginInwithApple(appleToken: appleToken)
+            self?.presentingViewController?.dismiss(animated: false, completion: nil)
+        }
+        
         cell.moveToRegisterButton.addTarget(self, action: #selector(tapMoveToRegisterButton), for: .touchUpInside)
         return cell
         
@@ -105,6 +110,24 @@ extension AuthViewController {
                 
             case .failure(let error):
                 print("POST TO Login 失敗！\(error)")
+            }
+        })
+        
+    }
+    
+    // MARK: - Sign in with Apple
+    private func siginInwithApple(appleToken: String) {
+        let userProvider = UserProvider()
+        
+        userProvider.siginInwithApple(appleToken: appleToken, completion: { result in
+            
+            switch result {
+                
+            case .success(let token):
+                print("Sign in with Apple成功！ \(token)")
+                
+            case .failure(let error):
+                print("Sign in with Apple失敗！\(error)")
             }
         })
         

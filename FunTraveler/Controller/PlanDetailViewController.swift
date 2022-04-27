@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import GoogleMaps
+//import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
         
@@ -34,7 +34,7 @@ class PlanDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addMap()
+//        addMap()
         showPlanPicker()
         addCustomBackButton()
         
@@ -108,7 +108,7 @@ class PlanDetailViewController: UIViewController {
         
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
-            self?.addMarker()
+//            self?.addMarker()
         }
         
         planPickerViewController.tripClosure = { [weak self] trip in
@@ -167,56 +167,56 @@ class PlanDetailViewController: UIViewController {
     }
     
     let label = UILabel()
-    let mapView = GMSMapView()
+//    let mapView = GMSMapView()
     
-    func addMap() {
-        mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        self.view.addSubview(mapView)
-        
-        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
-        mapView.camera = camera
+//    func addMap() {
+//        mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+//        self.view.addSubview(mapView)
+//
+////        let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
+//        mapView.camera = camera
         
     }
     
-    func addMarker() {
-        var markerArray: [CLLocationCoordinate2D] = []
-        mapView.clear()
-        for (index, schedule) in schedules.enumerated() {
-            
-            let marker = GMSMarker()
-            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
-            marker.iconView = markerView
-            marker.position = CLLocationCoordinate2DMake(
-                CLLocationDegrees(schedule.position.lat),
-                CLLocationDegrees(schedule.position.long))
-            
-            marker.map = mapView
-            marker.title = schedule.name
-            marker.snippet = schedule.address
-            markerArray.append(marker.position)
-            
-            let orderLabel = UILabel()
-            orderLabel.text = String(index + 1)
-            orderLabel.font = orderLabel.font.withSize(30)
-            
-            orderLabel.textColor = UIColor.themeRed
-            marker.iconView?.addSubview(orderLabel)
-            
-            orderLabel.translatesAutoresizingMaskIntoConstraints = false
-            orderLabel.topAnchor.constraint(
-                equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
-            orderLabel.centerXAnchor.constraint(equalTo: marker.iconView!.centerXAnchor).isActive = true
-        }
-        
-        let path = GMSMutablePath()
-        
-        for coord in markerArray {
-            path.add(coord)
-        }
-        let line = GMSPolyline(path: path)
-        line.strokeColor = UIColor.themeRed!
-        line.strokeWidth = 4.0
-        line.map = mapView
-    }
-    
-}
+//    func addMarker() {
+//        var markerArray: [CLLocationCoordinate2D] = []
+//        mapView.clear()
+//        for (index, schedule) in schedules.enumerated() {
+//            
+//            let marker = GMSMarker()
+//            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
+//            marker.iconView = markerView
+//            marker.position = CLLocationCoordinate2DMake(
+//                CLLocationDegrees(schedule.position.lat),
+//                CLLocationDegrees(schedule.position.long))
+//            
+//            marker.map = mapView
+//            marker.title = schedule.name
+//            marker.snippet = schedule.address
+//            markerArray.append(marker.position)
+//            
+//            let orderLabel = UILabel()
+//            orderLabel.text = String(index + 1)
+//            orderLabel.font = orderLabel.font.withSize(30)
+//            
+//            orderLabel.textColor = UIColor.themeRed
+//            marker.iconView?.addSubview(orderLabel)
+//            
+//            orderLabel.translatesAutoresizingMaskIntoConstraints = false
+//            orderLabel.topAnchor.constraint(
+//                equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
+//            orderLabel.centerXAnchor.constraint(equalTo: marker.iconView!.centerXAnchor).isActive = true
+//        }
+//        
+//        let path = GMSMutablePath()
+//        
+//        for coord in markerArray {
+//            path.add(coord)
+//        }
+//        let line = GMSPolyline(path: path)
+//        line.strokeColor = UIColor.themeRed!
+//        line.strokeWidth = 4.0
+//        line.map = mapView
+//    }
+//    
+//}

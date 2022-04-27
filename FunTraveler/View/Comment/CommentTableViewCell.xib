@@ -19,14 +19,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9PP-Ap-Ali">
-                        <rect key="frame" x="10" y="10" width="45" height="45"/>
+                        <rect key="frame" x="10" y="10" width="43" height="43"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="45" id="9cw-mR-ihi"/>
-                            <constraint firstAttribute="height" constant="45" id="j9n-TF-VNb"/>
+                            <constraint firstAttribute="width" secondItem="9PP-Ap-Ali" secondAttribute="height" id="d1X-rU-t7Y"/>
+                            <constraint firstAttribute="width" constant="45" id="zlr-QV-eUO"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jan-Gu-1rN">
-                        <rect key="frame" x="65" y="5" width="53" height="31"/>
+                        <rect key="frame" x="63" y="5" width="53" height="31"/>
                         <color key="tintColor" name="themeRed"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="sally"/>
@@ -38,13 +38,13 @@
                         <buttonConfiguration key="configuration" style="plain" title="回覆"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6分鐘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-TB-vRV">
-                        <rect key="frame" x="75" y="40" width="33" height="15"/>
+                        <rect key="frame" x="73" y="40" width="33" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="狗狗笑得好開心！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTG-yx-ATA">
-                        <rect key="frame" x="128" y="11.5" width="123" height="18"/>
+                        <rect key="frame" x="126" y="11.5" width="123" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
