@@ -47,7 +47,7 @@ class CollectedViewController: UIViewController {
     private func fetchData() {
         let exploreProvider = CollectedProvider()
         
-        exploreProvider.fetchCollected(token: "mockToken", completion: { [weak self] result in
+        exploreProvider.fetchCollected(completion: { [weak self] result in
             
             switch result {
                 
@@ -157,7 +157,7 @@ extension CollectedViewController {
     private func postData(isCollected: Bool, tripId: Int) {
             let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected(token: "mockToken", isCollected: isCollected,
+            collectedProvider.addCollected( isCollected: isCollected,
                                            tripId: tripId, completion: { result in
                 
                 switch result {

@@ -113,7 +113,7 @@ class UserProvider {
                             from: data
                         )
                         
-                        KeyChainManager.shared.appleToken = loginResponse.token
+                        KeyChainManager.shared.token = loginResponse.token
                         
                         DispatchQueue.main.async {
                             
