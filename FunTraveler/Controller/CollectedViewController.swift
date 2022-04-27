@@ -99,7 +99,8 @@ extension CollectedViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         let item = collectedData[indexPath.row]
-        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
+//        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
+        cell.layoutCell(data: item)
         
         cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .normal) //不太好的做法
         cell.collectClosure = { isCollected in

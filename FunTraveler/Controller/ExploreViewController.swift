@@ -98,8 +98,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         let item = exploreData[indexPath.row]
-        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
-        
+        cell.layoutCell(data: item)
+
         cell.collectClosure = { isCollected in
             self.postData(isCollected: isCollected, tripId: self.exploreData[indexPath.row].id)
             self.exploreData[indexPath.row].isCollected = isCollected
@@ -107,10 +107,19 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
-        cell.heartClosure = { isHeartTapped in
-            self.postLiked(index: indexPath.row)
-            self.exploreData[indexPath.row].likeCount += 1 //不確定
-
+        cell.heartClosure = { isLiked in
+            if isLiked {
+                self.postLiked(index: indexPath.row)
+                self.exploreData[indexPath.row].isLiked = isLiked
+                let indexPath = IndexPath(item: indexPath.row, section: 0)
+                tableView.reloadRows(at: [indexPath], with: .none)
+            } else {
+                self.deleteLiked(index: indexPath.row)
+                self.exploreData[indexPath.row].isLiked = isLiked
+                let indexPath = IndexPath(item: indexPath.row, section: 0)
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
+           
         }
         
         cell.followClosure = { cell, isfollowed in
@@ -212,6 +221,21 @@ extension ExploreViewController {
                                     
                 case .failure:
                     print("[Explore] Liked postResponse失敗！")
+                }
+            })
+            
+        }
+    // MARK: - DELETE TO UnLike
+    private func deleteLiked(index: Int) {
+            let reactionProvider = ReactionProvider()
+        reactionProvider.deleteUnLiked(tripId: exploreData[index].id, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] UnLiked postResponse失敗！")
                 }
             })
             

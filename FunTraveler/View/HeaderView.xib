@@ -22,8 +22,8 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="探索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-fo-qzE">
-                    <rect key="frame" x="175" y="38.5" width="40" height="23.5"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                    <rect key="frame" x="170" y="22.5" width="50" height="29.5"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                     <color key="textColor" name="themeApricotDeep"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -32,7 +32,7 @@
             <color key="backgroundColor" name="themeApricotDeep"/>
             <constraints>
                 <constraint firstItem="b9h-fo-qzE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1S1-np-sGE"/>
-                <constraint firstItem="b9h-fo-qzE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="AdR-rQ-s3e"/>
+                <constraint firstItem="b9h-fo-qzE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-13" id="AdR-rQ-s3e"/>
                 <constraint firstItem="H5c-aF-gb3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cit-3Z-LO2"/>
                 <constraint firstItem="H5c-aF-gb3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z2U-iU-Rlv"/>
             </constraints>
