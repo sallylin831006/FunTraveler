@@ -7,16 +7,25 @@
 
 import UIKit
 
+protocol ProfileTableViewCellDelegate: AnyObject {
+    
+    func didChangeName( _ cell: ProfileTableViewCell, text: String)
+}
+
 class ProfileTableViewCell: UITableViewCell {
     
+    weak var changeNameDelegate: ProfileTableViewCellDelegate?
+
     @IBOutlet weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userNameTextField: UITextField!
+    
+    @IBOutlet weak var editButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let margins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        let margins = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         contentView.layer.borderWidth = 4
@@ -26,13 +35,38 @@ class ProfileTableViewCell: UITableViewCell {
         userImageView.backgroundColor = UIColor.white
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
+        editButton.isHidden = true
+        
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
+        userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
+        userNameTextField.delegate = self
+//        let textFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserNameTextField(_:)))
+//        userNameTextField.addGestureRecognizer(textFieldTapGesture)
+//        userNameTextField.isUserInteractionEnabled = true
 
+    }
+    
+    @objc func editUserNameTextField(_ textField: UITextField) {
+        editButton.isHidden = false //NOT WORKING
+        userNameTextField.isUserInteractionEnabled = true
+        userNameTextField.addBottomBorder()
+        
+    }
+    
+//    @objc func tapUserNameTextField(_ gestureRecognizer: UITapGestureRecognizer) {
+//        editButton.isHidden = false
+//        userNameTextField.isUserInteractionEnabled = true
+//        userNameTextField.addBottomBorder()
+//
+//        if gestureRecognizer.state == .failed {
+//            editButton.isHidden = true
+//            userNameTextField.isUserInteractionEnabled = false
+//        }
+//    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.selectionStyle = .none
@@ -40,12 +74,32 @@ class ProfileTableViewCell: UITableViewCell {
     }
     
     func layoutCell(data: User) {
-        userNameLabel.text = "嗨，\(data.name)"
+        userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = nil
         } else {
             userImageView.loadImage(data.imageUrl)
         }
     }
+}
+
+extension ProfileTableViewCell: UITextFieldDelegate {
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let name = textField.text else { return }
+        
+        changeNameDelegate?.didChangeName(self, text: name)
+        
+    }
+}
+
+extension UITextField {
+    func addBottomBorder() {
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
+        bottomLine.backgroundColor = UIColor.white.cgColor
+        borderStyle = .none
+        layer.addSublayer(bottomLine)
+    }
 }

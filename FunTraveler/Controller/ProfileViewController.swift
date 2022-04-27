@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private var userNameTextField: UITextField!
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -39,6 +41,7 @@ class ProfileViewController: UIViewController {
         
         tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
         movingToCollectedPage()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,8 +118,22 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
         cell.userImageView.addGestureRecognizer(imageTapGesture)
         cell.userImageView.isUserInteractionEnabled = true
-
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
+        
+        self.userNameTextField = cell.userNameTextField
+        
+        cell.changeNameDelegate = self
+        
         return cell
+
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        userNameTextField.resignFirstResponder()
+        guard let name = userNameTextField.text else { return }
+        patchData(name: name, image: "")
 
     }
     
@@ -160,6 +177,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
         present(photoSourceRequestController, animated: true, completion: nil)
         
+    }
+    
+}
+
+extension ProfileViewController: ProfileTableViewCellDelegate {
+    
+    func didChangeName(_ cell: ProfileTableViewCell, text: String) {
+        
+        self.userNameTextField.text = text
+        patchData(name: text, image: "")
+
     }
     
 }
@@ -209,12 +237,11 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
            
-            
-            let newImage = selectedImage.scale(newWidth: 50.0)
-            guard let imageData: NSData = newImage.pngData() as NSData? else { return }
+            let newImage = selectedImage.scale(newWidth: 100.0)
+            guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
 
-            patchData(name: "你7", image: strBase64)
+            patchData(name: "", image: strBase64)
 
         }
         
