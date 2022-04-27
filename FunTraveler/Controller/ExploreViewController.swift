@@ -150,7 +150,7 @@ extension ExploreViewController {
     private func postData(isCollected: Bool, tripId: Int) {
             let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected(token: "mockToken", isCollected: isCollected,
+            collectedProvider.addCollected(isCollected: isCollected,
                                            tripId: tripId, completion: { result in
                 
                 switch result {

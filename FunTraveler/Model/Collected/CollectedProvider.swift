@@ -16,11 +16,16 @@ class CollectedProvider {
     let decoder = JSONDecoder()
     
     // MARK: - POST TO ADD NEW COLLECTED
-    func addCollected(token: String, isCollected: Bool, tripId: Int, completion: @escaping CollectedHanlder) {
+    func addCollected(isCollected: Bool, tripId: Int, completion: @escaping CollectedHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
         
         HTTPClient.shared.request(
             CollectedRequest.postCollected(
-                token: "mockToken", isCollected: isCollected, tripId: tripId), completion: { result in
+                token: token, isCollected: isCollected, tripId: tripId), completion: { result in
                     
                     switch result {
                         
@@ -40,10 +45,15 @@ class CollectedProvider {
     }
     
     // MARK: - GET Collected
-    func fetchCollected(token: String, completion: @escaping ExploreCollectedHanlder) {
+    func fetchCollected(completion: @escaping ExploreCollectedHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
         
         HTTPClient.shared.request(
-            CollectedRequest.getCollected(token: "mockToken"), completion: { result in
+            CollectedRequest.getCollected(token: token), completion: { result in
                 
                 switch result {
                     

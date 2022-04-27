@@ -30,7 +30,6 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
-        UserDefaults.standard.removeObject(forKey: "AppleToken")
 
     }
     override func viewDidLoad() {
@@ -46,10 +45,7 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard KeyChainManager.shared.token != nil || KeyChainManager.shared.appleToken != nil
-        else {
-            return onShowLogin()
-        }
+        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         fetchData()
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }

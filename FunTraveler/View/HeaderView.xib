@@ -15,31 +15,31 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8C-5I-buw">
-                    <rect key="frame" x="165.5" y="35" width="59" height="30"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="H5c-aF-gb3">
                     <rect key="frame" x="-219" y="0.0" width="828" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="VDa-IK-4oX"/>
                     </constraints>
                 </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="探索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-fo-qzE">
+                    <rect key="frame" x="175" y="38.5" width="40" height="23.5"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                    <color key="textColor" name="themeApricotDeep"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="themeApricotDeep"/>
             <constraints>
-                <constraint firstItem="G8C-5I-buw" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Dpw-ZB-d9I"/>
-                <constraint firstItem="G8C-5I-buw" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="EIY-e0-VS6"/>
+                <constraint firstItem="b9h-fo-qzE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1S1-np-sGE"/>
+                <constraint firstItem="b9h-fo-qzE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="AdR-rQ-s3e"/>
                 <constraint firstItem="H5c-aF-gb3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cit-3Z-LO2"/>
                 <constraint firstItem="H5c-aF-gb3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z2U-iU-Rlv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="backgroundImage" destination="H5c-aF-gb3" id="Vqm-Ma-xXa"/>
-                <outlet property="titleLabel" destination="G8C-5I-buw" id="CDi-RY-zt1"/>
+                <outlet property="titleLabel" destination="b9h-fo-qzE" id="Ozf-3V-Q9P"/>
             </connections>
             <point key="canvasLocation" x="8.6956521739130448" y="-75.669642857142847"/>
         </view>
