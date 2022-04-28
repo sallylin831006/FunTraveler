@@ -9,7 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 protocol AuthViewControllerDelegate: AnyObject {
-    func detectDissmiss(_ viewController: UIViewController)
+    func detectDissmiss(_ viewController: UIViewController, _ userId: Int)
 }
 
 class AuthViewController: UIViewController {
@@ -42,11 +42,6 @@ class AuthViewController: UIViewController {
         tableView.reloadData()
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 200
         tableView.shouldIgnoreScrollingAdjustment = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        print("AuthVC viewWillDisappearn")
-//        self.delegate?.detectDissmiss(self)
     }
 
 }
@@ -115,9 +110,10 @@ extension AuthViewController {
             
             switch result {
                 
-            case .success:
+            case .success(let responseData):
+                let userId = responseData.userId
                 self.presentingViewController?.dismiss(animated: false, completion: {
-                    self.delegate?.detectDissmiss(self)
+                    self.delegate?.detectDissmiss(self, userId)
                 })
                 
             case .failure(let error):
@@ -135,9 +131,11 @@ extension AuthViewController {
             
             switch result {
                 
-            case .success:
+            case .success(let responseData):
+                let userId = responseData.userId
+
                 self.presentingViewController?.dismiss(animated: false, completion: {
-                    self.delegate?.detectDissmiss(self)
+                    self.delegate?.detectDissmiss(self, userId)
                 })
                 
             case .failure(let error):

@@ -7,10 +7,29 @@
 
 import UIKit
 
-class SegementView: UITableViewHeaderFooterView {
 
+
+class SegementView: UITableViewHeaderFooterView {
+    
+    var collectedClosure: (() -> Void)?
+
+
+    @IBOutlet weak var segementControl: UISegmentedControl!
+
+    @IBAction func tapSegementControll(_ sender: Any) {
+        
+        if segementControl.selectedSegmentIndex == 0 {
+            print("我點了旅遊回憶")
+        } else if segementControl.selectedSegmentIndex == 1 {
+            print("我點了收藏")
+            collectedClosure?()
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
+        segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeApricotDeep ?? .white], for: .selected)
+        segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeRed ?? .white], for: .normal)
         //        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
         //        contentView.contentMode = .scaleToFill
 //        let margins = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)

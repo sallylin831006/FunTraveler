@@ -126,6 +126,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             
             guard let profileVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+            
+            profileVC.othersUserId = self.exploreData[indexPath.row].user.id
             self.present(profileVC, animated: true)
 
         }
