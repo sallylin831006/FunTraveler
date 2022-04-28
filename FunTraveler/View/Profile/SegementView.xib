@@ -13,30 +13,38 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SegementView" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="OrZ-Jj-f1k">
-                    <rect key="frame" x="30" y="16" width="354" height="29"/>
+                    <rect key="frame" x="60" y="16" width="294" height="31"/>
                     <color key="backgroundColor" name="themeApricotDeep"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="gjy-Hh-hfN"/>
+                    </constraints>
                     <segments>
                         <segment title="我的回憶"/>
                         <segment title="我的收藏"/>
                     </segments>
                     <color key="tintColor" name="themeApricotDeep"/>
                     <color key="selectedSegmentTintColor" name="themeRed"/>
+                    <connections>
+                        <action selector="tapSegementControll:" destination="iN0-l3-epB" eventType="valueChanged" id="JtA-xB-Agv"/>
+                    </connections>
                 </segmentedControl>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="OrZ-Jj-f1k" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="0OR-To-Ikt"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OrZ-Jj-f1k" secondAttribute="bottom" constant="16" id="4gY-sq-9JX"/>
-                <constraint firstItem="OrZ-Jj-f1k" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="Mzy-cd-Cf4"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OrZ-Jj-f1k" secondAttribute="trailing" constant="30" id="OWK-NC-Rfl"/>
+                <constraint firstItem="OrZ-Jj-f1k" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="Mzy-cd-Cf4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OrZ-Jj-f1k" secondAttribute="trailing" constant="60" id="OWK-NC-Rfl"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="136.23188405797103" y="-173.4375"/>
+            <connections>
+                <outlet property="segementControl" destination="OrZ-Jj-f1k" id="Tzs-6C-BAM"/>
+            </connections>
+            <point key="canvasLocation" x="136.23188405797103" y="-170.08928571428569"/>
         </view>
     </objects>
     <resources>

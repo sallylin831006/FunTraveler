@@ -9,6 +9,15 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private var collectedData: [Explore] = [] {
+        didSet {
+        }
+    }
+    
+    private var collectedDataArray: [[Explore]] = []
+    
+    var othersUserId: Int?
+    
     private var userData: User? {
         didSet {
             tableView.reloadData()
@@ -54,7 +63,6 @@ class ProfileViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
 
-        movingToCollectedPage()
         
     }
     
@@ -64,7 +72,9 @@ class ProfileViewController: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
-        fetchData()
+        
+        guard let othersUserId = othersUserId else { return }
+        fetchData(userId: othersUserId)
     }
     
     private func onShowLogin() {
@@ -75,23 +85,23 @@ class ProfileViewController: UIViewController {
         present(navAuthVC, animated: false, completion: nil)
     }
     
-    func movingToCollectedPage() {
-        let collectedButton = UIButton()
-        collectedButton.frame = CGRect(x: 300, y: 500, width: 70, height: 70)
-        collectedButton.setBackgroundImage(UIImage.asset(.collectNormal), for: .normal)
-        collectedButton.addTarget(target, action: #selector(tapCollectedButton), for: .touchUpInside)
-//        self.tableView.addSubview(collectedButton)
-        self.view.addSubview(collectedButton)
+//    func movingToCollectedPage() {
+//        let collectedButton = UIButton()
+//        collectedButton.frame = CGRect(x: 300, y: 500, width: 70, height: 70)
+//        collectedButton.setBackgroundImage(UIImage.asset(.collectNormal), for: .normal)
+//        collectedButton.addTarget(target, action: #selector(tapCollectedButton), for: .touchUpInside)
+////        self.tableView.addSubview(collectedButton)
+//        self.view.addSubview(collectedButton)
+//
+//    }
 
-    }
-
-    @objc func tapCollectedButton() {
-        guard let collectedVC = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.collectedVC) as? CollectedViewController else { return }
-        let navCollectedVC = UINavigationController(rootViewController: collectedVC)
-        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-        self.present(navCollectedVC, animated: true)
-    }
+//    @objc func tapCollectedButton() {
+//        guard let collectedVC = storyboard?.instantiateViewController(
+//            withIdentifier: StoryboardCategory.collectedVC) as? CollectedViewController else { return }
+//        let navCollectedVC = UINavigationController(rootViewController: collectedVC)
+//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
+//        self.present(navCollectedVC, animated: true)
+//    }
 
 }
 
@@ -126,7 +136,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SegementView.identifier)
                     as? SegementView else { return nil }
-            
+            headerView.collectedClosure = {
+                self.fetchCollectedData()
+
+            }
             return headerView
         default: break
         }
@@ -140,7 +153,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             return 1
         } else {
-            return 1
+            return collectedData.count
         }
         
     }
@@ -176,8 +189,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
                     as? ExploreOverViewTableViewCell else { return UITableViewCell() }
             
-//            let item = exploreData[indexPath.row]
-//            cell.layoutCell(data: item)
+            let item = collectedData[indexPath.row]
+            cell.layoutCell(data: item)
 
             return cell
             
@@ -261,8 +274,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ProfileViewController: AuthViewControllerDelegate {
-    func detectDissmiss(_ viewController: UIViewController) {
-        fetchData()
+    func detectDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        fetchData(userId: userId)
     }
 }
 
@@ -279,9 +292,9 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
 
 extension ProfileViewController {
     // MARK: - GET Action
-    private func fetchData() {
+    private func fetchData(userId: Int) {
         let userProvider = UserProvider()
-        userProvider.getProfile(completion: { [weak self] result in
+        userProvider.getProfile(userId: userId, completion: { [weak self] result in
             
             switch result {
                 
@@ -310,6 +323,26 @@ extension ProfileViewController {
 
             case .failure:
                 print("PATCH Profile失敗！")
+            }
+        })
+    }
+    
+    // MARK: - GET Collected Page
+    private func fetchCollectedData() {
+        let exploreProvider = CollectedProvider()
+        
+        exploreProvider.fetchCollected(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let collectedData):
+                
+                self?.collectedData = collectedData.data
+                self?.collectedDataArray.append(self!.collectedData)
+                self?.tableView.reloadData()
+                
+            case .failure:
+                print("[CollectedVC] GET 讀取資料失敗！")
             }
         })
     }

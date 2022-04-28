@@ -10,10 +10,12 @@ import Foundation
 struct Token: Codable {
     var token: String
     var refreshToken: String
+    var userId: Int
     
     enum CodingKeys: String, CodingKey {
         case token = "access_token"
         case refreshToken = "refresh_token"
+        case userId = "user_id"
     }
 }
 

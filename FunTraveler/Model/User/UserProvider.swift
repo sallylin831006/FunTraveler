@@ -134,14 +134,11 @@ class UserProvider {
     }
     
     // MARK: - GET USER PROFILE
-    func getProfile(completion: @escaping UserHanlder) {
+    func getProfile(userId: Int, completion: @escaping UserHanlder) {
         
-        guard let token = KeyChainManager.shared.token else {
-            
-            return completion(Result.failure(FunTravelerSignInError.noToken))
-        }
+        let token = KeyChainManager.shared.token ?? ""
         
-        HTTPClient.shared.request(UserRequest.getProfile(token: token), completion: { result in
+        HTTPClient.shared.request(UserRequest.getProfile(token: token, userId: userId), completion: { result in
                 
                 switch result {
                     
