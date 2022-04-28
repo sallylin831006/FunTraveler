@@ -15,11 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="H5c-aF-gb3">
-                    <rect key="frame" x="-219" y="0.0" width="828" height="100"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="100" id="VDa-IK-4oX"/>
-                    </constraints>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="H5c-aF-gb3">
+                    <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="探索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9h-fo-qzE">
                     <rect key="frame" x="170" y="22.5" width="50" height="29.5"/>
@@ -32,8 +29,12 @@
             <color key="backgroundColor" name="themeApricotDeep"/>
             <constraints>
                 <constraint firstItem="b9h-fo-qzE" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1S1-np-sGE"/>
+                <constraint firstItem="H5c-aF-gb3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="AA5-4J-66a"/>
                 <constraint firstItem="b9h-fo-qzE" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-13" id="AdR-rQ-s3e"/>
+                <constraint firstAttribute="bottom" secondItem="H5c-aF-gb3" secondAttribute="bottom" id="Cdw-ev-KaE"/>
+                <constraint firstAttribute="trailing" secondItem="H5c-aF-gb3" secondAttribute="trailing" id="YbE-zn-wzm"/>
                 <constraint firstItem="H5c-aF-gb3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="cit-3Z-LO2"/>
+                <constraint firstItem="H5c-aF-gb3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xG6-2Z-rqI"/>
                 <constraint firstItem="H5c-aF-gb3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="z2U-iU-Rlv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

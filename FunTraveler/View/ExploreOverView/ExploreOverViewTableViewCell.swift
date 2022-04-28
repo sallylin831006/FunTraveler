@@ -9,6 +9,7 @@ import UIKit
 
 class ExploreOverViewTableViewCell: UITableViewCell {
     
+    var friendClosure: (() -> Void)?
     var heartClosure: ((_ isLiked: Bool) -> Void)?
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
@@ -75,7 +76,25 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
         collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
         followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserImage(gestureRecognizer:)))
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(gesture)
+        
+        let nameGesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserName(gestureRecognizer:)))
+        userNameLabel.isUserInteractionEnabled = true
+        userNameLabel.addGestureRecognizer(nameGesture)
+        
     }
+    
+    @objc func tappedUserImage(gestureRecognizer: UITapGestureRecognizer) {
+        friendClosure?()
+    }
+    
+    @objc func tappedUserName(gestureRecognizer: UITapGestureRecognizer) {
+        friendClosure?()
+    }
+   
     var isfollowed: Bool = false
     
     @objc func tapHeartButton(_ sender: UIButton) {

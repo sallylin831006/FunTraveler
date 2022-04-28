@@ -28,6 +28,15 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
+    }
+    
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         userData = nil
@@ -40,12 +49,17 @@ class ProfileViewController: UIViewController {
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
+        
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
+        
         movingToCollectedPage()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.automaticallyAdjustsScrollViewInsets = false
+
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         fetchData()
@@ -83,8 +97,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return UIScreen.main.bounds.width / 39 * 10
+        if section == 0 {
+            //        return UIScreen.main.bounds.width / 39 * 10
+            return 100.0
+        } else {
+            return 0
+        }
+
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -99,33 +118,75 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     // MARK: - Section Row
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        if section == 0 {
+            return 1
+        } else {
+            return 1
+        }
+        
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
+                    as? ProfileTableViewCell else { return UITableViewCell() }
 
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
-                as? ProfileTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
+            guard let userData = userData else { return UITableViewCell()}
+            cell.layoutCell(data: userData)
+            
+            let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+            cell.userImageView.addGestureRecognizer(imageTapGesture)
+            cell.userImageView.isUserInteractionEnabled = true
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
+            self.view.addGestureRecognizer(tapGesture)
+            
+            self.userNameTextField = cell.userNameTextField
+            
+            cell.changeNameDelegate = self
+            cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
+            return cell
+            
+        case 1:
+            
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
+                    as? ExploreOverViewTableViewCell else { return UITableViewCell() }
+            
+//            let item = exploreData[indexPath.row]
+//            cell.layoutCell(data: item)
 
-        cell.selectionStyle = .none
-        guard let userData = userData else { return UITableViewCell()}
-        cell.layoutCell(data: userData)
-        
-        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
-        cell.userImageView.addGestureRecognizer(imageTapGesture)
-        cell.userImageView.isUserInteractionEnabled = true
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
-        self.view.addGestureRecognizer(tapGesture)
-        
-        self.userNameTextField = cell.userNameTextField
-        
-        cell.changeNameDelegate = self
-        cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
-        return cell
+            return cell
+            
+        default: break
+            
+        }
+        return UITableViewCell()
 
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        guard let exploreDeatilVC = storyboard?.instantiateViewController(
+//            withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
+//        
+//        exploreDeatilVC.tripId = exploreData[indexPath.row].id
+//        exploreDeatilVC.days = exploreData[indexPath.row].days
+//        navigationController?.pushViewController(exploreDeatilVC, animated: true)
+//        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
+//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
+//        self.present(navExploreDeatilVC, animated: true)
+        
     }
     
     @objc func tapSettingButton() {

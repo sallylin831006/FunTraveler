@@ -15,9 +15,16 @@ class HeaderView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-//        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-//        contentView.contentMode = .scaleToFill
+        //        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
+        //        contentView.contentMode = .scaleToFill
+        let margins = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
+        contentView.frame = contentView.frame.inset(by: margins)
+//        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+//        contentView.layer.borderWidth = 4
+//        contentView.layer.cornerRadius = 10.0
+//        contentView.layer.masksToBounds = true
+//        contentView.backgroundColor = .themeApricotDeep
+       
         
     }
     

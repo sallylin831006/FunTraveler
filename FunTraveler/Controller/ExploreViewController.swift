@@ -55,7 +55,7 @@ class ExploreViewController: UIViewController {
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
         searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
-
+     
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .themeRed
     }
@@ -122,6 +122,16 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
            
         }
         
+        cell.friendClosure = {
+            
+            guard let profileVC = UIStoryboard.profile.instantiateViewController(
+                withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+            self.present(profileVC, animated: true)
+
+        }
+        
+    
+        
         cell.followClosure = { cell, isfollowed in
             
             if isfollowed {
@@ -164,8 +174,8 @@ extension ExploreViewController {
                 
                 switch result {
                     
-                case .success(let postResponse):
-                    print("按了收藏按鈕！", postResponse)
+                case .success: break
+//                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
                     print("[Explore] collected postResponse失敗！")
