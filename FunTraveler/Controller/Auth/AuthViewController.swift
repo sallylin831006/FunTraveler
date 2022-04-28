@@ -8,7 +8,13 @@
 import UIKit
 import IQKeyboardManagerSwift
 
+protocol AuthViewControllerDelegate: AnyObject {
+    func detectDissmiss(_ viewController: UIViewController)
+}
+
 class AuthViewController: UIViewController {
+    
+    weak var delegate: AuthViewControllerDelegate?
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -38,6 +44,11 @@ class AuthViewController: UIViewController {
         tableView.shouldIgnoreScrollingAdjustment = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("AuthVC viewWillDisappearn")
+//        self.delegate?.detectDissmiss(self)
+    }
+
 }
 
 extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
@@ -75,12 +86,11 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
             guard let email = cell.emailTextField.text,
                   let password = cell.passwordTextField.text else { return }
             self?.postToLogin(email: email, password: password)
-            self?.presentingViewController?.dismiss(animated: false, completion: nil)
         }
-        
+    
         cell.siginInwithAppleClosure = { [weak self] appleToken in
             self?.siginInwithApple(appleToken: appleToken)
-            self?.presentingViewController?.dismiss(animated: false, completion: nil)
+            
         }
         
         cell.moveToRegisterButton.addTarget(self, action: #selector(tapMoveToRegisterButton), for: .touchUpInside)
@@ -105,7 +115,10 @@ extension AuthViewController {
             
             switch result {
                 
-            case .success: break
+            case .success:
+                self.presentingViewController?.dismiss(animated: false, completion: {
+                    self.delegate?.detectDissmiss(self)
+                })
                 
             case .failure(let error):
                 print("POST TO Login 失敗！\(error)")
@@ -122,8 +135,10 @@ extension AuthViewController {
             
             switch result {
                 
-            case .success(let token):
-                print("Sign in with Apple成功！ \(token)")
+            case .success:
+                self.presentingViewController?.dismiss(animated: false, completion: {
+                    self.delegate?.detectDissmiss(self)
+                })
                 
             case .failure(let error):
                 print("Sign in with Apple失敗！\(error)")

@@ -30,7 +30,8 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
-
+        userData = nil
+        onShowLogin()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,14 +46,15 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         fetchData()
-        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     private func onShowLogin() {
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        authVC.delegate = self
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
     }
@@ -167,7 +169,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 imagePicker.sourceType = .camera
                 imagePicker.delegate = self
                 
-                
                 self.present(imagePicker, animated: true, completion: nil)
             }
         })
@@ -183,6 +184,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
+}
+
+extension ProfileViewController: AuthViewControllerDelegate {
+    func detectDissmiss(_ viewController: UIViewController) {
+        fetchData()
+    }
 }
 
 extension ProfileViewController: ProfileTableViewCellDelegate {
@@ -206,7 +213,7 @@ extension ProfileViewController {
                 
             case .success(let userData):
                 self?.userData = userData.data
-                
+                self?.tableView.reloadData()
             case .failure:
                 print("[ProfileVC] GET Profile 資料失敗！")
             }
