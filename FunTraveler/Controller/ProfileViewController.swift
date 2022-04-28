@@ -50,8 +50,10 @@ class ProfileViewController: UIViewController {
         
         tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
         
+        tableView.registerHeaderWithNib(identifier: String(describing: SegementView.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
-        
+        tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
+
         movingToCollectedPage()
         
     }
@@ -94,34 +96,45 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
     
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            //        return UIScreen.main.bounds.width / 39 * 10
-            return 100.0
-        } else {
-            return 0
+        switch section {
+//        return UIScreen.main.bounds.width / 39 * 10
+        case 0: return 100.0
+        case 1: return 80.0
+        default: break
         }
+        return .zero
 
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section {
+        case 0:
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: HeaderView.identifier)
+                    as? HeaderView else { return nil }
+            
+            headerView.titleLabel.text = "個人"
+            return headerView
+            
+        case 1:
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: SegementView.identifier)
+                    as? SegementView else { return nil }
+            
+            return headerView
+        default: break
+        }
         
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
-        
-        headerView.titleLabel.text = "個人"
-        
-        return headerView
+        return UIView()
     }
     
     // MARK: - Section Row
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
