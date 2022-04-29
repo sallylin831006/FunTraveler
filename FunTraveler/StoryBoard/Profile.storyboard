@@ -79,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fo-81-c67" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="85"/>
+            <point key="canvasLocation" x="2794" y="927"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="1v2-c8-QWY">
@@ -119,7 +119,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iEr-KX-cCy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2567" y="84"/>
+            <point key="canvasLocation" x="1855" y="80"/>
+        </scene>
+        <!--Friend List View Controller-->
+        <scene sceneID="hPY-Xc-BcW">
+            <objects>
+                <viewController storyboardIdentifier="FriendListViewController" id="e54-P9-D8Q" customClass="FriendListViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Im-pm-Lmg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CEi-N3-vn7">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SuA-GW-612"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SuA-GW-612" firstAttribute="bottom" secondItem="CEi-N3-vn7" secondAttribute="bottom" id="5SI-zH-3ol"/>
+                            <constraint firstItem="CEi-N3-vn7" firstAttribute="leading" secondItem="SuA-GW-612" secondAttribute="leading" id="dFb-BS-bYL"/>
+                            <constraint firstItem="SuA-GW-612" firstAttribute="trailing" secondItem="CEi-N3-vn7" secondAttribute="trailing" id="mFT-0s-9Z3"/>
+                            <constraint firstItem="CEi-N3-vn7" firstAttribute="top" secondItem="SuA-GW-612" secondAttribute="top" id="t4E-ii-MFT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="CEi-N3-vn7" id="K4p-HJ-o7g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wnj-AD-l5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2697" y="80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hIS-p5-4MG">

@@ -172,7 +172,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.changeNameDelegate = self
             cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
+            cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
+            
+            
             
         case 1:
             
@@ -192,6 +195,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
     }
     
+    @objc func tapToFriendList() {
+        guard let friendListVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        self.present(friendListVC, animated: true)
+
+//        navigationController?.pushViewController(friendListVC, animated: true)
+    }
     
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
@@ -321,6 +331,8 @@ extension ProfileViewController {
             }
         })
     }
+    
+  
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

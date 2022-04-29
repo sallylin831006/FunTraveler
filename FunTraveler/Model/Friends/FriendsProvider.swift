@@ -100,7 +100,7 @@ class FriendsProvider {
             return completion(Result.failure(FunTravelerSignInError.noToken))
         }
         
-        HTTPClient.shared.request(FriendsRequest.getInviteList(token: token), completion: { result in
+        HTTPClient.shared.request(FriendsRequest.getFriendList(token: token), completion: { result in
             
             switch result {
                 

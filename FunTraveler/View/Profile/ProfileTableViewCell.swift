@@ -24,6 +24,13 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var editButton: UIButton!
     
+
+    @IBAction func tapFriendListButton(_ sender: Any) {
+        
+    }
+
+    @IBOutlet weak var numberOfFriendsButton: UIButton!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

@@ -156,7 +156,6 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
     
-        
         cell.followClosure = { cell, isfollowed in
             
             if isfollowed {
