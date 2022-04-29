@@ -151,11 +151,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
             
             profileVC.userId = self.exploreData[indexPath.row].user.id
+            profileVC.isMyProfile = false
             self.present(profileVC, animated: true)
 
         }
         
-    
         cell.followClosure = { cell, isfollowed in
             
             if isfollowed {

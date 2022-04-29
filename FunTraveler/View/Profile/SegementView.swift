@@ -12,7 +12,10 @@ import UIKit
 class SegementView: UITableViewHeaderFooterView {
     
     var collectedClosure: (() -> Void)?
-
+    
+    
+    @IBOutlet weak var followbutton: UIButton!
+    
 
     @IBOutlet weak var segementControl: UISegmentedControl!
 

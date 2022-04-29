@@ -25,6 +25,8 @@ class ProfileViewController: UIViewController {
     private var userNameTextField: UITextField!
     
     var userId: Int?
+    
+    var isMyProfile: Bool = true
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -49,6 +51,8 @@ class ProfileViewController: UIViewController {
     
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
+        UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
+
         userData = nil
         onShowLogin()
     }
@@ -72,18 +76,15 @@ class ProfileViewController: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
+                
+        if userId == nil && KeyChainManager.shared.userId == nil { return onShowLogin() }
         
-//        guard let userId = KeyChainManager.shared.userId else { return onShowLogin() }
-        
-        if userId == nil && KeyChainManager.shared.userId == nil {
-            onShowLogin()
-            return
+        if isMyProfile {
+            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+            fetchData(userId: userId)
+        } else {
+            fetchData(userId: userId ?? 0)
         }
-        
-        let keyChainId = Int(KeyChainManager.shared.userId ?? "")
-
-        fetchData(userId: (userId ?? keyChainId) ?? 0)
-//        fetchData(userId: Int(userId) ?? othersUserId)
     }
     
     private func onShowLogin() {
@@ -106,7 +107,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
 //        return UIScreen.main.bounds.width / 39 * 10
         case 0: return 100.0
-        case 1: return 80.0
+        case 1: return 60.0
         default: break
         }
         return .zero
@@ -127,11 +128,25 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SegementView.identifier)
                     as? SegementView else { return nil }
-            headerView.collectedClosure = {
-                self.fetchCollectedData()
-
+            
+            if userId == nil {
+                print("這是你自己的個人頁面")
+                headerView.collectedClosure = {
+                    self.fetchCollectedData()
+                }
+                headerView.followbutton.isHidden = true
+                return headerView
+            } else {
+                print("這是好友的個人頁面")
+                headerView.followbutton.isHidden = false
+                headerView.segementControl.isHidden = true
+                // 顯示加好友的按鈕
+                // 有bool判斷isFriends
+                
             }
-            return headerView
+            
+//            return headerView
+            
         default: break
         }
         
@@ -174,8 +189,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
             cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
-            
-            
             
         case 1:
             
@@ -229,7 +242,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 imagePicker.sourceType = .photoLibrary
                 imagePicker.delegate = self
                 
-                
                 self.present(imagePicker, animated: true, completion: nil)
             }
         })
@@ -259,7 +271,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension ProfileViewController: AuthViewControllerDelegate {
-    func detectDissmiss(_ viewController: UIViewController, _ userId: Int) {
+    func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
         fetchData(userId: userId)
     }
 }
@@ -332,7 +345,6 @@ extension ProfileViewController {
         })
     }
     
-  
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
