@@ -17,6 +17,14 @@ class CommentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var replyButton: UIButton!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = 45/2
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
+        
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -30,6 +38,13 @@ class CommentTableViewCell: UITableViewCell {
     func layoutCell(data: Comment) {
         userNameButton.setTitle(data.user.name, for: .normal)
         commentLabel.text = data.content
+        
+        if data.user.imageUrl == "" {
+            userImageView.backgroundColor = .systemGray
+        } else {
+            userImageView.loadImage(data.user.imageUrl)
+        }
+        
     }
     
 }

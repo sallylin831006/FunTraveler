@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-typealias PostCommentHanlder = (Result<String>) -> Void
+typealias PostCommentHanlder = (Result<Comment>) -> Void
 typealias CommentHanlder = (Result<Comments>) -> Void
 typealias LikedHanlder = (Result<User>) -> Void
 
@@ -28,7 +28,22 @@ class ReactionProvider {
                 
                 switch result {
                     
-                case .success: break
+                case .success(let data):
+                    do {
+                        let commentResponse = try JSONDecoder().decode(
+                            SingleCmment.self,
+                            from: data
+                        )
+                                                
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(commentResponse.data))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
                     
                 case .failure(let error):
                     print(error)

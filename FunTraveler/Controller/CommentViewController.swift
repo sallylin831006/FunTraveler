@@ -80,11 +80,9 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         footerView.sendCommentClosure = { [weak self] in
             guard let newComment = footerView.commentTextField.text else { return }
             self?.postData(content: newComment)
-            guard let tripId = self?.tripId else { return }
-            let comment = Comment(user: User(id: 1, name: "TestUser", imageUrl: ""), id: tripId, content: newComment)
-            self?.commentData.append(comment)
-            self?.tableView.reloadData()
-            self?.scrollToBottom()
+
+//            self?.tableView.reloadData()
+//            self?.scrollToBottom()
         
             footerView.commentTextField.text = ""
             
@@ -140,7 +138,11 @@ extension CommentViewController {
                 
                 switch result {
                     
-                case .success: break
+                case .success(let responseData):
+                    
+                    self.commentData.append(responseData)
+                    self.tableView.reloadData()
+                    self.scrollToBottom()
                                     
                 case .failure:
                     print("[CommetVC] post Comment失敗！")
@@ -180,9 +182,7 @@ extension CommentViewController {
             case .success(let commentData):
                 
                 self?.commentData = commentData.data
-                
-                print("commentData", commentData)
-                
+                                
             case .failure:
                 print("[CommentVC] GET 讀取資料失敗！")
             }
