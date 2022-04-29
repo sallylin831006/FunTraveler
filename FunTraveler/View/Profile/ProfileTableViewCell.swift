@@ -24,7 +24,6 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var editButton: UIButton!
     
-
     @IBAction func tapFriendListButton(_ sender: Any) {
         
     }
@@ -34,13 +33,13 @@ class ProfileTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .themeApricot
-        let margins = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+        let margins = UIEdgeInsets(top: 10, left: 10, bottom: -10, right: 10)
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 4
-        contentView.layer.cornerRadius = 10.0
+        contentView.layer.borderWidth = 3
+        contentView.layer.cornerRadius = 15.0
         contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .themeApricotDeep
+        contentView.backgroundColor = .themeApricot
         userImageView.backgroundColor = UIColor.white
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true

@@ -107,7 +107,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
             //        return UIScreen.main.bounds.width / 39 * 10
         case 0: return 100.0
-        case 1: return 60.0
+        case 1: return 70.0
         default: break
         }
         return .zero

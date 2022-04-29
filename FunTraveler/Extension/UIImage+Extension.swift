@@ -40,9 +40,12 @@ enum ImageAsset: String {
     
     case planBackground
     
-    //Other
+    // Other
     case heartSelected
     case heartNormal
+    
+    case appleSelected
+    case appleNormal
 
 }
 
