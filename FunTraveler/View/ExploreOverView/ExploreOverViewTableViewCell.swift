@@ -116,11 +116,11 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let margins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        self.backgroundColor = .themeApricot
+        let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 4
+        contentView.layer.borderColor = UIColor.white.cgColor
+        contentView.layer.borderWidth = 6
         contentView.layer.cornerRadius = 10.0
         contentView.layer.masksToBounds = true
         

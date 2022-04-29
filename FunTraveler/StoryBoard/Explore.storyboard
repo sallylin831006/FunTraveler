@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,16 +19,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hEI-mu-XrE">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexBackgroundColor" name="themeApricot"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
+                            <constraint firstItem="hEI-mu-XrE" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="BCA-k5-2Sm"/>
                             <constraint firstAttribute="trailing" secondItem="hEI-mu-XrE" secondAttribute="trailing" id="LTG-Uk-WWA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hEI-mu-XrE" secondAttribute="bottom" id="MD4-5S-JGG"/>
-                            <constraint firstItem="hEI-mu-XrE" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Qcn-fT-5Zt"/>
+                            <constraint firstItem="hEI-mu-XrE" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="UWa-6n-v9F"/>
                             <constraint firstItem="hEI-mu-XrE" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="xgz-Fq-nKQ"/>
                         </constraints>
                     </view>
@@ -150,6 +154,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="themeApricot">
+            <color red="0.99607843137254903" green="0.96470588235294119" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
