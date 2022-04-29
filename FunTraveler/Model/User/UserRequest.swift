@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 enum UserRequest: STRequest {
     

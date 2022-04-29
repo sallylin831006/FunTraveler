@@ -32,7 +32,26 @@ class VideoWallViewController: UIViewController {
         super.viewDidLoad()
         self.setUpUI()
         collectionView.registerCellWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        setupSearchBar()
+    }
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    private func setupSearchBar() {
         
+        searchController.searchBar.placeholder = "搜尋..."
+        searchController.searchBar.delegate = self
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.barTintColor = .themeRed
+        searchController.searchBar.tintColor = .themeRed
+
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
+     
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .themeRed
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,4 +187,31 @@ extension VideoWallViewController {
         collectionView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive  = true
     }
     
+}
+
+extension VideoWallViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("TextDidEndEditing")
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("SearchButtonClicked")
+
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("textDidChange")
+//        postToSearchTrip(searchText: searchText)
+//        if searchText.isEmpty {
+//            fetchData()
+//        }
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("點了取消按鈕")
+//        fetchData()
+    }
 }

@@ -149,6 +149,8 @@ class UserProvider {
                             Users.self,
                             from: data
                         )
+                        
+                        KeyChainManager.shared.userId = String(profileResponse.data.id)
                                                 
                         DispatchQueue.main.async {
                             

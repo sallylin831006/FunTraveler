@@ -30,6 +30,7 @@ class ExploreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
+        setupNavItem()
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
@@ -45,6 +46,25 @@ class ExploreViewController: UIViewController {
 
     }
     
+    private func setupNavItem() {
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "heart.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(tapInviteList)
+        )
+
+    }
+    
+    @objc func tapInviteList() {
+        guard let inviteVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.inviteVC) as? InviteListViewController else { return }
+        
+        navigationController?.pushViewController(inviteVC, animated: true)
+//        inviteVC.tabBarController?.tabBar.isHidden = true
+    }
+    
     private func setupSearchBar() {
         
         searchController.searchBar.placeholder = "搜尋行程..."
@@ -54,10 +74,13 @@ class ExploreViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
+
         searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
      
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .themeRed
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+
     }
     
     private func showLoadingView() {
@@ -127,7 +150,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             guard let profileVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
             
-            profileVC.othersUserId = self.exploreData[indexPath.row].user.id
+            profileVC.userId = self.exploreData[indexPath.row].user.id
             self.present(profileVC, animated: true)
 
         }
