@@ -22,10 +22,10 @@ class PlanOverViewTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .themeApricot
-        let margins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 4
+        contentView.layer.borderWidth = 8
         contentView.layer.cornerRadius = 10.0
         contentView.layer.masksToBounds = true
         

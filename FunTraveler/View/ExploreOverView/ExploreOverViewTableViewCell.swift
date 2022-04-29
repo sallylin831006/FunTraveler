@@ -54,8 +54,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
             userImageView.loadImage(data.user.imageUrl)
         }
             
-        collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
-        collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        collectButton.setImage(UIImage.asset(.appleSelected), for: .selected)
+        collectButton.setImage(UIImage.asset(.appleNormal), for: .normal)
         self.isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
         
@@ -120,7 +120,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.layer.borderColor = UIColor.white.cgColor
-        contentView.layer.borderWidth = 6
+        contentView.layer.borderWidth = 8
         contentView.layer.cornerRadius = 10.0
         contentView.layer.masksToBounds = true
         

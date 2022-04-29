@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ume-sy-qLu">
-                        <rect key="frame" x="191" y="42" width="159" height="35"/>
+                        <rect key="frame" x="191" y="13" width="159" height="35"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="8w2-92-OJV"/>
                         </constraints>
@@ -34,13 +34,13 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esL-79-LPL">
-                        <rect key="frame" x="358" y="44" width="45" height="31"/>
+                        <rect key="frame" x="358" y="15" width="45" height="31"/>
                         <color key="tintColor" name="themeLightBlue"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="pencil.circle.fill" catalog="system" title=""/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="嗨，" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbn-2H-0ub">
-                        <rect key="frame" x="136" y="45" width="50" height="29"/>
+                        <rect key="frame" x="136" y="16" width="50" height="29"/>
                         <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -51,25 +51,26 @@
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="gearshape.fill" catalog="system" title=""/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="5則旅遊回憶" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9S-Si-f8P">
-                        <rect key="frame" x="128" y="85" width="97" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20個追蹤中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zsI-No-Dzc">
-                        <rect key="frame" x="319" y="85" width="90" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-Ui-4UI">
-                        <rect key="frame" x="225" y="80" width="91" height="31"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" title="10 Friends"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdI-ES-Ir2">
+                        <rect key="frame" x="136" y="53" width="96" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="96" id="vC2-0i-Lmp"/>
+                            <constraint firstAttribute="height" constant="62" id="w9s-Vb-VAN"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="" image="tripCount"/>
+                        <connections>
+                            <action selector="tapFriendListButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PvN-aB-sHT"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-Ui-4UI">
+                        <rect key="frame" x="244" y="53" width="96" height="62"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="62" id="TLG-gC-bD1"/>
+                            <constraint firstAttribute="width" constant="96" id="jqb-Qn-CeB"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title="" image="friendCount"/>
                         <connections>
                             <action selector="tapFriendListButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rTP-XF-cTc"/>
                         </connections>
@@ -81,13 +82,17 @@
                     <constraint firstItem="Wbn-2H-0ub" firstAttribute="leading" secondItem="Cgf-7P-g0H" secondAttribute="trailing" constant="16" id="Adc-XV-8Js"/>
                     <constraint firstItem="ume-sy-qLu" firstAttribute="centerY" secondItem="esL-79-LPL" secondAttribute="centerY" id="Bkb-Bk-4Yz"/>
                     <constraint firstItem="ume-sy-qLu" firstAttribute="leading" secondItem="Wbn-2H-0ub" secondAttribute="trailing" constant="5" id="E81-6Q-NYA"/>
+                    <constraint firstItem="r4O-Ui-4UI" firstAttribute="leading" secondItem="VdI-ES-Ir2" secondAttribute="trailing" constant="12" id="G3Q-OB-qE2"/>
+                    <constraint firstItem="VdI-ES-Ir2" firstAttribute="leading" secondItem="Cgf-7P-g0H" secondAttribute="trailing" constant="16" id="JKI-0k-QkI"/>
                     <constraint firstItem="Cgf-7P-g0H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Lli-7p-gQF"/>
-                    <constraint firstItem="Wbn-2H-0ub" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="45" id="ODl-9I-PWz"/>
+                    <constraint firstItem="Wbn-2H-0ub" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ODl-9I-PWz"/>
                     <constraint firstAttribute="trailing" secondItem="esL-79-LPL" secondAttribute="trailing" constant="16" id="TrS-X9-omm"/>
+                    <constraint firstItem="VdI-ES-Ir2" firstAttribute="top" secondItem="ume-sy-qLu" secondAttribute="bottom" constant="5" id="e7r-EY-BBL"/>
                     <constraint firstItem="esL-79-LPL" firstAttribute="leading" secondItem="ume-sy-qLu" secondAttribute="trailing" constant="8" symbolic="YES" id="esB-FY-L7j"/>
                     <constraint firstItem="Cgf-7P-g0H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jhc-TN-8mc"/>
                     <constraint firstItem="Wbn-2H-0ub" firstAttribute="centerY" secondItem="ume-sy-qLu" secondAttribute="centerY" id="jig-0o-HB8"/>
                     <constraint firstAttribute="bottom" secondItem="Cgf-7P-g0H" secondAttribute="bottom" id="ljQ-tn-P6O"/>
+                    <constraint firstItem="r4O-Ui-4UI" firstAttribute="centerY" secondItem="VdI-ES-Ir2" secondAttribute="centerY" id="zoB-ri-SSP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -101,8 +106,10 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="friendCount" width="234.27000427246094" height="155.5"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="tripCount" width="234.27000427246094" height="155.5"/>
         <namedColor name="themeLightBlue">
             <color red="0.3449999988079071" green="0.68599998950958252" blue="0.85900002717971802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
