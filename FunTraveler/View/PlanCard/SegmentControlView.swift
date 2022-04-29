@@ -29,7 +29,7 @@ class SegmentControlView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.backgroundColor = .themeApricot
     }
 
     required init?(coder aDecoder: NSCoder) {

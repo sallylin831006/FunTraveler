@@ -59,8 +59,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         self.isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
         
-        heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartButton.setImage(UIImage.asset(.heartSelected), for: .selected)
+        heartButton.setImage(UIImage.asset(.heartNormal), for: .normal)
         self.isLiked = data.isLiked
         heartButton.isSelected = data.isLiked
 

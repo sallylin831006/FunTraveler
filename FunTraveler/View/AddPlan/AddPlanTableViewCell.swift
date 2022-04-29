@@ -24,7 +24,7 @@ class AddPlanTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.backgroundColor = .themeApricot
         textField.delegate = self
     }
 

@@ -23,6 +23,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
         sendCommentButton.addTarget(self, action: #selector(tapToSendComment), for: .touchUpInside)
         commentTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         sendCommentButton.isHidden = true
+        self.backgroundColor = .themeApricot
     }
     
     override init(reuseIdentifier: String?) {

@@ -28,7 +28,7 @@ class AuthTableViewCell: UITableViewCell {
         super.awakeFromNib()
         loginButton.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
         setupSignInwithApple()
-        
+        self.backgroundColor = .themeApricot
     }
     
     @objc func tapLoginButton() {

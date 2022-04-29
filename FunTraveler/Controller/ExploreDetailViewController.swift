@@ -52,11 +52,34 @@ class ExploreDetailViewController: UIViewController {
         fetchData(days: 1)
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        fetchCommentData()
-//    }
-//
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "旅遊分享"
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
+
+        addCustomBackButton()
+
+    }
+    func addCustomBackButton() {
+        self.navigationItem.hidesBackButton = true
+
+        let customBackButton = UIBarButtonItem(image: UIImage(
+            systemName: "chevron.backward"), style: UIBarButtonItem.Style.plain,
+                                               target: self, action: #selector(backTap))
+        customBackButton.tintColor = UIColor.black
+        self.navigationItem.leftBarButtonItem = customBackButton
+    }
+    @objc func backTap(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        
+    }
+
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()

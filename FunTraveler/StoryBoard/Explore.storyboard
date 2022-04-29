@@ -53,14 +53,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fjy-ca-5dk">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3uo-iT-04W"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
-                            <constraint firstItem="fjy-ca-5dk" firstAttribute="top" secondItem="3uo-iT-04W" secondAttribute="top" id="CT5-sf-NE3"/>
+                            <constraint firstItem="fjy-ca-5dk" firstAttribute="bottom" secondItem="3uo-iT-04W" secondAttribute="bottom" id="5lF-LE-te0"/>
+                            <constraint firstItem="fjy-ca-5dk" firstAttribute="bottom" secondItem="3uo-iT-04W" secondAttribute="bottom" id="CbQ-Gb-Qt9"/>
+                            <constraint firstItem="fjy-ca-5dk" firstAttribute="top" secondItem="jMo-rH-O8t" secondAttribute="top" id="HeN-8h-V7S"/>
                             <constraint firstItem="3uo-iT-04W" firstAttribute="bottom" secondItem="fjy-ca-5dk" secondAttribute="bottom" id="Llb-Sn-JWG"/>
                             <constraint firstItem="3uo-iT-04W" firstAttribute="trailing" secondItem="fjy-ca-5dk" secondAttribute="trailing" id="NFx-9r-gXM"/>
                             <constraint firstItem="fjy-ca-5dk" firstAttribute="leading" secondItem="3uo-iT-04W" secondAttribute="leading" id="piQ-Z8-A84"/>
@@ -104,7 +106,7 @@
             </objects>
             <point key="canvasLocation" x="2410" y="60"/>
         </scene>
-        <!--Invite List View Controller-->
+        <!--好友邀請-->
         <scene sceneID="qID-Vc-7aB">
             <objects>
                 <viewController storyboardIdentifier="InviteListViewController" id="oCz-1a-eQw" customClass="InviteListViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
@@ -113,12 +115,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="z2j-iG-hEh">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sQ3-uv-eYs"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="z2j-iG-hEh" firstAttribute="leading" secondItem="sQ3-uv-eYs" secondAttribute="leading" id="Lhh-Wj-qxV"/>
                             <constraint firstItem="sQ3-uv-eYs" firstAttribute="bottom" secondItem="z2j-iG-hEh" secondAttribute="bottom" id="YtD-qM-mb8"/>
@@ -126,13 +128,14 @@
                             <constraint firstItem="z2j-iG-hEh" firstAttribute="top" secondItem="sQ3-uv-eYs" secondAttribute="top" id="xsy-wL-X5c"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="好友邀請" id="0c9-bC-3r7"/>
                     <connections>
                         <outlet property="tableView" destination="z2j-iG-hEh" id="wjF-Qo-0yY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ASh-GP-sKU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3106" y="60"/>
+            <point key="canvasLocation" x="4473.913043478261" y="59.598214285714285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cya-hn-12C">
@@ -152,10 +155,28 @@
             </objects>
             <point key="canvasLocation" x="56.521739130434788" y="59.598214285714285"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="suF-vg-UqB">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1WA-MD-Z4p" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1K0-uB-jxO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oCz-1a-eQw" kind="relationship" relationship="rootViewController" id="PIQ-1G-qf0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VT0-P7-Gqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3563.7681159420295" y="59.598214285714285"/>
+        </scene>
     </scenes>
     <resources>
         <namedColor name="themeApricot">
-            <color red="0.99607843137254903" green="0.96470588235294119" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.99599999189376831" green="0.9649999737739563" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
