@@ -8,14 +8,14 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-        
+    
     private var collectedData: [Explore] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     private var collectedDataArray: [[Explore]] = []
-        
+    
     private var userData: User? {
         didSet {
             tableView.reloadData()
@@ -27,13 +27,13 @@ class ProfileViewController: UIViewController {
     var userId: Int?
     
     var isMyProfile: Bool = true
-
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
             
             tableView.dataSource = self
-
+            
             tableView.delegate = self
             
         }
@@ -52,7 +52,7 @@ class ProfileViewController: UIViewController {
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
-
+        
         userData = nil
         onShowLogin()
     }
@@ -68,15 +68,15 @@ class ProfileViewController: UIViewController {
         tableView.registerHeaderWithNib(identifier: String(describing: SegementView.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
-                
+        
         if userId == nil && KeyChainManager.shared.userId == nil { return onShowLogin() }
         
         if isMyProfile {
@@ -94,7 +94,7 @@ class ProfileViewController: UIViewController {
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
     }
-
+    
 }
 
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -105,13 +105,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-//        return UIScreen.main.bounds.width / 39 * 10
+            //        return UIScreen.main.bounds.width / 39 * 10
         case 0: return 100.0
         case 1: return 60.0
         default: break
         }
         return .zero
-
+        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,28 +129,36 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: SegementView.identifier)
                     as? SegementView else { return nil }
             
-            if userId == nil {
-                print("這是你自己的個人頁面")
+            if isMyProfile {
                 headerView.collectedClosure = {
                     self.fetchCollectedData()
                 }
                 headerView.followbutton.isHidden = true
+                
                 return headerView
             } else {
-                print("這是好友的個人頁面")
-                headerView.followbutton.isHidden = false
                 headerView.segementControl.isHidden = true
-                // 顯示加好友的按鈕
-                // 有bool判斷isFriends
-                
+                headerView.followbutton.isHidden = false
+                headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+//                if isFriend {
+//                    headerView.followbutton.setTitle("已追蹤", for: .normal)
+//                    headerView.followbutton.isUserInteractionEnabled = false
+//                } else {
+//                    headerView.followbutton.setTitle("追蹤", for: .normal)
+//                    headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+//
+//                }
+                return headerView
             }
-            
-//            return headerView
             
         default: break
         }
         
         return UIView()
+    }
+    
+    @objc func tapFollowButton() {
+        postToInvite()
     }
     
     // MARK: - Section Row
@@ -163,7 +171,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
@@ -171,7 +179,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
                     as? ProfileTableViewCell else { return UITableViewCell() }
-
+            
             cell.selectionStyle = .none
             guard let userData = userData else { return UITableViewCell()}
             cell.layoutCell(data: userData)
@@ -198,29 +206,29 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             let item = collectedData[indexPath.row]
             cell.layoutCell(data: item)
-
+            
             return cell
             
         default: break
             
         }
         return UITableViewCell()
-
+        
     }
     
     @objc func tapToFriendList() {
         guard let friendListVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
         self.present(friendListVC, animated: true)
-
-//        navigationController?.pushViewController(friendListVC, animated: true)
+        
+        //        navigationController?.pushViewController(friendListVC, animated: true)
     }
     
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
         let navSettingVC = UINavigationController(rootViewController: settingVC)
-//        navSettingVC.modalPresentationStyle = .fullScreen
+        //        navSettingVC.modalPresentationStyle = .fullScreen
         self.present(navSettingVC, animated: true)
     }
     
@@ -228,7 +236,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         userNameTextField.resignFirstResponder()
         guard let name = userNameTextField.text else { return }
         patchData(name: name, image: "")
-
+        
     }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
@@ -283,7 +291,7 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
         
         self.userNameTextField.text = text
         patchData(name: text, image: "")
-
+        
     }
     
 }
@@ -318,7 +326,7 @@ extension ProfileViewController {
                 self.userData?.name = updateData.data.name
                 
                 self.tableView.reloadData()
-
+                
             case .failure:
                 print("PATCH Profile失敗！")
             }
@@ -345,6 +353,23 @@ extension ProfileViewController {
         })
     }
     
+    // MARK: - POST TO INVITE
+    private func postToInvite() {
+        let friendsProvider = FriendsProvider()
+        guard let userId = userId else { return }
+        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let postResponse):
+                print("postResponse", postResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO INVITE失敗！")
+            }
+        })
+    }
+    
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -353,13 +378,13 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                                info: [UIImagePickerController.InfoKey: Any]) {
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-           
+            
             let newImage = selectedImage.scale(newWidth: 100.0)
             guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-
+            
             patchData(name: "", image: strBase64)
-
+            
         }
         
         dismiss(animated: true, completion: nil)
