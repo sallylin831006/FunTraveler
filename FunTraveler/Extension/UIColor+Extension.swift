@@ -9,6 +9,7 @@ import UIKit
 private enum STColor: String {
 
     case themeApricotDeep
+    case themeApricot
     case themeRed
     case themeLightBlue
     
@@ -17,6 +18,9 @@ private enum STColor: String {
 extension UIColor {
 
     static let themeApricotDeep = STColor(.themeApricotDeep)
+    
+    static let themeApricot = STColor(.themeApricot)
+
     
     static let themeRed = STColor(.themeRed)
     

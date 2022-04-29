@@ -43,7 +43,6 @@ class ExploreViewController: UIViewController {
         fetchData()
         tableView.reloadData()
         self.tabBarController?.tabBar.isHidden = false
-
     }
     
     private func setupNavItem() {
@@ -74,7 +73,7 @@ class ExploreViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
-
+        searchController.searchBar.backgroundColor = .themeApricot
         searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
      
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
