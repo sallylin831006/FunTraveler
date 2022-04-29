@@ -87,6 +87,8 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
         
         profileVC.userId = friendListData[indexPath.row].id
+        
+        profileVC.isMyProfile = false
         self.present(profileVC, animated: true)
     }
 }

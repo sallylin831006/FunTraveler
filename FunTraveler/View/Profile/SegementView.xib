@@ -32,16 +32,25 @@
                         <action selector="tapSegementControll:" destination="iN0-l3-epB" eventType="valueChanged" id="JtA-xB-Agv"/>
                     </connections>
                 </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GON-zu-aLt">
+                    <rect key="frame" x="60" y="16" width="294" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="OrZ-Jj-f1k" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="0OR-To-Ikt"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GON-zu-aLt" secondAttribute="trailing" constant="60" id="6Sn-hK-iVC"/>
+                <constraint firstItem="GON-zu-aLt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="6g6-l6-Yfb"/>
                 <constraint firstItem="OrZ-Jj-f1k" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="Mzy-cd-Cf4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OrZ-Jj-f1k" secondAttribute="trailing" constant="60" id="OWK-NC-Rfl"/>
+                <constraint firstItem="GON-zu-aLt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="60" id="U7s-Hh-6r8"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="followbutton" destination="GON-zu-aLt" id="tyX-tY-EOO"/>
                 <outlet property="segementControl" destination="OrZ-Jj-f1k" id="Tzs-6C-BAM"/>
             </connections>
             <point key="canvasLocation" x="136.23188405797103" y="-170.08928571428569"/>

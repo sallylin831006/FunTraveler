@@ -79,6 +79,7 @@ class UserProvider {
                         )
                         
                         KeyChainManager.shared.token = loginResponse.token
+                        KeyChainManager.shared.userId = String(loginResponse.userId)
                         
                         DispatchQueue.main.async {
                             
@@ -150,7 +151,7 @@ class UserProvider {
                             from: data
                         )
                         
-                        KeyChainManager.shared.userId = String(profileResponse.data.id)
+//                        KeyChainManager.shared.userId = String(profileResponse.data.id)
                                                 
                         DispatchQueue.main.async {
                             

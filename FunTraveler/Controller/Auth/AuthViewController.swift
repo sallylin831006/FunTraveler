@@ -9,7 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 protocol AuthViewControllerDelegate: AnyObject {
-    func detectDissmiss(_ viewController: UIViewController, _ userId: Int)
+    func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int)
 }
 
 class AuthViewController: UIViewController {
@@ -113,7 +113,7 @@ extension AuthViewController {
             case .success(let responseData):
                 let userId = responseData.userId
                 self.presentingViewController?.dismiss(animated: false, completion: {
-                    self.delegate?.detectDissmiss(self, userId)
+                    self.delegate?.detectLoginDissmiss(self, userId)
                 })
                 
             case .failure(let error):
@@ -135,7 +135,7 @@ extension AuthViewController {
                 let userId = responseData.userId
 
                 self.presentingViewController?.dismiss(animated: false, completion: {
-                    self.delegate?.detectDissmiss(self, userId)
+                    self.delegate?.detectLoginDissmiss(self, userId)
                 })
                 
             case .failure(let error):
