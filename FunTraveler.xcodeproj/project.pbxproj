@@ -12,6 +12,12 @@
 		3A0C3CE3281AAF6C006632AC /* UnFollowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE1281AAF6C006632AC /* UnFollowTableViewCell.xib */; };
 		3A0C3CE5281ABF2F006632AC /* SegementView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE4281ABF2E006632AC /* SegementView.xib */; };
 		3A0C3CE7281AC01B006632AC /* SegementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE6281AC01B006632AC /* SegementView.swift */; };
+		3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */; };
+		3A0C3CED281AFB6F006632AC /* InviteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CEB281AFB6F006632AC /* InviteListTableViewCell.swift */; };
+		3A0C3CEE281AFB6F006632AC /* InviteListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CEC281AFB6F006632AC /* InviteListTableViewCell.xib */; };
+		3A0C3CF1281B554A006632AC /* FriendsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CF0281B554A006632AC /* FriendsObject.swift */; };
+		3A0C3CF3281B5572006632AC /* FriendsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CF2281B5572006632AC /* FriendsRequest.swift */; };
+		3A0C3CF5281B5587006632AC /* FriendsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CF4281B5587006632AC /* FriendsProvider.swift */; };
 		3A134944280E5C42008CECEA /* ShareHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134943280E5C42008CECEA /* ShareHeaderView.xib */; };
 		3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134945280E5C6C008CECEA /* ShareHeaderView.swift */; };
 		3A134948280E8D3F008CECEA /* ExploreDetailFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */; };
@@ -141,6 +147,12 @@
 		3A0C3CE1281AAF6C006632AC /* UnFollowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnFollowTableViewCell.xib; sourceTree = "<group>"; };
 		3A0C3CE4281ABF2E006632AC /* SegementView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegementView.xib; sourceTree = "<group>"; };
 		3A0C3CE6281AC01B006632AC /* SegementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegementView.swift; sourceTree = "<group>"; };
+		3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteListViewController.swift; sourceTree = "<group>"; };
+		3A0C3CEB281AFB6F006632AC /* InviteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteListTableViewCell.swift; sourceTree = "<group>"; };
+		3A0C3CEC281AFB6F006632AC /* InviteListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteListTableViewCell.xib; sourceTree = "<group>"; };
+		3A0C3CF0281B554A006632AC /* FriendsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsObject.swift; sourceTree = "<group>"; };
+		3A0C3CF2281B5572006632AC /* FriendsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRequest.swift; sourceTree = "<group>"; };
+		3A0C3CF4281B5587006632AC /* FriendsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsProvider.swift; sourceTree = "<group>"; };
 		3A134943280E5C42008CECEA /* ShareHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareHeaderView.xib; sourceTree = "<group>"; };
 		3A134945280E5C6C008CECEA /* ShareHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareHeaderView.swift; sourceTree = "<group>"; };
 		3A134947280E8D3F008CECEA /* ExploreDetailFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreDetailFooterView.xib; sourceTree = "<group>"; };
@@ -287,6 +299,25 @@
 				73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A0C3CEA281AFB50006632AC /* InviteList */ = {
+			isa = PBXGroup;
+			children = (
+				3A0C3CEB281AFB6F006632AC /* InviteListTableViewCell.swift */,
+				3A0C3CEC281AFB6F006632AC /* InviteListTableViewCell.xib */,
+			);
+			path = InviteList;
+			sourceTree = "<group>";
+		};
+		3A0C3CEF281B5531006632AC /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				3A0C3CF0281B554A006632AC /* FriendsObject.swift */,
+				3A0C3CF2281B5572006632AC /* FriendsRequest.swift */,
+				3A0C3CF4281B5587006632AC /* FriendsProvider.swift */,
+			);
+			path = Friends;
 			sourceTree = "<group>";
 		};
 		3A13494B280F9B2E008CECEA /* PlanOverView */ = {
@@ -487,6 +518,7 @@
 		3A73527528017FFF00B4D8D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3A0C3CEF281B5531006632AC /* Friends */,
 				3A2B6B312814230700D00638 /* VideoManager.swift */,
 				3A73527328017FF300B4D8D3 /* TimeManager.swift */,
 				3A40D3442816BD2600A7BF51 /* User */,
@@ -595,6 +627,7 @@
 				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
 				3A13495D2810325B008CECEA /* CollectedViewController.swift */,
 				3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */,
+				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,
@@ -605,6 +638,7 @@
 		3A9E9CE428010D4C00C7B8D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3A0C3CEA281AFB50006632AC /* InviteList */,
 				3A40D39A281822E200A7BF51 /* Profile */,
 				3A40D3542816D5BE00A7BF51 /* Auth */,
 				3A2B6B572814B52800D00638 /* LottieView */,
@@ -757,6 +791,7 @@
 				3A40D374281790F600A7BF51 /* CommentFooterView.xib in Resources */,
 				3AF4DCAB280C30BE008029D7 /* ExploreDetailTableViewCell.xib in Resources */,
 				3A2B6B712814D6A400D00638 /* Success.json in Resources */,
+				3A0C3CEE281AFB6F006632AC /* InviteListTableViewCell.xib in Resources */,
 				3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */,
 				3A185C0E2803D346004F5BB3 /* AddPlanTableViewCell.xib in Resources */,
 				3A40D3582816D5E100A7BF51 /* AuthTableViewCell.xib in Resources */,
@@ -860,6 +895,7 @@
 				3A40D34E2816CF6B00A7BF51 /* KeyChainManger.swift in Sources */,
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
 				3A40D36728177E5600A7BF51 /* CommentViewController.swift in Sources */,
+				3A0C3CF5281B5587006632AC /* FriendsProvider.swift in Sources */,
 				3A2B6B302814215000D00638 /* PlayerView.swift in Sources */,
 				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
 				3A185C1828041A93004F5BB3 /* TripProvider.swift in Sources */,
@@ -869,6 +905,7 @@
 				3AF4DCA4280C1479008029D7 /* ExploreObject.swift in Sources */,
 				3A2B6AB228138A6300D00638 /* VideoEditor.swift in Sources */,
 				3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */,
+				3A0C3CF3281B5572006632AC /* FriendsRequest.swift in Sources */,
 				3A185C5028058CF7004F5BB3 /* SearchProvider.swift in Sources */,
 				3A185C4428058C1C004F5BB3 /* SearchDetailViewController.swift in Sources */,
 				3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */,
@@ -917,6 +954,8 @@
 				3A7E4D9F2809437E00281E17 /* ExploreViewController.swift in Sources */,
 				3A185C5228058D16004F5BB3 /* SearchRequest.swift in Sources */,
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
+				3A0C3CED281AFB6F006632AC /* InviteListTableViewCell.swift in Sources */,
+				3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
@@ -932,6 +971,7 @@
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
 				3AF4DCA6280C2169008029D7 /* ExploreDetailViewController.swift in Sources */,
 				3A40D36B2817880500A7BF51 /* CommentTableViewCell.swift in Sources */,
+				3A0C3CF1281B554A006632AC /* FriendsObject.swift in Sources */,
 				3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,

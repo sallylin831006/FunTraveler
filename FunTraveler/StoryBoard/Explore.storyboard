@@ -98,7 +98,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I51-hl-7tE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2568" y="61"/>
+            <point key="canvasLocation" x="2410" y="60"/>
+        </scene>
+        <!--Invite List View Controller-->
+        <scene sceneID="qID-Vc-7aB">
+            <objects>
+                <viewController storyboardIdentifier="InviteListViewController" id="oCz-1a-eQw" customClass="InviteListViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fuv-yd-Kwd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="z2j-iG-hEh">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sQ3-uv-eYs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="z2j-iG-hEh" firstAttribute="leading" secondItem="sQ3-uv-eYs" secondAttribute="leading" id="Lhh-Wj-qxV"/>
+                            <constraint firstItem="sQ3-uv-eYs" firstAttribute="bottom" secondItem="z2j-iG-hEh" secondAttribute="bottom" id="YtD-qM-mb8"/>
+                            <constraint firstItem="sQ3-uv-eYs" firstAttribute="trailing" secondItem="z2j-iG-hEh" secondAttribute="trailing" id="sB0-jt-791"/>
+                            <constraint firstItem="z2j-iG-hEh" firstAttribute="top" secondItem="sQ3-uv-eYs" secondAttribute="top" id="xsy-wL-X5c"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="z2j-iG-hEh" id="wjF-Qo-0yY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ASh-GP-sKU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3106" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="cya-hn-12C">

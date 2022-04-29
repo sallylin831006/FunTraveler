@@ -8,16 +8,14 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
+        
     private var collectedData: [Explore] = [] {
         didSet {
+            tableView.reloadData()
         }
     }
-    
     private var collectedDataArray: [[Explore]] = []
-    
-    var othersUserId: Int?
-    
+        
     private var userData: User? {
         didSet {
             tableView.reloadData()
@@ -26,6 +24,8 @@ class ProfileViewController: UIViewController {
     
     private var userNameTextField: UITextField!
     
+    var userId: Int?
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -42,7 +42,8 @@ class ProfileViewController: UIViewController {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
         } else {
-            tableView.tableHeaderView = UIView(frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
         }
     }
     
@@ -51,6 +52,7 @@ class ProfileViewController: UIViewController {
         userData = nil
         onShowLogin()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -63,18 +65,25 @@ class ProfileViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
 
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.automaticallyAdjustsScrollViewInsets = false
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         
-        guard let othersUserId = othersUserId else { return }
-        fetchData(userId: othersUserId)
+//        guard let userId = KeyChainManager.shared.userId else { return onShowLogin() }
+        
+        if userId == nil && KeyChainManager.shared.userId == nil {
+            onShowLogin()
+            return
+        }
+        
+        let keyChainId = Int(KeyChainManager.shared.userId ?? "")
+
+        fetchData(userId: (userId ?? keyChainId) ?? 0)
+//        fetchData(userId: Int(userId) ?? othersUserId)
     }
     
     private func onShowLogin() {
@@ -84,24 +93,6 @@ class ProfileViewController: UIViewController {
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
     }
-    
-//    func movingToCollectedPage() {
-//        let collectedButton = UIButton()
-//        collectedButton.frame = CGRect(x: 300, y: 500, width: 70, height: 70)
-//        collectedButton.setBackgroundImage(UIImage.asset(.collectNormal), for: .normal)
-//        collectedButton.addTarget(target, action: #selector(tapCollectedButton), for: .touchUpInside)
-////        self.tableView.addSubview(collectedButton)
-//        self.view.addSubview(collectedButton)
-//
-//    }
-
-//    @objc func tapCollectedButton() {
-//        guard let collectedVC = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.collectedVC) as? CollectedViewController else { return }
-//        let navCollectedVC = UINavigationController(rootViewController: collectedVC)
-//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-//        self.present(navCollectedVC, animated: true)
-//    }
 
 }
 
@@ -201,19 +192,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        guard let exploreDeatilVC = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
-//        
-//        exploreDeatilVC.tripId = exploreData[indexPath.row].id
-//        exploreDeatilVC.days = exploreData[indexPath.row].days
-//        navigationController?.pushViewController(exploreDeatilVC, animated: true)
-//        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
-//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-//        self.present(navExploreDeatilVC, animated: true)
-        
-    }
     
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
@@ -235,21 +213,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
-//            self.showLoadingView()
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = true
                 imagePicker.sourceType = .photoLibrary
                 imagePicker.delegate = self
                 
-//                imagePicker.view?.tag = view.tag
                 
                 self.present(imagePicker, animated: true, completion: nil)
             }
         })
         
         let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
-//            self.showLoadingView()
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = true

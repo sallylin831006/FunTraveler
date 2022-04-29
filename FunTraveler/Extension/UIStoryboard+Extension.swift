@@ -48,6 +48,8 @@ struct StoryboardCategory {
     
     static let settingVC = "SettingViewController"
     
+    static let inviteVC = "InviteListViewController"
+    
 }
 
 extension UIStoryboard {
