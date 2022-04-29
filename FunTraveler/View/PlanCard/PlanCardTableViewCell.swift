@@ -64,7 +64,7 @@ class PlanCardTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-                
+        self.backgroundColor = .themeApricot
         trafficPickerView.picker.delegate = self
         
         trafficPickerView.picker.dataSource = self

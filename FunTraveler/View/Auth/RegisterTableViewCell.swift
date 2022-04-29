@@ -25,6 +25,7 @@ class RegisterTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         registerButton.addTarget(self, action: #selector(tapRegisterButton), for: .touchUpInside)
+        self.backgroundColor = .themeApricot
     }
     
     @objc func tapRegisterButton() {

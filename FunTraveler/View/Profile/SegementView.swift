@@ -31,18 +31,9 @@ class SegementView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.backgroundColor = .themeApricot
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeApricotDeep ?? .white], for: .selected)
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeRed ?? .white], for: .normal)
-        //        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-        //        contentView.contentMode = .scaleToFill
-//        let margins = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
-//        contentView.frame = contentView.frame.inset(by: margins)
-//        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-//        contentView.layer.borderWidth = 4
-//        contentView.layer.cornerRadius = 10.0
-//        contentView.layer.masksToBounds = true
-//        contentView.backgroundColor = .themeApricotDeep
-       
     }
     
     override init(reuseIdentifier: String?) {

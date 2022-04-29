@@ -43,12 +43,18 @@ class ExploreViewController: UIViewController {
         fetchData()
         tableView.reloadData()
         self.tabBarController?.tabBar.isHidden = false
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
     }
     
     private func setupNavItem() {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "heart.fill"),
+            image: UIImage.asset(.heartSelected),
             style: .plain,
             target: self,
             action: #selector(tapInviteList)
