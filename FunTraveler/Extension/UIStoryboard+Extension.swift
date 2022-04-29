@@ -50,6 +50,10 @@ struct StoryboardCategory {
     
     static let inviteVC = "InviteListViewController"
     
+    static let friendListVC = "FriendListViewController"
+
+    
+    
 }
 
 extension UIStoryboard {
