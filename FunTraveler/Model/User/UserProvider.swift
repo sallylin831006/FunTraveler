@@ -15,6 +15,8 @@ typealias LoginHanlder = (Result<Token>) -> Void
 
 typealias ErrorHanlder = (Result<ClientError>) -> Void
 
+typealias UserHanlder = (Result<Users>) -> Void
+
 enum FunTravelerSignInError: Error {
     
     case noToken
@@ -77,6 +79,7 @@ class UserProvider {
                         )
                         
                         KeyChainManager.shared.token = loginResponse.token
+                        KeyChainManager.shared.userId = String(loginResponse.userId)
                         
                         DispatchQueue.main.async {
                             
@@ -111,7 +114,7 @@ class UserProvider {
                             from: data
                         )
                         
-                        KeyChainManager.shared.appleToken = loginResponse.token
+                        KeyChainManager.shared.token = loginResponse.token
                         
                         DispatchQueue.main.async {
                             
@@ -127,6 +130,103 @@ class UserProvider {
                     print(error)
                     completion(Result.failure(error))
                     
+                }
+            })
+    }
+    
+    // MARK: - GET USER PROFILE
+    func getProfile(userId: Int, completion: @escaping UserHanlder) {
+        
+        let token = KeyChainManager.shared.token ?? ""
+        
+        HTTPClient.shared.request(UserRequest.getProfile(token: token, userId: userId), completion: { result in
+                
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
+                        let profileResponse = try JSONDecoder().decode(
+                            Users.self,
+                            from: data
+                        )
+                        
+//                        KeyChainManager.shared.userId = String(profileResponse.data.id)
+                                                
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(profileResponse))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
+    
+// MARK: - PATCH TO UPDATE USER PROFILE
+    func updateProfile(name: String, image: String, completion: @escaping UserHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(UserRequest.updateProfile(
+            token: token, name: name, image: image), completion: { result in
+                
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
+                        let updateProfileResponse = try JSONDecoder().decode(
+                            Users.self,
+                            from: data
+                        )
+                                                
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(updateProfileResponse))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
+    
+    // MARK: - DELETE USER
+    func deleteUser(completion: @escaping ErrorHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(UserRequest.deleteUser(token: token), completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+        
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
                 }
             })
     }

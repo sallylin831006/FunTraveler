@@ -19,8 +19,13 @@ class TripProvider {
     // MARK: - GET USER TRIP OVERVIEW
     func fetchTrip(completion: @escaping TripHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            TripRequest.getTrip(token: "mockToken") ,
+            TripRequest.getTrip(token: token) ,
             completion: { result in
                 
                 switch result {
@@ -54,8 +59,13 @@ class TripProvider {
     // MARK: - POST TO ADD NEW TRIP
     func addTrip(title: String, startDate: String, endDate: String, completion: @escaping ScheduleInfoHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            TripRequest.addTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate),
+            TripRequest.addTrip(token: token, title: title, startDate: startDate, endDate: endDate),
             completion: { result in
                
                 switch result {
@@ -90,8 +100,13 @@ class TripProvider {
     // MARK: - Public method
     func fetchSchedule(tripId: Int, days: Int, completion: @escaping ScheduleInfoHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            TripRequest.getSchdule(token: "mockToken", tripId: tripId, days: days) ,
+            TripRequest.getSchdule(token: token, tripId: tripId, days: days) ,
             completion: { result in
 
                 switch result {
@@ -126,8 +141,13 @@ class TripProvider {
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
     func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ScheduleInfoHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            TripRequest.postTrip(token: "mockToken",
+            TripRequest.postTrip(token: token,
                                  tripId: tripId,
                                  schedules: schedules,
                                  day: day), completion: {  result in
@@ -164,8 +184,13 @@ class TripProvider {
     // MARK: - PATCH to Update and publish schedules
     func updateTrip(tripId: Int, schedules: [Schedule], completion: @escaping ResponseHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            TripRequest.updateTrip(token: "mockToken",
+            TripRequest.updateTrip(token: token,
                                    tripId: tripId,
                                    schedules: schedules), completion: {  result in
                
@@ -184,8 +209,13 @@ class TripProvider {
     // MARK: - POST TO COPY TRIP
     func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping ScheduleInfoHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            TripRequest.copyTrip(token: "mockToken", title: title, startDate: startDate, endDate: endDate, tripId: tripId),
+            TripRequest.copyTrip(token: token, title: title, startDate: startDate, endDate: endDate, tripId: tripId),
             completion: { result in
                
                 switch result {

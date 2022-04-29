@@ -15,7 +15,7 @@ class KeyChainManager {
 
     private let serverTokenKey: String = "FuntravelerToken"
     
-    private let serverToAppleKey: String = "AppleToken"
+    private let serverToUserIdKey: String = "FuntravelerUserId"
 
     private init() {
 
@@ -57,16 +57,16 @@ class KeyChainManager {
         }
     }
     
-    // MARK: - AppleId
-    var appleToken: String? {
+    // MARK: - UserId
+    var userId: String? {
 
         set {
 
-            guard let uuid = UserDefaults.standard.value(forKey: serverToAppleKey) as? String else {
+            guard let uuid = UserDefaults.standard.value(forKey: serverToUserIdKey) as? String else {
 
                 let uuid = UUID().uuidString
 
-                UserDefaults.standard.set(uuid, forKey: serverToAppleKey)
+                UserDefaults.standard.set(uuid, forKey: serverToUserIdKey)
 
                 service[uuid] = newValue
 
@@ -78,7 +78,7 @@ class KeyChainManager {
 
         get {
 
-            guard let serverKey = UserDefaults.standard.string(forKey: serverToAppleKey) else { return nil }
+            guard let serverKey = UserDefaults.standard.string(forKey: serverToUserIdKey) else { return nil }
 
             for item in service.allItems() {
 

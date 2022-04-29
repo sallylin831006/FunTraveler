@@ -46,6 +46,14 @@ struct StoryboardCategory {
     
     static let commentVC = "CommentViewController"
     
+    static let settingVC = "SettingViewController"
+    
+    static let inviteVC = "InviteListViewController"
+    
+    static let friendListVC = "FriendListViewController"
+
+    
+    
 }
 
 extension UIStoryboard {

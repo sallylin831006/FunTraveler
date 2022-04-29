@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="41" id="KGk-i7-Jjw" customClass="InviteListTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dco-7j-ZZ3">
+                        <rect key="frame" x="66" y="10" width="188" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jn9-9S-OvY">
+                        <rect key="frame" x="190" y="5" width="53" height="31"/>
+                        <color key="backgroundColor" name="themeRed"/>
+                        <color key="tintColor" name="themeApricotDeep"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="確認"/>
+                        <connections>
+                            <action selector="tapConfirmButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ycI-uV-seW"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5L7-Bt-1Nb">
+                        <rect key="frame" x="251" y="5" width="53" height="31"/>
+                        <color key="backgroundColor" name="themeApricotDeep"/>
+                        <color key="tintColor" name="themeRed"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="取消"/>
+                        <connections>
+                            <action selector="tapCancelButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="zXQ-MH-UXY"/>
+                        </connections>
+                    </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Cc-1y-yre">
+                        <rect key="frame" x="5" y="-4" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="P4n-XJ-VNV"/>
+                            <constraint firstAttribute="width" secondItem="9Cc-1y-yre" secondAttribute="height" multiplier="1:1" id="U57-iw-hP7"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="9Cc-1y-yre" secondAttribute="bottom" id="C4q-F7-3kd"/>
+                    <constraint firstItem="Jn9-9S-OvY" firstAttribute="centerY" secondItem="5L7-Bt-1Nb" secondAttribute="centerY" id="Dza-n4-y3e"/>
+                    <constraint firstItem="5L7-Bt-1Nb" firstAttribute="leading" secondItem="Jn9-9S-OvY" secondAttribute="trailing" constant="8" symbolic="YES" id="GJ5-Yk-pLr"/>
+                    <constraint firstItem="Jn9-9S-OvY" firstAttribute="height" secondItem="5L7-Bt-1Nb" secondAttribute="height" id="LfQ-KQ-Cyq"/>
+                    <constraint firstItem="9Cc-1y-yre" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="bI0-Tp-9WI"/>
+                    <constraint firstItem="Dco-7j-ZZ3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cJK-D4-fJX"/>
+                    <constraint firstItem="5L7-Bt-1Nb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eIa-sg-fzf"/>
+                    <constraint firstItem="Dco-7j-ZZ3" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="q2X-dk-FF4"/>
+                    <constraint firstItem="Dco-7j-ZZ3" firstAttribute="leading" secondItem="9Cc-1y-yre" secondAttribute="trailing" constant="16" id="tAH-Od-Y9b"/>
+                    <constraint firstAttribute="trailing" secondItem="5L7-Bt-1Nb" secondAttribute="trailing" constant="16" id="y7S-nJ-6iV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cancelInviteButton" destination="5L7-Bt-1Nb" id="0ZB-5H-zAj"/>
+                <outlet property="confirmInviteButton" destination="Jn9-9S-OvY" id="ZeS-Di-c7R"/>
+                <outlet property="nameLabel" destination="Dco-7j-ZZ3" id="0vd-Be-2Jf"/>
+                <outlet property="userImageView" destination="9Cc-1y-yre" id="NUb-2g-ftF"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="87.388392857142847"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="themeApricotDeep">
+            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeRed">
+            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

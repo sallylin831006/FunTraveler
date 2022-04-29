@@ -9,7 +9,7 @@ import Foundation
 
 enum ExploreRequest: STRequest {
     
-    case getExplore
+    case getExplore(token: String)
     
     case searchTrips(word: String)
     
@@ -17,7 +17,14 @@ enum ExploreRequest: STRequest {
         
         switch self {
             
-        case .getExplore, .searchTrips:
+        case .getExplore(let token):
+            
+            return [
+                STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
+                STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
+            ]
+            
+        case .searchTrips:
             
             return [
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
