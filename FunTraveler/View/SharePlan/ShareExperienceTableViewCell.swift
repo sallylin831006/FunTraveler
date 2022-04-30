@@ -28,7 +28,7 @@ class ShareExperienceTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        tripImage.layer.borderColor = UIColor.lightGray.cgColor
+        tripImage.layer.borderColor = UIColor.white.cgColor
         tripImage.layer.borderWidth = 2
         tripImage.layer.cornerRadius = 10.0
         tripImage.layer.masksToBounds = true

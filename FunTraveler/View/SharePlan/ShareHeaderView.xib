@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="498" height="131"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage1" translatesAutoresizingMaskIntoConstraints="NO" id="s4y-jr-jKD">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="s4y-jr-jKD">
                     <rect key="frame" x="0.0" y="0.0" width="498" height="131"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="小琉球潛水趣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2T-Cy-Aab">
@@ -74,9 +74,9 @@
         </view>
     </objects>
     <resources>
-        <image name="headerBackgroundImage1" width="1127" height="289"/>
+        <image name="headerBackgroundImage" width="828" height="211.71000671386719"/>
         <namedColor name="themeApricot">
-            <color red="0.99599999189376831" green="0.9649999737739563" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -343,7 +343,7 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             
             guard let image = photo.image else { return }
             let newImage = image.scale(newWidth: 50.0)
-            guard let imageData: NSData = newImage.pngData() as NSData? else { return }
+            guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
             schedules[picker.view.tag].images.removeAll()
