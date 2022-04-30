@@ -22,6 +22,12 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    private var profileTrips: [Trip] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     private var userNameTextField: UITextField!
     
     var userId: Int?
@@ -82,8 +88,10 @@ class ProfileViewController: UIViewController {
         if isMyProfile {
             guard let userId = Int(KeyChainManager.shared.userId!) else { return }
             fetchData(userId: userId)
+            fetchProfileTripsData(userId: userId)
         } else {
             fetchData(userId: userId ?? 0)
+            fetchProfileTripsData(userId: userId ?? 0)
         }
     }
     
@@ -128,11 +136,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SegementView.identifier)
                     as? SegementView else { return nil }
-            
+            headerView.delegate = self
             if isMyProfile {
-                headerView.collectedClosure = {
-                    self.fetchCollectedData()
-                }
                 headerView.followbutton.isHidden = true
                 
                 return headerView
@@ -294,6 +299,8 @@ extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
         guard let userId = Int(KeyChainManager.shared.userId!) else { return }
         fetchData(userId: userId)
+        fetchProfileTripsData(userId: userId)
+
     }
 }
 
@@ -318,6 +325,22 @@ extension ProfileViewController {
                 
             case .success(let userData):
                 self?.userData = userData
+                self?.tableView.reloadData()
+            case .failure:
+                print("[ProfileVC] GET Profile 資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - GET PROFILE PUBLIC/PRIVATE TRIPS
+    private func fetchProfileTripsData(userId: Int) {
+        let userProvider = UserProvider()
+        userProvider.getProfileTrips(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let profileTripsData):
+                self?.collectedData = profileTripsData.data
                 self?.tableView.reloadData()
             case .failure:
                 print("[ProfileVC] GET Profile 資料失敗！")
@@ -404,6 +427,22 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension ProfileViewController: SegementViewDelegate {
+    func switchSegement(_ segmentedControl: UISegmentedControl) {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            print("我點了旅遊回憶")
+            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+            fetchProfileTripsData(userId: userId)
+            
+        } else if segmentedControl.selectedSegmentIndex == 1 {
+            fetchCollectedData()
+            
+        }
+        
     }
     
 }

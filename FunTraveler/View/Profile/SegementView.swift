@@ -7,25 +7,24 @@
 
 import UIKit
 
-
+protocol SegementViewDelegate: AnyObject {
+    func switchSegement(_ segmentedControl: UISegmentedControl)
+}
 
 class SegementView: UITableViewHeaderFooterView {
     
-    var collectedClosure: (() -> Void)?
-    
-    
+    weak var delegate: SegementViewDelegate?
+        
     @IBOutlet weak var followbutton: UIButton!
     
-
     @IBOutlet weak var segementControl: UISegmentedControl!
-
-    @IBAction func tapSegementControll(_ sender: Any) {
+    
+    @IBAction func tapSegementControll(_ sender: UISegmentedControl) {
         
         if segementControl.selectedSegmentIndex == 0 {
-            print("我點了旅遊回憶")
+            self.delegate?.switchSegement(sender)
         } else if segementControl.selectedSegmentIndex == 1 {
-            print("我點了收藏")
-            collectedClosure?()
+            self.delegate?.switchSegement(sender)
         }
     }
     
@@ -38,19 +37,19 @@ class SegementView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-      
+        
         setupHeaderView()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupHeaderView()
     }
-
+    
     private func setupHeaderView() {
-//        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-//        contentView.contentMode = .scaleToFill
-
+        //        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
+        //        contentView.contentMode = .scaleToFill
+        
     }
-
+    
 }

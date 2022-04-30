@@ -17,6 +17,8 @@ enum UserRequest: STRequest {
     
     case getProfile(token: String, userId: Int)
     
+    case getProfileTrips(userId: Int)
+    
     case updateProfile(token: String, name: String, image: String)
     
     case deleteUser(token: String)
@@ -25,7 +27,7 @@ enum UserRequest: STRequest {
         
         switch self {
             
-        case .register, .login:
+        case .register, .login, .getProfileTrips:
             
             return [
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
@@ -78,7 +80,7 @@ enum UserRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
-        case .getProfile, .deleteUser: return nil
+        case .getProfile, .deleteUser, .getProfileTrips: return nil
             
         case .updateProfile(_, let name, let image):
             
@@ -103,6 +105,8 @@ enum UserRequest: STRequest {
             
         case .getProfile : return STHTTPMethod.GET.rawValue
             
+        case .getProfileTrips : return STHTTPMethod.GET.rawValue
+
         case .updateProfile : return STHTTPMethod.PATCH.rawValue
 
         case .deleteUser : return STHTTPMethod.DELETE.rawValue
@@ -124,6 +128,9 @@ enum UserRequest: STRequest {
             return "/api/v1/user"
         case .getProfile(_, let userId):
             return "/api/v1/user/\(userId)"
+            
+        case .getProfileTrips(let userId):
+            return "/api/v1/user/\(userId)/trips"
             
         }
         
