@@ -184,22 +184,50 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             schedules[index].description = story.text
         }
         
-        let group = DispatchGroup()
+        decidePublishStatus()
         
-        group.enter()
-        //isPrivate HARD CODE
-        patchData(isPrivate: false, isPublish: true)
-        group.leave()
+//        let group = DispatchGroup()
+//
+//        group.enter()
+//        patchData(isPrivate: false, isPublish: true)
+//        group.leave()
+//
+//        group.notify(queue: .main) { [weak self] in
+//            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//
+//            if let tabBarController = self?.presentingViewController?.presentingViewController as? UITabBarController {
+//                tabBarController.selectedIndex = 0
+//                tabBarController.tabBar.isHidden = false
+//            }
+//        }
         
-        group.notify(queue: .main) { [weak self] in
-            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-            
-            if let tabBarController = self?.presentingViewController?.presentingViewController as? UITabBarController {
-                tabBarController.selectedIndex = 0
-                tabBarController.tabBar.isHidden = false
-            }
+    }
+    
+    func decidePublishStatus() {
+        let publishController = UIAlertController(title: "確定發文?", message: "選擇發文狀態", preferredStyle: .actionSheet)
+        let publicAction = UIAlertAction(title: "公開", style: .default, handler: { (_) in
+            self.patchData(isPrivate: true, isPublish: true)
+            self.moveToHomePage()
+        })
+        let privateAction = UIAlertAction(title: "私密", style: .default, handler: { (_) in
+            self.patchData(isPrivate: false, isPublish: true)
+            self.moveToHomePage()
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        publishController.addAction(publicAction)
+        publishController.addAction(privateAction)
+        publishController.addAction(cancelAction)
+        present(publishController, animated: true, completion: nil)
+    }
+    
+    func moveToHomePage() {
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+            tabBarController.selectedIndex = 0
+            tabBarController.tabBar.isHidden = false
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

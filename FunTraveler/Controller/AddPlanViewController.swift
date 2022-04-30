@@ -141,9 +141,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             })
             
         }
-    
-    
-    
+  
     @objc func tapCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
