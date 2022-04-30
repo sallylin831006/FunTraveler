@@ -21,6 +21,7 @@ struct Explore: Codable {
     var isLiked: Bool
     var likeCount: Int
     var commentCount: Int
+    var publishedDate: String
     
     enum CodingKeys: String, CodingKey {
         case id, title, days, user, editors
@@ -28,6 +29,7 @@ struct Explore: Codable {
         case likeCount = "likes_count"
         case commentCount = "comments_count"
         case isLiked = "is_liked"
+        case publishedDate = "published_at"
     }
 }
 
