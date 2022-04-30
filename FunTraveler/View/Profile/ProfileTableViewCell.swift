@@ -25,7 +25,9 @@ class ProfileTableViewCell: UITableViewCell {
     @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var numberOfFriendLabel: UILabel!
-
+    
+    @IBOutlet weak var numberOfTrips: UILabel!
+    
     @IBOutlet weak var numberOfFriendsButton: UIButton!
     
     override func layoutSubviews() {
@@ -91,7 +93,7 @@ class ProfileTableViewCell: UITableViewCell {
             userImageView.loadImage(data.imageUrl)
         }
         numberOfFriendLabel.text = String(data.numberOfFriends)
-        
+        numberOfTrips.text = String(data.numberOfTrips)
     }
 }
 

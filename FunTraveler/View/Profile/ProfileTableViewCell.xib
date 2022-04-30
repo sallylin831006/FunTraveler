@@ -78,6 +78,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AV6-AY-gwM">
+                        <rect key="frame" x="154" y="66" width="18" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="r4O-Ui-4UI" firstAttribute="leading" secondItem="mk3-ff-VPX" secondAttribute="trailing" constant="-35" id="8Hf-Au-hu0"/>
@@ -89,9 +95,11 @@
                     <constraint firstItem="ume-sy-qLu" firstAttribute="leading" secondItem="Wbn-2H-0ub" secondAttribute="trailing" constant="5" id="E81-6Q-NYA"/>
                     <constraint firstItem="r4O-Ui-4UI" firstAttribute="leading" secondItem="VdI-ES-Ir2" secondAttribute="trailing" constant="12" id="G3Q-OB-qE2"/>
                     <constraint firstItem="VdI-ES-Ir2" firstAttribute="leading" secondItem="Cgf-7P-g0H" secondAttribute="trailing" constant="16" id="JKI-0k-QkI"/>
+                    <constraint firstItem="VdI-ES-Ir2" firstAttribute="leading" secondItem="AV6-AY-gwM" secondAttribute="trailing" constant="-36" id="JdX-cA-0Sf"/>
                     <constraint firstItem="Cgf-7P-g0H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Lli-7p-gQF"/>
                     <constraint firstItem="Wbn-2H-0ub" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ODl-9I-PWz"/>
                     <constraint firstAttribute="trailing" secondItem="esL-79-LPL" secondAttribute="trailing" constant="16" id="TrS-X9-omm"/>
+                    <constraint firstItem="VdI-ES-Ir2" firstAttribute="top" secondItem="AV6-AY-gwM" secondAttribute="bottom" constant="-34" id="dI2-CE-Hvo"/>
                     <constraint firstItem="VdI-ES-Ir2" firstAttribute="top" secondItem="ume-sy-qLu" secondAttribute="bottom" constant="5" id="e7r-EY-BBL"/>
                     <constraint firstItem="esL-79-LPL" firstAttribute="leading" secondItem="ume-sy-qLu" secondAttribute="trailing" constant="8" symbolic="YES" id="esB-FY-L7j"/>
                     <constraint firstItem="Cgf-7P-g0H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jhc-TN-8mc"/>
@@ -104,6 +112,7 @@
                 <outlet property="editButton" destination="esL-79-LPL" id="AiJ-uy-tJH"/>
                 <outlet property="numberOfFriendLabel" destination="mk3-ff-VPX" id="4mm-q4-ZPL"/>
                 <outlet property="numberOfFriendsButton" destination="r4O-Ui-4UI" id="qf5-84-l2R"/>
+                <outlet property="numberOfTrips" destination="AV6-AY-gwM" id="Pmd-ts-QxL"/>
                 <outlet property="settingButton" destination="5nF-mH-iXR" id="XEN-9R-3uh"/>
                 <outlet property="userImageView" destination="Cgf-7P-g0H" id="6i1-eE-ppd"/>
                 <outlet property="userNameTextField" destination="ume-sy-qLu" id="iv6-mo-k7k"/>
