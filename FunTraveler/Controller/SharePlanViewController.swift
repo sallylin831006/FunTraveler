@@ -120,11 +120,11 @@ class SharePlanViewController: UIViewController {
     }
     
     // MARK: - PATCH Action
-    private func patchData() {
+    private func patchData(isPrivate: Bool, isPublish: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = self.tripId else { return }
         
-        tripProvider.updateTrip(tripId: tripId, schedules: schedules, completion: { result in
+        tripProvider.updateTrip(tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish, completion: { result in
             
             switch result {
                 
@@ -187,7 +187,8 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         let group = DispatchGroup()
         
         group.enter()
-        patchData()
+        //isPrivate HARD CODE
+        patchData(isPrivate: false, isPublish: true)
         group.leave()
         
         group.notify(queue: .main) { [weak self] in
@@ -348,7 +349,8 @@ extension SharePlanViewController: SegmentControlViewDataSource {
         
         self.storiesTextViewArray = []
         self.photoImageArray = []
-        patchData()
+        //isPrivate HARD CODE
+        patchData(isPrivate: false, isPublish: false)
         fetchData(days: index)
     }
     
