@@ -156,7 +156,12 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
             
             profileVC.userId = self.exploreData[indexPath.row].user.id
-            profileVC.isMyProfile = false
+            
+            if String(self.exploreData[indexPath.row].user.id) == KeyChainManager.shared.userId {
+                profileVC.isMyProfile = true
+            } else {
+                profileVC.isMyProfile = false
+            }
             self.present(profileVC, animated: true)
 
         }
