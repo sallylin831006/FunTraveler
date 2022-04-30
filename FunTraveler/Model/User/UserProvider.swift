@@ -17,6 +17,9 @@ typealias ErrorHanlder = (Result<ClientError>) -> Void
 
 typealias UserHanlder = (Result<Users>) -> Void
 
+typealias ProfileHanlder = (Result<Profile>) -> Void
+
+
 enum FunTravelerSignInError: Error {
     
     case noToken
@@ -135,7 +138,7 @@ class UserProvider {
     }
     
     // MARK: - GET USER PROFILE
-    func getProfile(userId: Int, completion: @escaping UserHanlder) {
+    func getProfile(userId: Int, completion: @escaping ProfileHanlder) {
         
         let token = KeyChainManager.shared.token ?? ""
         
@@ -147,7 +150,7 @@ class UserProvider {
                     
                     do {
                         let profileResponse = try JSONDecoder().decode(
-                            Users.self,
+                            UserProfile.self,
                             from: data
                         )
                         
@@ -155,7 +158,7 @@ class UserProvider {
                                                 
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(profileResponse))
+                            completion(Result.success(profileResponse.data))
                         }
                         
                     } catch {
