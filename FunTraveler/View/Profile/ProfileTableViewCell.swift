@@ -90,7 +90,7 @@ class ProfileTableViewCell: UITableViewCell {
         } else {
             userImageView.loadImage(data.imageUrl)
         }
-        numberOfFriendLabel.text = String(data.numberOfFriends - 1)
+        numberOfFriendLabel.text = String(data.numberOfFriends)
         
     }
 }

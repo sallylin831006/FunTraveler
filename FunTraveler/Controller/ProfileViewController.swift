@@ -142,8 +142,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 headerView.followbutton.addTarget(self, action: #selector(tapFollowButton(_:)), for: .touchUpInside)
                 
                 guard let isFriend = userData?.isFriend else { return UIView()}
+                guard let isInvite = userData?.isInvite else { return UIView()}
                 if isFriend {
                     headerView.followbutton.setTitle("已追蹤", for: .normal)
+                    headerView.followbutton.backgroundColor = .themeApricotDeep
+                    headerView.followbutton.isUserInteractionEnabled = false
+                } else if !isFriend && isInvite {
+                    headerView.followbutton.setTitle("已送出追蹤邀請", for: .normal)
                     headerView.followbutton.backgroundColor = .themeApricotDeep
                     headerView.followbutton.isUserInteractionEnabled = false
                 } else {

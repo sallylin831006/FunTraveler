@@ -38,13 +38,18 @@ struct Profile: Codable {
     var name: String
     var imageUrl: String
     var isFriend: Bool
+    var isInvite: Bool
     var numberOfFriends: Int
-    
+    var numberOfTrips: Int
+
     enum CodingKeys: String, CodingKey {
         case id, name
         case imageUrl = "image_url"
         case isFriend = "is_friend"
+        case isInvite = "is_invite"
         case numberOfFriends = "friends_count"
+        case numberOfTrips = "trip_count"
+
 
     }
 }
