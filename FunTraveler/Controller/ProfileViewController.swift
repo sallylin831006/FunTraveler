@@ -139,7 +139,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 headerView.segementControl.isHidden = true
                 headerView.followbutton.isHidden = false
-                headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+                headerView.followbutton.addTarget(self, action: #selector(tapFollowButton(_:)), for: .touchUpInside)
                 
                 guard let isFriend = userData?.isFriend else { return UIView()}
                 if isFriend {
@@ -161,8 +161,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return UIView()
     }
     
-    @objc func tapFollowButton() {
+    @objc func tapFollowButton(_ sender: UIButton) {
         postToInvite()
+        sender.setTitle("已送出追蹤邀請", for: .normal)
+        sender.backgroundColor = .themeApricotDeep
+        sender.isUserInteractionEnabled = false
     }
     
     // MARK: - Section Row

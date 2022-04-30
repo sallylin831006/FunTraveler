@@ -24,9 +24,7 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var editButton: UIButton!
     
-    @IBAction func tapFriendListButton(_ sender: Any) {
-        
-    }
+    @IBOutlet weak var numberOfFriendLabel: UILabel!
 
     @IBOutlet weak var numberOfFriendsButton: UIButton!
     
@@ -92,8 +90,7 @@ class ProfileTableViewCell: UITableViewCell {
         } else {
             userImageView.loadImage(data.imageUrl)
         }
-        
-        
+        numberOfFriendLabel.text = String(data.numberOfFriends - 1)
         
     }
 }
