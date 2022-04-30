@@ -59,6 +59,12 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
         tableView.shouldIgnoreScrollingAdjustment = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        tableView.separatorStyle = .none
+    }
+    
 }
 
 extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {

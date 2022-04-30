@@ -50,7 +50,16 @@ class CommentFooterView: UITableViewHeaderFooterView {
         
     }
     
-    func layoutFooter() {
+    func layoutFooter(data: Profile) {
+        userImageView.loadImage(data.imageUrl)
+        commentTextField.placeholder =  "以\(data.name)新增留言..."
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = 45/2
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
         
     }
 
