@@ -68,6 +68,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
         followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         
+        dateLabel.text = data.publishedDate
+        
     }
     
     override func awakeFromNib() {

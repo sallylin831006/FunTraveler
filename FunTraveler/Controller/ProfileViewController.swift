@@ -224,6 +224,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let item = collectedData[indexPath.row]
             cell.layoutCell(data: item)
             
+//            cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .normal)
+            cell.collectClosure = { isCollected in
+                self.postCollectedData(isCollected: item.isCollected, tripId: self.collectedData[indexPath.row].id)
+                self.collectedData.remove(at: indexPath.row)
+//                tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .left)
+//                tableView.reloadData()
+                
+            }
+            
             return cell
             
         default: break
@@ -394,6 +403,27 @@ extension ProfileViewController {
         })
     }
     
+    // MARK: - POST TO ADJUST COLLECTED status
+    private func postCollectedData(isCollected: Bool, tripId: Int) {
+            let collectedProvider = CollectedProvider()
+        
+            collectedProvider.addCollected( isCollected: isCollected,
+                                           tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success:
+                    self.tableView.reloadData()
+                                    
+                case .failure:
+                    print("[Explore] collected postResponse失敗！")
+                }
+            })
+            
+        }
+    
+    
+    
     // MARK: - POST TO INVITE
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
@@ -439,6 +469,7 @@ extension ProfileViewController: SegementViewDelegate {
             print("我點了旅遊回憶")
             guard let userId = Int(KeyChainManager.shared.userId!) else { return }
             fetchProfileTripsData(userId: userId)
+            
             
         } else if segmentedControl.selectedSegmentIndex == 1 {
             fetchCollectedData()
