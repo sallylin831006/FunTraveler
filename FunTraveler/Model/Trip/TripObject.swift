@@ -30,8 +30,8 @@ struct Trip: Codable {
     var title: String
     var startDate: String?
     var endDate: String?
-    var likeCount: Int
-    var commentCount: Int
+    var likeCount: Int?
+    var commentCount: Int?
     
     var schedules: [[Schedule]]?
     
