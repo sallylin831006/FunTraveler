@@ -15,6 +15,8 @@ class FriendListViewController: UIViewController {
         }
     }
     
+    var userId: Int?
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -40,8 +42,9 @@ class FriendListViewController: UIViewController {
     // MARK: - GET Friends List
     private func fetchData() {
         let friendsProvider = FriendsProvider()
-        
-        friendsProvider.getFriendList(completion: { [weak self] result in
+        guard let userId = userId else { return }
+
+        friendsProvider.getFriendList(userId: userId, completion: { [weak self] result in
             
             switch result {
                 

@@ -15,7 +15,7 @@ enum FriendsRequest: STRequest {
     
     case getInviteList(token: String)
     
-    case getFriendList(token: String)
+    case getFriendList(token: String, userId: Int)
     
     var headers: [String: String] {
         
@@ -24,7 +24,7 @@ enum FriendsRequest: STRequest {
         case .postToInvite(let token, _),
                 .postToAccept(let token, _, _),
                 .getInviteList(let token),
-                .getFriendList(let token):
+                .getFriendList(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -77,8 +77,8 @@ enum FriendsRequest: STRequest {
         case .postToAccept(_, let userId, _):
             return "/api/v1/user/\(userId)/reply"
             
-        case .getFriendList:
-            return "/api/v1/user/friends"
+        case .getFriendList(_, let userId):
+            return "/api/v1/user/\(userId)/friends"
             
         case .getInviteList:
             return "/api/v1/user/invites"
