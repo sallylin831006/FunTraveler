@@ -236,6 +236,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapToFriendList() {
         guard let friendListVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        
+        friendListVC.userId = userData?.id
         self.present(friendListVC, animated: true)
         
         //        navigationController?.pushViewController(friendListVC, animated: true)

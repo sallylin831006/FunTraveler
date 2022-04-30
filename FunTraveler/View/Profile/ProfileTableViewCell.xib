@@ -59,9 +59,6 @@
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="" image="tripCount"/>
-                        <connections>
-                            <action selector="tapFriendListButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PvN-aB-sHT"/>
-                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-Ui-4UI">
                         <rect key="frame" x="244" y="53" width="96" height="62"/>
@@ -111,7 +108,7 @@
             <connections>
                 <outlet property="editButton" destination="esL-79-LPL" id="AiJ-uy-tJH"/>
                 <outlet property="numberOfFriendLabel" destination="mk3-ff-VPX" id="4mm-q4-ZPL"/>
-                <outlet property="numberOfFriendsButton" destination="r4O-Ui-4UI" id="qf5-84-l2R"/>
+                <outlet property="numberOfFriendsButton" destination="r4O-Ui-4UI" id="yzo-kW-wDV"/>
                 <outlet property="numberOfTrips" destination="AV6-AY-gwM" id="Pmd-ts-QxL"/>
                 <outlet property="settingButton" destination="5nF-mH-iXR" id="XEN-9R-3uh"/>
                 <outlet property="userImageView" destination="Cgf-7P-g0H" id="6i1-eE-ppd"/>
