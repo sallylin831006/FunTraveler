@@ -26,3 +26,25 @@ struct RegisterError: Codable {
         case errorMessage = "error_message"
     }
 }
+
+// MARK: - GET USERS PROFILE
+
+struct UserProfile: Codable {
+    var data: Profile
+}
+
+struct Profile: Codable {
+    var id: Int
+    var name: String
+    var imageUrl: String
+    var isFriend: Bool
+    var numberOfFriends: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case imageUrl = "image_url"
+        case isFriend = "is_friend"
+        case numberOfFriends = "friends_count"
+
+    }
+}

@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController {
     }
     private var collectedDataArray: [[Explore]] = []
     
-    private var userData: User? {
+    private var userData: Profile? {
         didSet {
             tableView.reloadData()
         }
@@ -140,14 +140,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 headerView.segementControl.isHidden = true
                 headerView.followbutton.isHidden = false
                 headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
-//                if isFriend {
-//                    headerView.followbutton.setTitle("已追蹤", for: .normal)
-//                    headerView.followbutton.isUserInteractionEnabled = false
-//                } else {
-//                    headerView.followbutton.setTitle("追蹤", for: .normal)
-//                    headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
-//
-//                }
+                
+                guard let isFriend = userData?.isFriend else { return UIView()}
+                if isFriend {
+                    headerView.followbutton.setTitle("已追蹤", for: .normal)
+                    headerView.followbutton.backgroundColor = .themeApricotDeep
+                    headerView.followbutton.isUserInteractionEnabled = false
+                } else {
+                    headerView.followbutton.setTitle("追蹤", for: .normal)
+                    headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+
+                }
+
                 return headerView
             }
             
@@ -288,7 +292,7 @@ extension ProfileViewController: AuthViewControllerDelegate {
 extension ProfileViewController: ProfileTableViewCellDelegate {
     
     func didChangeName(_ cell: ProfileTableViewCell, text: String) {
-        
+            
         self.userNameTextField.text = text
         patchData(name: text, image: "")
         
@@ -305,7 +309,7 @@ extension ProfileViewController {
             switch result {
                 
             case .success(let userData):
-                self?.userData = userData.data
+                self?.userData = userData
                 self?.tableView.reloadData()
             case .failure:
                 print("[ProfileVC] GET Profile 資料失敗！")
@@ -315,6 +319,10 @@ extension ProfileViewController {
     
     // MARK: - PATCH Action
     private func patchData(name: String, image: String) {
+        
+        guard let isFriend = userData?.isFriend else { return }
+        if isFriend { return }
+        
         let userProvider = UserProvider()
         userProvider.updateProfile(name: name, image: image, completion: { result in
             

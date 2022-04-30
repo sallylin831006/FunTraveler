@@ -85,13 +85,16 @@ class ProfileTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func layoutCell(data: User) {
+    func layoutCell(data: Profile) {
         userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = nil
         } else {
             userImageView.loadImage(data.imageUrl)
         }
+        
+        
+        
     }
 }
 
