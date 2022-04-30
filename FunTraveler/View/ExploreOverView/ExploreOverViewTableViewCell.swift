@@ -49,7 +49,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         numberOfLikeLabel.text = "\(data.likeCount)個讚"
         
         if data.user.imageUrl == "" {
-            userImageView.backgroundColor = .systemGray
+            userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
             userImageView.loadImage(data.user.imageUrl)
         }

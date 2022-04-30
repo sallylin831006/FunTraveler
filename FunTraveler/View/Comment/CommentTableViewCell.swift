@@ -40,7 +40,7 @@ class CommentTableViewCell: UITableViewCell {
         commentLabel.text = data.content
         
         if data.user.imageUrl == "" {
-            userImageView.backgroundColor = .systemGray
+            userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
             userImageView.loadImage(data.user.imageUrl)
         }

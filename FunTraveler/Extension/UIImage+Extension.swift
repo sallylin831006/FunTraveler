@@ -46,6 +46,8 @@ enum ImageAsset: String {
     
     case appleSelected
     case appleNormal
+    
+    case defaultUserImage
 
 }
 

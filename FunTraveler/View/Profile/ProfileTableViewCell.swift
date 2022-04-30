@@ -86,7 +86,7 @@ class ProfileTableViewCell: UITableViewCell {
     func layoutCell(data: Profile) {
         userNameTextField.text = data.name
         if data.imageUrl == "" {
-            userImageView.image = nil
+            userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
             userImageView.loadImage(data.imageUrl)
         }
