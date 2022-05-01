@@ -98,7 +98,8 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
                 as? VideoWallHeaderView else { return UICollectionReusableView() }
         
         headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
-
+        headerView.delegate = self
+        
         return headerView
     }
     
@@ -190,6 +191,23 @@ extension VideoWallViewController {
             }
         })
     }
+    
+    // MARK: - POST TO INVITE
+    private func postToInvite() {
+        let friendsProvider = FriendsProvider()
+        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let postResponse):
+                print("postResponse", postResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO INVITE失敗！")
+            }
+        })
+    }
 }
 
 extension VideoWallViewController {
@@ -241,4 +259,14 @@ extension VideoWallViewController: UISearchBarDelegate {
         print("點了取消按鈕")
 //        fetchData()
     }
+}
+
+extension VideoWallViewController: VideoWallHeaderViewDelegate {
+    func tapToFollow(_ followButton: UIButton, _ section: Int) {
+        postToInvite()
+        followButton.setTitle("已送出邀請", for: .normal)
+        followButton.backgroundColor = .themeApricotDeep
+        followButton.isUserInteractionEnabled = false
+    }
+   
 }

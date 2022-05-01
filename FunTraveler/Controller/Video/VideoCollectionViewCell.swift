@@ -34,7 +34,6 @@ class VideoCollectionViewCell: UICollectionViewCell {
     private let locationLabel = UILabel()
     private let dateLabel = UILabel()
 
-    
     var url: URL?
     
     override func awakeFromNib() {

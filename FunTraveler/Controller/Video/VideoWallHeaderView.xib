@@ -28,17 +28,27 @@
                     <color key="textColor" name="themeRed"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZf-Mm-SSl">
+                    <rect key="frame" x="158.5" y="12" width="53" height="31"/>
+                    <color key="backgroundColor" name="themeRed"/>
+                    <color key="tintColor" name="themeApricot"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="追蹤"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" white="1" alpha="0.20889383278145696" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" name="themeApricot"/>
             <constraints>
+                <constraint firstItem="mZf-Mm-SSl" firstAttribute="centerY" secondItem="Q4Y-MN-nh1" secondAttribute="centerY" id="8Fc-4O-U8o"/>
                 <constraint firstItem="Q4Y-MN-nh1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Bky-FE-njp"/>
                 <constraint firstItem="Q4Y-MN-nh1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="N4G-1f-RGs"/>
                 <constraint firstItem="yU2-1R-ZOj" firstAttribute="centerY" secondItem="Q4Y-MN-nh1" secondAttribute="centerY" id="Qys-7D-T5R"/>
+                <constraint firstItem="mZf-Mm-SSl" firstAttribute="leading" secondItem="yU2-1R-ZOj" secondAttribute="trailing" constant="16" id="fBG-eO-7Js"/>
                 <constraint firstItem="yU2-1R-ZOj" firstAttribute="leading" secondItem="Q4Y-MN-nh1" secondAttribute="trailing" constant="16" id="kDs-wg-YzT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="followButton" destination="mZf-Mm-SSl" id="vu8-Ag-MAf"/>
                 <outlet property="userImageView" destination="Q4Y-MN-nh1" id="njN-9o-yCb"/>
                 <outlet property="userNameLabel" destination="yU2-1R-ZOj" id="W72-Cv-le3"/>
             </connections>
@@ -46,6 +56,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeRed">
             <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
