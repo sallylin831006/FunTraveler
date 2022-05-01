@@ -33,29 +33,38 @@ class VideoWallHeaderView: UICollectionReusableView {
     
     func layoutHeaderView(data: [Video], section: Int) {
         self.section = section
-        userImageView.loadImage(data[section].user.imageUrl)
+        
+        if data[section].user.imageUrl == "" {
+            userImageView.image = UIImage.asset(.defaultUserImage)
+        } else {
+            userImageView.loadImage(data[section].user.imageUrl)
+        }
+        
         userNameLabel.text =  data[section].user.name
         
         let isFriend = data[section].user.isFriend
         let isInvite = data[section].user.isInvite
 
-        if isFriend {
+        if !isFriend && Int(KeyChainManager.shared.userId!) == data[section].user.id {
+            followButton.isHidden = true
+            return
+        } else if isFriend {
+            followButton.isHidden = false
             followButton.setTitle("已追蹤", for: .normal)
             followButton.backgroundColor = .themeApricotDeep
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && isInvite {
+            followButton.isHidden = false
+
             followButton.setTitle("已送出邀請", for: .normal)
             followButton.backgroundColor = .themeApricotDeep
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && !isInvite {
+            followButton.isHidden = false
+            followButton.backgroundColor = .themeRed
             followButton.setTitle("追蹤", for: .normal)
             followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
         }
-        
-//        if Int(KeyChainManager.shared.userId!) == data[section].user.id {
-//            followButton.isHidden = true
-//            return
-//        }
 
     }
     

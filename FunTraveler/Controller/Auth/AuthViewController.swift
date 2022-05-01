@@ -139,9 +139,9 @@ extension AuthViewController {
     // MARK: - Sign in with Apple
     private func siginInwithApple(appleToken: String) {
         let userProvider = UserProvider()
-        
+        ProgressHUD.show()
         userProvider.siginInwithApple(appleToken: appleToken, completion: { result in
-            
+            ProgressHUD.dismiss()
             switch result {
                 
             case .success(let responseData):
@@ -151,8 +151,10 @@ extension AuthViewController {
                     self.delegate?.detectLoginDissmiss(self, userId)
                 })
                 
+                ProgressHUD.showSuccess(text: "登入成功")
+                
             case .failure(let error):
-                print("Sign in with Apple失敗！\(error)")
+                ProgressHUD.showSuccess(text: "登入失敗!")
             }
         })
         

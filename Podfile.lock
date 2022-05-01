@@ -1,5 +1,6 @@
 PODS:
   - IQKeyboardManagerSwift (6.5.9)
+  - JGProgressHUD (2.2)
   - KeychainAccess (4.2.2)
   - Kingfisher (7.2.1)
   - lottie-ios (3.3.0)
@@ -12,6 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift
+  - JGProgressHUD
   - KeychainAccess
   - Kingfisher
   - lottie-ios
@@ -21,6 +23,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - IQKeyboardManagerSwift
+    - JGProgressHUD
     - KeychainAccess
     - Kingfisher
     - lottie-ios
@@ -31,6 +34,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
+  JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
@@ -39,6 +43,6 @@ SPEC CHECKSUMS:
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   TweetNacl: 3abf4d1d2082b0114e7a67410e300892448951e6
 
-PODFILE CHECKSUM: be0134b418d395baf7907564cf4e65efb6b54b67
+PODFILE CHECKSUM: 3d0716fa4df81c9357698a8f9ead52a31cd14fc8
 
 COCOAPODS: 1.11.2
