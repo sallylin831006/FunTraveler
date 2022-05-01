@@ -57,7 +57,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        userImageView.layer.cornerRadius = 45/2
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
         

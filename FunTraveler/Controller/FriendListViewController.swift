@@ -62,6 +62,14 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "好友列表"
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        40
+    }
+    
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         friendListData.count

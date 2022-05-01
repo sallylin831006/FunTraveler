@@ -104,6 +104,11 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapSaveButton() {
+        if titleText == nil || startDate == nil || endDate == nil {
+            print("show alert")
+            return
+        }
+        
         if isCopiedTrip {
             postCopyTrip()
             dismiss(animated: true, completion: nil)
