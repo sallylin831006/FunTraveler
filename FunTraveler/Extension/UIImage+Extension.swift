@@ -44,8 +44,8 @@ enum ImageAsset: String {
     case heartSelected
     case heartNormal
     
-    case appleSelected
-    case appleNormal
+    case collectedIconSelected
+    case collectedIconNormal
     
     case defaultUserImage
 

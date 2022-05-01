@@ -64,10 +64,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8T3-UM-aZN">
-                        <rect key="frame" x="320" y="16" width="25" height="30"/>
+                        <rect key="frame" x="325" y="6" width="20" height="33"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="BJF-jm-kj7"/>
-                            <constraint firstAttribute="height" constant="30" id="NHD-RU-Ild"/>
+                            <constraint firstAttribute="width" constant="20" id="BJF-jm-kj7"/>
+                            <constraint firstAttribute="height" constant="33" id="NHD-RU-Ild"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="" image="appleSelected"/>
@@ -107,7 +107,7 @@
                     <constraint firstItem="PQJ-go-cQn" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="QHb-ni-0hK"/>
                     <constraint firstItem="Mpm-AC-aBC" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="TJ1-XW-fvn"/>
                     <constraint firstAttribute="bottom" secondItem="iJ3-Qa-9hi" secondAttribute="bottom" constant="20" id="VI6-0v-Czp"/>
-                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="XQq-wl-yxW"/>
+                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="XQq-wl-yxW"/>
                     <constraint firstItem="iJ3-Qa-9hi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="fbE-kG-fli"/>
                     <constraint firstItem="Mpm-AC-aBC" firstAttribute="leading" secondItem="PQJ-go-cQn" secondAttribute="trailing" constant="10" id="fs6-fK-Cao"/>
                     <constraint firstItem="m9L-ao-1UQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="geh-pQ-xHg"/>
