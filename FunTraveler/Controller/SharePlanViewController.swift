@@ -206,11 +206,11 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     func decidePublishStatus() {
         let publishController = UIAlertController(title: "確定發文?", message: "選擇發文狀態", preferredStyle: .actionSheet)
         let publicAction = UIAlertAction(title: "公開", style: .default, handler: { (_) in
-            self.patchData(isPrivate: true, isPublish: true)
+            self.patchData(isPrivate: false, isPublish: true)
             self.moveToHomePage()
         })
         let privateAction = UIAlertAction(title: "私密", style: .default, handler: { (_) in
-            self.patchData(isPrivate: false, isPublish: true)
+            self.patchData(isPrivate: true, isPublish: true)
             self.moveToHomePage()
         })
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -342,7 +342,7 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             photo.clipsToBounds = true
             
             guard let image = photo.image else { return }
-            let newImage = image.scale(newWidth: 50.0)
+            let newImage = image.scale(newWidth: 100.0)
             guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
@@ -377,7 +377,6 @@ extension SharePlanViewController: SegmentControlViewDataSource {
         
         self.storiesTextViewArray = []
         self.photoImageArray = []
-        //isPrivate HARD CODE
         patchData(isPrivate: false, isPublish: false)
         fetchData(days: index)
     }

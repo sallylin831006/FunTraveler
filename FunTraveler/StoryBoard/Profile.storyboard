@@ -121,7 +121,7 @@
             </objects>
             <point key="canvasLocation" x="1855" y="80"/>
         </scene>
-        <!--Friend List View Controller-->
+        <!--好友列表-->
         <scene sceneID="hPY-Xc-BcW">
             <objects>
                 <viewController storyboardIdentifier="FriendListViewController" id="e54-P9-D8Q" customClass="FriendListViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
@@ -131,11 +131,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CEi-N3-vn7">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SuA-GW-612"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="SuA-GW-612" firstAttribute="bottom" secondItem="CEi-N3-vn7" secondAttribute="bottom" id="5SI-zH-3ol"/>
                             <constraint firstItem="CEi-N3-vn7" firstAttribute="leading" secondItem="SuA-GW-612" secondAttribute="leading" id="dFb-BS-bYL"/>
@@ -143,13 +143,14 @@
                             <constraint firstItem="CEi-N3-vn7" firstAttribute="top" secondItem="SuA-GW-612" secondAttribute="top" id="t4E-ii-MFT"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="好友列表" id="zJS-CX-Bet"/>
                     <connections>
                         <outlet property="tableView" destination="CEi-N3-vn7" id="K4p-HJ-o7g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnj-AD-l5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2697" y="80"/>
+            <point key="canvasLocation" x="3258" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hIS-p5-4MG">
@@ -172,7 +173,7 @@
     </scenes>
     <resources>
         <namedColor name="themeApricot">
-            <color red="0.99599999189376831" green="0.9649999737739563" blue="0.9179999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

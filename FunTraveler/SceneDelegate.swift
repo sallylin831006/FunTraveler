@@ -9,7 +9,11 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
+    // swiftlint:disable force_cast
+    static let shared = UIApplication.shared.delegate as! AppDelegate
+    // swiftlint:enable force_cast
     var window: UIWindow?
+
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
             

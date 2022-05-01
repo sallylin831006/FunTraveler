@@ -128,7 +128,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         
         planImageView.backgroundColor = UIColor.themeApricotDeep
         
-        userImageView.layer.cornerRadius = 40/2
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
     }
