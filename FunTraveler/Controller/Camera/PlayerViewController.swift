@@ -20,7 +20,12 @@ class PlayerViewController: UIViewController {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
           switch status {
           case .authorized:
-            self?.saveVideoToPhotos()
+//              self?.saveVideoToPhotos(locationText: "mock locationText")
+              DispatchQueue.main.async {
+                  self?.showInputTextfield()
+              }
+//              self?.showInputTextfield()
+//            self?.saveVideoToPhotos()
           default:
             print("Photos permissions not granted.")
             return
@@ -28,13 +33,30 @@ class PlayerViewController: UIViewController {
         }
       }
     
-    private func saveVideoToPhotos() {
+    private func showInputTextfield() {
+        let controller = UIAlertController(title: "旅遊動態", message: "輸入地點發布你的旅遊回憶", preferredStyle: .alert)
+        controller.addTextField { textField in
+           textField.placeholder = "地點"
+            textField.keyboardType = UIKeyboardType.default
+        }
+        let okAction = UIAlertAction(title: "確定", style: .default) { [unowned controller] _ in
+            guard let locationText = controller.textFields?[0].text else { return }
+            self.saveVideoToPhotos(locationText: locationText)
+           print(locationText)
+        }
+        controller.addAction(okAction)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    private func saveVideoToPhotos(locationText: String) {
         PHPhotoLibrary.shared().performChanges({
 
             PHAssetChangeRequest.creationRequestForAssetFromVideo(
                 atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
             if isSaved {
-                self?.postVideoData(url: (self?.videoURL)!)
+                self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
                 print("Video saved.")
             } else {
                 print("Cannot save video.")
@@ -46,19 +68,18 @@ class PlayerViewController: UIViewController {
                 self?.presentingViewController?.navigationController?.popViewController(animated: true)
                 if let tabBarController = self?.presentingViewController as? UITabBarController {
                     tabBarController.selectedIndex = 1
-//                    tabBarController.tabBar.isHidden = false
                 }
-
-//                self?.navigationController?.popViewController(animated: true)
             }
         }
     }
-    
-    func postVideoData(url: URL) {
+    func postVideoData(locationText: String, url: URL) {
         let video = try? Data(contentsOf: url, options: .mappedIfSafe)
         let dataPath = ["file": video!]
-        
-        VideoManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos", dataPath: dataPath, completion: { (data) in
+        let parameters = [
+            "location": locationText
+        ]
+        VideoManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos",
+                                           parameters: parameters, dataPath: dataPath, completion: { (_) in
 //            DispatchQueue.main.async {
 //                self.processData(data: data)
 //            }
