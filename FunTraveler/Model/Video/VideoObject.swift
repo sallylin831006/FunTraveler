@@ -12,16 +12,14 @@ struct Videos: Codable {
 }
 
 struct Video: Codable {
-//    var user: User
+    var user: User
     var url: String
+    var location: String
+    var createdTime: String
+    
+    enum CodingKeys: String, CodingKey {
+        case user, url, location
+        case createdTime = "created_at"
+       
+    }
 }
-
-// struct User: Codable {
-//    var id:  Int
-//    var name: String
-//    var userImage: String
-//    enum CodingKeys: String, CodingKey {
-//        case id, name
-//        case userImage = "image_url"
-//    }
-// }

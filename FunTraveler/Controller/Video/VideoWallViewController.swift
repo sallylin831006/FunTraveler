@@ -31,8 +31,12 @@ class VideoWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpUI()
-        collectionView.registerCellWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        collectionView.register(UINib(nibName: "VideoWallHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
+        
+        collectionView.register(UINib(nibName: String(
+            describing: VideoWallHeaderView.self), bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: "Header")
+        
         setupSearchBar()
     }
     
@@ -93,9 +97,8 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
             ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
                 as? VideoWallHeaderView else { return UICollectionReusableView() }
         
-        headerView.userImageView.image = UIImage.asset(.defaultUserImage)
-        headerView.userNameLabel.text = "Sally"
-       
+        headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
+
         return headerView
     }
     
@@ -115,6 +118,8 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
         
         cell.configure(videoDataSource[indexPath.section].url)
         
+        cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
+        
         return cell
     }
     
@@ -122,7 +127,7 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        layout?.headerReferenceSize = CGSize(width: 300, height: 50)
+        layout?.headerReferenceSize = CGSize(width: 0, height: 60)
         
         return CGSize(width: collectionView.frame.width, height: 600)
     }

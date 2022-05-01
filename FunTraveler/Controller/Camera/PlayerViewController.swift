@@ -20,12 +20,10 @@ class PlayerViewController: UIViewController {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
           switch status {
           case .authorized:
-//              self?.saveVideoToPhotos(locationText: "mock locationText")
               DispatchQueue.main.async {
                   self?.showInputTextfield()
               }
-//              self?.showInputTextfield()
-//            self?.saveVideoToPhotos()
+
           default:
             print("Photos permissions not granted.")
             return

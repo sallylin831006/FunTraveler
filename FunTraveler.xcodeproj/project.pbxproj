@@ -95,6 +95,7 @@
 		3A5445E8281B928E0078518E /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445E7281B928E0078518E /* FriendListViewController.swift */; };
 		3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445EC281E21400078518E /* VideoWallHeaderView.swift */; };
 		3A5445EF281E21410078518E /* VideoWallHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A5445ED281E21400078518E /* VideoWallHeaderView.xib */; };
+		3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445F0281E7AA10078518E /* Font+Extension.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -234,6 +235,7 @@
 		3A5445E7281B928E0078518E /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		3A5445EC281E21400078518E /* VideoWallHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoWallHeaderView.swift; sourceTree = "<group>"; };
 		3A5445ED281E21400078518E /* VideoWallHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWallHeaderView.xib; sourceTree = "<group>"; };
+		3A5445F0281E7AA10078518E /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
 				3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */,
 				3A4653B72815069F005051EB /* UIView+Extension.swift */,
+				3A5445F0281E7AA10078518E /* Font+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -967,6 +970,7 @@
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A0C3CED281AFB6F006632AC /* InviteListTableViewCell.swift in Sources */,
 				3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */,
+				3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,

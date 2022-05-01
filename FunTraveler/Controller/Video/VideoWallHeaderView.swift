@@ -13,4 +13,17 @@ class VideoWallHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = 45/2
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
+        
+    }
+    
+    func layoutHeaderView(data: [Video], section: Int) {
+        userImageView.loadImage(data[section].user.imageUrl)
+        userNameLabel.text =  data[section].user.name
+    }
+    
 }
