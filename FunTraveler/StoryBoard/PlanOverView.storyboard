@@ -143,11 +143,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4tT-KH-b93">
-                                <rect key="frame" x="0.0" y="70" width="414" height="792"/>
+                                <rect key="frame" x="0.0" y="114" width="414" height="748"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <searchBar contentMode="redraw" text="" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-on-G65">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="AEt-L2-S7I"/>
                                 </constraints>
@@ -158,10 +158,10 @@
                         <viewLayoutGuide key="safeArea" id="Gul-wH-aS2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4tT-KH-b93" firstAttribute="top" secondItem="Gdv-on-G65" secondAttribute="bottom" id="0SR-Ja-VrK"/>
                             <constraint firstItem="Gdv-on-G65" firstAttribute="leading" secondItem="Gul-wH-aS2" secondAttribute="leading" id="NTX-hC-GOg"/>
                             <constraint firstItem="4tT-KH-b93" firstAttribute="leading" secondItem="Gul-wH-aS2" secondAttribute="leading" id="VZB-yo-NeF"/>
-                            <constraint firstItem="Gdv-on-G65" firstAttribute="top" secondItem="yI5-wB-W9q" secondAttribute="topMargin" constant="-44" id="dVZ-pv-II2"/>
-                            <constraint firstItem="4tT-KH-b93" firstAttribute="top" secondItem="Gdv-on-G65" secondAttribute="bottom" id="mna-mk-zEa"/>
+                            <constraint firstItem="Gdv-on-G65" firstAttribute="top" secondItem="Gul-wH-aS2" secondAttribute="top" id="bfc-5k-qwa"/>
                             <constraint firstItem="Gdv-on-G65" firstAttribute="trailing" secondItem="Gul-wH-aS2" secondAttribute="trailing" id="oje-Ja-sqS"/>
                             <constraint firstItem="Gul-wH-aS2" firstAttribute="trailing" secondItem="4tT-KH-b93" secondAttribute="trailing" id="qgv-ot-PgV"/>
                             <constraint firstItem="4tT-KH-b93" firstAttribute="bottom" secondItem="Gul-wH-aS2" secondAttribute="bottom" id="rxO-BI-4Nh"/>
@@ -174,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qeu-oH-2zf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3990" y="-19"/>
+            <point key="canvasLocation" x="3989.8550724637685" y="-19.419642857142858"/>
         </scene>
         <!--Share Plan View Controller-->
         <scene sceneID="QG7-dF-5LH">
