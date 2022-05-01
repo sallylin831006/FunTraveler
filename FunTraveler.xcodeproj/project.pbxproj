@@ -93,6 +93,8 @@
 		3A40D39E281822FE00A7BF51 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */; };
 		3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4653B72815069F005051EB /* UIView+Extension.swift */; };
 		3A5445E8281B928E0078518E /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445E7281B928E0078518E /* FriendListViewController.swift */; };
+		3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445EC281E21400078518E /* VideoWallHeaderView.swift */; };
+		3A5445EF281E21410078518E /* VideoWallHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A5445ED281E21400078518E /* VideoWallHeaderView.xib */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -230,6 +232,8 @@
 		3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		3A4653B72815069F005051EB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		3A5445E7281B928E0078518E /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
+		3A5445EC281E21400078518E /* VideoWallHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoWallHeaderView.swift; sourceTree = "<group>"; };
+		3A5445ED281E21400078518E /* VideoWallHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWallHeaderView.xib; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -427,6 +431,8 @@
 		3A2B6B2C281420F400D00638 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				3A5445EC281E21400078518E /* VideoWallHeaderView.swift */,
+				3A5445ED281E21400078518E /* VideoWallHeaderView.xib */,
 				3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */,
 				3A2B6B2D2814213500D00638 /* VideoCollectionViewCell.swift */,
 				3A2B6B2F2814215000D00638 /* PlayerView.swift */,
@@ -793,6 +799,7 @@
 				3A7E4DA12809453500281E17 /* PlanOverView.storyboard in Resources */,
 				3A40D374281790F600A7BF51 /* CommentFooterView.xib in Resources */,
 				3AF4DCAB280C30BE008029D7 /* ExploreDetailTableViewCell.xib in Resources */,
+				3A5445EF281E21410078518E /* VideoWallHeaderView.xib in Resources */,
 				3A2B6B712814D6A400D00638 /* Success.json in Resources */,
 				3A0C3CEE281AFB6F006632AC /* InviteListTableViewCell.xib in Resources */,
 				3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */,
@@ -973,6 +980,7 @@
 				3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
+				3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */,
 				3AF4DCA6280C2169008029D7 /* ExploreDetailViewController.swift in Sources */,
 				3A40D36B2817880500A7BF51 /* CommentTableViewCell.swift in Sources */,
 				3A0C3CF1281B554A006632AC /* FriendsObject.swift in Sources */,

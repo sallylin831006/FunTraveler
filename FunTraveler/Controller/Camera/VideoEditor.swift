@@ -123,13 +123,13 @@ class VideoEditor {
                     print("Something went wrong during export.")
                     print(export.error ?? "unknown error")
                     onComplete(nil)
-//                    break
                 }
             }
         }
     }
     
     private func addImage(to layer: CALayer, videoSize: CGSize) {
+        // topImageLayer
         guard let topImage = UIImage.asset(.topLayer) else { return }
         let topImageLayer = CALayer()
         
@@ -145,17 +145,14 @@ class VideoEditor {
         topImageLayer.contents = topImage.cgImage
         layer.addSublayer(topImageLayer)
         
+        // bottomLayer
         guard let image = UIImage.asset(.bottomLayer) else { return }
         let imageLayer = CALayer()
         
         let aspect: CGFloat = image.size.width / image.size.height
         let width = videoSize.width
         let height = width / aspect
-        imageLayer.frame = CGRect(
-            x: 0,
-            y: -height * 0.1,
-            width: width,
-            height: height)
+        imageLayer.frame = CGRect(x: 0, y: 20, width: width, height: height)
         
         imageLayer.contents = image.cgImage
         layer.addSublayer(imageLayer)

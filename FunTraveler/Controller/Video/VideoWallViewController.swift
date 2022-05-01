@@ -32,6 +32,7 @@ class VideoWallViewController: UIViewController {
         super.viewDidLoad()
         self.setUpUI()
         collectionView.registerCellWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        collectionView.register(UINib(nibName: "VideoWallHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
         setupSearchBar()
     }
     
@@ -86,8 +87,24 @@ class VideoWallViewController: UIViewController {
 
 extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind
+                        kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+                as? VideoWallHeaderView else { return UICollectionReusableView() }
+        
+        headerView.userImageView.image = UIImage.asset(.defaultUserImage)
+        headerView.userNameLabel.text = "Sally"
+       
+        return headerView
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return videoDataSource.count
+        }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videoDataSource.count
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -95,14 +112,19 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cell", for: indexPath)
                 as? VideoCollectionViewCell else {  return UICollectionViewCell() }
-        cell.configure(videoDataSource[indexPath.item].url)
+        
+        cell.configure(videoDataSource[indexPath.section].url)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 500)
+        
+        let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.headerReferenceSize = CGSize(width: 300, height: 50)
+        
+        return CGSize(width: collectionView.frame.width, height: 600)
     }
     
 }
