@@ -54,8 +54,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
             userImageView.loadImage(data.user.imageUrl)
         }
             
-        collectButton.setImage(UIImage.asset(.appleSelected), for: .selected)
-        collectButton.setImage(UIImage.asset(.appleNormal), for: .normal)
+        collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
+        collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
         self.isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
         
