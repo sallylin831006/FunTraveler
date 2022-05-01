@@ -14,6 +14,7 @@ target 'FunTraveler' do
     pod 'lottie-ios'
     pod 'PusherSwift'
     pod 'KeychainAccess'
+    pod 'JGProgressHUD'
 
 
 end

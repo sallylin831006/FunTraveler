@@ -9,15 +9,16 @@ import Foundation
 
 enum VideoRequest: STRequest {
     
-    case getVideo
+    case getVideo(token: String)
     
     var headers: [String: String] {
         
         switch self {
             
-        case .getVideo:
+        case .getVideo(let token):
             
             return [
+                STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
