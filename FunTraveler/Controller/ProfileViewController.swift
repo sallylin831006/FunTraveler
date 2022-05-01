@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController {
     
     private var userNameTextField: UITextField!
     
+    private var segmentedControl: UISegmentedControl!
     var userId: Int?
     
     var isMyProfile: Bool = true
@@ -87,12 +88,18 @@ class ProfileViewController: UIViewController {
         
         if isMyProfile {
             guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-            fetchData(userId: userId)
+            fetchUserData(userId: userId)
             fetchProfileTripsData(userId: userId)
         } else {
-            fetchData(userId: userId ?? 0)
+            fetchUserData(userId: userId ?? 0)
             fetchProfileTripsData(userId: userId ?? 0)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        segmentedControl?.touchesCancelled(Set<UITouch>(), with: nil)
+        segmentedControl?.selectedSegmentIndex = 0
     }
     
     private func onShowLogin() {
@@ -309,7 +316,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
         guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        fetchData(userId: userId)
+        fetchUserData(userId: userId)
         fetchProfileTripsData(userId: userId)
 
     }
@@ -328,7 +335,7 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
 
 extension ProfileViewController {
     // MARK: - GET Action
-    private func fetchData(userId: Int) {
+    private func fetchUserData(userId: Int) {
         let userProvider = UserProvider()
         userProvider.getProfile(userId: userId, completion: { [weak self] result in
             
@@ -465,13 +472,14 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
 
 extension ProfileViewController: SegementViewDelegate {
     func switchSegement(_ segmentedControl: UISegmentedControl) {
+        self.segmentedControl = segmentedControl
         if segmentedControl.selectedSegmentIndex == 0 {
             print("我點了旅遊回憶")
             guard let userId = Int(KeyChainManager.shared.userId!) else { return }
             fetchProfileTripsData(userId: userId)
-            
-            
+          
         } else if segmentedControl.selectedSegmentIndex == 1 {
+            print("我點了收藏")
             fetchCollectedData()
             
         }
