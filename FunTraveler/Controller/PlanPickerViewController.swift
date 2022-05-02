@@ -208,17 +208,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
         
-        guard let trip = trip,
-              let tripStartDate = trip.startDate,
-              let tripEndtDate = trip.endDate
-        else { return nil}
-        
+        guard let trip = trip else { return nil}
         headerView.layoutHeaderView(data: trip)
         
         headerView.titleLabel.text = trip.title
-        
-        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
-        
+    
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
         
@@ -227,6 +221,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.departmentPickerView.picker.dataSource = self
         
         self.headerView = headerView
+        
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
         
         headerView.departmentPickerView.delegate = self

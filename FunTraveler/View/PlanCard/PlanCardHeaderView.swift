@@ -32,15 +32,12 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
-     
     }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         ownerImageView.layer.cornerRadius = ownerImageView.frame.width/2
         ownerImageView.contentMode = .scaleAspectFill
-        ownerImageView.layer.borderWidth = 4
+        ownerImageView.layer.borderWidth = 2
         ownerImageView.layer.borderColor = UIColor.themeApricot?.cgColor
         contentView.backgroundColor = UIColor.themeLightBlue
         contentView.layer.cornerRadius = 12
@@ -48,7 +45,19 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     }
     
     func layoutHeaderView(data: Trip) {
-        ownerImageView.loadImage(data.user.imageUrl)
+        if data.user.imageUrl == "" {
+            ownerImageView.image = UIImage.asset(.defaultUserImage)
+        } else {
+            ownerImageView.loadImage(data.user.imageUrl)
+        }
+       
+        titleLabel.text = data.title
+        
+        guard let startDate = data.startDate,
+              let endtDate = data.endDate
+        else { return }
+        dateLabel.text = "\(startDate) - \(endtDate)"
+      
     }
 
 }
@@ -57,6 +66,5 @@ extension PlanCardHeaderView: PlanPickerViewControllerDelegate {
     func reloadCollectionView(_ collectionView: UICollectionView) {
         collectionView.reloadData()
     }
-    
-    
+   
 }
