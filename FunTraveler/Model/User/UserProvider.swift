@@ -105,6 +105,8 @@ class UserProvider {
                         
                         KeyChainManager.shared.token = loginResponse.token
                         
+                        KeyChainManager.shared.userId = String(loginResponse.userId)
+                        
                         DispatchQueue.main.async {
                             
                             completion(Result.success(loginResponse))

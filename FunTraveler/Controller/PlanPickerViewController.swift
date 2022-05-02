@@ -111,12 +111,9 @@ class PlanPickerViewController: UIViewController {
                 
                 self?.trip = tripSchedule.data
                 
-                guard let schedules = tripSchedule.data.schedules else { return }
-                
-                let schedule = schedules.first ?? []
+                let schedule = tripSchedule.data.schedules?.first ?? []
                 self?.selectedDepartmentTimes = schedule.first?.startTime ?? "9:00"
                 self?.schedule = schedule
-                //                print("[PlanPicker] GET schedule Detail:", tripSchedule)
                 
             case .failure:
                 print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
@@ -141,6 +138,41 @@ class PlanPickerViewController: UIViewController {
             }
         })
     }
+    
+    // MARK: - POST To Add Editor
+    func postToAddEditor(editorId: Int) {
+        let coEditProvider = CoEditProvider()
+        guard let tripId = tripId else { return }
+        
+        coEditProvider.postToAddEditor(tripId: tripId, editorId: editorId, completion: { result in
+            
+            switch result {
+                
+            case .success(let coEditorResponse):
+                print("coEditorResponse", coEditorResponse)
+            case .failure:
+                print("postToAddEditor失敗！")
+            }
+        })
+    }
+    
+    // MARK: - Delete Editor
+    func deleteEditor(editorId: Int) {
+        let coEditProvider = CoEditProvider()
+        guard let tripId = tripId else { return }
+        
+        coEditProvider.deleteCoEditor(tripId: tripId, editorId: editorId, completion: { result in
+            
+            switch result {
+                
+            case .success(let coEditorResponse):
+                print("coEditorResponse", coEditorResponse)
+            case .failure:
+                print("postToDeleteEditor失敗！")
+            }
+        })
+    }
+    
     private func showLoadingView() {
         let loadingView = LoadingView()
         view.layoutLoadingView(loadingView, view)
@@ -412,7 +444,8 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return friendListDataArray.count
+//        return friendListDataArray.count
+        return trip?.editors.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -421,7 +454,10 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
             withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
             for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.layoutCell(data: friendListDataArray, index: indexPath.row)
+//        cell.layoutCell(data: friendListDataArray, index: indexPath.row)
+        guard let editors = trip?.editors else { return UICollectionViewCell() }
+          cell.layoutCell(data: editors, index: indexPath.row)
+
 //        let last = max(numberOfFriends, 0) - 1
 //        if indexPath.item == last {
 //            cell.contentView.backgroundColor = .themeApricotDeep
@@ -451,15 +487,19 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
 
 extension PlanPickerViewController: FriendListViewControllerDelegate {
     func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
+        deleteEditor(editorId: friendListData.id)
+        self.trip?.editors.removeAll(where: { $0 == friendListData })
 
-        friendListDataArray.removeAll(where: { $0 == friendListData })
-
+//        friendListDataArray.removeAll(where: { $0 == friendListData })
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
 
     }
     
     func passingCoEditFriendsData(_ friendListData: User) {
-        self.friendListDataArray.append(friendListData)
+        postToAddEditor(editorId: friendListData.id)
+        
+        self.trip?.editors.append(friendListData)
+//        self.friendListDataArray.append(friendListData)
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
     }
     
