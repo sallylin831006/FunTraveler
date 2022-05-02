@@ -8,10 +8,20 @@
 import UIKit
 import PusherSwift
 
+protocol PlanPickerViewControllerDelegate: AnyObject {
+    func reloadCollectionView(_ collectionView: UICollectionView)
+}
+
+
 class PlanPickerViewController: UIViewController {
+    
+    weak var reloadDelegate: PlanPickerViewControllerDelegate?
+    
     var pusher: Pusher!
     
     private var friendListDataArray: [User] = []
+    
+    var headerCollectionView: UICollectionView!
     
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
@@ -195,9 +205,14 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.departmentPickerView.delegate = self
         headerView.collectionView.registerCellWithNib(identifier: String(
             describing: FriendsCollectionViewCell.self), bundle: nil)
+        
         headerView.collectionView.dataSource = self
         headerView.collectionView.delegate = self
         
+        self.reloadDelegate = headerView
+        
+        self.headerCollectionView = headerView.collectionView
+    
         headerView.inviteButton.addTarget(target, action: #selector(tapToInvite), for: .touchUpInside)
         
         return headerView
@@ -438,7 +453,7 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
 extension PlanPickerViewController: FriendListViewControllerDelegate {
     func passingCoEditFriendsData(_ friendListData: User) {
         self.friendListDataArray.append(friendListData)
-        tableView.reloadData()
+        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
     }
     
 }

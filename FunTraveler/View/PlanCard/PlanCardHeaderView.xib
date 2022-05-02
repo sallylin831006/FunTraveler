@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="小琉球潛水趣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cot-6R-Mzr">
-                        <rect key="frame" x="162" y="10" width="104" height="53"/>
+                        <rect key="frame" x="162" y="10" width="104" height="48"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="wru-9j-Ok7"/>
                         </constraints>
@@ -29,7 +29,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022年10月06日- 2022年10月08日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaC-HT-fXs">
-                        <rect key="frame" x="107.5" y="79" width="213" height="16"/>
+                        <rect key="frame" x="107.5" y="74" width="213" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="sRk-ck-6xM"/>
                         </constraints>
@@ -64,11 +64,11 @@
                         </subviews>
                     </stackView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KfF-6A-O8s">
-                        <rect key="frame" x="30" y="105" width="300" height="35"/>
+                        <rect key="frame" x="30" y="100" width="300" height="40"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="300" id="Amz-AE-idb"/>
-                            <constraint firstAttribute="height" constant="35" id="C5z-VZ-03W"/>
+                            <constraint firstAttribute="height" constant="40" id="C5z-VZ-03W"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VMV-PI-qSd">
                             <size key="itemSize" width="128" height="128"/>
@@ -78,7 +78,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idh-1h-Fpe">
-                        <rect key="frame" x="340" y="107" width="53" height="31"/>
+                        <rect key="frame" x="340" y="104.5" width="53" height="31"/>
                         <color key="backgroundColor" red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="0.40720716059602646" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" name="themeRed"/>
                         <state key="normal" title="Button"/>

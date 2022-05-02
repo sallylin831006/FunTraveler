@@ -26,14 +26,27 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         super.layoutSubviews()
         contentView.backgroundColor = .clear
         containerView.layer.borderColor = UIColor.white.cgColor
-        containerView.layer.borderWidth = 4
+        containerView.layer.borderWidth = 2
         containerView.layer.cornerRadius = contentView.frame.width/2
         containerView.layer.masksToBounds = true
+        
+        userImage.layer.cornerRadius = userImage.frame.width/2
+        userImage.contentMode = .scaleAspectFill
     }
     
     func layoutCell(data: [User], index: Int) {
-        userImage.loadImage(data[index].imageUrl)
+        
+        if data[index].imageUrl == "" {
+            userImage.image = UIImage.asset(.defaultUserImage)
+        } else {
+            userImage.loadImage(data[index].imageUrl)
+        }
     }
+    
+
+    
+
+    
     
     func setupContainerView() {
         self.addSubview(containerView)
