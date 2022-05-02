@@ -118,19 +118,21 @@ extension AuthViewController {
     // MARK: - POST To Login
     private func postToLogin(email: String, password: String) {
         let userProvider = UserProvider()
-        
+        ProgressHUD.show()
         userProvider.postToLogin(email: email, password: password, completion: { result in
             
             switch result {
                 
             case .success(let responseData):
+                ProgressHUD.showSuccess(text: "登入成功")
                 let userId = responseData.userId
                 self.presentingViewController?.dismiss(animated: false, completion: {
                     self.delegate?.detectLoginDissmiss(self, userId)
                 })
                 
             case .failure(let error):
-                print("POST TO Login 失敗！\(error)")
+                print(error.localizedDescription)
+                ProgressHUD.showFailure(text: "登入失敗!")
             }
         })
         
@@ -141,20 +143,20 @@ extension AuthViewController {
         let userProvider = UserProvider()
         ProgressHUD.show()
         userProvider.siginInwithApple(appleToken: appleToken, completion: { result in
-            ProgressHUD.dismiss()
+            
             switch result {
                 
             case .success(let responseData):
+                ProgressHUD.showSuccess(text: "登入成功")
                 let userId = responseData.userId
 
                 self.presentingViewController?.dismiss(animated: false, completion: {
                     self.delegate?.detectLoginDissmiss(self, userId)
                 })
-                
-                ProgressHUD.showSuccess(text: "登入成功")
-                
+            
             case .failure(let error):
-                ProgressHUD.showSuccess(text: "登入失敗!")
+                print(error.localizedDescription)
+                ProgressHUD.showFailure(text: "登入失敗!")
             }
         })
         

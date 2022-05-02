@@ -25,6 +25,9 @@ class RegisterTableViewCell: UITableViewCell {
         super.awakeFromNib()
         registerButton.addTarget(self, action: #selector(tapRegisterButton), for: .touchUpInside)
         self.backgroundColor = .themeApricot
+        passwordTextfield.isSecureTextEntry = true
+        passwordCheckTextfield.isSecureTextEntry = true
+
     }
     
     override func layoutSubviews() {
@@ -32,7 +35,6 @@ class RegisterTableViewCell: UITableViewCell {
         registerButton.layer.cornerRadius = CornerRadius.buttonCorner
     }
 
-    
     @objc func tapRegisterButton() {
         registerClosure?(self)
     }

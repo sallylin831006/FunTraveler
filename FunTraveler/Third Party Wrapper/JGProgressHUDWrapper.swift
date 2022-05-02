@@ -24,7 +24,7 @@ class ProgressHUD {
 
     var view: UIView {
         
-        let viewController = UIApplication.shared.windows.first!.rootViewController
+        let viewController = UIApplication.shared.windows.last!.rootViewController
 
         return (viewController?.view)!
     }
@@ -60,7 +60,7 @@ class ProgressHUD {
 
         shared.hud.show(in: shared.view)
 
-        shared.hud.dismiss(afterDelay: 1.5)
+        shared.hud.dismiss(afterDelay: 1)
     }
 
     static func showFailure(text: String = "Failure") {
