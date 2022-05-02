@@ -132,6 +132,8 @@
 		3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AF280D62E10023A1C0 /* CameraViewController.swift */; };
 		3ACC6C7B281EB044002B7256 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */; };
 		3ACC6C7D281F7FFD002B7256 /* ButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */; };
+		3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */; };
+		3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */; };
 		3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */; };
 		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
 		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
@@ -276,6 +278,8 @@
 		3AC099AF280D62E10023A1C0 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHelper.swift; sourceTree = "<group>"; };
+		3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditRequest.swift; sourceTree = "<group>"; };
+		3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditProvider.swift; sourceTree = "<group>"; };
 		3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewConttoller.swift; sourceTree = "<group>"; };
 		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -420,6 +424,8 @@
 				3A185C2728048481004F5BB3 /* TripObject.swift */,
 				3A185C1728041A93004F5BB3 /* TripProvider.swift */,
 				3A185C1928041AA9004F5BB3 /* TripRequest.swift */,
+				3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */,
+				3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -999,10 +1005,12 @@
 				3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,
+				3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */,
 				3A40D372281790D800A7BF51 /* CommentFooterView.swift in Sources */,
 				3A13495E2810325B008CECEA /* CollectedViewController.swift in Sources */,
 				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
 				3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */,
+				3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */,
 				3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */,
 				3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,

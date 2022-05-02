@@ -27,16 +27,9 @@ enum UserRequest: STRequest {
         
         switch self {
             
-        case .register, .login, .getProfileTrips:
+        case .register, .login, .getProfileTrips, .appleLogin:
             
             return [
-                STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
-            ]
-            
-        case .appleLogin(let appleToken):
-            
-            return [
-                STHTTPHeaderField.auth.rawValue: "Bearer \(appleToken)",
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
@@ -121,8 +114,10 @@ enum UserRequest: STRequest {
         case .register:
             return "/api/v1/auth/email/register"
             
-        case .login, .appleLogin:
+        case .login:
             return "/api/v1/auth/email/login"
+        case .appleLogin:
+            return "/api/v1/auth/apple/login"
             
         case .updateProfile, .deleteUser:
             return "/api/v1/user"

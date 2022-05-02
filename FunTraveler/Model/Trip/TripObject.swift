@@ -15,6 +15,7 @@ struct ScheduleInfo: Codable {
     var data: Trip
 }
 
+
 struct Schedules: Codable {
     var schedules: [Schedule]
     var tripId: Int
@@ -23,6 +24,25 @@ struct Schedules: Codable {
         case tripId = "trip_id"
     }
 }
+
+struct AddTrips: Codable {
+    var data: AddTrip
+}
+
+struct AddTrip: Codable {
+    var id: Int
+    var title: String
+    var startDate: String?
+    var endDate: String?
+    var days: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id, title, days
+        case startDate = "start_date"
+        case endDate = "end_date"
+    }
+}
+
 
 struct Trip: Codable {
     var id: Int

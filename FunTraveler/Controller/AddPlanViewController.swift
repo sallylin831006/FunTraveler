@@ -144,7 +144,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                     
                 case .success(let tripIdResponse):
                 
-                    self.tripIdClosure?(tripIdResponse.data.id)
+                    self.tripIdClosure?(tripIdResponse.id)
                     
                 case .failure:
                     print("tripIdResponse讀取資料失敗！")
