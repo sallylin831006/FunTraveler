@@ -20,9 +20,14 @@ class CameraViewController: UIViewController {
         activityIndicator.isHidden = true
     }
     
-    @IBAction func takePhoto(_ sender: Any) {
+    @IBAction func recordVideo(_ sender: Any) {
         pickVideo(from: .camera)
     }
+        
+    @IBAction func pickVideo(_ sender: Any) {
+        pickVideo(from: .savedPhotosAlbum)
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
