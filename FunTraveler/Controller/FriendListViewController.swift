@@ -9,8 +9,9 @@ import UIKit
 
 protocol FriendListViewControllerDelegate: AnyObject {
     func passingCoEditFriendsData( _ friendListData: User)
+    
+    func removeCoEditFriendsData( _ friendListData: User, _ index: Int)
 }
-
 
 class FriendListViewController: UIViewController {
     
@@ -95,7 +96,6 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.confirmInviteButton.isHidden = true
         cell.cancelInviteButton.isHidden = true
-        
         //        cell.delegate = self
         
         return cell
@@ -105,9 +105,19 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
         
         if isEditMode {
             
-            self.delegate?.passingCoEditFriendsData(friendListData[indexPath.row])
-            print("要加入共編ㄇ！")
+            if let cell = tableView.cellForRow(at: indexPath as IndexPath) {
+                if cell.accessoryType == .checkmark {
+                    cell.accessoryType = .none
+                    self.delegate?.removeCoEditFriendsData(friendListData[indexPath.row], indexPath.row)
+                } else {
+                    self.delegate?.passingCoEditFriendsData(friendListData[indexPath.row])
+                    cell.accessoryType = .checkmark
+                    cell.tintColor = .themeRed
+                }
+            }
+            
             return
+            
         } else {
             
             guard let profileVC = UIStoryboard.profile.instantiateViewController(
