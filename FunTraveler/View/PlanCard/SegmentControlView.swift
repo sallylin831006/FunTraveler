@@ -28,12 +28,12 @@ class SegmentControlView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .themeApricot
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = .clear
+        self.backgroundColor = .themeLightBlue?.withAlphaComponent(0.5)
         self.layer.borderColor = UIColor.themeApricotDeep?.cgColor
         self.layer.borderWidth = 4
         self.layer.cornerRadius = 12
@@ -69,7 +69,7 @@ class SegmentControlView: UIView {
 
 //             SET INDICATOR
             indicatorView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-            indicatorView.backgroundColor = .themeRed
+            indicatorView.backgroundColor = .themePink
             self.insertSubview(indicatorView, at: 0)
             
         }
@@ -88,7 +88,7 @@ class SegmentControlView: UIView {
         delegate?.didSelectedButton?(self, at: index)
         let width = self.frame.width/CGFloat(numberOfButton)
         let height = self.frame.height
-        UIView.transition(with: self, duration: 0.4, options: [.curveEaseOut], animations: {
+        UIView.transition(with: self, duration: 0.5, options: [.curveLinear], animations: {
             self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 0, width: width, height: height)
 
         })

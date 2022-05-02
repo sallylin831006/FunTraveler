@@ -31,6 +31,11 @@ class AuthTableViewCell: UITableViewCell {
         self.backgroundColor = .themeApricot
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        loginButton.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+
     @objc func tapLoginButton() {
         loginClosure?(self)
     }
