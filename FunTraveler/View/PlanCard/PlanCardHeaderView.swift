@@ -8,7 +8,7 @@
 import UIKit
 
 class PlanCardHeaderView: UITableViewHeaderFooterView {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -42,4 +42,12 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     }
     
     // input
+}
+
+extension PlanCardHeaderView: PlanPickerViewControllerDelegate {
+    func reloadCollectionView(_ collectionView: UICollectionView) {
+        collectionView.reloadData()
+    }
+    
+    
 }
