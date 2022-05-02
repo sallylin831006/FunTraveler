@@ -13,6 +13,9 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var ownerImageView: UIImageView!
+    
+    
     @IBOutlet weak var departmentPickerView: TimePickerView!
     
     @IBOutlet weak var selectionView: SegmentControlView!
@@ -21,27 +24,33 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var inviteButton: UIButton!
     
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     
-        setupHeaderView()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        setupHeaderView()
-    }
-
-    private func setupHeaderView() {
-        contentView.backgroundColor = UIColor.themeLightBlue
-
-        contentView.layer.cornerRadius = 40
-        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
+     
     }
     
-    // input
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        ownerImageView.layer.cornerRadius = ownerImageView.frame.width/2
+        ownerImageView.contentMode = .scaleAspectFill
+        ownerImageView.layer.borderWidth = 4
+        ownerImageView.layer.borderColor = UIColor.themeApricot?.cgColor
+        contentView.backgroundColor = UIColor.themeLightBlue
+        contentView.layer.cornerRadius = 12
+        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+    
+    func layoutHeaderView(data: Trip) {
+        ownerImageView.loadImage(data.user.imageUrl)
+    }
+
 }
 
 extension PlanCardHeaderView: PlanPickerViewControllerDelegate {

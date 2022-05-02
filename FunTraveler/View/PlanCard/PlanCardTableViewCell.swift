@@ -62,9 +62,16 @@ class PlanCardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var endTimeLabel: UILabel!
     
+    @IBOutlet weak var cardView: UIView!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cardView.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .themeApricot
+        self.backgroundColor = .clear
         self.selectionStyle = .none
         trafficPickerView.picker.delegate = self
         
