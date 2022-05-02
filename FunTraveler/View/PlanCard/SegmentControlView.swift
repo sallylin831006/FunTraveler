@@ -22,8 +22,7 @@ protocol SegmentControlViewDataSource: AnyObject {
 class SegmentControlView: UIView {
     
     let indicatorView = UIView()
-    let button = UIButton()
-    
+
     weak var dataSource: SegmentControlViewDataSource?
     weak var delegate: SegmentControlViewDelegate?
     
@@ -35,6 +34,10 @@ class SegmentControlView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = .clear
+        self.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        self.layer.borderWidth = 4
+        self.layer.cornerRadius = 12
+        self.clipsToBounds = true
     }
 
     override func layoutSubviews() {
@@ -44,73 +47,78 @@ class SegmentControlView: UIView {
     
     func configureButton() {
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
-//        if numberOfButton < 1 {
-//            print("numberOfButton數量有誤！")
-//            return
-//        }
+
         for num in 0...numberOfButton - 1 {
             // SET BUTTON POSITION
             let dayButton = UIButton()
+        
+            let width = self.frame.width/CGFloat(numberOfButton)
+            let height = self.frame.height
+
+            dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: height)
             
-            let width = UIScreen.main.bounds.width/CGFloat(numberOfButton) * 5/6
-            dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: 20)
-            
-            dayButton.backgroundColor = .clear
             dayButton.setTitle("Day \(num + 1)", for: .normal)
-            // SET BUTTON TITLE
-            
-//            guard let buttonTitle = dataSource?.configureDetailOfButton(self) else { return }
-//            var title = "1"
-//            if buttonTitle.isEmpty {
-//                title = "DAY1"
-//            } else {
-//                title = buttonTitle[num].title
-//            }
-//            dayButton.setTitle("\(title)", for: .normal)
-//            dayButton.setTitle("按鈕", for: .normal)
 
-            // SET BUTTON TITLE COLOR & FONT
-            let colorOfText = UIColor.themeRed
-
-            dayButton.setTitleColor(colorOfText, for: .normal)
-            
             dayButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             
             dayButton.tag = num
             
-            dayButton.addTarget(self, action: #selector(tapDayButton), for: .touchUpInside)
+            dayButton.addTarget(self, action: #selector(tapDayButton(_:)), for: .touchUpInside)
             
             self.addSubview(dayButton)
-            
-            // SET INDICATOR
-            indicatorView.frame = CGRect(x: 0, y: 25, width: width, height: 5)
 
-            let colorOfindicator = UIColor.themeRed
-            
-            indicatorView.backgroundColor = colorOfindicator
-            
-            self.addSubview(indicatorView)
+//             SET INDICATOR
+            indicatorView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            indicatorView.backgroundColor = .themeRed
+            self.insertSubview(indicatorView, at: 0)
             
         }
         
     }
     
-    @objc func tapDayButton(sender: UIButton) {
-        
+    @objc func tapDayButton(_ sender: UIButton) {
+  
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
-
-        let width = UIScreen.main.bounds.width/CGFloat(numberOfButton)
+   
         let index = sender.tag + 1
         
         if delegate?.shouldSelectedButton?(self, at: index) == false {
             return
         }
         delegate?.didSelectedButton?(self, at: index)
-        
-        UIView.transition(with: self, duration: 0.3, options: [.curveEaseOut], animations: {
-            self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 25, width: width * 5/6, height: 5)
+        let width = self.frame.width/CGFloat(numberOfButton)
+        let height = self.frame.height
+        UIView.transition(with: self, duration: 0.4, options: [.curveEaseOut], animations: {
+            self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 0, width: width, height: height)
 
         })
     }
-   
+    
 }
+
+//            self.selectedButton = dayButton
+//            self.selectedButtonArray.append(dayButton)
+//            self.buttonIndex = num
+
+//        if selectedButton == sender {
+//            print("selectedButton == sender")
+//            selectedButton?.backgroundColor = .themeRed
+//            selectedButton?.tintColor = .themeApricot
+//            updateButtonSelection(sender)
+//            selectedButton?.tintColor = .themeApricot
+//        } else if selectedButton != sender {
+//            print("selectedButton != sender")
+//            sender.isSelected = !sender.isSelected
+//            selectedButton?.backgroundColor = .themeApricot
+//            selectedButton?.tintColor = .themeRed
+//            updateButtonSelection(sender)
+//
+//        }
+
+//    func updateButtonSelection(_ sender: UIButton) {
+//        selectedButton = sender
+//        selectedButton?.backgroundColor = .themeRed
+//        selectedButton?.tintColor = .themeApricot
+//
+//    }
+//
