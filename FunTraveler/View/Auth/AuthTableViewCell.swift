@@ -29,6 +29,8 @@ class AuthTableViewCell: UITableViewCell {
         loginButton.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
         setupSignInwithApple()
         self.backgroundColor = .themeApricot
+        passwordTextField.isSecureTextEntry = true
+
     }
     
     override func layoutSubviews() {

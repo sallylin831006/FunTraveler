@@ -59,7 +59,6 @@ class ProfileViewController: UIViewController {
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
-        
         userData = nil
         onShowLogin()
     }
