@@ -24,6 +24,12 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        actionBtn.layer.cornerRadius = CornerRadius.buttonCorner
+
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

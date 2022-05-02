@@ -11,7 +11,6 @@ class RegisterTableViewCell: UITableViewCell {
     
     var registerClosure: ((_ cell: RegisterTableViewCell) -> Void)?
 
-    
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -27,6 +26,12 @@ class RegisterTableViewCell: UITableViewCell {
         registerButton.addTarget(self, action: #selector(tapRegisterButton), for: .touchUpInside)
         self.backgroundColor = .themeApricot
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        registerButton.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+
     
     @objc func tapRegisterButton() {
         registerClosure?(self)

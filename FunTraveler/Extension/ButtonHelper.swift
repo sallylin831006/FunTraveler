@@ -10,7 +10,7 @@ import UIKit
 private var buttonTouchEdgeInsets: UIEdgeInsets?
 
 extension UIButton {
-    var touchEdgeInsets:UIEdgeInsets? {
+    var touchEdgeInsets: UIEdgeInsets? {
         get {
             return objc_getAssociatedObject(self, &buttonTouchEdgeInsets) as? UIEdgeInsets
         }
@@ -31,4 +31,8 @@ extension UIButton {
         
         return frame.contains(point)
     }
+}
+
+enum CornerRadius {
+    static let buttonCorner: CGFloat = 12
 }

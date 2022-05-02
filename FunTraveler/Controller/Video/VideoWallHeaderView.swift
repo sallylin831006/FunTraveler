@@ -22,13 +22,12 @@ class VideoWallHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
-        followButton.layer.cornerRadius = 12
+        followButton.layer.cornerRadius = CornerRadius.buttonCorner
     }
     
     func layoutHeaderView(data: [Video], section: Int) {
