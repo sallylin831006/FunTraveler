@@ -7,13 +7,21 @@
 
 import UIKit
 
+protocol FriendListViewControllerDelegate: AnyObject {
+    func passingCoEditFriendsData( _ friendListData: User)
+}
+
+
 class FriendListViewController: UIViewController {
+    
+    weak var delegate: FriendListViewControllerDelegate?
     
     var friendListData: [User] = [] {
         didSet {
             tableView.reloadData()
         }
     }
+    var isEditMode: Bool = false
     
     var userId: Int?
     
@@ -94,12 +102,23 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let profileVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
         
-        profileVC.userId = friendListData[indexPath.row].id
+        if isEditMode {
+            
+            self.delegate?.passingCoEditFriendsData(friendListData[indexPath.row])
+            print("要加入共編ㄇ！")
+            return
+        } else {
+            
+            guard let profileVC = UIStoryboard.profile.instantiateViewController(
+                withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+            
+            profileVC.userId = friendListData[indexPath.row].id
+            
+            profileVC.isMyProfile = false
+            self.present(profileVC, animated: true)
+            
+        }
         
-        profileVC.isMyProfile = false
-        self.present(profileVC, animated: true)
     }
 }

@@ -11,6 +11,8 @@ import PusherSwift
 class PlanPickerViewController: UIViewController {
     var pusher: Pusher!
     
+    private var friendListDataArray: [User] = []
+    
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
@@ -201,7 +203,25 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     @objc func tapToInvite() {
-        shareLink()
+        guard let friendListVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+        friendListVC.userId = userId
+        
+        friendListVC.isEditMode = true
+        
+        friendListVC.delegate = self
+
+        friendListVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = friendListVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        self.present(friendListVC, animated: true)
+//        shareLink()
     }
     
     // MARK: - Section Footer
@@ -263,24 +283,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
         tableView.separatorColor = .clear
-        tripCell.selectionStyle = .none
-        
-        tripCell.nameLabel.text = schedule[indexPath.row].name
-        tripCell.addressLabel.text = schedule[indexPath.row].address
-        tripCell.startTime = schedule[indexPath.row].startTime
-        
-        tripCell.durationTime = schedule[indexPath.row].duration
-        
-        tripCell.trafficTime = schedule[indexPath.row].trafficTime
-        
-        tripCell.orderLabel.text = String(indexPath.row + 1)
+        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
         tripCell.index = indexPath.row
-        
         tripCell.delegate = self
-        
-        tripCell.backgroundColor = .clear
-        
+                
         return tripCell
     }
     
@@ -389,15 +396,9 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
 }
 // MARK: - CollectionView
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    private var numberOfFriends: Int {
-        get {
-            return 3
-        }
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfFriends
+        return friendListDataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -405,22 +406,22 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
             for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
-        
-        let last = max(numberOfFriends, 0) - 1
-        if indexPath.item == last {
-            cell.contentView.backgroundColor = .themeApricotDeep
-            collectionView.reloadData()
-        }
+
+        cell.layoutCell(data: friendListDataArray, index: indexPath.row)
+//        let last = max(numberOfFriends, 0) - 1
+//        if indexPath.item == last {
+//            cell.contentView.backgroundColor = .themeApricotDeep
+//            collectionView.reloadData()
+//        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let last = max(numberOfFriends, 0) - 1
-        if indexPath.item == last {
-            // shareLink() 行為很奇怪要按很多下
-            
-        }
+//        let last = max(numberOfFriends, 0) - 1
+//        if indexPath.item == last {
+//            // shareLink() 行為很奇怪要按很多下
+//        }
         
     }
     
@@ -434,10 +435,18 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
     }
 }
 
+extension PlanPickerViewController: FriendListViewControllerDelegate {
+    func passingCoEditFriendsData(_ friendListData: User) {
+        self.friendListDataArray.append(friendListData)
+        tableView.reloadData()
+    }
+    
+}
+
 extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
     var itemSize: CGSize {
         get {
-            return CGSize(width: 35, height: 35)
+            return CGSize(width: 40, height: 40)
         }
     }
     
