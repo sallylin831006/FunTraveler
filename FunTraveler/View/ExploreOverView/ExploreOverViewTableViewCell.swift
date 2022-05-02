@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ExploreOverViewTableViewCell: UITableViewCell {
     
     var friendClosure: (() -> Void)?
@@ -40,6 +41,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
 
     func layoutCell(data: Explore) {
         
+        heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+
         dayTitleLabel.text = "\(data.days)天| 旅遊回憶"
         
         tripTitleLabel.text = data.title

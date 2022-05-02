@@ -139,11 +139,14 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             if isLiked {
                 self.postLiked(index: indexPath.row)
                 self.exploreData[indexPath.row].isLiked = isLiked
+                self.exploreData[indexPath.row].likeCount += 1
+                tableView.reloadData()
                 let indexPath = IndexPath(item: indexPath.row, section: 0)
                 tableView.reloadRows(at: [indexPath], with: .none)
             } else {
                 self.deleteLiked(index: indexPath.row)
                 self.exploreData[indexPath.row].isLiked = isLiked
+                self.exploreData[indexPath.row].likeCount -= 1
                 let indexPath = IndexPath(item: indexPath.row, section: 0)
                 tableView.reloadRows(at: [indexPath], with: .none)
             }
