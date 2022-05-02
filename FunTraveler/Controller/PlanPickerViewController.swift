@@ -12,7 +12,6 @@ protocol PlanPickerViewControllerDelegate: AnyObject {
     func reloadCollectionView(_ collectionView: UICollectionView)
 }
 
-
 class PlanPickerViewController: UIViewController {
     
     weak var reloadDelegate: PlanPickerViewControllerDelegate?
@@ -451,6 +450,15 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
 }
 
 extension PlanPickerViewController: FriendListViewControllerDelegate {
+    func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
+
+        friendListDataArray.removeAll(where: { $0 == friendListData })
+
+//        self.friendListDataArray.remove(at: index)
+        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+
+    }
+    
     func passingCoEditFriendsData(_ friendListData: User) {
         self.friendListDataArray.append(friendListData)
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
