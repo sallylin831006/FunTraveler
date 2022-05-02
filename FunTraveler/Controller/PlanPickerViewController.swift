@@ -454,7 +454,6 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
 
         friendListDataArray.removeAll(where: { $0 == friendListData })
 
-//        self.friendListDataArray.remove(at: index)
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
 
     }
