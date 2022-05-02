@@ -64,10 +64,10 @@
                         </subviews>
                     </stackView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="KfF-6A-O8s">
-                        <rect key="frame" x="30" y="100" width="300" height="40"/>
+                        <rect key="frame" x="64" y="100" width="280" height="40"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="300" id="Amz-AE-idb"/>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="280" id="Amz-AE-idb"/>
                             <constraint firstAttribute="height" constant="40" id="C5z-VZ-03W"/>
                         </constraints>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VMV-PI-qSd">
@@ -78,7 +78,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idh-1h-Fpe">
-                        <rect key="frame" x="340" y="104.5" width="53" height="31"/>
+                        <rect key="frame" x="354" y="104.5" width="58" height="31"/>
                         <color key="backgroundColor" red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="0.40720716059602646" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" name="themeRed"/>
                         <state key="normal" title="Button"/>
@@ -88,16 +88,26 @@
                             </attributedString>
                         </buttonConfiguration>
                     </button>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e9j-sr-FTg">
+                        <rect key="frame" x="20" y="100" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="aUp-GW-9wz"/>
+                            <constraint firstAttribute="width" secondItem="e9j-sr-FTg" secondAttribute="height" multiplier="1:1" id="dua-0h-vZq"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Idh-1h-Fpe" firstAttribute="leading" secondItem="KfF-6A-O8s" secondAttribute="trailing" constant="10" id="3ir-by-uVa"/>
                     <constraint firstAttribute="bottom" secondItem="zyt-k1-DcS" secondAttribute="bottom" constant="10" id="9Od-Cu-fbZ"/>
                     <constraint firstItem="KfF-6A-O8s" firstAttribute="top" secondItem="uaC-HT-fXs" secondAttribute="bottom" constant="10" id="AX2-Eg-2Oy"/>
                     <constraint firstItem="cot-6R-Mzr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="E9K-O0-PFp"/>
-                    <constraint firstItem="KfF-6A-O8s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="FPO-4a-Dpj"/>
                     <constraint firstItem="uaC-HT-fXs" firstAttribute="top" secondItem="cot-6R-Mzr" secondAttribute="bottom" constant="16" id="Gf4-5D-nd4"/>
                     <constraint firstItem="45E-pd-iDp" firstAttribute="top" secondItem="KfF-6A-O8s" secondAttribute="bottom" constant="10" id="GpV-j4-9vz"/>
+                    <constraint firstItem="e9j-sr-FTg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="T29-Hr-2LE"/>
+                    <constraint firstItem="e9j-sr-FTg" firstAttribute="centerY" secondItem="KfF-6A-O8s" secondAttribute="centerY" id="Tgp-lo-ikV"/>
+                    <constraint firstAttribute="trailing" secondItem="Idh-1h-Fpe" secondAttribute="trailing" constant="16" id="VGE-Gn-7ic"/>
                     <constraint firstItem="45E-pd-iDp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="h3h-Tl-KdO"/>
+                    <constraint firstItem="KfF-6A-O8s" firstAttribute="leading" secondItem="e9j-sr-FTg" secondAttribute="trailing" constant="4" id="hTb-Sb-Dxq"/>
                     <constraint firstItem="zyt-k1-DcS" firstAttribute="top" secondItem="45E-pd-iDp" secondAttribute="bottom" constant="10" id="imU-YS-yGc"/>
                     <constraint firstItem="Idh-1h-Fpe" firstAttribute="centerY" secondItem="KfF-6A-O8s" secondAttribute="centerY" id="izW-xS-BiW"/>
                     <constraint firstItem="zyt-k1-DcS" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="leh-kV-mi4"/>
@@ -112,6 +122,7 @@
                 <outlet property="dateLabel" destination="uaC-HT-fXs" id="y1g-uo-wq9"/>
                 <outlet property="departmentPickerView" destination="qm4-sP-Kky" id="zUu-MI-Kct"/>
                 <outlet property="inviteButton" destination="Idh-1h-Fpe" id="MQp-WQ-1Pg"/>
+                <outlet property="ownerImageView" destination="e9j-sr-FTg" id="js0-Mc-Ieh"/>
                 <outlet property="selectionView" destination="45E-pd-iDp" id="Vsj-YS-A7D"/>
                 <outlet property="titleLabel" destination="cot-6R-Mzr" id="JBx-Xf-3Rf"/>
             </connections>

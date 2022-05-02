@@ -56,13 +56,7 @@ class PlanPickerViewController: UIViewController {
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     private var headerView: PlanCardHeaderView!
     private var selectedDepartmentTimes: String = "09:00"
-//    {
-//        didSet {
-//            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-//            self.schedule[0].startTime = selectedDepartmentTimes
-//
-//        }
-//    }
+
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var tableView: UITableView! {
@@ -218,6 +212,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
               let tripStartDate = trip.startDate,
               let tripEndtDate = trip.endDate
         else { return nil}
+        
+        headerView.layoutHeaderView(data: trip)
         
         headerView.titleLabel.text = trip.title
         

@@ -47,6 +47,7 @@ struct AddTrip: Codable {
 struct Trip: Codable {
     var id: Int
     var title: String
+    var user: User
     var days: Int
     var startDate: String?
     var endDate: String?
@@ -57,7 +58,7 @@ struct Trip: Codable {
     var schedules: [[Schedule]]?
     
     enum CodingKeys: String, CodingKey {
-        case id, days, title, schedules, editors
+        case id, days, title, user, schedules, editors
         case startDate = "start_date"
         case endDate = "end_date"
         case likeCount = "likes_count"

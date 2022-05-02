@@ -26,8 +26,13 @@ class PlanOverViewViewController: UIViewController {
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.barStyle = .black
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
