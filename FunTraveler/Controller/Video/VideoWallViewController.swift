@@ -204,7 +204,7 @@ extension VideoWallViewController {
                 print("postResponse", postResponse)
                 
             case .failure:
-                print("[ProfileVC] POST TO INVITE失敗！")
+                print("[VedioVC] POST TO INVITE失敗！")
             }
         })
     }

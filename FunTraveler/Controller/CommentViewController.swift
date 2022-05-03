@@ -33,8 +33,7 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: CommentTableViewCell.self), bundle: nil)
         
@@ -44,6 +43,9 @@ class CommentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = "留言"
+
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
         fetchProfileImage() 
     }
@@ -52,22 +54,22 @@ class CommentViewController: UIViewController {
 
 extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
     
-    // MARK: - Section Header
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 100.0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
-        
-        headerView.titleLabel.text = "留言"
-        
-        return headerView
-    }
+//    // MARK: - Section Header
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//
+//        return 100.0
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+//            withIdentifier: HeaderView.identifier)
+//                as? HeaderView else { return nil }
+//
+//        headerView.titleLabel.text = "留言"
+//
+//        return headerView
+//    }
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         80.0
@@ -109,7 +111,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: CommentTableViewCell.self), for: indexPath)
                 as? CommentTableViewCell else { return UITableViewCell() }
-        
+        tableView.separatorStyle = .none
         let item = commentData[indexPath.row]
         cell.layoutCell(data: item)
         
