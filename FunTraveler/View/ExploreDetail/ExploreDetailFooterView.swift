@@ -11,10 +11,14 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var copyButton: UIButton!
     
+    @IBOutlet weak var moveToCommentButton: UIButton!
+    
+    
     var copyClosure: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .themeApricot
         copyButton.addTarget(self, action: #selector(tapCopyButton), for: .touchUpInside)
     }
     

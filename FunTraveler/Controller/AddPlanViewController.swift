@@ -59,6 +59,12 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
         tableView.shouldIgnoreScrollingAdjustment = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+        tableView.separatorStyle = .none
+    }
+    
 }
 
 extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
@@ -98,6 +104,11 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapSaveButton() {
+        if titleText == nil || startDate == nil || endDate == nil {
+            print("show alert")
+            return
+        }
+        
         if isCopiedTrip {
             postCopyTrip()
             dismiss(animated: true, completion: nil)
@@ -133,7 +144,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                     
                 case .success(let tripIdResponse):
                 
-                    self.tripIdClosure?(tripIdResponse.data.id)
+                    self.tripIdClosure?(tripIdResponse.id)
                     
                 case .failure:
                     print("tripIdResponse讀取資料失敗！")
@@ -141,9 +152,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             })
             
         }
-    
-    
-    
+  
     @objc func tapCancelButton() {
         self.dismiss(animated: true, completion: nil)
     }

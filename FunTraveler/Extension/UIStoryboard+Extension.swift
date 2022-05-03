@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct StoryboardCategory {
-    // TAB
+    // StoryBoard
     static let main = "Main"
 
     static let explore = "Explore"
@@ -19,6 +19,8 @@ struct StoryboardCategory {
     static let video = "Video"
     
     static let camera = "Camera"
+    
+    static let auth = "Auth"
     
     // ------- //
     
@@ -38,6 +40,20 @@ struct StoryboardCategory {
     
     static let collectedVC = "CollectedViewController"
     
+    static let authVC = "AuthViewController"
+    
+    static let registerVC = "RegisterViewController"
+    
+    static let commentVC = "CommentViewController"
+    
+    static let settingVC = "SettingViewController"
+    
+    static let inviteVC = "InviteListViewController"
+    
+    static let friendListVC = "FriendListViewController"
+
+    
+    
 }
 
 extension UIStoryboard {
@@ -49,13 +65,13 @@ extension UIStoryboard {
     static var planOverView: UIStoryboard { return stStoryboard(name: StoryboardCategory.planOverView) }
     
     static var profile: UIStoryboard { return stStoryboard(name: StoryboardCategory.profile) }
-    
-    static var exploreDetailVC: UIStoryboard { return stStoryboard(name: StoryboardCategory.exploreDetailVC) }
-    
+
     static var video: UIStoryboard { return stStoryboard(name: StoryboardCategory.video) }
     
     static var camera: UIStoryboard { return stStoryboard(name: StoryboardCategory.camera) }
-
+    
+    static var auth: UIStoryboard { return stStoryboard(name: StoryboardCategory.auth) }
+    
     private static func stStoryboard(name: String) -> UIStoryboard {
 
         return UIStoryboard(name: name, bundle: nil)

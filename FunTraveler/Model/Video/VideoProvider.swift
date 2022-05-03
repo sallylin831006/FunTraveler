@@ -17,8 +17,13 @@ class VideoProvider {
     // MARK: - GET Collected
     func fetchVideo(completion: @escaping VideoHanlder) {
         
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
         HTTPClient.shared.request(
-            VideoRequest.getVideo, completion: { result in
+            VideoRequest.getVideo(token: token), completion: { result in
                 
                 switch result {
                     

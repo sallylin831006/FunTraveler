@@ -18,23 +18,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileMockImage" translatesAutoresizingMaskIntoConstraints="NO" id="anY-cS-b6L">
-                                <rect key="frame" x="20" y="60" width="374" height="200"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="keL-eX-TKi">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="0af-wD-CT4"/>
-                                </constraints>
-                            </imageView>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-t5-CDi">
+                                <rect key="frame" x="16" y="98" width="37" height="34"/>
+                                <color key="tintColor" red="0.95300000910000005" green="0.91399997470000005" blue="0.84299999479999999" alpha="0.57533112580000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="登出"/>
+                                <connections>
+                                    <action selector="logoutButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eLC-L1-DNE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="themeApricotDeep"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="anY-cS-b6L" secondAttribute="trailing" constant="20" id="KPL-oL-kAg"/>
-                            <constraint firstItem="anY-cS-b6L" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="ehx-Yr-3PA"/>
-                            <constraint firstItem="anY-cS-b6L" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" constant="60" id="wXG-HH-PoN"/>
+                            <constraint firstItem="keL-eX-TKi" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="8ae-dw-vlT"/>
+                            <constraint firstItem="keL-eX-TKi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9JP-yq-UbA"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="keL-eX-TKi" secondAttribute="trailing" id="QuO-Qs-7zQ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="keL-eX-TKi" secondAttribute="bottom" id="aMJ-0M-bWq"/>
+                            <constraint firstItem="w4y-t5-CDi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="lD3-86-her"/>
+                            <constraint firstItem="w4y-t5-CDi" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="topMargin" constant="10" id="v4O-oO-jg4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nlx-3v-tpk"/>
+                    <connections>
+                        <outlet property="tableView" destination="keL-eX-TKi" id="bu7-76-7dp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,7 +80,78 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1fo-81-c67" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="85"/>
+            <point key="canvasLocation" x="2794" y="927"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="1v2-c8-QWY">
+            <objects>
+                <viewController storyboardIdentifier="SettingViewController" id="Pj6-PR-2bp" customClass="SettingViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PBe-zN-Bxz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UKo-up-cqD">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Jn9-xu-4D2">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jn9-xu-4D2" id="6pv-Ny-Nj9">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="LZY-Yb-jMo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LZY-Yb-jMo" firstAttribute="bottom" secondItem="UKo-up-cqD" secondAttribute="bottom" id="2V1-e6-ev5"/>
+                            <constraint firstItem="LZY-Yb-jMo" firstAttribute="trailing" secondItem="UKo-up-cqD" secondAttribute="trailing" id="7Vj-fX-YZF"/>
+                            <constraint firstItem="UKo-up-cqD" firstAttribute="leading" secondItem="LZY-Yb-jMo" secondAttribute="leading" id="979-qo-vRk"/>
+                            <constraint firstItem="UKo-up-cqD" firstAttribute="top" secondItem="LZY-Yb-jMo" secondAttribute="top" id="g3c-bA-k1b"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="UKo-up-cqD" id="cmg-60-yCa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iEr-KX-cCy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1855" y="80"/>
+        </scene>
+        <!--好友列表-->
+        <scene sceneID="hPY-Xc-BcW">
+            <objects>
+                <viewController storyboardIdentifier="FriendListViewController" id="e54-P9-D8Q" customClass="FriendListViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Im-pm-Lmg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CEi-N3-vn7">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SuA-GW-612"/>
+                        <color key="backgroundColor" name="themeApricot"/>
+                        <constraints>
+                            <constraint firstItem="SuA-GW-612" firstAttribute="bottom" secondItem="CEi-N3-vn7" secondAttribute="bottom" id="5SI-zH-3ol"/>
+                            <constraint firstItem="CEi-N3-vn7" firstAttribute="leading" secondItem="SuA-GW-612" secondAttribute="leading" id="dFb-BS-bYL"/>
+                            <constraint firstItem="SuA-GW-612" firstAttribute="trailing" secondItem="CEi-N3-vn7" secondAttribute="trailing" id="mFT-0s-9Z3"/>
+                            <constraint firstItem="CEi-N3-vn7" firstAttribute="top" secondItem="SuA-GW-612" secondAttribute="top" id="t4E-ii-MFT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="好友列表" id="zJS-CX-Bet"/>
+                    <connections>
+                        <outlet property="tableView" destination="CEi-N3-vn7" id="K4p-HJ-o7g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wnj-AD-l5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3258" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hIS-p5-4MG">
@@ -90,9 +173,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="profileMockImage" width="1011" height="426"/>
-        <namedColor name="themeApricotDeep">
-            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

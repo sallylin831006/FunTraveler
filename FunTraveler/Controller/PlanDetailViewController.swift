@@ -15,9 +15,7 @@ class PlanDetailViewController: UIViewController {
             tripIdClosure?(tripId ?? 0)
         }
     }
-    
-//    var tripId: Int?
-    
+        
     var trip: Trip?
 
     var tripId: Int? {
@@ -96,7 +94,6 @@ class PlanDetailViewController: UIViewController {
                 
             case .success: break
                 
-                
             case .failure:
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
@@ -173,7 +170,7 @@ class PlanDetailViewController: UIViewController {
     func addMap() {
         mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(mapView)
-        
+
         let camera = GMSCameraPosition.camera(withLatitude: 25.034012, longitude: 121.564461, zoom: 15.0)
         mapView.camera = camera
         

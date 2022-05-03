@@ -11,6 +11,11 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var scheduleButton: UIButton!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        scheduleButton.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         scheduleButton.backgroundColor = UIColor.themeRed

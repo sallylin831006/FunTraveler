@@ -7,9 +7,11 @@
 
 import UIKit
 
+
 class ExploreOverViewTableViewCell: UITableViewCell {
     
-    var heartClosure: ((_ cell: ExploreOverViewTableViewCell, _ isHeartTapped: Bool) -> Void)?
+    var friendClosure: (() -> Void)?
+    var heartClosure: ((_ isLiked: Bool) -> Void)?
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
 
@@ -29,31 +31,47 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var followButton: UIButton!
     
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var numberOfLikeLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
     
     private var isCollected: Bool = false
     
-    func layoutCell(days: Int, tripTitle: String, userName: String, isCollected: Bool) {
+    private var isLiked: Bool = false
+
+    func layoutCell(data: Explore) {
         
-        dayTitleLabel.text = "\(days)天| 旅遊回憶"
+        heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+
+        dayTitleLabel.text = "\(data.days)天| 旅遊回憶"
         
-        tripTitleLabel.text = tripTitle
+        tripTitleLabel.text = data.title
         
-        userNameLabel.text = userName
+        userNameLabel.text = data.user.name
         
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        numberOfLikeLabel.text = "\(data.likeCount)個讚"
         
-        collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
-        collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        if data.user.imageUrl == "" {
+            userImageView.image = UIImage.asset(.defaultUserImage)
+        } else {
+            userImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
+        }
+            
+        collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
+        collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
+        self.isCollected = data.isCollected
+        collectButton.isSelected = data.isCollected
         
-        self.isCollected = isCollected
-        collectButton.isSelected = isCollected
+        heartButton.setImage(UIImage.asset(.heartSelected), for: .selected)
+        heartButton.setImage(UIImage.asset(.heartNormal), for: .normal)
+        self.isLiked = data.isLiked
+        heartButton.isSelected = data.isLiked
 
         followButton.setTitle("追蹤", for: .normal)
         followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
         followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        
+        dateLabel.text = data.publishedDate
         
     }
     
@@ -63,14 +81,30 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
         collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
         followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserImage(gestureRecognizer:)))
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(gesture)
+        
+        let nameGesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserName(gestureRecognizer:)))
+        userNameLabel.isUserInteractionEnabled = true
+        userNameLabel.addGestureRecognizer(nameGesture)
+        
     }
-    var isHeartTapped: Bool = false
+    
+    @objc func tappedUserImage(gestureRecognizer: UITapGestureRecognizer) {
+        friendClosure?()
+    }
+    
+    @objc func tappedUserName(gestureRecognizer: UITapGestureRecognizer) {
+        friendClosure?()
+    }
+   
     var isfollowed: Bool = false
     
     @objc func tapHeartButton(_ sender: UIButton) {
-        sender.isSelected = !isHeartTapped
-        isHeartTapped = !isHeartTapped
-        heartClosure?(self, isHeartTapped)
+        sender.isSelected = !isLiked
+        heartClosure?(!isLiked)
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
@@ -87,15 +121,19 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let margins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+        self.backgroundColor = .themeApricot
+        let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 4
+        contentView.layer.borderColor = UIColor.white.cgColor
+        contentView.layer.borderWidth = 8
         contentView.layer.cornerRadius = 10.0
         contentView.layer.masksToBounds = true
         
         planImageView.backgroundColor = UIColor.themeApricotDeep
+        
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
