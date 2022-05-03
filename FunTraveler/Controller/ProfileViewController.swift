@@ -360,7 +360,7 @@ extension ProfileViewController {
                 self?.collectedData = profileTripsData.data
                 self?.tableView.reloadData()
             case .failure:
-                print("[ProfileVC] GET Profile 資料失敗！")
+                print("[ProfileVC] GET Profile Trips 資料失敗！")
             }
         })
     }
