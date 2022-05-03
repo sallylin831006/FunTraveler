@@ -8,8 +8,8 @@
 import UIKit
 import IQKeyboardManagerSwift
 import PusherSwift
-import GoogleMaps
-import GooglePlaces
+//import GoogleMaps
+//import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
         window?.rootViewController = TabBarViewController()
         window?.makeKeyAndVisible()
         IQKeyboardManager.shared.enable = true
-        GMSPlacesClient.provideAPIKey(KeyConstants.mapKey)
-        GMSServices.provideAPIKey(KeyConstants.mapKey)
+//        GMSPlacesClient.provideAPIKey(KeyConstants.mapKey)
+//        GMSServices.provideAPIKey(KeyConstants.mapKey)
         return true
     }
 

@@ -70,6 +70,7 @@
 		3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B6E2814D68B00D00638 /* SuccessView.swift */; };
 		3A2B6B712814D6A400D00638 /* Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B702814D6A300D00638 /* Success.json */; };
 		3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B722814D89400D00638 /* LottieConstant.swift */; };
+		3A3FC6A42821099500788DE3 /* TextfieldHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */; };
 		3A40D3462816C14E00A7BF51 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D3452816C14E00A7BF51 /* UserProvider.swift */; };
 		3A40D3482816C15700A7BF51 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D3472816C15700A7BF51 /* UserRequest.swift */; };
 		3A40D34C2816CE6B00A7BF51 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D34B2816CE6B00A7BF51 /* UserObject.swift */; };
@@ -213,6 +214,7 @@
 		3A2B6B6E2814D68B00D00638 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
 		3A2B6B702814D6A300D00638 /* Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Success.json; sourceTree = "<group>"; };
 		3A2B6B722814D89400D00638 /* LottieConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieConstant.swift; sourceTree = "<group>"; };
+		3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldHelper.swift; sourceTree = "<group>"; };
 		3A40D3452816C14E00A7BF51 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		3A40D3472816C15700A7BF51 /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
 		3A40D34B2816CE6B00A7BF51 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
@@ -627,6 +629,7 @@
 				3A4653B72815069F005051EB /* UIView+Extension.swift */,
 				3A5445F0281E7AA10078518E /* Font+Extension.swift */,
 				3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */,
+				3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -761,7 +764,6 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				41A02CA0044C499AE760CF23 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -869,23 +871,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		41A02CA0044C499AE760CF23 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -957,6 +942,7 @@
 				3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */,
 				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
 				3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */,
+				3A3FC6A42821099500788DE3 /* TextfieldHelper.swift in Sources */,
 				3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */,
 				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
 				3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */,
@@ -1097,6 +1083,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1186,7 +1173,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 66YLNV7J37;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;

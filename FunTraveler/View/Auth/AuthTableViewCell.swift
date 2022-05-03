@@ -36,6 +36,9 @@ class AuthTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         loginButton.layer.cornerRadius = CornerRadius.buttonCorner
+        emailTextField.addBottomBorder(textField: emailTextField)
+        passwordTextField.addBottomBorder(textField: passwordTextField)
+        
     }
 
     @objc func tapLoginButton() {

@@ -1,10 +1,4 @@
 PODS:
-  - GoogleMaps (6.1.1):
-    - GoogleMaps/Maps (= 6.1.1)
-  - GoogleMaps/Base (6.1.1)
-  - GoogleMaps/Maps (6.1.1):
-    - GoogleMaps/Base
-  - GooglePlaces (6.1.1)
   - IQKeyboardManagerSwift (6.5.9)
   - JGProgressHUD (2.2)
   - KeychainAccess (4.2.2)
@@ -18,8 +12,6 @@ PODS:
   - TweetNacl (1.0.2)
 
 DEPENDENCIES:
-  - GoogleMaps
-  - GooglePlaces
   - IQKeyboardManagerSwift
   - JGProgressHUD
   - KeychainAccess
@@ -30,8 +22,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - GoogleMaps
-    - GooglePlaces
     - IQKeyboardManagerSwift
     - JGProgressHUD
     - KeychainAccess
@@ -43,8 +33,6 @@ SPEC REPOS:
     - TweetNacl
 
 SPEC CHECKSUMS:
-  GoogleMaps: 94e6e0851beece6678af9f508f4918b7a7c61722
-  GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
@@ -55,6 +43,6 @@ SPEC CHECKSUMS:
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   TweetNacl: 3abf4d1d2082b0114e7a67410e300892448951e6
 
-PODFILE CHECKSUM: 89c3dd0207c97b8b9136fb5aabbe3c8102796ccc
+PODFILE CHECKSUM: 3d0716fa4df81c9357698a8f9ead52a31cd14fc8
 
 COCOAPODS: 1.11.2
