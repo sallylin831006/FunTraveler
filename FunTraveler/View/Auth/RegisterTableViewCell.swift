@@ -33,6 +33,10 @@ class RegisterTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         registerButton.layer.cornerRadius = CornerRadius.buttonCorner
+        nameTextField.addBottomBorder(textField: nameTextField)
+        emailTextField.addBottomBorder(textField: emailTextField)
+        passwordTextfield.addBottomBorder(textField: passwordTextfield)
+        passwordCheckTextfield.addBottomBorder(textField: passwordCheckTextfield)
     }
 
     @objc func tapRegisterButton() {
