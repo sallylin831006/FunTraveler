@@ -48,6 +48,7 @@ enum ImageAsset: String {
     case collectedIconNormal
     
     case defaultUserImage
+    case imagePlaceholder
 
 }
 

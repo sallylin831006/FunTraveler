@@ -53,7 +53,7 @@ class CommentTableViewCell: UITableViewCell {
         if data.user.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImageView.loadImage(data.user.imageUrl)
+            userImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
         
     }

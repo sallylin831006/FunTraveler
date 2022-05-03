@@ -48,7 +48,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         if data.user.imageUrl == "" {
             ownerImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            ownerImageView.loadImage(data.user.imageUrl)
+            ownerImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
        
         titleLabel.text = data.title

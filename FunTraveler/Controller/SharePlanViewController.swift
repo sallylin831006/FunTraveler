@@ -273,7 +273,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             if schedules[indexPath.row].images.isEmpty {
                 experienceCell.tripImage.image = nil
             } else {
-                experienceCell.tripImage.loadImage(schedules[indexPath.row].images.first)
+                experienceCell.tripImage.loadImage(schedules[indexPath.row].images.first, placeHolder: UIImage.asset(.imagePlaceholder))
             }
             
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
