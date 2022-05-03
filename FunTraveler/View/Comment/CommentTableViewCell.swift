@@ -17,7 +17,6 @@ class CommentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var durationLabel: UILabel!
     
-    
     @IBOutlet weak var replyButton: UIButton!
     
     override func layoutSubviews() {
@@ -25,7 +24,8 @@ class CommentTableViewCell: UITableViewCell {
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
-        
+        userNameButton.contentHorizontalAlignment = .left
+        commentLabel.textAlignment = .left
     }
     
     override func awakeFromNib() {
@@ -46,8 +46,8 @@ class CommentTableViewCell: UITableViewCell {
             durationLabel.text = "\(data.duration)分鐘"
         } else {
             let hour = Int(data.duration/60)
-            let minute = data.duration - hour * 60
-            durationLabel.text = "\(hour)小時\(minute)分鐘"
+//            let minute = data.duration - hour * 60
+            durationLabel.text = "\(hour)小時"
         }
         
         if data.user.imageUrl == "" {
