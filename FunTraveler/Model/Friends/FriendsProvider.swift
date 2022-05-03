@@ -94,13 +94,13 @@ class FriendsProvider {
     }
     
     // MARK: - GET Friend List
-    func getFriendList(completion: @escaping FriendHanlder) {
+    func getFriendList(userId: Int,completion: @escaping FriendHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             return completion(Result.failure(FunTravelerSignInError.noToken))
         }
         
-        HTTPClient.shared.request(FriendsRequest.getFriendList(token: token), completion: { result in
+        HTTPClient.shared.request(FriendsRequest.getFriendList(token: token, userId: userId), completion: { result in
             
             switch result {
                 

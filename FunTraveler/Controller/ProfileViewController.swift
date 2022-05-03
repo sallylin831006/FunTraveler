@@ -16,7 +16,13 @@ class ProfileViewController: UIViewController {
     }
     private var collectedDataArray: [[Explore]] = []
     
-    private var userData: User? {
+    private var userData: Profile? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    private var profileTrips: [Trip] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -24,6 +30,7 @@ class ProfileViewController: UIViewController {
     
     private var userNameTextField: UITextField!
     
+    private var segmentedControl: UISegmentedControl!
     var userId: Int?
     
     var isMyProfile: Bool = true
@@ -52,7 +59,6 @@ class ProfileViewController: UIViewController {
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
-        
         userData = nil
         onShowLogin()
     }
@@ -81,10 +87,18 @@ class ProfileViewController: UIViewController {
         
         if isMyProfile {
             guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-            fetchData(userId: userId)
+            fetchUserData(userId: userId)
+            fetchProfileTripsData(userId: userId)
         } else {
-            fetchData(userId: userId ?? 0)
+            fetchUserData(userId: userId ?? 0)
+            fetchProfileTripsData(userId: userId ?? 0)
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        segmentedControl?.touchesCancelled(Set<UITouch>(), with: nil)
+        segmentedControl?.selectedSegmentIndex = 0
     }
     
     private func onShowLogin() {
@@ -107,7 +121,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         switch section {
             //        return UIScreen.main.bounds.width / 39 * 10
         case 0: return 100.0
-        case 1: return 60.0
+        case 1: return 70.0
         default: break
         }
         return .zero
@@ -128,26 +142,32 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: SegementView.identifier)
                     as? SegementView else { return nil }
-            
+            headerView.delegate = self
             if isMyProfile {
-                headerView.collectedClosure = {
-                    self.fetchCollectedData()
-                }
                 headerView.followbutton.isHidden = true
                 
                 return headerView
             } else {
                 headerView.segementControl.isHidden = true
                 headerView.followbutton.isHidden = false
-                headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
-//                if isFriend {
-//                    headerView.followbutton.setTitle("已追蹤", for: .normal)
-//                    headerView.followbutton.isUserInteractionEnabled = false
-//                } else {
-//                    headerView.followbutton.setTitle("追蹤", for: .normal)
-//                    headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
-//
-//                }
+                headerView.followbutton.addTarget(self, action: #selector(tapFollowButton(_:)), for: .touchUpInside)
+                
+                guard let isFriend = userData?.isFriend else { return UIView()}
+                guard let isInvite = userData?.isInvite else { return UIView()}
+                if isFriend {
+                    headerView.followbutton.setTitle("已追蹤", for: .normal)
+                    headerView.followbutton.backgroundColor = .themeApricotDeep
+                    headerView.followbutton.isUserInteractionEnabled = false
+                } else if !isFriend && isInvite {
+                    headerView.followbutton.setTitle("已送出追蹤邀請", for: .normal)
+                    headerView.followbutton.backgroundColor = .themeApricotDeep
+                    headerView.followbutton.isUserInteractionEnabled = false
+                } else {
+                    headerView.followbutton.setTitle("追蹤", for: .normal)
+                    headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+
+                }
+
                 return headerView
             }
             
@@ -157,8 +177,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return UIView()
     }
     
-    @objc func tapFollowButton() {
+    @objc func tapFollowButton(_ sender: UIButton) {
         postToInvite()
+        sender.setTitle("已送出追蹤邀請", for: .normal)
+        sender.backgroundColor = .themeApricotDeep
+        sender.isUserInteractionEnabled = false
     }
     
     // MARK: - Section Row
@@ -207,6 +230,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let item = collectedData[indexPath.row]
             cell.layoutCell(data: item)
             
+//            cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .normal)
+            cell.collectClosure = { isCollected in
+                self.postCollectedData(isCollected: item.isCollected, tripId: self.collectedData[indexPath.row].id)
+                self.collectedData.remove(at: indexPath.row)
+//                tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .left)
+//                tableView.reloadData()
+                
+            }
+            
             return cell
             
         default: break
@@ -219,6 +251,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapToFriendList() {
         guard let friendListVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        
+        friendListVC.userId = userData?.id
         self.present(friendListVC, animated: true)
         
         //        navigationController?.pushViewController(friendListVC, animated: true)
@@ -281,14 +315,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
         guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        fetchData(userId: userId)
+        fetchUserData(userId: userId)
+        fetchProfileTripsData(userId: userId)
+
     }
 }
 
 extension ProfileViewController: ProfileTableViewCellDelegate {
     
     func didChangeName(_ cell: ProfileTableViewCell, text: String) {
-        
+            
         self.userNameTextField.text = text
         patchData(name: text, image: "")
         
@@ -298,14 +334,14 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
 
 extension ProfileViewController {
     // MARK: - GET Action
-    private func fetchData(userId: Int) {
+    private func fetchUserData(userId: Int) {
         let userProvider = UserProvider()
         userProvider.getProfile(userId: userId, completion: { [weak self] result in
             
             switch result {
                 
             case .success(let userData):
-                self?.userData = userData.data
+                self?.userData = userData
                 self?.tableView.reloadData()
             case .failure:
                 print("[ProfileVC] GET Profile 資料失敗！")
@@ -313,8 +349,28 @@ extension ProfileViewController {
         })
     }
     
+    // MARK: - GET PROFILE PUBLIC/PRIVATE TRIPS
+    private func fetchProfileTripsData(userId: Int) {
+        let userProvider = UserProvider()
+        userProvider.getProfileTrips(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let profileTripsData):
+                self?.collectedData = profileTripsData.data
+                self?.tableView.reloadData()
+            case .failure:
+                print("[ProfileVC] GET Profile Trips 資料失敗！")
+            }
+        })
+    }
+    
     // MARK: - PATCH Action
     private func patchData(name: String, image: String) {
+        
+        guard let isFriend = userData?.isFriend else { return }
+        if isFriend { return }
+        
         let userProvider = UserProvider()
         userProvider.updateProfile(name: name, image: image, completion: { result in
             
@@ -353,6 +409,27 @@ extension ProfileViewController {
         })
     }
     
+    // MARK: - POST TO ADJUST COLLECTED status
+    private func postCollectedData(isCollected: Bool, tripId: Int) {
+            let collectedProvider = CollectedProvider()
+        
+            collectedProvider.addCollected( isCollected: isCollected,
+                                           tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success:
+                    self.tableView.reloadData()
+                                    
+                case .failure:
+                    print("[Explore] collected postResponse失敗！")
+                }
+            })
+            
+        }
+    
+    
+    
     // MARK: - POST TO INVITE
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
@@ -388,6 +465,24 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         }
         
         dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension ProfileViewController: SegementViewDelegate {
+    func switchSegement(_ segmentedControl: UISegmentedControl) {
+        self.segmentedControl = segmentedControl
+        if segmentedControl.selectedSegmentIndex == 0 {
+            print("我點了旅遊回憶")
+            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+            fetchProfileTripsData(userId: userId)
+          
+        } else if segmentedControl.selectedSegmentIndex == 1 {
+            print("我點了收藏")
+            fetchCollectedData()
+            
+        }
+        
     }
     
 }

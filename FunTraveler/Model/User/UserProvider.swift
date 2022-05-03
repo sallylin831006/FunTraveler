@@ -17,6 +17,10 @@ typealias ErrorHanlder = (Result<ClientError>) -> Void
 
 typealias UserHanlder = (Result<Users>) -> Void
 
+typealias ProfileHanlder = (Result<Profile>) -> Void
+
+typealias ProfileTripsHanlder = (Result<Explores>) -> Void
+
 enum FunTravelerSignInError: Error {
     
     case noToken
@@ -39,21 +43,6 @@ class UserProvider {
                 case .success: break
         
                 case .failure(let error):
-//                    do {
-//                        let errorResponse = try JSONDecoder().decode(
-//                            RegisterError.self,
-//                            from: data
-//                        )
-//
-//                        DispatchQueue.main.async {
-//
-//                            completion(Result.success(errorResponse))
-//                        }
-//
-//                    } catch {
-//                        print(error)
-//                        completion(Result.failure(error))
-//                    }
                     
                     print(error)
                     completion(Result.failure(error))
@@ -116,6 +105,8 @@ class UserProvider {
                         
                         KeyChainManager.shared.token = loginResponse.token
                         
+                        KeyChainManager.shared.userId = String(loginResponse.userId)
+                        
                         DispatchQueue.main.async {
                             
                             completion(Result.success(loginResponse))
@@ -135,7 +126,7 @@ class UserProvider {
     }
     
     // MARK: - GET USER PROFILE
-    func getProfile(userId: Int, completion: @escaping UserHanlder) {
+    func getProfile(userId: Int, completion: @escaping ProfileHanlder) {
         
         let token = KeyChainManager.shared.token ?? ""
         
@@ -147,7 +138,7 @@ class UserProvider {
                     
                     do {
                         let profileResponse = try JSONDecoder().decode(
-                            Users.self,
+                            UserProfile.self,
                             from: data
                         )
                         
@@ -155,7 +146,40 @@ class UserProvider {
                                                 
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(profileResponse))
+                            completion(Result.success(profileResponse.data))
+                        }
+                        
+                    } catch {
+                        print(error)
+                        completion(Result.failure(error))
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
+    
+    // MARK: - GET USER PRIVATE/PUBLIC Trips IN PROFILE
+    func getProfileTrips(userId: Int, completion: @escaping ProfileTripsHanlder) {
+                
+        HTTPClient.shared.request(UserRequest.getProfileTrips(userId: userId), completion: { result in
+                
+                switch result {
+                    
+                case .success(let data):
+                    
+                    do {
+                        let profileTripsResponse = try JSONDecoder().decode(
+                            Explores.self,
+                            from: data
+                        )
+                                                                        
+                        DispatchQueue.main.async {
+                            
+                            completion(Result.success(profileTripsResponse))
                         }
                         
                     } catch {

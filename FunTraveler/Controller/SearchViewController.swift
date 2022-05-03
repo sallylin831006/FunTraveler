@@ -38,12 +38,11 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.layer.borderWidth = 2
-        searchBar.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        searchBar.barTintColor = .themeApricotDeep
+        searchBar.layer.borderColor = UIColor.themeApricot?.cgColor
+        searchBar.barTintColor = .themeApricot
         searchBar.searchTextField.backgroundColor = .white
         
         tableView.registerCellWithNib(identifier: String(describing: SearchTableViewCell.self), bundle: nil)
-        tableView.backgroundColor = .themeApricotDeep
         tableView.separatorColor = .themeApricotDeep
         searchBar.delegate = self
     }

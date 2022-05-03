@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class CommentViewController: UIViewController {
     
@@ -17,6 +18,8 @@ class CommentViewController: UIViewController {
     }
         
     var tripId: Int?
+    
+    private var profileData: Profile?
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -42,6 +45,7 @@ class CommentViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+        fetchProfileImage() 
     }
     
 }
@@ -74,15 +78,11 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: CommentFooterView.identifier)
                 as? CommentFooterView else { return nil }
-        
-        footerView.layoutFooter()
-        
+        guard let profileData = profileData else { return UIView() }
+        footerView.layoutFooter(data: profileData)
         footerView.sendCommentClosure = { [weak self] in
             guard let newComment = footerView.commentTextField.text else { return }
             self?.postData(content: newComment)
-
-//            self?.tableView.reloadData()
-//            self?.scrollToBottom()
         
             footerView.commentTextField.text = ""
             
@@ -185,6 +185,23 @@ extension CommentViewController {
                                 
             case .failure:
                 print("[CommentVC] GET 讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - GET My Profile Image
+    private func fetchProfileImage() {
+        let userProvider = UserProvider()
+        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+        userProvider.getProfile(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let profileData):
+                self?.profileData = profileData
+                self?.tableView.reloadData()
+            case .failure:
+                print("[ProfileVC] GET Profile 資料失敗！")
             }
         })
     }

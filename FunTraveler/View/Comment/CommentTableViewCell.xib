@@ -19,55 +19,66 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9PP-Ap-Ali">
-                        <rect key="frame" x="10" y="10" width="43" height="43"/>
+                        <rect key="frame" x="16" y="18.5" width="30" height="30"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="9PP-Ap-Ali" secondAttribute="height" id="d1X-rU-t7Y"/>
-                            <constraint firstAttribute="width" constant="45" id="zlr-QV-eUO"/>
+                            <constraint firstAttribute="width" secondItem="9PP-Ap-Ali" secondAttribute="height" multiplier="1:1" id="Ai4-No-lfp"/>
+                            <constraint firstAttribute="width" constant="30" id="NCm-DF-PtE"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jan-Gu-1rN">
-                        <rect key="frame" x="63" y="5" width="53" height="31"/>
+                        <rect key="frame" x="51" y="5" width="53" height="57"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="57" id="rPP-YY-MQe"/>
+                        </constraints>
                         <color key="tintColor" name="themeRed"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="sally"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S91-Xz-N7C">
-                        <rect key="frame" x="310" y="16" width="53" height="31"/>
+                        <rect key="frame" x="310" y="18" width="53" height="31"/>
                         <color key="tintColor" name="themeRed"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title="回覆"/>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6分鐘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-TB-vRV">
-                        <rect key="frame" x="73" y="40" width="33" height="15"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="狗狗笑得好開心！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTG-yx-ATA">
-                        <rect key="frame" x="126" y="11.5" width="123" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="狗狗笑得好開心！！！！！" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTG-yx-ATA">
+                        <rect key="frame" x="109" y="16.5" width="184" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="184" id="DWH-TZ-yoT"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6分鐘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-TB-vRV">
+                        <rect key="frame" x="109" y="48" width="32.5" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="EZB-Bo-iZt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9PP-Ap-Ali" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="0L3-J6-p0i"/>
-                    <constraint firstItem="vTG-yx-ATA" firstAttribute="leading" secondItem="Jan-Gu-1rN" secondAttribute="trailing" constant="10" id="E69-44-rM9"/>
-                    <constraint firstItem="Jan-Gu-1rN" firstAttribute="leading" secondItem="9PP-Ap-Ali" secondAttribute="trailing" constant="10" id="Nxc-H2-HBP"/>
-                    <constraint firstItem="vTG-yx-ATA" firstAttribute="centerY" secondItem="Jan-Gu-1rN" secondAttribute="centerY" id="O4K-TO-aAO"/>
-                    <constraint firstItem="9PP-Ap-Ali" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="PtZ-QR-0eH"/>
+                    <constraint firstAttribute="bottom" secondItem="MTG-TB-vRV" secondAttribute="bottom" constant="4" id="9vh-3t-vMS"/>
+                    <constraint firstItem="MTG-TB-vRV" firstAttribute="leading" secondItem="vTG-yx-ATA" secondAttribute="leading" id="BKK-Cq-lk9"/>
+                    <constraint firstItem="vTG-yx-ATA" firstAttribute="leading" secondItem="Jan-Gu-1rN" secondAttribute="trailing" constant="5" id="E69-44-rM9"/>
+                    <constraint firstItem="9PP-Ap-Ali" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Max-pp-EZY"/>
+                    <constraint firstItem="Jan-Gu-1rN" firstAttribute="leading" secondItem="9PP-Ap-Ali" secondAttribute="trailing" constant="5" id="Nxc-H2-HBP"/>
+                    <constraint firstItem="vTG-yx-ATA" firstAttribute="centerY" secondItem="Jan-Gu-1rN" secondAttribute="centerY" constant="-5" id="O4K-TO-aAO"/>
+                    <constraint firstItem="S91-Xz-N7C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OI9-Mg-SDu"/>
+                    <constraint firstItem="9PP-Ap-Ali" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="WbB-Vs-opq"/>
                     <constraint firstAttribute="trailing" secondItem="S91-Xz-N7C" secondAttribute="trailing" constant="16" id="Yyg-HK-P5O"/>
-                    <constraint firstItem="S91-Xz-N7C" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="adT-Ee-m4n"/>
-                    <constraint firstItem="MTG-TB-vRV" firstAttribute="top" secondItem="Jan-Gu-1rN" secondAttribute="bottom" constant="4" id="eFr-9G-ipJ"/>
                     <constraint firstItem="Jan-Gu-1rN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="gWr-6M-gzX"/>
-                    <constraint firstAttribute="bottom" secondItem="9PP-Ap-Ali" secondAttribute="bottom" constant="10" id="i8m-le-jzP"/>
-                    <constraint firstAttribute="bottom" secondItem="S91-Xz-N7C" secondAttribute="bottom" constant="16" id="o1b-QD-y7T"/>
-                    <constraint firstItem="MTG-TB-vRV" firstAttribute="leading" secondItem="9PP-Ap-Ali" secondAttribute="trailing" constant="20" id="piz-PO-hf9"/>
+                    <constraint firstAttribute="bottom" secondItem="Jan-Gu-1rN" secondAttribute="bottom" constant="5" id="mQY-ek-36y"/>
+                    <constraint firstItem="Jan-Gu-1rN" firstAttribute="centerY" secondItem="9PP-Ap-Ali" secondAttribute="centerY" id="nco-lA-Pug"/>
+                    <constraint firstItem="MTG-TB-vRV" firstAttribute="top" secondItem="vTG-yx-ATA" secondAttribute="bottom" constant="7.5" id="ufR-6s-Jxu"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="commentLabel" destination="vTG-yx-ATA" id="8qN-bI-gR9"/>
+                <outlet property="durationLabel" destination="MTG-TB-vRV" id="zsS-52-Vpm"/>
                 <outlet property="replyButton" destination="S91-Xz-N7C" id="IQp-JE-l8e"/>
                 <outlet property="userImageView" destination="9PP-Ap-Ali" id="MNj-dt-1Op"/>
                 <outlet property="userNameButton" destination="Jan-Gu-1rN" id="Gqw-2e-iOs"/>

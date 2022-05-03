@@ -15,11 +15,14 @@ class CommentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var commentLabel: UILabel!
     
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    
     @IBOutlet weak var replyButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        userImageView.layer.cornerRadius = 45/2
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
         
@@ -27,7 +30,7 @@ class CommentTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.backgroundColor = .themeApricot
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -39,10 +42,18 @@ class CommentTableViewCell: UITableViewCell {
         userNameButton.setTitle(data.user.name, for: .normal)
         commentLabel.text = data.content
         
-        if data.user.imageUrl == "" {
-            userImageView.backgroundColor = .systemGray
+        if data.duration < 60 {
+            durationLabel.text = "\(data.duration)分鐘"
         } else {
-            userImageView.loadImage(data.user.imageUrl)
+            let hour = Int(data.duration/60)
+            let minute = data.duration - hour * 60
+            durationLabel.text = "\(hour)小時\(minute)分鐘"
+        }
+        
+        if data.user.imageUrl == "" {
+            userImageView.image = UIImage.asset(.defaultUserImage)
+        } else {
+            userImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
         
     }

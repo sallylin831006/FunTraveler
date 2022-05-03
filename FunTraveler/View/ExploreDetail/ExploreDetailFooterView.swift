@@ -18,6 +18,7 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .themeApricot
         copyButton.addTarget(self, action: #selector(tapCopyButton), for: .touchUpInside)
     }
     

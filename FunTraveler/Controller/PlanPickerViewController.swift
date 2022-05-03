@@ -8,8 +8,19 @@
 import UIKit
 import PusherSwift
 
+protocol PlanPickerViewControllerDelegate: AnyObject {
+    func reloadCollectionView(_ collectionView: UICollectionView)
+}
+
 class PlanPickerViewController: UIViewController {
+    
+    weak var reloadDelegate: PlanPickerViewControllerDelegate?
+    
     var pusher: Pusher!
+    
+    private var friendListDataArray: [User] = []
+    
+    var headerCollectionView: UICollectionView!
     
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
@@ -45,13 +56,7 @@ class PlanPickerViewController: UIViewController {
     private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     private var headerView: PlanCardHeaderView!
     private var selectedDepartmentTimes: String = "09:00"
-//    {
-//        didSet {
-//            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-//            self.schedule[0].startTime = selectedDepartmentTimes
-//
-//        }
-//    }
+
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var tableView: UITableView! {
@@ -100,12 +105,9 @@ class PlanPickerViewController: UIViewController {
                 
                 self?.trip = tripSchedule.data
                 
-                guard let schedules = tripSchedule.data.schedules else { return }
-                
-                let schedule = schedules.first ?? []
+                let schedule = tripSchedule.data.schedules?.first ?? []
                 self?.selectedDepartmentTimes = schedule.first?.startTime ?? "9:00"
                 self?.schedule = schedule
-                //                print("[PlanPicker] GET schedule Detail:", tripSchedule)
                 
             case .failure:
                 print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
@@ -130,6 +132,41 @@ class PlanPickerViewController: UIViewController {
             }
         })
     }
+    
+    // MARK: - POST To Add Editor
+    func postToAddEditor(editorId: Int) {
+        let coEditProvider = CoEditProvider()
+        guard let tripId = tripId else { return }
+        
+        coEditProvider.postToAddEditor(tripId: tripId, editorId: editorId, completion: { result in
+            
+            switch result {
+                
+            case .success(let coEditorResponse):
+                print("coEditorResponse", coEditorResponse)
+            case .failure:
+                print("postToAddEditor失敗！")
+            }
+        })
+    }
+    
+    // MARK: - Delete Editor
+    func deleteEditor(editorId: Int) {
+        let coEditProvider = CoEditProvider()
+        guard let tripId = tripId else { return }
+        
+        coEditProvider.deleteCoEditor(tripId: tripId, editorId: editorId, completion: { result in
+            
+            switch result {
+                
+            case .success(let coEditorResponse):
+                print("coEditorResponse", coEditorResponse)
+            case .failure:
+                print("postToDeleteEditor失敗！")
+            }
+        })
+    }
+    
     private func showLoadingView() {
         let loadingView = LoadingView()
         view.layoutLoadingView(loadingView, view)
@@ -171,15 +208,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
         
-        guard let trip = trip,
-              let tripStartDate = trip.startDate,
-              let tripEndtDate = trip.endDate
-        else { return nil}
+        guard let trip = trip else { return nil}
+        headerView.layoutHeaderView(data: trip)
         
         headerView.titleLabel.text = trip.title
-        
-        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
-        
+    
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
         
@@ -188,20 +221,44 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.departmentPickerView.picker.dataSource = self
         
         self.headerView = headerView
+        
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
         
         headerView.departmentPickerView.delegate = self
         headerView.collectionView.registerCellWithNib(identifier: String(
             describing: FriendsCollectionViewCell.self), bundle: nil)
+        
         headerView.collectionView.dataSource = self
         headerView.collectionView.delegate = self
         
+        self.reloadDelegate = headerView
+        
+        self.headerCollectionView = headerView.collectionView
+    
         headerView.inviteButton.addTarget(target, action: #selector(tapToInvite), for: .touchUpInside)
         
         return headerView
     }
     @objc func tapToInvite() {
-        shareLink()
+        guard let friendListVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+        friendListVC.userId = userId
+        
+        friendListVC.isEditMode = true
+        
+        friendListVC.delegate = self
+
+        friendListVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = friendListVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        self.present(friendListVC, animated: true)
+//        shareLink()
     }
     
     // MARK: - Section Footer
@@ -263,24 +320,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
         tableView.separatorColor = .clear
-        tripCell.selectionStyle = .none
-        
-        tripCell.nameLabel.text = schedule[indexPath.row].name
-        tripCell.addressLabel.text = schedule[indexPath.row].address
-        tripCell.startTime = schedule[indexPath.row].startTime
-        
-        tripCell.durationTime = schedule[indexPath.row].duration
-        
-        tripCell.trafficTime = schedule[indexPath.row].trafficTime
-        
-        tripCell.orderLabel.text = String(indexPath.row + 1)
+        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
         tripCell.index = indexPath.row
-        
         tripCell.delegate = self
-        
-        tripCell.backgroundColor = .clear
-        
+                
         return tripCell
     }
     
@@ -389,15 +433,10 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
 }
 // MARK: - CollectionView
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    private var numberOfFriends: Int {
-        get {
-            return 3
-        }
-    }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfFriends
+//        return friendListDataArray.count
+        return trip?.editors.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -405,22 +444,25 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
             for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
-        
-        let last = max(numberOfFriends, 0) - 1
-        if indexPath.item == last {
-            cell.contentView.backgroundColor = .themeApricotDeep
-            collectionView.reloadData()
-        }
+
+//        cell.layoutCell(data: friendListDataArray, index: indexPath.row)
+        guard let editors = trip?.editors else { return UICollectionViewCell() }
+          cell.layoutCell(data: editors, index: indexPath.row)
+
+//        let last = max(numberOfFriends, 0) - 1
+//        if indexPath.item == last {
+//            cell.contentView.backgroundColor = .themeApricotDeep
+//            collectionView.reloadData()
+//        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let last = max(numberOfFriends, 0) - 1
-        if indexPath.item == last {
-            // shareLink() 行為很奇怪要按很多下
-            
-        }
+//        let last = max(numberOfFriends, 0) - 1
+//        if indexPath.item == last {
+//            // shareLink() 行為很奇怪要按很多下
+//        }
         
     }
     
@@ -434,10 +476,30 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
     }
 }
 
+extension PlanPickerViewController: FriendListViewControllerDelegate {
+    func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
+        deleteEditor(editorId: friendListData.id)
+        self.trip?.editors.removeAll(where: { $0 == friendListData })
+
+//        friendListDataArray.removeAll(where: { $0 == friendListData })
+        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+
+    }
+    
+    func passingCoEditFriendsData(_ friendListData: User) {
+        postToAddEditor(editorId: friendListData.id)
+        
+        self.trip?.editors.append(friendListData)
+//        self.friendListDataArray.append(friendListData)
+        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+    }
+    
+}
+
 extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
     var itemSize: CGSize {
         get {
-            return CGSize(width: 35, height: 35)
+            return CGSize(width: 40, height: 40)
         }
     }
     

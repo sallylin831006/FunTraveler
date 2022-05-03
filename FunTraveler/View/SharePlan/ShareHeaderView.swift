@@ -32,7 +32,7 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     }
 
     private func setupHeaderView() {
-        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
+//        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
 
     }
 }

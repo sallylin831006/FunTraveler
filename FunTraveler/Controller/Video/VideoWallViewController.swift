@@ -31,7 +31,12 @@ class VideoWallViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpUI()
-        collectionView.registerCellWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        
+        collectionView.register(UINib(nibName: String(
+            describing: VideoWallHeaderView.self), bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: "Header")
+        
         setupSearchBar()
     }
     
@@ -86,8 +91,24 @@ class VideoWallViewController: UIViewController {
 
 extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind
+                        kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+                as? VideoWallHeaderView else { return UICollectionReusableView() }
+        
+        headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
+        headerView.delegate = self
+        
+        return headerView
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return videoDataSource.count
+        }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videoDataSource.count
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -95,14 +116,21 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "cell", for: indexPath)
                 as? VideoCollectionViewCell else {  return UICollectionViewCell() }
-        cell.configure(videoDataSource[indexPath.item].url)
+        
+        cell.configure(videoDataSource[indexPath.section].url)
+        
+        cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 500)
+        
+        let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.headerReferenceSize = CGSize(width: 0, height: 60)
+        
+        return CGSize(width: collectionView.frame.width, height: 600)
     }
     
 }
@@ -163,6 +191,23 @@ extension VideoWallViewController {
             }
         })
     }
+    
+    // MARK: - POST TO INVITE
+    private func postToInvite() {
+        let friendsProvider = FriendsProvider()
+        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
+        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let postResponse):
+                print("postResponse", postResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO INVITE失敗！")
+            }
+        })
+    }
 }
 
 extension VideoWallViewController {
@@ -214,4 +259,14 @@ extension VideoWallViewController: UISearchBarDelegate {
         print("點了取消按鈕")
 //        fetchData()
     }
+}
+
+extension VideoWallViewController: VideoWallHeaderViewDelegate {
+    func tapToFollow(_ followButton: UIButton, _ section: Int) {
+        postToInvite()
+        followButton.setTitle("已送出邀請", for: .normal)
+        followButton.backgroundColor = .themeApricotDeep
+        followButton.isUserInteractionEnabled = false
+    }
+   
 }

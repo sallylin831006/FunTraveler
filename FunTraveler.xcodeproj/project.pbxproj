@@ -93,6 +93,9 @@
 		3A40D39E281822FE00A7BF51 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */; };
 		3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4653B72815069F005051EB /* UIView+Extension.swift */; };
 		3A5445E8281B928E0078518E /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445E7281B928E0078518E /* FriendListViewController.swift */; };
+		3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445EC281E21400078518E /* VideoWallHeaderView.swift */; };
+		3A5445EF281E21410078518E /* VideoWallHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A5445ED281E21400078518E /* VideoWallHeaderView.xib */; };
+		3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445F0281E7AA10078518E /* Font+Extension.swift */; };
 		3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */; };
 		3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A73527328017FF300B4D8D3 /* TimeManager.swift */; };
 		3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */; };
@@ -127,6 +130,10 @@
 		3AC099AC280D62AF0023A1C0 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099AB280D62AF0023A1C0 /* Camera.storyboard */; };
 		3AC099AE280D62D70023A1C0 /* VideoWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */; };
 		3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AF280D62E10023A1C0 /* CameraViewController.swift */; };
+		3ACC6C7B281EB044002B7256 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */; };
+		3ACC6C7D281F7FFD002B7256 /* ButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */; };
+		3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */; };
+		3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */; };
 		3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */; };
 		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
 		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
@@ -230,6 +237,9 @@
 		3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		3A4653B72815069F005051EB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		3A5445E7281B928E0078518E /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
+		3A5445EC281E21400078518E /* VideoWallHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoWallHeaderView.swift; sourceTree = "<group>"; };
+		3A5445ED281E21400078518E /* VideoWallHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWallHeaderView.xib; sourceTree = "<group>"; };
+		3A5445F0281E7AA10078518E /* Font+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Extension.swift"; sourceTree = "<group>"; };
 		3A73527128017FAB00B4D8D3 /* UITableView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		3A73527328017FF300B4D8D3 /* TimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		3A7352762801802900B4D8D3 /* PlanCardHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCardHeaderView.swift; sourceTree = "<group>"; };
@@ -266,6 +276,10 @@
 		3AC099AB280D62AF0023A1C0 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWallViewController.swift; sourceTree = "<group>"; };
 		3AC099AF280D62E10023A1C0 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
+		3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHelper.swift; sourceTree = "<group>"; };
+		3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditRequest.swift; sourceTree = "<group>"; };
+		3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditProvider.swift; sourceTree = "<group>"; };
 		3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewConttoller.swift; sourceTree = "<group>"; };
 		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -410,6 +424,8 @@
 				3A185C2728048481004F5BB3 /* TripObject.swift */,
 				3A185C1728041A93004F5BB3 /* TripProvider.swift */,
 				3A185C1928041AA9004F5BB3 /* TripRequest.swift */,
+				3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */,
+				3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -427,6 +443,8 @@
 		3A2B6B2C281420F400D00638 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				3A5445EC281E21400078518E /* VideoWallHeaderView.swift */,
+				3A5445ED281E21400078518E /* VideoWallHeaderView.xib */,
 				3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */,
 				3A2B6B2D2814213500D00638 /* VideoCollectionViewCell.swift */,
 				3A2B6B2F2814215000D00638 /* PlayerView.swift */,
@@ -607,6 +625,8 @@
 				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
 				3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */,
 				3A4653B72815069F005051EB /* UIView+Extension.swift */,
+				3A5445F0281E7AA10078518E /* Font+Extension.swift */,
+				3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -714,6 +734,7 @@
 			isa = PBXGroup;
 			children = (
 				3AF4DCAF280C3E26008029D7 /* KingFisherWrapper.swift */,
+				3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */,
 			);
 			path = "Third Party Wrapper";
 			sourceTree = "<group>";
@@ -740,6 +761,7 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
+				41A02CA0044C499AE760CF23 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -793,6 +815,7 @@
 				3A7E4DA12809453500281E17 /* PlanOverView.storyboard in Resources */,
 				3A40D374281790F600A7BF51 /* CommentFooterView.xib in Resources */,
 				3AF4DCAB280C30BE008029D7 /* ExploreDetailTableViewCell.xib in Resources */,
+				3A5445EF281E21410078518E /* VideoWallHeaderView.xib in Resources */,
 				3A2B6B712814D6A400D00638 /* Success.json in Resources */,
 				3A0C3CEE281AFB6F006632AC /* InviteListTableViewCell.xib in Resources */,
 				3A185C4D28058CA6004F5BB3 /* SearchDetailTableViewCell.xib in Resources */,
@@ -845,6 +868,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		41A02CA0044C499AE760CF23 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -929,6 +969,7 @@
 				3A40D3462816C14E00A7BF51 /* UserProvider.swift in Sources */,
 				3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */,
 				3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */,
+				3ACC6C7B281EB044002B7256 /* JGProgressHUDWrapper.swift in Sources */,
 				3A185C4B28058CA6004F5BB3 /* SearchDetailTableViewCell.swift in Sources */,
 				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
 				3A40D3622817791100A7BF51 /* ReactionProvider.swift in Sources */,
@@ -949,6 +990,7 @@
 				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
 				3AF4DCA2280C12DE008029D7 /* ExploreProvider.swift in Sources */,
 				3A9E9CE22800992C00C7B8D3 /* UIImage+Extension.swift in Sources */,
+				3ACC6C7D281F7FFD002B7256 /* ButtonHelper.swift in Sources */,
 				3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */,
 				3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */,
 				3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */,
@@ -960,6 +1002,7 @@
 				3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */,
 				3A0C3CED281AFB6F006632AC /* InviteListTableViewCell.swift in Sources */,
 				3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */,
+				3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
@@ -973,16 +1016,19 @@
 				3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
+				3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */,
 				3AF4DCA6280C2169008029D7 /* ExploreDetailViewController.swift in Sources */,
 				3A40D36B2817880500A7BF51 /* CommentTableViewCell.swift in Sources */,
 				3A0C3CF1281B554A006632AC /* FriendsObject.swift in Sources */,
 				3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,
+				3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */,
 				3A40D372281790D800A7BF51 /* CommentFooterView.swift in Sources */,
 				3A13495E2810325B008CECEA /* CollectedViewController.swift in Sources */,
 				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
 				3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */,
+				3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */,
 				3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */,
 				3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
@@ -1140,11 +1186,19 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 66YLNV7J37;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
+				INFOPLIST_KEY_NSCameraUsageDescription = "You need to grant the app access to your camera in order to take photos";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone so that we can record your awesome custom effects.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You need to grant the app access to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1172,9 +1226,16 @@
 				DEVELOPMENT_TEAM = 66YLNV7J37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
+				INFOPLIST_KEY_NSCameraUsageDescription = "You need to grant the app access to your camera in order to take photos";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone so that we can record your awesome custom effects.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You need to grant the app access to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

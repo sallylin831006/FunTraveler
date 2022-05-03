@@ -20,19 +20,20 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="keL-eX-TKi">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-t5-CDi">
-                                <rect key="frame" x="16" y="98" width="53" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="登出"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-t5-CDi">
+                                <rect key="frame" x="16" y="98" width="37" height="34"/>
+                                <color key="tintColor" red="0.95300000910000005" green="0.91399997470000005" blue="0.84299999479999999" alpha="0.57533112580000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="登出"/>
                                 <connections>
                                     <action selector="logoutButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eLC-L1-DNE"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" name="themeApricotDeep"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="keL-eX-TKi" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="8ae-dw-vlT"/>
                             <constraint firstItem="keL-eX-TKi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9JP-yq-UbA"/>
@@ -121,7 +122,7 @@
             </objects>
             <point key="canvasLocation" x="1855" y="80"/>
         </scene>
-        <!--Friend List View Controller-->
+        <!--好友列表-->
         <scene sceneID="hPY-Xc-BcW">
             <objects>
                 <viewController storyboardIdentifier="FriendListViewController" id="e54-P9-D8Q" customClass="FriendListViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
@@ -131,11 +132,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="CEi-N3-vn7">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SuA-GW-612"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="SuA-GW-612" firstAttribute="bottom" secondItem="CEi-N3-vn7" secondAttribute="bottom" id="5SI-zH-3ol"/>
                             <constraint firstItem="CEi-N3-vn7" firstAttribute="leading" secondItem="SuA-GW-612" secondAttribute="leading" id="dFb-BS-bYL"/>
@@ -143,13 +144,14 @@
                             <constraint firstItem="CEi-N3-vn7" firstAttribute="top" secondItem="SuA-GW-612" secondAttribute="top" id="t4E-ii-MFT"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="好友列表" id="zJS-CX-Bet"/>
                     <connections>
                         <outlet property="tableView" destination="CEi-N3-vn7" id="K4p-HJ-o7g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnj-AD-l5g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2697" y="80"/>
+            <point key="canvasLocation" x="3258" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hIS-p5-4MG">
@@ -171,8 +173,8 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="themeApricotDeep">
-            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class ExploreOverViewTableViewCell: UITableViewCell {
     
     var friendClosure: (() -> Void)?
@@ -40,6 +41,8 @@ class ExploreOverViewTableViewCell: UITableViewCell {
 
     func layoutCell(data: Explore) {
         
+        heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
+
         dayTitleLabel.text = "\(data.days)天| 旅遊回憶"
         
         tripTitleLabel.text = data.title
@@ -49,24 +52,26 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         numberOfLikeLabel.text = "\(data.likeCount)個讚"
         
         if data.user.imageUrl == "" {
-            userImageView.backgroundColor = .systemGray
+            userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImageView.loadImage(data.user.imageUrl)
+            userImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
             
-        collectButton.setImage(UIImage.asset(.collectSelected), for: .selected)
-        collectButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+        collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
+        collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
         self.isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
         
-        heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-        heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartButton.setImage(UIImage.asset(.heartSelected), for: .selected)
+        heartButton.setImage(UIImage.asset(.heartNormal), for: .normal)
         self.isLiked = data.isLiked
         heartButton.isSelected = data.isLiked
 
         followButton.setTitle("追蹤", for: .normal)
         followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
         followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
+        
+        dateLabel.text = data.publishedDate
         
     }
     
@@ -116,17 +121,17 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let margins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        self.backgroundColor = .themeApricot
+        let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 4
+        contentView.layer.borderColor = UIColor.white.cgColor
+        contentView.layer.borderWidth = 8
         contentView.layer.cornerRadius = 10.0
         contentView.layer.masksToBounds = true
         
         planImageView.backgroundColor = UIColor.themeApricotDeep
         
-        userImageView.layer.cornerRadius = 40/2
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
     }

@@ -2,9 +2,9 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,13 +18,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="行程名稱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cip-hm-APv">
-                        <rect key="frame" x="30" y="16" width="70" height="21"/>
+                        <rect key="frame" x="30" y="30" width="70" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BnL-d6-QRv">
-                        <rect key="frame" x="30" y="53" width="300" height="41"/>
+                        <rect key="frame" x="30" y="67" width="300" height="49"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="300" id="fUM-Dd-ex7"/>
                         </constraints>
@@ -32,29 +32,29 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出發日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJX-Lw-2zI">
-                        <rect key="frame" x="30" y="110" width="70" height="21"/>
+                        <rect key="frame" x="30" y="132" width="70" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VjX-eu-XXL" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="30" y="147" width="300" height="40"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <rect key="frame" x="30" y="163" width="160" height="35"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="JA6-ar-wHL"/>
-                            <constraint firstAttribute="width" constant="300" id="Jq8-dr-YbQ"/>
+                            <constraint firstAttribute="height" constant="35" id="JA6-ar-wHL"/>
+                            <constraint firstAttribute="width" constant="160" id="Jq8-dr-YbQ"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzS-H4-SMA" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="30" y="240" width="300" height="40"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <rect key="frame" x="30" y="245" width="160" height="35"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="C6l-BC-J6F"/>
-                            <constraint firstAttribute="width" constant="300" id="ZZq-dP-biz"/>
+                            <constraint firstAttribute="height" constant="35" id="C6l-BC-J6F"/>
+                            <constraint firstAttribute="width" constant="160" id="ZZq-dP-biz"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="回程日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cu-TG-AEm">
-                        <rect key="frame" x="30" y="203" width="70" height="21"/>
+                        <rect key="frame" x="30" y="214" width="70" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -63,7 +63,7 @@
                 <constraints>
                     <constraint firstItem="6cu-TG-AEm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7SZ-1K-oZQ"/>
                     <constraint firstItem="6cu-TG-AEm" firstAttribute="top" secondItem="VjX-eu-XXL" secondAttribute="bottom" constant="16" id="FwY-jU-iik"/>
-                    <constraint firstItem="Cip-hm-APv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="GR6-1n-McP"/>
+                    <constraint firstItem="Cip-hm-APv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="GR6-1n-McP"/>
                     <constraint firstItem="Cip-hm-APv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="J4U-Ax-C0b"/>
                     <constraint firstItem="YJX-Lw-2zI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Lte-5s-Ee3"/>
                     <constraint firstAttribute="bottom" secondItem="wzS-H4-SMA" secondAttribute="bottom" constant="16" id="Pyq-1S-UK5"/>
@@ -71,8 +71,8 @@
                     <constraint firstItem="YJX-Lw-2zI" firstAttribute="top" secondItem="BnL-d6-QRv" secondAttribute="bottom" constant="16" id="YxE-Zf-LgU"/>
                     <constraint firstItem="BnL-d6-QRv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="cXx-Ha-sFN"/>
                     <constraint firstItem="wzS-H4-SMA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="cy3-dW-oIq"/>
-                    <constraint firstItem="VjX-eu-XXL" firstAttribute="top" secondItem="YJX-Lw-2zI" secondAttribute="bottom" constant="16" id="rwT-W9-onZ"/>
-                    <constraint firstItem="wzS-H4-SMA" firstAttribute="top" secondItem="6cu-TG-AEm" secondAttribute="bottom" constant="16" id="s50-EZ-QkS"/>
+                    <constraint firstItem="VjX-eu-XXL" firstAttribute="top" secondItem="YJX-Lw-2zI" secondAttribute="bottom" constant="10" id="rwT-W9-onZ"/>
+                    <constraint firstItem="wzS-H4-SMA" firstAttribute="top" secondItem="6cu-TG-AEm" secondAttribute="bottom" constant="10" id="s50-EZ-QkS"/>
                     <constraint firstItem="BnL-d6-QRv" firstAttribute="top" secondItem="Cip-hm-APv" secondAttribute="bottom" constant="16" id="yY1-7T-goa"/>
                 </constraints>
             </tableViewCellContentView>
@@ -85,9 +85,4 @@
             <point key="canvasLocation" x="207.24637681159422" y="185.49107142857142"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

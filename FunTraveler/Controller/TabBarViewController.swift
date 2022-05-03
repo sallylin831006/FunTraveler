@@ -37,7 +37,7 @@ private enum Tab {
 
         controller.tabBarItem = tabBarItem()
 
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: -10.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 3.0, right: 0.0)
 
         return controller
     }
@@ -48,35 +48,35 @@ private enum Tab {
             
         case .explore:
             return UITabBarItem(
-                title: nil,
+                title: "探索",
                 image: UIImage.asset(.exploreNormal),
                 selectedImage: UIImage.asset(.exploreSelected)
             )
             
         case .planOverView:
             return UITabBarItem(
-                title: nil,
+                title: "行程",
                 image: UIImage.asset(.tripNormal),
                 selectedImage: UIImage.asset(.tripSelected)
             )
             
         case .profile:
             return UITabBarItem(
-                title: nil,
+                title: "個人",
                 image: UIImage.asset(.profileNormal),
                 selectedImage: UIImage.asset(.profileSelected)
             )
             
         case .video:
             return UITabBarItem(
-                title: nil,
+                title: "動態",
                 image: UIImage.asset(.collectNormal),
                 selectedImage: UIImage.asset(.collectSelected)
             )
             
         case .camera:
             return UITabBarItem(
-                title: nil,
+                title: "相機",
                 image: UIImage.asset(.cameraNormal),
                 selectedImage: UIImage.asset(.cameraSelected)
             )
@@ -106,9 +106,9 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tabBar.frame.size.height = 120
-        tabBar.frame.origin.y = view.frame.height - 100
-        
+        tabBar.frame.size.height = 90
+        tabBar.frame.origin.y = view.frame.height - 90
+        tabBar.tintColor = .black
         tabBar.layer.borderWidth = 0
         tabBar.clipsToBounds = true
         tabBar.backgroundColor = .themeApricotDeep
