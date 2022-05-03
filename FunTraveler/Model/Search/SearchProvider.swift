@@ -17,7 +17,7 @@ class SearchProvider {
     
     // MARK: - Public method
     func fetchSearch(keyword: String, position: String, radius: Int, completion: @escaping SearchHanlder) {
-//
+
 //      let searchMockData = GoogleMapResponse(results: [Results(
 //        geometry: Geometry(location: Location(lat: 25.040895, lng: 121.556335)),
 //        name: "Lady M 旗艦店", rating: Optional(3.9),

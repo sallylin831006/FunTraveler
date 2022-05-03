@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="182" id="KGk-i7-Jjw" customClass="UnFollowTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="182"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="182"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGp-YQ-DO1">
+                        <rect key="frame" x="30" y="16" width="260" height="31"/>
+                        <color key="backgroundColor" name="themeRed"/>
+                        <color key="tintColor" name="themeApricotDeep"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="追蹤"/>
+                        <connections>
+                            <action selector="tapFollowButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Uw-W1-zmw"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="追蹤這個帳號即可查看對方的旅遊回憶" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6AF-Sn-Q0Q">
+                        <rect key="frame" x="16" y="124" width="288" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" name="B1"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🔒此帳號不公開" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpI-5S-pGJ">
+                        <rect key="frame" x="32" y="87" width="256" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="6AF-Sn-Q0Q" secondAttribute="trailing" constant="16" id="1Pk-lQ-Pu0"/>
+                    <constraint firstItem="bpI-5S-pGJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="16" id="1w4-qo-isu"/>
+                    <constraint firstItem="6AF-Sn-Q0Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="3Gu-4R-ZNE"/>
+                    <constraint firstItem="AGp-YQ-DO1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7KQ-A1-Mvl"/>
+                    <constraint firstItem="AGp-YQ-DO1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Cy7-tW-trw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="bpI-5S-pGJ" secondAttribute="trailing" constant="16" id="FzE-UY-h82"/>
+                    <constraint firstItem="bpI-5S-pGJ" firstAttribute="top" secondItem="AGp-YQ-DO1" secondAttribute="bottom" constant="40" id="NVM-eB-9hW"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="6AF-Sn-Q0Q" secondAttribute="bottom" constant="31" id="Wnf-4k-ojE"/>
+                    <constraint firstAttribute="trailing" secondItem="AGp-YQ-DO1" secondAttribute="trailing" constant="30" id="l3g-6w-LiI"/>
+                    <constraint firstItem="6AF-Sn-Q0Q" firstAttribute="top" secondItem="bpI-5S-pGJ" secondAttribute="bottom" constant="16" id="uny-eW-T0z"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="followButton" destination="AGp-YQ-DO1" id="kC9-us-owb"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="156.02678571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="B1">
+            <color red="0.3919999897480011" green="0.3919999897480011" blue="0.3919999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeApricotDeep">
+            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeRed">
+            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

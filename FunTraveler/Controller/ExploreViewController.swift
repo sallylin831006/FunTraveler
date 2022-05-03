@@ -8,6 +8,7 @@
 import UIKit
 
 class ExploreViewController: UIViewController {
+    private let searchController = UISearchController(searchResultsController: nil)
     
     var exploreData: [Explore] = [] {
         didSet {
@@ -28,6 +29,8 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupSearchBar()
+        setupNavItem()
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
@@ -39,26 +42,50 @@ class ExploreViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        
+        self.tabBarController?.tabBar.isHidden = false
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
     }
     
-    // MARK: - GET Action
-    private func fetchData() {
-        let exploreProvider = ExploreProvider()
-//        showLoadingView()
-        exploreProvider.fetchExplore(completion: { [weak self] result in
-            
-            switch result {
-                
-            case .success(let exploreData):
-                
-                self?.exploreData = exploreData.data
-                
-            case .failure:
-                print("[ExploreVC] GET 讀取資料失敗！")
-            }
-        })
+    private func setupNavItem() {
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage.asset(.heartSelected),
+            style: .plain,
+            target: self,
+            action: #selector(tapInviteList)
+        )
+
+    }
+    
+    @objc func tapInviteList() {
+        guard let inviteVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.inviteVC) as? InviteListViewController else { return }
+        
+        navigationController?.pushViewController(inviteVC, animated: true)
+//        inviteVC.tabBarController?.tabBar.isHidden = true
+    }
+    
+    private func setupSearchBar() {
+        
+        searchController.searchBar.placeholder = "搜尋行程..."
+        searchController.searchBar.delegate = self
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.barTintColor = .themeRed
+        searchController.searchBar.tintColor = .themeRed
+        searchController.searchBar.backgroundColor = .themeApricot
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
+     
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .themeRed
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+
     }
     
     private func showLoadingView() {
@@ -99,8 +126,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         let item = exploreData[indexPath.row]
-        cell.layoutCell(days: item.days, tripTitle: item.title, userName: item.user.name, isCollected: item.isCollected)
-        
+        cell.layoutCell(data: item)
+
         cell.collectClosure = { isCollected in
             self.postData(isCollected: isCollected, tripId: self.exploreData[indexPath.row].id)
             self.exploreData[indexPath.row].isCollected = isCollected
@@ -108,15 +135,38 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
-        cell.heartClosure = { cell, isHeartTapped in
-            if isHeartTapped {
-                cell.heartButton.setImage(UIImage(systemName: "heart.fill"), for: .selected)
-                // POST API?
+        cell.heartClosure = { isLiked in
+            if isLiked {
+                self.postLiked(index: indexPath.row)
+                self.exploreData[indexPath.row].isLiked = isLiked
+                self.exploreData[indexPath.row].likeCount += 1
+                tableView.reloadData()
+                let indexPath = IndexPath(item: indexPath.row, section: 0)
+                tableView.reloadRows(at: [indexPath], with: .none)
             } else {
-                cell.heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
-                // POST API?
+                self.deleteLiked(index: indexPath.row)
+                self.exploreData[indexPath.row].isLiked = isLiked
+                self.exploreData[indexPath.row].likeCount -= 1
+                let indexPath = IndexPath(item: indexPath.row, section: 0)
+                tableView.reloadRows(at: [indexPath], with: .none)
             }
+           
+        }
+        
+        cell.friendClosure = {
             
+            guard let profileVC = UIStoryboard.profile.instantiateViewController(
+                withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+            
+            profileVC.userId = self.exploreData[indexPath.row].user.id
+            
+            if String(self.exploreData[indexPath.row].user.id) == KeyChainManager.shared.userId {
+                profileVC.isMyProfile = true
+            } else {
+                profileVC.isMyProfile = false
+            }
+            self.present(profileVC, animated: true)
+
         }
         
         cell.followClosure = { cell, isfollowed in
@@ -142,10 +192,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
         exploreDeatilVC.days = exploreData[indexPath.row].days
-
-        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-        self.present(navExploreDeatilVC, animated: true)
+        navigationController?.pushViewController(exploreDeatilVC, animated: true)
+        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
+//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
+//        self.present(navExploreDeatilVC, animated: true)
         
     }
 }
@@ -155,13 +206,13 @@ extension ExploreViewController {
     private func postData(isCollected: Bool, tripId: Int) {
             let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected(token: "mockToken", isCollected: isCollected,
+            collectedProvider.addCollected(isCollected: isCollected,
                                            tripId: tripId, completion: { result in
                 
                 switch result {
                     
-                case .success(let postResponse):
-                    print("按了收藏按鈕！", postResponse)
+                case .success: break
+//                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
                     print("[Explore] collected postResponse失敗！")
@@ -169,4 +220,94 @@ extension ExploreViewController {
             })
             
         }
+    // MARK: - GET Action
+    private func fetchData() {
+        let exploreProvider = ExploreProvider()
+        exploreProvider.fetchExplore(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let exploreData):
+                
+                self?.exploreData = exploreData.data
+                
+            case .failure:
+                print("[ExploreVC] GET 讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST TO SEARCH TRIP
+    private func postToSearchTrip(searchText: String) {
+        
+        let exploreProvider = ExploreProvider()
+        if searchText == "" { return }
+        exploreProvider.postToSearch(word: searchText, completion: { result in
+            
+            switch result {
+                
+            case .success(let searchResponse):
+                self.exploreData = searchResponse.data
+                print("searchResponse", searchResponse)
+                
+            case .failure:
+                print("POST TO SEARCH TRIP 失敗！")
+            }
+        })
+        
+    }
+    
+    // MARK: - POST TO Like
+    private func postLiked(index: Int) {
+            let reactionProvider = ReactionProvider()
+        reactionProvider.postToLiked(tripId: exploreData[index].id, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] Liked postResponse失敗！")
+                }
+            })
+            
+        }
+    // MARK: - DELETE TO UnLike
+    private func deleteLiked(index: Int) {
+            let reactionProvider = ReactionProvider()
+        reactionProvider.deleteUnLiked(tripId: exploreData[index].id, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] UnLiked postResponse失敗！")
+                }
+            })
+            
+        }
+       
+}
+
+extension ExploreViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        postToSearchTrip(searchText: searchText)
+        if searchText.isEmpty {
+            fetchData()
+        }
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        fetchData()
+    }
 }

@@ -39,6 +39,16 @@ enum ImageAsset: String {
     case bottomLayer
     
     case planBackground
+    
+    // Other
+    case heartSelected
+    case heartNormal
+    
+    case collectedIconSelected
+    case collectedIconNormal
+    
+    case defaultUserImage
+    case imagePlaceholder
 
 }
 

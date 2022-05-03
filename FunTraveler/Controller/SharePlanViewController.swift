@@ -120,11 +120,11 @@ class SharePlanViewController: UIViewController {
     }
     
     // MARK: - PATCH Action
-    private func patchData() {
+    private func patchData(isPrivate: Bool, isPublish: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = self.tripId else { return }
         
-        tripProvider.updateTrip(tripId: tripId, schedules: schedules, completion: { result in
+        tripProvider.updateTrip(tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish, completion: { result in
             
             switch result {
                 
@@ -184,21 +184,50 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             schedules[index].description = story.text
         }
         
-        let group = DispatchGroup()
+        decidePublishStatus()
         
-        group.enter()
-        patchData()
-        group.leave()
+//        let group = DispatchGroup()
+//
+//        group.enter()
+//        patchData(isPrivate: false, isPublish: true)
+//        group.leave()
+//
+//        group.notify(queue: .main) { [weak self] in
+//            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+//
+//            if let tabBarController = self?.presentingViewController?.presentingViewController as? UITabBarController {
+//                tabBarController.selectedIndex = 0
+//                tabBarController.tabBar.isHidden = false
+//            }
+//        }
         
-        group.notify(queue: .main) { [weak self] in
-            self?.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-            
-            if let tabBarController = self?.presentingViewController?.presentingViewController as? UITabBarController {
-                tabBarController.selectedIndex = 0
-                tabBarController.tabBar.isHidden = false
-            }
+    }
+    
+    func decidePublishStatus() {
+        let publishController = UIAlertController(title: "確定發文?", message: "選擇發文狀態", preferredStyle: .actionSheet)
+        let publicAction = UIAlertAction(title: "公開", style: .default, handler: { (_) in
+            self.patchData(isPrivate: false, isPublish: true)
+            self.moveToHomePage()
+        })
+        let privateAction = UIAlertAction(title: "私密", style: .default, handler: { (_) in
+            self.patchData(isPrivate: true, isPublish: true)
+            self.moveToHomePage()
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        publishController.addAction(publicAction)
+        publishController.addAction(privateAction)
+        publishController.addAction(cancelAction)
+        present(publishController, animated: true, completion: nil)
+    }
+    
+    func moveToHomePage() {
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+            tabBarController.selectedIndex = 0
+            tabBarController.tabBar.isHidden = false
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -244,7 +273,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             if schedules[indexPath.row].images.isEmpty {
                 experienceCell.tripImage.image = nil
             } else {
-                experienceCell.tripImage.loadImage(schedules[indexPath.row].images.first)
+                experienceCell.tripImage.loadImage(schedules[indexPath.row].images.first, placeHolder: UIImage.asset(.imagePlaceholder))
             }
             
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
@@ -313,8 +342,8 @@ extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigation
             photo.clipsToBounds = true
             
             guard let image = photo.image else { return }
-            let newImage = image.scale(newWidth: 50.0)
-            guard let imageData: NSData = newImage.pngData() as NSData? else { return }
+            let newImage = image.scale(newWidth: 100.0)
+            guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
             let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
             
             schedules[picker.view.tag].images.removeAll()
@@ -348,7 +377,7 @@ extension SharePlanViewController: SegmentControlViewDataSource {
         
         self.storiesTextViewArray = []
         self.photoImageArray = []
-        patchData()
+        patchData(isPrivate: false, isPublish: false)
         fetchData(days: index)
     }
     

@@ -19,16 +19,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-8s-8ce">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
+                            <constraint firstItem="NDk-8s-8ce" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="3dE-1L-bNS"/>
                             <constraint firstAttribute="trailing" secondItem="NDk-8s-8ce" secondAttribute="trailing" id="PaG-F1-MkY"/>
                             <constraint firstItem="NDk-8s-8ce" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="XmN-wn-mzT"/>
-                            <constraint firstItem="NDk-8s-8ce" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="luQ-1D-q5V"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="NDk-8s-8ce" secondAttribute="bottom" id="xif-5y-HR1"/>
                         </constraints>
                     </view>
@@ -50,16 +50,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="NYL-dk-vUj">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FWB-NM-1E2"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="FWB-NM-1E2" firstAttribute="trailing" secondItem="NYL-dk-vUj" secondAttribute="trailing" id="9Cu-XB-3PY"/>
-                            <constraint firstItem="NYL-dk-vUj" firstAttribute="top" secondItem="FWB-NM-1E2" secondAttribute="top" id="JDJ-NF-wza"/>
                             <constraint firstItem="NYL-dk-vUj" firstAttribute="leading" secondItem="FWB-NM-1E2" secondAttribute="leading" id="Stp-Wb-hnY"/>
+                            <constraint firstItem="NYL-dk-vUj" firstAttribute="top" secondItem="Qsv-WD-iyu" secondAttribute="top" id="mki-BH-Mr1"/>
                             <constraint firstItem="FWB-NM-1E2" firstAttribute="bottom" secondItem="NYL-dk-vUj" secondAttribute="bottom" id="toA-nI-zN1"/>
                         </constraints>
                     </view>
@@ -69,7 +69,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l0g-MT-jZl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1770" y="-19"/>
+            <point key="canvasLocation" x="1745" y="-31"/>
         </scene>
         <!--Plan Detail View Controller-->
         <scene sceneID="zya-o9-Umf">
@@ -143,30 +143,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4tT-KH-b93">
-                                <rect key="frame" x="0.0" y="162" width="414" height="700"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="700" id="qHP-Az-zQw"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="114" width="414" height="748"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <searchBar contentMode="redraw" text="" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdv-on-G65">
-                                <rect key="frame" x="0.0" y="92" width="414" height="70"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="AEt-L2-S7I"/>
                                 </constraints>
-                                <color key="barTintColor" name="themeApricotDeep"/>
+                                <color key="barTintColor" name="themeApricot"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Gul-wH-aS2"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
-                            <constraint firstItem="Gul-wH-aS2" firstAttribute="bottom" secondItem="4tT-KH-b93" secondAttribute="bottom" id="3qr-ov-6dI"/>
+                            <constraint firstItem="4tT-KH-b93" firstAttribute="top" secondItem="Gdv-on-G65" secondAttribute="bottom" id="0SR-Ja-VrK"/>
                             <constraint firstItem="Gdv-on-G65" firstAttribute="leading" secondItem="Gul-wH-aS2" secondAttribute="leading" id="NTX-hC-GOg"/>
                             <constraint firstItem="4tT-KH-b93" firstAttribute="leading" secondItem="Gul-wH-aS2" secondAttribute="leading" id="VZB-yo-NeF"/>
+                            <constraint firstItem="Gdv-on-G65" firstAttribute="top" secondItem="Gul-wH-aS2" secondAttribute="top" id="bfc-5k-qwa"/>
                             <constraint firstItem="Gdv-on-G65" firstAttribute="trailing" secondItem="Gul-wH-aS2" secondAttribute="trailing" id="oje-Ja-sqS"/>
                             <constraint firstItem="Gul-wH-aS2" firstAttribute="trailing" secondItem="4tT-KH-b93" secondAttribute="trailing" id="qgv-ot-PgV"/>
-                            <constraint firstItem="4tT-KH-b93" firstAttribute="top" secondItem="Gdv-on-G65" secondAttribute="bottom" id="rjl-QG-qaG"/>
+                            <constraint firstItem="4tT-KH-b93" firstAttribute="bottom" secondItem="Gul-wH-aS2" secondAttribute="bottom" id="rxO-BI-4Nh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -176,7 +174,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qeu-oH-2zf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3990" y="-19"/>
+            <point key="canvasLocation" x="3989.8550724637685" y="-19.419642857142858"/>
         </scene>
         <!--Share Plan View Controller-->
         <scene sceneID="QG7-dF-5LH">
@@ -188,11 +186,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="DEv-Yj-xYF">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4f6-Cx-H7n"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="DEv-Yj-xYF" firstAttribute="top" secondItem="4f6-Cx-H7n" secondAttribute="top" id="MLb-KY-6nQ"/>
                             <constraint firstItem="4f6-Cx-H7n" firstAttribute="bottom" secondItem="DEv-Yj-xYF" secondAttribute="bottom" id="N96-LJ-lvJ"/>
@@ -228,8 +226,8 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="themeApricotDeep">
-            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -12,51 +12,52 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="115" id="KGk-i7-Jjw" customClass="SearchTableViewCell" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="419" height="115"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="SearchTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="419" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="419" height="115"/>
+                <rect key="frame" x="0.0" y="0.0" width="419" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="烏來老街" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAK-ef-T2d">
-                        <rect key="frame" x="16" y="16" width="69.5" height="20.5"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                        <rect key="frame" x="16" y="16" width="65.5" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="★★★★☆4.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2E1-GV-VFo">
-                        <rect key="frame" x="16" y="52.5" width="109" height="21"/>
+                        <rect key="frame" x="16" y="51.5" width="85" height="16"/>
                         <color key="tintColor" systemColor="systemYellowColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" systemColor="systemYellowColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新北市烏來區烏來街34號" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLj-c9-gJt">
-                        <rect key="frame" x="16" y="83.5" width="160.5" height="15.5"/>
+                        <rect key="frame" x="16" y="77.5" width="127" height="11"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="RTJ-pd-7Dz"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-mw-g8e">
-                        <rect key="frame" x="307" y="42" width="96" height="31"/>
-                        <color key="backgroundColor" name="themeRed"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuf-mw-g8e">
+                        <rect key="frame" x="324" y="35.5" width="79" height="29"/>
+                        <color key="backgroundColor" name="themePink"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="tintColor" name="themeApricotDeep"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" title="＋加入行程"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <state key="normal" title=" ＋加入行程 "/>
                     </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="JAK-ef-T2d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="27M-4c-f53"/>
-                    <constraint firstItem="oLj-c9-gJt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Tqg-C4-ysG"/>
-                    <constraint firstItem="2E1-GV-VFo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Y4m-fv-Rwo"/>
+                    <constraint firstAttribute="bottom" secondItem="oLj-c9-gJt" secondAttribute="bottom" constant="11.5" id="4qP-us-RaL"/>
+                    <constraint firstItem="oLj-c9-gJt" firstAttribute="leading" secondItem="2E1-GV-VFo" secondAttribute="leading" id="Hbf-Ya-xDQ"/>
                     <constraint firstItem="2E1-GV-VFo" firstAttribute="top" secondItem="JAK-ef-T2d" secondAttribute="bottom" constant="16" id="cex-Kv-Tie"/>
                     <constraint firstAttribute="trailing" secondItem="yuf-mw-g8e" secondAttribute="trailing" constant="16" id="hlS-sw-83d"/>
                     <constraint firstItem="yuf-mw-g8e" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="i7z-Je-BBi"/>
-                    <constraint firstAttribute="bottom" secondItem="oLj-c9-gJt" secondAttribute="bottom" constant="16" id="kcT-Ra-N2b"/>
+                    <constraint firstItem="2E1-GV-VFo" firstAttribute="leading" secondItem="JAK-ef-T2d" secondAttribute="leading" id="oZh-L9-jhh"/>
                     <constraint firstItem="JAK-ef-T2d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="pw9-hf-zfM"/>
                     <constraint firstItem="oLj-c9-gJt" firstAttribute="top" secondItem="2E1-GV-VFo" secondAttribute="bottom" constant="10" id="sDa-9l-uIa"/>
                 </constraints>
@@ -68,15 +69,15 @@
                 <outlet property="nameLabel" destination="JAK-ef-T2d" id="2Rd-n4-7AV"/>
                 <outlet property="ratingLabel" destination="2E1-GV-VFo" id="yiK-jQ-Riu"/>
             </connections>
-            <point key="canvasLocation" x="209.42028985507247" y="107.47767857142857"/>
+            <point key="canvasLocation" x="209.42028985507247" y="102.45535714285714"/>
         </tableViewCell>
     </objects>
     <resources>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="themeRed">
-            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="themePink">
+            <color red="0.90980392156862744" green="0.60784313725490191" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

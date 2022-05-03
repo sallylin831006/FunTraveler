@@ -8,10 +8,13 @@
 import UIKit
 
 class PlanCardHeaderView: UITableViewHeaderFooterView {
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var ownerImageView: UIImageView!
+    
     
     @IBOutlet weak var departmentPickerView: TimePickerView!
     
@@ -21,25 +24,47 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var inviteButton: UIButton!
     
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     
-        setupHeaderView()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
-        setupHeaderView()
     }
-
-    private func setupHeaderView() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        ownerImageView.layer.cornerRadius = ownerImageView.frame.width/2
+        ownerImageView.contentMode = .scaleAspectFill
+        ownerImageView.layer.borderWidth = 2
+        ownerImageView.layer.borderColor = UIColor.themeApricot?.cgColor
         contentView.backgroundColor = UIColor.themeLightBlue
-
-        contentView.layer.cornerRadius = 40
+        contentView.layer.cornerRadius = 12
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-
     }
     
-    // input
+    func layoutHeaderView(data: Trip) {
+        if data.user.imageUrl == "" {
+            ownerImageView.image = UIImage.asset(.defaultUserImage)
+        } else {
+            ownerImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
+        }
+       
+        titleLabel.text = data.title
+        
+        guard let startDate = data.startDate,
+              let endtDate = data.endDate
+        else { return }
+        dateLabel.text = "\(startDate) - \(endtDate)"
+      
+    }
+
+}
+
+extension PlanCardHeaderView: PlanPickerViewControllerDelegate {
+    func reloadCollectionView(_ collectionView: UICollectionView) {
+        collectionView.reloadData()
+    }
+   
 }

@@ -13,6 +13,12 @@ class FooterView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var cancelButton: UIButton!
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        saveButton.layer.cornerRadius = CornerRadius.buttonCorner
+        cancelButton.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
        
