@@ -216,7 +216,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             cell.tripImage.image = nil
             cell.tripImage.backgroundColor = UIColor.themeApricotDeep
         } else {
-            cell.tripImage.loadImage(schedule[indexPath.row].images.first)
+            cell.tripImage.loadImage(schedule[indexPath.row].images.first, placeHolder: UIImage.asset(.imagePlaceholder))
             cell.tripImage.contentMode = .scaleAspectFill
         }
         

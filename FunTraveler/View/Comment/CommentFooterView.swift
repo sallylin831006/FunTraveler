@@ -51,7 +51,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
     }
     
     func layoutFooter(data: Profile) {
-        userImageView.loadImage(data.imageUrl)
+        userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         commentTextField.placeholder =  "以\(data.name)新增留言..."
     }
     

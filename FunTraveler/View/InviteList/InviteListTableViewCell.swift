@@ -44,7 +44,7 @@ class InviteListTableViewCell: UITableViewCell {
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImageView.loadImage(data.imageUrl)
+            userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
         
         nameLabel.text = data.name

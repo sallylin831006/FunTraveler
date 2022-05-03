@@ -90,7 +90,7 @@ class ProfileTableViewCell: UITableViewCell {
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImageView.loadImage(data.imageUrl)
+            userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
         numberOfFriendLabel.text = String(data.numberOfFriends)
         numberOfTrips.text = String(data.numberOfTrips)

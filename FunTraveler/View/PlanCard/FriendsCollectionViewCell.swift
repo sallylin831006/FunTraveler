@@ -39,7 +39,7 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         if data[index].imageUrl == "" {
             userImage.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImage.loadImage(data[index].imageUrl)
+            userImage.loadImage(data[index].imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
     }
     

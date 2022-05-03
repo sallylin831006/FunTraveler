@@ -36,7 +36,7 @@ class VideoWallHeaderView: UICollectionReusableView {
         if data[section].user.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImageView.loadImage(data[section].user.imageUrl)
+            userImageView.loadImage(data[section].user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
         
         userNameLabel.text =  data[section].user.name
