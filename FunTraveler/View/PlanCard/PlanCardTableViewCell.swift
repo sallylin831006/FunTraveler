@@ -62,9 +62,17 @@ class PlanCardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var endTimeLabel: UILabel!
     
+    @IBOutlet weak var cardView: UIView!
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cardView.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-                
+        self.backgroundColor = .clear
+        self.selectionStyle = .none
         trafficPickerView.picker.delegate = self
         
         trafficPickerView.picker.dataSource = self
@@ -101,6 +109,15 @@ class PlanCardTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func layouCell(data: Schedule, index: Int) {
+        nameLabel.text = data.name
+        addressLabel.text = data.address
+        startTime = data.startTime
+        durationTime = data.duration
+        trafficTime = data.trafficTime
+        orderLabel.text = String(index + 1)
     }
 
 }

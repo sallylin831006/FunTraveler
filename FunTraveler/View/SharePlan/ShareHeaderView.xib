@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,52 +13,54 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ShareHeaderView" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="498" height="148"/>
+            <rect key="frame" x="0.0" y="0.0" width="498" height="131"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="s4y-jr-jKD">
+                    <rect key="frame" x="0.0" y="0.0" width="498" height="131"/>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="小琉球潛水趣" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2T-Cy-Aab">
-                    <rect key="frame" x="191" y="16" width="116.5" height="23"/>
+                    <rect key="frame" x="191" y="20" width="116.5" height="23"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="YEi-ZS-36V"/>
                     </constraints>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" name="themeApricot"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2022年10月06日- 2022年10月08日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="paM-Zr-p6S">
-                    <rect key="frame" x="135" y="55" width="228" height="17"/>
+                    <rect key="frame" x="142.5" y="53" width="213" height="14"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="ya0-Qx-9Jq"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" name="themeApricotDeep"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Esd-sT-hWD" customClass="SegmentControlView" customModule="FunTraveler" customModuleProvider="target">
-                    <rect key="frame" x="99" y="88" width="300" height="40"/>
+                    <rect key="frame" x="99" y="75" width="300" height="40"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="300" id="cgp-0P-545"/>
                         <constraint firstAttribute="height" constant="40" id="knI-tI-h06"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s4y-jr-jKD">
-                    <rect key="frame" x="0.0" y="0.0" width="498" height="148"/>
-                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="themeApricot"/>
             <constraints>
                 <constraint firstItem="Esd-sT-hWD" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0gR-DP-Bhd"/>
                 <constraint firstItem="s4y-jr-jKD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0nX-Dn-EyP"/>
                 <constraint firstItem="s4y-jr-jKD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Rm-2z-52X"/>
-                <constraint firstItem="Esd-sT-hWD" firstAttribute="top" secondItem="paM-Zr-p6S" secondAttribute="bottom" constant="16" id="Gnm-SQ-Wii"/>
+                <constraint firstAttribute="bottom" secondItem="s4y-jr-jKD" secondAttribute="bottom" id="9QO-Pb-DCc"/>
+                <constraint firstItem="s4y-jr-jKD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="JaE-H9-leM"/>
                 <constraint firstItem="paM-Zr-p6S" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="T87-ed-dXn"/>
-                <constraint firstItem="H2T-Cy-Aab" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="axs-1f-2n3"/>
-                <constraint firstAttribute="bottom" secondItem="Esd-sT-hWD" secondAttribute="bottom" constant="20" symbolic="YES" id="enT-9s-rMN"/>
-                <constraint firstItem="paM-Zr-p6S" firstAttribute="top" secondItem="H2T-Cy-Aab" secondAttribute="bottom" constant="16" id="gLT-Ia-9l7"/>
+                <constraint firstItem="H2T-Cy-Aab" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="axs-1f-2n3"/>
+                <constraint firstAttribute="bottom" secondItem="Esd-sT-hWD" secondAttribute="bottom" constant="16" id="enT-9s-rMN"/>
+                <constraint firstItem="paM-Zr-p6S" firstAttribute="top" secondItem="H2T-Cy-Aab" secondAttribute="bottom" constant="10" id="gLT-Ia-9l7"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="s4y-jr-jKD" secondAttribute="trailing" id="jH5-x5-Bh0"/>
                 <constraint firstAttribute="bottom" secondItem="s4y-jr-jKD" secondAttribute="bottom" id="mtH-KB-tRk"/>
+                <constraint firstItem="Esd-sT-hWD" firstAttribute="top" secondItem="paM-Zr-p6S" secondAttribute="bottom" constant="8" symbolic="YES" id="uil-1I-SMj"/>
                 <constraint firstItem="H2T-Cy-Aab" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ymB-IF-hHd"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -67,10 +70,17 @@
                 <outlet property="selectionView" destination="Esd-sT-hWD" id="0sr-Rj-ra7"/>
                 <outlet property="titleLabel" destination="H2T-Cy-Aab" id="8Tm-zC-Dqi"/>
             </connections>
-            <point key="canvasLocation" x="192.75362318840581" y="-134.59821428571428"/>
+            <point key="canvasLocation" x="192.75362318840581" y="-140.29017857142856"/>
         </view>
     </objects>
     <resources>
+        <image name="headerBackgroundImage" width="828" height="211.71000671386719"/>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeApricotDeep">
+            <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

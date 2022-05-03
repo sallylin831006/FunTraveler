@@ -12,17 +12,28 @@ class VideoCollectionViewCell: UICollectionViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
+//    let containerView = UIView()
     
+//    let playerView = PlayerView()
+
     let playerView: PlayerView = {
         let view = PlayerView()
         view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
+//    let locationLabel: UILabel = {
+//        let locationLabel = UILabel()
+//        locationLabel.backgroundColor = .red
+//        return locationLabel
+//    }()
+    
+    private let locationLabel = UILabel()
+    private let dateLabel = UILabel()
+
     var url: URL?
     
     override func awakeFromNib() {
@@ -46,6 +57,8 @@ class VideoCollectionViewCell: UICollectionViewCell {
     func setUpUI() {
         setupContainerView()
         setupPlayerView()
+        setupDateLabel()
+        setupLocationLabel()
     }
     
     @objc func volumeAction(_ sender: UIButton) {
@@ -69,12 +82,18 @@ class VideoCollectionViewCell: UICollectionViewCell {
         self.url = url
         playerView.prepareToPlay(withUrl: url, shouldPlayImmediately: false)
     }
+    
+    func layoutCell(data: Video, index: Int) {
+        locationLabel.text = data.location
+        dateLabel.text = data.createdTime
+    }
+
 }
 
 extension VideoCollectionViewCell {
     func setupContainerView() {
         self.addSubview(containerView)
-        
+        containerView.backgroundColor = .white
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
         containerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
@@ -85,11 +104,36 @@ extension VideoCollectionViewCell {
     }
     func setupPlayerView() {
         self.containerView.addSubview(playerView)
+        playerView.clipsToBounds = true
         playerView.translatesAutoresizingMaskIntoConstraints = false
-        playerView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        playerView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        playerView.rightAnchor.constraint(equalTo: rightAnchor, constant: -40).isActive = true
+        playerView.leftAnchor.constraint(equalTo: leftAnchor, constant: 40).isActive = true
         playerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+    
+    func setupDateLabel() {
+        self.containerView.addSubview(dateLabel)
+        dateLabel.textAlignment = .right
+        dateLabel.font = UIFont(name: UIFont.AppleColorEmoji.colorEmoji.rawValue, size: 10)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.rightAnchor.constraint(equalTo: playerView.rightAnchor, constant: -20).isActive = true
+        dateLabel.leftAnchor.constraint(equalTo: playerView.leftAnchor, constant: 60).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        
+        dateLabel.bottomAnchor.constraint(equalTo: playerView.bottomAnchor, constant: -10).isActive = true
+    }
+    
+    func setupLocationLabel() {
+        self.containerView.addSubview(locationLabel)
+        locationLabel.textAlignment = .right
+        locationLabel.font = UIFont(name: UIFont.AppleColorEmoji.colorEmoji.rawValue, size: 16)
+        locationLabel.translatesAutoresizingMaskIntoConstraints = false
+        locationLabel.rightAnchor.constraint(equalTo: playerView.rightAnchor, constant: -20).isActive = true
+        locationLabel.leftAnchor.constraint(equalTo: playerView.leftAnchor, constant: 60).isActive = true
+        locationLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+
+        locationLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0).isActive = true
     }
     
 }

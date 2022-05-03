@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 typealias TripHanlder = (Result<Trips>) -> Void
+typealias AddTripHanlder = (Result<AddTrip>) -> Void
 typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
 typealias ResponseHanlder = (Result<String>) -> Void
 
@@ -57,7 +58,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO ADD NEW TRIP
-    func addTrip(title: String, startDate: String, endDate: String, completion: @escaping ScheduleInfoHanlder) {
+    func addTrip(title: String, startDate: String, endDate: String, completion: @escaping AddTripHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -75,13 +76,13 @@ class TripProvider {
                     do {
 
                         let addTrip = try JSONDecoder().decode(
-                            ScheduleInfo.self,
+                            AddTrips.self,
                             from: data
                         )
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(addTrip))
+                            completion(Result.success(addTrip.data))
                         }
                         
                     } catch {
@@ -182,7 +183,7 @@ class TripProvider {
     }
     
     // MARK: - PATCH to Update and publish schedules
-    func updateTrip(tripId: Int, schedules: [Schedule], completion: @escaping ResponseHanlder) {
+    func updateTrip(tripId: Int, schedules: [Schedule], isPrivate: Bool, isPublish: Bool, completion: @escaping ResponseHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -190,9 +191,7 @@ class TripProvider {
         }
         
         HTTPClient.shared.request(
-            TripRequest.updateTrip(token: token,
-                                   tripId: tripId,
-                                   schedules: schedules), completion: {  result in
+            TripRequest.updateTrip(token: token, tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: {  result in
                
                 switch result {
                     

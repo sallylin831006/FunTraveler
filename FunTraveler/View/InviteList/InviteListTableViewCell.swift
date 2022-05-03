@@ -37,7 +37,16 @@ class InviteListTableViewCell: UITableViewCell {
     }
     
     func layoutCell(data: User, index: Int) {
-        userImageView.loadImage(data.imageUrl)
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
+        
+        if data.imageUrl == "" {
+            userImageView.image = UIImage.asset(.defaultUserImage)
+        } else {
+            userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
+        }
+        
         nameLabel.text = data.name
         self.index = index
     }
@@ -45,7 +54,7 @@ class InviteListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-        // Initialization code
+        self.backgroundColor = .themeApricot
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

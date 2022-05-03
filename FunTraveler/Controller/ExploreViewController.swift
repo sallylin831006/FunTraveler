@@ -43,13 +43,18 @@ class ExploreViewController: UIViewController {
         fetchData()
         tableView.reloadData()
         self.tabBarController?.tabBar.isHidden = false
-
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
     }
     
     private func setupNavItem() {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "heart.fill"),
+            image: UIImage.asset(.heartSelected),
             style: .plain,
             target: self,
             action: #selector(tapInviteList)
@@ -74,7 +79,7 @@ class ExploreViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
-
+        searchController.searchBar.backgroundColor = .themeApricot
         searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
      
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
@@ -134,11 +139,14 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             if isLiked {
                 self.postLiked(index: indexPath.row)
                 self.exploreData[indexPath.row].isLiked = isLiked
+                self.exploreData[indexPath.row].likeCount += 1
+                tableView.reloadData()
                 let indexPath = IndexPath(item: indexPath.row, section: 0)
                 tableView.reloadRows(at: [indexPath], with: .none)
             } else {
                 self.deleteLiked(index: indexPath.row)
                 self.exploreData[indexPath.row].isLiked = isLiked
+                self.exploreData[indexPath.row].likeCount -= 1
                 let indexPath = IndexPath(item: indexPath.row, section: 0)
                 tableView.reloadRows(at: [indexPath], with: .none)
             }
@@ -151,7 +159,12 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
             
             profileVC.userId = self.exploreData[indexPath.row].user.id
-            profileVC.isMyProfile = false
+            
+            if String(self.exploreData[indexPath.row].user.id) == KeyChainManager.shared.userId {
+                profileVC.isMyProfile = true
+            } else {
+                profileVC.isMyProfile = false
+            }
             self.present(profileVC, animated: true)
 
         }

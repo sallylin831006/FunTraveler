@@ -59,5 +59,4 @@ class SuccessView: UIView {
         })
         
     }
-    
 }

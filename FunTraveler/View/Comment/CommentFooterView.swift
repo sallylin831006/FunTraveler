@@ -23,6 +23,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
         sendCommentButton.addTarget(self, action: #selector(tapToSendComment), for: .touchUpInside)
         commentTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         sendCommentButton.isHidden = true
+        self.backgroundColor = .themeApricot
     }
     
     override init(reuseIdentifier: String?) {
@@ -49,7 +50,16 @@ class CommentFooterView: UITableViewHeaderFooterView {
         
     }
     
-    func layoutFooter() {
+    func layoutFooter(data: Profile) {
+        userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
+        commentTextField.placeholder =  "以\(data.name)新增留言..."
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = userImageView.frame.width/2
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.clipsToBounds = true
         
     }
 

@@ -40,16 +40,28 @@ class RegisterViewController: UIViewController {
     
     private func addCustomBackButton() {
         let customBackButton = UIButton()
-        customBackButton.frame = CGRect(x: 20, y: 350, width: 30, height: 30)
+        let frameY = UIScreen.height - 500 - 100 + 25
+        customBackButton.frame = CGRect(x: 20, y: frameY, width: 30, height: 30)
         customBackButton.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        customBackButton.tintColor = .white
-        customBackButton.backgroundColor = .systemYellow
+        customBackButton.tintColor = .black
         customBackButton.addTarget(self, action: #selector(backTap), for: .touchUpInside)
         self.view.addSubview(customBackButton)
     }
     
     @objc func backTap(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.layer.cornerRadius = 10
+        tableView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
     }
     
 }

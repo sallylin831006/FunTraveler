@@ -24,23 +24,22 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var editButton: UIButton!
     
-
-    @IBAction func tapFriendListButton(_ sender: Any) {
-        
-    }
-
+    @IBOutlet weak var numberOfFriendLabel: UILabel!
+    
+    @IBOutlet weak var numberOfTrips: UILabel!
+    
     @IBOutlet weak var numberOfFriendsButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let margins = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+        self.backgroundColor = .themeApricot
+        let margins = UIEdgeInsets(top: 10, left: 10, bottom: -10, right: 10)
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 4
-        contentView.layer.cornerRadius = 10.0
+        contentView.layer.borderWidth = 3
+        contentView.layer.cornerRadius = 15.0
         contentView.layer.masksToBounds = true
-        contentView.backgroundColor = .themeApricotDeep
+        contentView.backgroundColor = .themeApricot
         userImageView.backgroundColor = UIColor.white
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
@@ -86,13 +85,15 @@ class ProfileTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func layoutCell(data: User) {
+    func layoutCell(data: Profile) {
         userNameTextField.text = data.name
         if data.imageUrl == "" {
-            userImageView.image = nil
+            userImageView.image = UIImage.asset(.defaultUserImage)
         } else {
-            userImageView.loadImage(data.imageUrl)
+            userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
+        numberOfFriendLabel.text = String(data.numberOfFriends)
+        numberOfTrips.text = String(data.numberOfTrips)
     }
 }
 
