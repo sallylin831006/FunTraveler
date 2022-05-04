@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,22 +18,37 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gdz-T3-O6O">
                     <rect key="frame" x="477" y="17" width="47" height="31"/>
-                    <color key="tintColor" name="themeRed"/>
+                    <color key="tintColor" name="themePink"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="doc.on.doc.fill" catalog="system" title=""/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OZ-Gu-vbA">
-                    <rect key="frame" x="452" y="20" width="25" height="25"/>
+                    <rect key="frame" x="444" y="0.0" width="33" height="54"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="25" id="qfo-RM-vGY"/>
-                        <constraint firstAttribute="width" constant="25" id="y4N-oJ-rRg"/>
+                        <constraint firstAttribute="width" secondItem="9OZ-Gu-vbA" secondAttribute="height" multiplier="11:18" id="gxp-d4-HY2"/>
+                        <constraint firstAttribute="width" constant="33" id="w9u-hq-ENI"/>
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="" image="collectSelected"/>
-                    <buttonConfiguration key="configuration" style="plain" image="collectSelected" title=""/>
+                    <state key="normal" title="" image="collectedIconSelected"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCy-qe-U0C">
+                    <rect key="frame" x="30" y="22" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="6Cf-dq-Adf"/>
+                        <constraint firstAttribute="height" constant="20" id="cWJ-PV-V4d"/>
+                    </constraints>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" image="heartNormal"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100個讚" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zE4-LU-7sN">
+                    <rect key="frame" x="60" y="24.5" width="46" height="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" systemColor="systemYellowColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTg-qA-fsR">
-                    <rect key="frame" x="16" y="19" width="124" height="29"/>
+                    <rect key="frame" x="118" y="16" width="124" height="32"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="tintColor" name="themeRed"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -42,29 +58,44 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="themeApricotDeep"/>
             <constraints>
-                <constraint firstItem="9OZ-Gu-vbA" firstAttribute="centerY" secondItem="Gdz-T3-O6O" secondAttribute="centerY" id="7J6-48-IKk"/>
-                <constraint firstItem="UTg-qA-fsR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Qbp-Hb-A67"/>
+                <constraint firstItem="UTg-qA-fsR" firstAttribute="centerY" secondItem="ZCy-qe-U0C" secondAttribute="centerY" id="0Kp-e7-Kr7"/>
+                <constraint firstItem="ZCy-qe-U0C" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0i9-Tr-d05"/>
+                <constraint firstItem="UTg-qA-fsR" firstAttribute="leading" secondItem="zE4-LU-7sN" secondAttribute="trailing" constant="12" id="3WI-5v-Sn0"/>
                 <constraint firstAttribute="bottom" secondItem="Gdz-T3-O6O" secondAttribute="bottom" constant="16" id="SwH-AH-JDa"/>
                 <constraint firstItem="Gdz-T3-O6O" firstAttribute="leading" secondItem="9OZ-Gu-vbA" secondAttribute="trailing" id="VAn-IS-L9F"/>
+                <constraint firstItem="zE4-LU-7sN" firstAttribute="leading" secondItem="ZCy-qe-U0C" secondAttribute="trailing" constant="10" id="WmJ-Xg-JuX"/>
+                <constraint firstItem="zE4-LU-7sN" firstAttribute="centerY" secondItem="ZCy-qe-U0C" secondAttribute="centerY" id="ihP-1Y-EC9"/>
                 <constraint firstAttribute="bottom" secondItem="UTg-qA-fsR" secondAttribute="bottom" constant="16" id="m0U-C4-n3m"/>
+                <constraint firstItem="9OZ-Gu-vbA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="tty-ai-Lf3"/>
+                <constraint firstItem="ZCy-qe-U0C" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="u9H-oa-Wvp"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gdz-T3-O6O" secondAttribute="trailing" constant="16" id="xYr-DG-f3W"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="collectButton" destination="9OZ-Gu-vbA" id="hDb-Hb-GJV"/>
                 <outlet property="copyButton" destination="Gdz-T3-O6O" id="kr9-lX-Nzx"/>
+                <outlet property="heartButton" destination="ZCy-qe-U0C" id="p8r-Nn-ylB"/>
                 <outlet property="moveToCommentButton" destination="UTg-qA-fsR" id="rxs-RO-JNp"/>
+                <outlet property="numberOfLikeLabel" destination="zE4-LU-7sN" id="APw-eu-Cy7"/>
             </connections>
             <point key="canvasLocation" x="228.98550724637684" y="-152.00892857142856"/>
         </view>
     </objects>
     <resources>
-        <image name="collectSelected" width="70" height="70"/>
+        <image name="collectedIconSelected" width="53.830001831054688" height="95.449996948242188"/>
         <image name="doc.on.doc.fill" catalog="system" width="116" height="128"/>
+        <image name="heartNormal" width="47.950000762939453" height="42.889999389648438"/>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themePink">
+            <color red="0.9100000262260437" green="0.60799998044967651" blue="0.54900002479553223" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeRed">
             <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

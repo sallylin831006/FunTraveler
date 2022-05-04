@@ -28,9 +28,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     @IBOutlet weak var collectButton: UIButton!
     
     @IBOutlet weak var heartButton: UIButton!
-    
-    @IBOutlet weak var followButton: UIButton!
-    
+        
     @IBOutlet weak var numberOfLikeLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
@@ -67,10 +65,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         self.isLiked = data.isLiked
         heartButton.isSelected = data.isLiked
 
-        followButton.setTitle("追蹤", for: .normal)
-        followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
-        followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        
         dateLabel.text = data.publishedDate
         
     }
@@ -80,7 +74,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         
         heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
         collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
-        followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserImage(gestureRecognizer:)))
         userImageView.isUserInteractionEnabled = true
