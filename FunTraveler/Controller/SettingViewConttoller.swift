@@ -12,8 +12,8 @@ class SettingViewController: UIViewController {
     private enum Setting: String {
         case deleteAccount = "刪除帳戶"
         case logOut = "登出"
-        case privacy = "隱私權政策"
         case blockList = "已封鎖的使用者"
+        case privacy = "隱私權政策"
     }
     
     private struct SettingData: Hashable {
@@ -22,8 +22,8 @@ class SettingViewController: UIViewController {
     
     private var settingData: [SettingData] = [ SettingData(content: Setting.deleteAccount.rawValue),
                                                SettingData(content: Setting.logOut.rawValue),
-                                               SettingData(content: Setting.privacy.rawValue),
-                                               SettingData(content: Setting.blockList.rawValue)
+                                               SettingData(content: Setting.blockList.rawValue),
+                                               SettingData(content: Setting.privacy.rawValue)
     ]
     
     @IBOutlet weak var tableView: UITableView! {
@@ -87,6 +87,11 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         }
         if indexPath.row == 1 {
             logOut()
+        }
+        if indexPath.row == 2 {
+            let blockListViewController = BlockListViewController()
+            self.navigationController?.pushViewController(blockListViewController, animated: true)
+
         }
     }
     

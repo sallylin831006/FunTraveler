@@ -69,6 +69,7 @@
 		3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B6E2814D68B00D00638 /* SuccessView.swift */; };
 		3A2B6B712814D6A400D00638 /* Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B702814D6A300D00638 /* Success.json */; };
 		3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B722814D89400D00638 /* LottieConstant.swift */; };
+		3A35288E28222009003E6400 /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A35288D28222009003E6400 /* BlockListViewController.swift */; };
 		3A3FC6A42821099500788DE3 /* TextfieldHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */; };
 		3A40D3462816C14E00A7BF51 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D3452816C14E00A7BF51 /* UserProvider.swift */; };
 		3A40D3482816C15700A7BF51 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D3472816C15700A7BF51 /* UserRequest.swift */; };
@@ -212,6 +213,7 @@
 		3A2B6B6E2814D68B00D00638 /* SuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessView.swift; sourceTree = "<group>"; };
 		3A2B6B702814D6A300D00638 /* Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Success.json; sourceTree = "<group>"; };
 		3A2B6B722814D89400D00638 /* LottieConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieConstant.swift; sourceTree = "<group>"; };
+		3A35288D28222009003E6400 /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
 		3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldHelper.swift; sourceTree = "<group>"; };
 		3A40D3452816C14E00A7BF51 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		3A40D3472816C15700A7BF51 /* UserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
@@ -651,6 +653,7 @@
 				3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */,
 				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
+				3A35288D28222009003E6400 /* BlockListViewController.swift */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,
@@ -968,6 +971,7 @@
 				3A40D3482816C15700A7BF51 /* UserRequest.swift in Sources */,
 				3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
+				3A35288E28222009003E6400 /* BlockListViewController.swift in Sources */,
 				3A8E506A2814F5B700DF40AE /* VideoProvider.swift in Sources */,
 				3A2B6B6F2814D68B00D00638 /* SuccessView.swift in Sources */,
 				3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */,
