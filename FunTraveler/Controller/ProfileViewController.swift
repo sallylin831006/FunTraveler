@@ -79,7 +79,7 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tableView.isHidden = false
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         

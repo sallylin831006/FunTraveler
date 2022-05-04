@@ -38,7 +38,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VjX-eu-XXL" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="30" y="163" width="160" height="35"/>
+                        <rect key="frame" x="25" y="163" width="160" height="35"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="JA6-ar-wHL"/>
@@ -46,7 +46,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzS-H4-SMA" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="30" y="245" width="160" height="35"/>
+                        <rect key="frame" x="25" y="245" width="160" height="35"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="C6l-BC-J6F"/>
@@ -67,10 +67,10 @@
                     <constraint firstItem="Cip-hm-APv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="J4U-Ax-C0b"/>
                     <constraint firstItem="YJX-Lw-2zI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Lte-5s-Ee3"/>
                     <constraint firstAttribute="bottom" secondItem="wzS-H4-SMA" secondAttribute="bottom" constant="16" id="Pyq-1S-UK5"/>
-                    <constraint firstItem="VjX-eu-XXL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Pys-zW-wDb"/>
+                    <constraint firstItem="VjX-eu-XXL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Pys-zW-wDb"/>
                     <constraint firstItem="YJX-Lw-2zI" firstAttribute="top" secondItem="BnL-d6-QRv" secondAttribute="bottom" constant="16" id="YxE-Zf-LgU"/>
                     <constraint firstItem="BnL-d6-QRv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="cXx-Ha-sFN"/>
-                    <constraint firstItem="wzS-H4-SMA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="cy3-dW-oIq"/>
+                    <constraint firstItem="wzS-H4-SMA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="cy3-dW-oIq"/>
                     <constraint firstItem="VjX-eu-XXL" firstAttribute="top" secondItem="YJX-Lw-2zI" secondAttribute="bottom" constant="10" id="rwT-W9-onZ"/>
                     <constraint firstItem="wzS-H4-SMA" firstAttribute="top" secondItem="6cu-TG-AEm" secondAttribute="bottom" constant="10" id="s50-EZ-QkS"/>
                     <constraint firstItem="BnL-d6-QRv" firstAttribute="top" secondItem="Cip-hm-APv" secondAttribute="bottom" constant="16" id="yY1-7T-goa"/>

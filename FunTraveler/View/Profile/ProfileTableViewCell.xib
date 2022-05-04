@@ -76,10 +76,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhS-YY-4gz">
-                        <rect key="frame" x="365" y="20" width="44" height="31"/>
+                        <rect key="frame" x="349" y="20" width="60" height="31"/>
                         <constraints>
-                            <constraint firstAttribute="width" secondItem="UhS-YY-4gz" secondAttribute="height" multiplier="44:31" id="4dJ-PO-P5z"/>
-                            <constraint firstAttribute="width" constant="44" id="wZk-Mr-nZS"/>
+                            <constraint firstAttribute="width" constant="60" id="wZk-Mr-nZS"/>
                         </constraints>
                         <color key="tintColor" name="themeLightBlue"/>
                         <state key="normal" title="Button"/>

@@ -80,7 +80,19 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: CommentFooterView.identifier)
                 as? CommentFooterView else { return nil }
+
+        if profileData == nil {
+            footerView.moveToLoginButton.isHidden = false
+            footerView.moveToLoginClosure = {  [weak self] in
+                self?.onShowLogin()
+            }
+            return footerView
+        } else {
+            footerView.moveToLoginButton.isHidden = true
+        }
+        
         guard let profileData = profileData else { return UIView() }
+        
         footerView.layoutFooter(data: profileData)
         footerView.sendCommentClosure = { [weak self] in
             guard let newComment = footerView.commentTextField.text else { return }
@@ -90,6 +102,13 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         return footerView
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     private func scrollToBottom() {

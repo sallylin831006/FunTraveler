@@ -104,8 +104,24 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapSaveButton() {
-        if titleText == nil || startDate == nil || endDate == nil {
-            print("show alert")
+        
+        if titleText == "" {
+            ProgressHUD.showFailure(text: "請輸入標題")
+            return
+        }
+        
+        guard let startDate = startDate else {
+            ProgressHUD.showFailure(text: "請輸入出發日期")
+            return
+        }
+        guard let endDate = endDate else {
+            ProgressHUD.showFailure(text: "請輸入回程日期")
+            return
+        }
+        
+        let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
+        if isDescending == true {
+            ProgressHUD.showFailure(text: "輸入錯誤")
             return
         }
         
@@ -120,7 +136,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             textFieldClosure = { titleText in
                 planDetailViewController.tripTitle = titleText
             }
-            
+
             tripIdClosure = { tripId in
                 planDetailViewController.tripId = tripId
             }

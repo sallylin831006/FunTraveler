@@ -1176,10 +1176,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "You need to grant the app access to your camera in order to take photos";
+				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone so that we can record your awesome custom effects.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You need to grant the app access to your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "讓您可發布相機膠卷內的相片";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1213,10 +1213,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "You need to grant the app access to your camera in order to take photos";
+				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need access to your microphone so that we can record your awesome custom effects.";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You need to grant the app access to your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "讓您可發布相機膠卷內的相片";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
