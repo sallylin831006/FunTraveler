@@ -26,19 +26,13 @@
                         </constraints>
                     </imageView>
                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ume-sy-qLu">
-                        <rect key="frame" x="191" y="13" width="159" height="35"/>
+                        <rect key="frame" x="191" y="13" width="178" height="35"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="8w2-92-OJV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esL-79-LPL">
-                        <rect key="frame" x="358" y="15" width="45" height="31"/>
-                        <color key="tintColor" name="themeLightBlue"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="pencil.circle.fill" catalog="system" title=""/>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="嗨，" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wbn-2H-0ub">
                         <rect key="frame" x="136" y="16" width="50" height="29"/>
                         <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="25"/>
@@ -81,31 +75,49 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhS-YY-4gz">
+                        <rect key="frame" x="365" y="20" width="44" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="UhS-YY-4gz" secondAttribute="height" multiplier="44:31" id="4dJ-PO-P5z"/>
+                            <constraint firstAttribute="width" constant="44" id="wZk-Mr-nZS"/>
+                        </constraints>
+                        <color key="tintColor" name="themeLightBlue"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" title="•••"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esL-79-LPL">
+                        <rect key="frame" x="359" y="61" width="45" height="31"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="tintColor" name="themeLightBlue"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="pencil.circle.fill" catalog="system" title=""/>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="5nF-mH-iXR" firstAttribute="leading" secondItem="ume-sy-qLu" secondAttribute="trailing" constant="-5.5" id="2PF-pV-LCA"/>
                     <constraint firstItem="r4O-Ui-4UI" firstAttribute="leading" secondItem="mk3-ff-VPX" secondAttribute="trailing" constant="-35" id="8Hf-Au-hu0"/>
                     <constraint firstAttribute="trailing" secondItem="5nF-mH-iXR" secondAttribute="trailing" constant="10" id="9YN-T0-fSR"/>
                     <constraint firstItem="5nF-mH-iXR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="9m0-YX-mID"/>
                     <constraint firstItem="Wbn-2H-0ub" firstAttribute="leading" secondItem="Cgf-7P-g0H" secondAttribute="trailing" constant="16" id="Adc-XV-8Js"/>
                     <constraint firstItem="r4O-Ui-4UI" firstAttribute="top" secondItem="mk3-ff-VPX" secondAttribute="bottom" constant="-34" id="BjH-Mq-j3e"/>
-                    <constraint firstItem="ume-sy-qLu" firstAttribute="centerY" secondItem="esL-79-LPL" secondAttribute="centerY" id="Bkb-Bk-4Yz"/>
                     <constraint firstItem="ume-sy-qLu" firstAttribute="leading" secondItem="Wbn-2H-0ub" secondAttribute="trailing" constant="5" id="E81-6Q-NYA"/>
                     <constraint firstItem="r4O-Ui-4UI" firstAttribute="leading" secondItem="VdI-ES-Ir2" secondAttribute="trailing" constant="12" id="G3Q-OB-qE2"/>
                     <constraint firstItem="VdI-ES-Ir2" firstAttribute="leading" secondItem="Cgf-7P-g0H" secondAttribute="trailing" constant="16" id="JKI-0k-QkI"/>
                     <constraint firstItem="VdI-ES-Ir2" firstAttribute="leading" secondItem="AV6-AY-gwM" secondAttribute="trailing" constant="-36" id="JdX-cA-0Sf"/>
                     <constraint firstItem="Cgf-7P-g0H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Lli-7p-gQF"/>
                     <constraint firstItem="Wbn-2H-0ub" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ODl-9I-PWz"/>
-                    <constraint firstAttribute="trailing" secondItem="esL-79-LPL" secondAttribute="trailing" constant="16" id="TrS-X9-omm"/>
+                    <constraint firstItem="UhS-YY-4gz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="a8n-n7-kBs"/>
                     <constraint firstItem="VdI-ES-Ir2" firstAttribute="top" secondItem="AV6-AY-gwM" secondAttribute="bottom" constant="-34" id="dI2-CE-Hvo"/>
                     <constraint firstItem="VdI-ES-Ir2" firstAttribute="top" secondItem="ume-sy-qLu" secondAttribute="bottom" constant="5" id="e7r-EY-BBL"/>
-                    <constraint firstItem="esL-79-LPL" firstAttribute="leading" secondItem="ume-sy-qLu" secondAttribute="trailing" constant="8" symbolic="YES" id="esB-FY-L7j"/>
                     <constraint firstItem="Cgf-7P-g0H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jhc-TN-8mc"/>
                     <constraint firstItem="Wbn-2H-0ub" firstAttribute="centerY" secondItem="ume-sy-qLu" secondAttribute="centerY" id="jig-0o-HB8"/>
                     <constraint firstAttribute="bottom" secondItem="Cgf-7P-g0H" secondAttribute="bottom" id="ljQ-tn-P6O"/>
+                    <constraint firstAttribute="trailing" secondItem="UhS-YY-4gz" secondAttribute="trailing" constant="10" id="nW4-1b-qRp"/>
                     <constraint firstItem="r4O-Ui-4UI" firstAttribute="centerY" secondItem="VdI-ES-Ir2" secondAttribute="centerY" id="zoB-ri-SSP"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="blockButton" destination="UhS-YY-4gz" id="ioJ-y8-nMu"/>
                 <outlet property="editButton" destination="esL-79-LPL" id="AiJ-uy-tJH"/>
                 <outlet property="numberOfFriendLabel" destination="mk3-ff-VPX" id="4mm-q4-ZPL"/>
                 <outlet property="numberOfFriendsButton" destination="r4O-Ui-4UI" id="yzo-kW-wDV"/>
