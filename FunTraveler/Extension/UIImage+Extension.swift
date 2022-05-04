@@ -49,6 +49,8 @@ enum ImageAsset: String {
     
     case defaultUserImage
     case imagePlaceholder
+    
+    case friendInvitedIcon
 
 }
 

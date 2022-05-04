@@ -54,7 +54,7 @@ class ExploreViewController: UIViewController {
     private func setupNavItem() {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage.asset(.heartSelected),
+            image: UIImage.asset(.friendInvitedIcon),
             style: .plain,
             target: self,
             action: #selector(tapInviteList)
