@@ -28,7 +28,6 @@
 		3A134957280FAB1C008CECEA /* FriendsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */; };
 		3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A134959281027D5008CECEA /* CollectedProvider.swift */; };
 		3A13495C281027F7008CECEA /* CollectedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13495B281027F7008CECEA /* CollectedRequest.swift */; };
-		3A13495E2810325B008CECEA /* CollectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A13495D2810325B008CECEA /* CollectedViewController.swift */; };
 		3A185BD82802DD6A004F5BB3 /* PlanCardFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */; };
 		3A185BDA2802E0B2004F5BB3 /* PlanCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */; };
 		3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */; };
@@ -172,7 +171,6 @@
 		3A134955280FAB1C008CECEA /* FriendsCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsCollectionViewCell.xib; sourceTree = "<group>"; };
 		3A134959281027D5008CECEA /* CollectedProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedProvider.swift; sourceTree = "<group>"; };
 		3A13495B281027F7008CECEA /* CollectedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedRequest.swift; sourceTree = "<group>"; };
-		3A13495D2810325B008CECEA /* CollectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectedViewController.swift; sourceTree = "<group>"; };
 		3A185BD72802DD6A004F5BB3 /* PlanCardFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlanCardFooterView.xib; sourceTree = "<group>"; };
 		3A185BD92802E0B2004F5BB3 /* PlanCardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCardFooterView.swift; sourceTree = "<group>"; };
 		3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlanViewController.swift; sourceTree = "<group>"; };
@@ -650,7 +648,6 @@
 				3AF4DCA5280C2169008029D7 /* ExploreDetailViewController.swift */,
 				3A40D36628177E5600A7BF51 /* CommentViewController.swift */,
 				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
-				3A13495D2810325B008CECEA /* CollectedViewController.swift */,
 				3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */,
 				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
@@ -1011,7 +1008,6 @@
 				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,
 				3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */,
 				3A40D372281790D800A7BF51 /* CommentFooterView.swift in Sources */,
-				3A13495E2810325B008CECEA /* CollectedViewController.swift in Sources */,
 				3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */,
 				3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */,
 				3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */,

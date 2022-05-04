@@ -205,7 +205,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.selectionStyle = .none
             guard let userData = userData else { return UITableViewCell()}
-            cell.layoutCell(data: userData)
+            cell.layoutCell(data: userData, isMyProfile: isMyProfile)
             
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
             cell.userImageView.addGestureRecognizer(imageTapGesture)
@@ -216,7 +216,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             self.userNameTextField = cell.userNameTextField
             
-            cell.changeNameDelegate = self
+            cell.delegate = self
             cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
             cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
@@ -263,7 +263,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
         let navSettingVC = UINavigationController(rootViewController: settingVC)
         //        navSettingVC.modalPresentationStyle = .fullScreen
-        self.present(navSettingVC, animated: true)
+//        self.present(navSettingVC, animated: true)
+        navigationController?.pushViewController(settingVC, animated: true)
     }
     
     @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
@@ -322,12 +323,45 @@ extension ProfileViewController: AuthViewControllerDelegate {
 }
 
 extension ProfileViewController: ProfileTableViewCellDelegate {
+    func blockUser(_ blockButton: UIButton) {
+        let userName = userData?.name ?? "此位使用者"
+        let blockController = UIAlertController(
+            title: "封鎖\(userName)",
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            // POST to Bolck
+            // Alert:已封鎖，可從黑名單中解除封鎖
+        })
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
+    }
     
     func didChangeName(_ cell: ProfileTableViewCell, text: String) {
             
         self.userNameTextField.text = text
         patchData(name: text, image: "")
         
+    }
+    
+    func blockAction() {
+        let blockController = UIAlertController(title: "確定封鎖使用者", message: "", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .default, handler: { (_) in
+//            blockAction.setValue(UIColor.red, forKey: "titleTextColor")
+            
+        })
+//        let privateAction = UIAlertAction(title: "私密", style: .default, handler: { (_) in
+//            self.patchData(isPrivate: true, isPublish: true)
+//            self.moveToHomePage()
+//        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
     }
     
 }
@@ -404,7 +438,7 @@ extension ProfileViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
-                print("[CollectedVC] GET 讀取資料失敗！")
+                print("[ProfileVC] GET 讀取資料失敗！")
             }
         })
     }
