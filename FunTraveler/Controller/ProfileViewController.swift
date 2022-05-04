@@ -90,9 +90,11 @@ class ProfileViewController: UIViewController {
         }
         
         if isMyProfile {
-            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-            fetchUserData(userId: userId)
-            fetchProfileTripsData(userId: userId)
+            guard let userId = KeyChainManager.shared.userId else { return }
+            guard let userIdNumber = Int(userId) else { return }
+            
+            fetchUserData(userId: userIdNumber)
+            fetchProfileTripsData(userId: userIdNumber)
         } else {
             fetchUserData(userId: userId ?? 0)
             fetchProfileTripsData(userId: userId ?? 0)
@@ -320,9 +322,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
         tableView.isHidden = false
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        fetchUserData(userId: userId)
-        fetchProfileTripsData(userId: userId)
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        fetchUserData(userId: userIdNumber)
+        fetchProfileTripsData(userId: userIdNumber)
     }
 }
 
@@ -512,8 +515,9 @@ extension ProfileViewController: SegementViewDelegate {
         self.segmentedControl = segmentedControl
         if segmentedControl.selectedSegmentIndex == 0 {
             print("我點了旅遊回憶")
-            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-            fetchProfileTripsData(userId: userId)
+            guard let userId = KeyChainManager.shared.userId else { return }
+            guard let userIdNumber = Int(userId) else { return }
+            fetchProfileTripsData(userId: userIdNumber)
           
         } else if segmentedControl.selectedSegmentIndex == 1 {
             print("我點了收藏")

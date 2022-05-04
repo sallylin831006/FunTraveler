@@ -51,7 +51,7 @@ class VideoWallViewController: UIViewController {
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
 
-        searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
      
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .themeRed
@@ -61,7 +61,7 @@ class VideoWallViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = .themeApricotDeep
+        self.view.backgroundColor = .themeApricot
         showLoadingView()
         fetchData()
     }
@@ -195,8 +195,9 @@ extension VideoWallViewController {
     // MARK: - POST TO INVITE
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        friendsProvider.postToInvite(userId: userIdNumber, completion: { [weak self] result in
             
             switch result {
                 

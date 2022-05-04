@@ -242,8 +242,10 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapToInvite() {
         guard let friendListVC = UIStoryboard.profile.instantiateViewController(
             withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        friendListVC.userId = userId
+        
+        guard let userId = KeyChainManager.shared.userId else { return }
+        
+        friendListVC.userId = Int(userId)
         
         friendListVC.isEditMode = true
         

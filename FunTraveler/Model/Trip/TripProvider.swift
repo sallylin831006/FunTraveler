@@ -101,10 +101,7 @@ class TripProvider {
     // MARK: - Public method
     func fetchSchedule(tripId: Int, days: Int, completion: @escaping ScheduleInfoHanlder) {
         
-        guard let token = KeyChainManager.shared.token else {
-            
-            return completion(Result.failure(FunTravelerSignInError.noToken))
-        }
+        let token = KeyChainManager.shared.token ?? ""
         
         HTTPClient.shared.request(
             TripRequest.getSchdule(token: token, tripId: tripId, days: days) ,

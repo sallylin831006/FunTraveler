@@ -106,6 +106,25 @@ class ExploreDetailViewController: UIViewController {
         
     }
     
+    // MARK: - POST TO ADD NEW COLLECTED
+    private func postData(isCollected: Bool, tripId: Int) {
+        let collectedProvider = CollectedProvider()
+        
+        collectedProvider.addCollected(isCollected: isCollected,
+                                       tripId: tripId, completion: { result in
+            
+            switch result {
+                
+            case .success: break
+                //print("按了收藏按鈕！", postResponse)
+                
+            case .failure:
+                print("[Explore] collected postResponse失敗！")
+            }
+        })
+        
+    }
+    
 //    // MARK: - GET Action
 //    private func fetchCommentData() {
 //
@@ -162,6 +181,32 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ExploreDetailFooterView.identifier)
                 as? ExploreDetailFooterView else { return nil }
+        guard let trip = trip else { return nil }
+        footerView.layoutFooterView(data: trip)
+        
+        footerView.collectClosure = { isCollected in
+            guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+            self.postData(isCollected: isCollected, tripId: trip.id)
+            self.trip?.isCollected = isCollected
+            tableView.reloadData()
+        }
+        
+//        footerView.heartClosure = { isLiked in
+//            guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+//            
+//            if isLiked {
+//                self.postLiked()
+//                self.trip?.isLiked = isLiked
+//                self.trip?.likeCount += 1
+//                tableView.reloadData()
+//            } else {
+//                self.deleteLiked()
+//                self.trip?.isLiked = isLiked
+//                self.trip?.likeCount -= 1
+//                tableView.reloadData()
+//            }
+//           
+//        }
         
         footerView.copyClosure = { [weak self] in
             print("一鍵複製行程！")
@@ -178,7 +223,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
         
         footerView.moveToCommentButton.addTarget(self, action: #selector(tapToCommentView), for: .touchUpInside)
-        guard let numberOfComment = trip?.commentCount else { return nil}
+        guard let numberOfComment = trip.commentCount else { return nil}
         footerView.moveToCommentButton.setTitle("查看全部\(numberOfComment)則留言", for: .normal)
         return footerView
     }
@@ -192,6 +237,14 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
 
         self.present(navCommentVC, animated: true)
      
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+//        authVC.delegate = self
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     // MARK: - Section Row

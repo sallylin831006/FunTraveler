@@ -194,8 +194,10 @@ extension CommentViewController {
     // MARK: - GET My Profile Image
     private func fetchProfileImage() {
         let userProvider = UserProvider()
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        userProvider.getProfile(userId: userId, completion: { [weak self] result in
+        
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        userProvider.getProfile(userId: userIdNumber, completion: { [weak self] result in
             
             switch result {
                 

@@ -43,8 +43,11 @@ class VideoWallHeaderView: UICollectionReusableView {
         
         let isFriend = data[section].user.isFriend
         let isInvite = data[section].user.isInvite
-
-        if !isFriend && Int(KeyChainManager.shared.userId!) == data[section].user.id {
+        guard let  userId = KeyChainManager.shared.userId else {
+            followButton.isHidden = true
+            return
+        }
+        if !isFriend && Int(userId) == data[section].user.id {
             followButton.isHidden = true
             return
         } else if isFriend {

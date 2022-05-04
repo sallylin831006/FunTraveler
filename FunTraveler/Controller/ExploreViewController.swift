@@ -169,20 +169,6 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
 
         }
         
-        cell.followClosure = { cell, isfollowed in
-            
-            if isfollowed {
-                cell.followButton.setTitle("已追蹤", for: .selected)
-                cell.followButton.setTitleColor(UIColor.themeRed, for: .selected)
-                cell.followButton.layer.borderColor = UIColor.themeRed?.cgColor
-                
-            } else {
-                cell.followButton.setTitle("追蹤", for: .normal)
-                cell.followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
-                cell.followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-                
-            }
-        }
         return cell
         
     }

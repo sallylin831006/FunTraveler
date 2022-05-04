@@ -70,12 +70,6 @@
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="" image="collectedIconSelected"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mpm-AC-aBC">
-                        <rect key="frame" x="127.5" y="20.5" width="53" height="31"/>
-                        <color key="tintColor" name="themeApricotDeep"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" title="追蹤"/>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="墾丁三天兩夜輕旅行" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCu-i2-BWH">
                         <rect key="frame" x="30" y="161" width="156" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -103,11 +97,9 @@
                     <constraint firstItem="iJ3-Qa-9hi" firstAttribute="top" secondItem="HCu-i2-BWH" secondAttribute="bottom" constant="10" id="LYS-1S-p4T"/>
                     <constraint firstItem="mw6-fS-mee" firstAttribute="leading" secondItem="iJ3-Qa-9hi" secondAttribute="trailing" constant="10" id="N6O-uB-elf"/>
                     <constraint firstItem="PQJ-go-cQn" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="QHb-ni-0hK"/>
-                    <constraint firstItem="Mpm-AC-aBC" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="TJ1-XW-fvn"/>
                     <constraint firstAttribute="bottom" secondItem="iJ3-Qa-9hi" secondAttribute="bottom" constant="20" id="VI6-0v-Czp"/>
                     <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="XQq-wl-yxW"/>
                     <constraint firstItem="iJ3-Qa-9hi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="fbE-kG-fli"/>
-                    <constraint firstItem="Mpm-AC-aBC" firstAttribute="leading" secondItem="PQJ-go-cQn" secondAttribute="trailing" constant="10" id="fs6-fK-Cao"/>
                     <constraint firstItem="m9L-ao-1UQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="geh-pQ-xHg"/>
                     <constraint firstItem="LXi-3M-QXv" firstAttribute="leading" secondItem="iJ3-Qa-9hi" secondAttribute="leading" id="sVb-le-e4a"/>
                     <constraint firstItem="l45-X5-BuB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t4S-n0-CEv"/>
@@ -119,7 +111,6 @@
                 <outlet property="collectButton" destination="8T3-UM-aZN" id="7jT-D5-O5i"/>
                 <outlet property="dateLabel" destination="Ek6-oK-l1u" id="ME8-wb-CQ8"/>
                 <outlet property="dayTitleLabel" destination="LXi-3M-QXv" id="Uj1-X2-1yS"/>
-                <outlet property="followButton" destination="Mpm-AC-aBC" id="ZHc-8U-qHG"/>
                 <outlet property="heartButton" destination="iJ3-Qa-9hi" id="fxJ-Ai-vHX"/>
                 <outlet property="numberOfLikeLabel" destination="mw6-fS-mee" id="caD-RZ-yvt"/>
                 <outlet property="planImageView" destination="l45-X5-BuB" id="p5C-LT-MT2"/>
