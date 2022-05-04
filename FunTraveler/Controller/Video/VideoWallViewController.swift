@@ -263,11 +263,34 @@ extension VideoWallViewController: UISearchBarDelegate {
 }
 
 extension VideoWallViewController: VideoWallHeaderViewDelegate {
+    func tapToUserProfile(_ section: Int) {
+        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
+        
+        guard let profileVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+
+        profileVC.userId = self.videoDataSource[section].user.id
+
+        if String(self.videoDataSource[section].user.id) == KeyChainManager.shared.userId {
+            profileVC.isMyProfile = true
+        } else {
+            profileVC.isMyProfile = false
+        }
+        self.present(profileVC, animated: true)
+    }
+    
     func tapToFollow(_ followButton: UIButton, _ section: Int) {
         postToInvite()
         followButton.setTitle("已送出邀請", for: .normal)
         followButton.backgroundColor = .themeApricotDeep
         followButton.isUserInteractionEnabled = false
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
    
 }
