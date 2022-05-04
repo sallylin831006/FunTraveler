@@ -43,7 +43,6 @@ class SettingViewController: UIViewController {
         tableView.layoutMargins = .init(top: 0.0, left: 23.5, bottom: 0.0, right: 23.5)
         tableView.separatorInset = tableView.layoutMargins
        
-
     }
     
         override func viewWillAppear(_ animated: Bool) {
@@ -106,7 +105,9 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     func logOut() {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+        
 //        userData = nil
 //        onShowLogin()
     }

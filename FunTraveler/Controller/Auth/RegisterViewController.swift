@@ -107,7 +107,7 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)
-            self?.presentingViewController?.dismiss(animated: false, completion: nil)
+            self?.navigationController?.popViewController(animated: true)
         }
         return cell
         
