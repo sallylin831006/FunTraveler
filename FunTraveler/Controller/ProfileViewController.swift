@@ -59,7 +59,7 @@ class ProfileViewController: UIViewController {
     @IBAction func logoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
-        userData = nil
+        tableView.isHidden = true
         onShowLogin()
     }
     
@@ -83,7 +83,11 @@ class ProfileViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         
-        if userId == nil && KeyChainManager.shared.userId == nil { return onShowLogin() }
+        if userId == nil && KeyChainManager.shared.userId == nil {
+            tableView.isHidden = true
+            onShowLogin()
+            return
+        }
         
         if isMyProfile {
             guard let userId = Int(KeyChainManager.shared.userId!) else { return }
@@ -315,10 +319,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        tableView.isHidden = false
         guard let userId = Int(KeyChainManager.shared.userId!) else { return }
         fetchUserData(userId: userId)
         fetchProfileTripsData(userId: userId)
-
     }
 }
 
