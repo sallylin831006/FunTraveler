@@ -24,7 +24,7 @@ extension UIView {
 
         objectView.removeFromSuperview()
 
-        addSubview(objectView)
+        view.addSubview(objectView)
         objectView.translatesAutoresizingMaskIntoConstraints = false
 
         objectView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -35,5 +35,20 @@ extension UIView {
 
         objectView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    func stickSafeArea(_ objectView: UIView, _ view: UIView) {
+
+        objectView.removeFromSuperview()
+
+        view.addSubview(objectView)
+        objectView.translatesAutoresizingMaskIntoConstraints = false
+        
+        objectView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        objectView.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+        objectView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
+        objectView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
+    }
+
 
 }
