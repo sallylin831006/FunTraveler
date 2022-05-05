@@ -26,9 +26,11 @@ class PlanPickerViewController: UIViewController {
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
 
+    var myTripId: Int?
+    
     var tripId: Int? {
         didSet {
-            fetchData(days: 1)
+//            fetchData(days: 1)
         }
     }
     var trip: Trip? {
@@ -90,12 +92,18 @@ class PlanPickerViewController: UIViewController {
 //        tableView.backgroundView?.alpha = 0.9
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData(days: 1)
+    }
         
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         
-        guard let tripId = tripId else { return  }
+        guard let tripId = myTripId else { return  }
+
+//        guard let tripId = tripId else { return  }
         
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
@@ -118,7 +126,7 @@ class PlanPickerViewController: UIViewController {
     // MARK: - POST Action
     func postData(days: Int) {
         let tripProvider = TripProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
             

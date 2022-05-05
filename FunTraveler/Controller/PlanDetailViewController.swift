@@ -9,20 +9,11 @@ import UIKit
 //import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
-        
-    var tripIdClosure: ((_ tripId: Int) -> Void)? {
-        didSet {
-            tripIdClosure?(tripId ?? 0)
-        }
-    }
-        
+    
+    var myTripId: Int?
+    
     var trip: Trip?
 
-    var tripId: Int? {
-        didSet {
-            tripIdClosure?(tripId ?? 0)
-        }
-    }
 
     var schedules: [Schedule] = []
     
@@ -83,7 +74,7 @@ class PlanDetailViewController: UIViewController {
     private func postData() {
         
         let tripProvider = TripProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         if schedules.isEmpty { return }
         
@@ -103,6 +94,7 @@ class PlanDetailViewController: UIViewController {
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
+        planPickerViewController.myTripId = myTripId
         
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
@@ -112,11 +104,7 @@ class PlanDetailViewController: UIViewController {
         planPickerViewController.tripClosure = { [weak self] trip in
             self?.trip = trip
         }
-        
-        tripIdClosure  = { tripId in
-            planPickerViewController.tripId = tripId
-        }
-        
+
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
         
@@ -149,14 +137,13 @@ class PlanDetailViewController: UIViewController {
         
         postData()
         
-        guard let shareVC = self.storyboard?.instantiateViewController(
+        guard let sharePlanVC = self.storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
-        self.tripIdClosure  = { tripId in
-            shareVC.tripId = tripId
-            shareVC.trip = self.trip
-        }
-        let navShareVC = UINavigationController(rootViewController: shareVC)
-        self.present(navShareVC, animated: true)
+        
+        sharePlanVC.myTripId = myTripId
+
+        let navSharePlanVC = UINavigationController(rootViewController: sharePlanVC)
+        self.present(navSharePlanVC, animated: true)
         
     }
     
