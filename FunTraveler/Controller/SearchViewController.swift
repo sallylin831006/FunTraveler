@@ -12,8 +12,6 @@ class SearchViewController: UIViewController {
     var scheduleArray: [Schedule] = []
     var day: Int = 1
     
-//    private var newTrafficTime: Double = 1.0
-    
     var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
     var searchData: [Results] = [] {
@@ -65,22 +63,28 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: SearchTableViewCell.self), for: indexPath)
                 as? SearchTableViewCell else { return UITableViewCell() }
-        cell.nameLabel?.text = searchData[indexPath.row].name
-        cell.ratingLabel?.text = "★★★★☆\(searchData[indexPath.row].rating ?? 0.0)"
-        cell.addressLabel?.text = searchData[indexPath.row].vicinity
-        cell.searchData = searchData
         
-        cell.actionBtn.addTarget(target, action: #selector(tapActionButton), for: .touchUpInside)
+        let item = searchData[indexPath.row]
+        cell.layoutCell(data: item, index: indexPath.row)
         
-        cell.searchDataClosure = {
-            
-        }
+        cell.delegate = self
 
         return cell
         
     }
 
-    @objc func tapActionButton(_ sender: UIButton) {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+//        let searchDetailVC = SearchDetailViewController()
+//        self.navigationController?.pushViewController(searchDetailVC, animated: true)
+//        searchDetailVC.searchResoponse = searchData[indexPath.row]
+    }
+    
+}
+
+extension SearchViewController: SearchTableViewCellDelegate {
+    func addNewSchedule(_ sender: UIButton) {
         showSuccessView()
         let point = sender.convert(CGPoint.zero, to: tableView)
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
@@ -134,15 +138,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
        return Double(distance.rounding(toDecimal: 2)/carSpeed)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let searchDetailVC = SearchDetailViewController()
-//        self.navigationController?.pushViewController(searchDetailVC, animated: true)
-//        searchDetailVC.searchResoponse = searchData[indexPath.row]
-    }
-    
 }
-
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
