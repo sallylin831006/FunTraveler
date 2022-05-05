@@ -35,6 +35,12 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="追蹤"/>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mhD-my-Mfg">
+                    <rect key="frame" x="359" y="12" width="39" height="31"/>
+                    <color key="tintColor" name="themeRed"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="⋯"/>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="themeApricot"/>
@@ -45,6 +51,8 @@
                 <constraint firstItem="yU2-1R-ZOj" firstAttribute="centerY" secondItem="Q4Y-MN-nh1" secondAttribute="centerY" id="Qys-7D-T5R"/>
                 <constraint firstItem="mZf-Mm-SSl" firstAttribute="leading" secondItem="yU2-1R-ZOj" secondAttribute="trailing" constant="16" id="fBG-eO-7Js"/>
                 <constraint firstItem="yU2-1R-ZOj" firstAttribute="leading" secondItem="Q4Y-MN-nh1" secondAttribute="trailing" constant="16" id="kDs-wg-YzT"/>
+                <constraint firstItem="mhD-my-Mfg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sCk-bT-wFG"/>
+                <constraint firstAttribute="trailing" secondItem="mhD-my-Mfg" secondAttribute="trailing" constant="16" id="tJD-f2-hh7"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

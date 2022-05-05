@@ -37,6 +37,11 @@ class VideoWallViewController: UIViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "Header")
         
+        collectionView.register(UINib(nibName: String(
+            describing: VideoHeaderView.self), bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: "VideoHeaderView")
+        
         setupSearchBar()
     }
     
@@ -93,14 +98,22 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind
                         kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
-                as? VideoWallHeaderView else { return UICollectionReusableView() }
-        
-        headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
-        headerView.delegate = self
-        
-        return headerView
+        if indexPath.section == 0 {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind, withReuseIdentifier: "VideoHeaderView", for: indexPath)
+                    as? VideoHeaderView else { return UICollectionReusableView() }
+            
+            return headerView
+        } else {
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+                    as? VideoWallHeaderView else { return UICollectionReusableView() }
+            
+            headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
+            headerView.delegate = self
+            
+            return headerView
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
