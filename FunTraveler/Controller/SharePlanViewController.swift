@@ -263,7 +263,7 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     }
     
     func selectImageAction(sender: UITapGestureRecognizer) {
-        guard let view = sender.view else { return }
+//        guard let view = sender.view else { return }
         let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .actionSheet)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
@@ -273,32 +273,28 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
                 imagePicker.allowsEditing = true
                 imagePicker.sourceType = .photoLibrary
                 imagePicker.delegate = self
-                
-                imagePicker.view?.tag = view.tag
-                
+                                
                 self.present(imagePicker, animated: true, completion: nil)
             }
         })
         
-        let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
-            self.showLoadingView()
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.allowsEditing = true
-                imagePicker.sourceType = .camera
-                imagePicker.delegate = self
-
-                imagePicker.view?.tag = view.tag
-
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        })
+//        let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
+//            self.showLoadingView()
+//            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+//                let imagePicker = UIImagePickerController()
+//                imagePicker.allowsEditing = true
+//                imagePicker.sourceType = .camera
+//                imagePicker.delegate = self
+//
+//                self.present(imagePicker, animated: true, completion: nil)
+//            }
+//        })
 
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
         })
         
         photoSourceRequestController.addAction(photoLibraryAction)
-        photoSourceRequestController.addAction(cameraAction)
+//        photoSourceRequestController.addAction(cameraAction)
         photoSourceRequestController.addAction(cancelAction)
         
         present(photoSourceRequestController, animated: true, completion: nil)
