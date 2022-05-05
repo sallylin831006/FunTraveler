@@ -17,7 +17,7 @@ enum UserRequest: STRequest {
     
     case getProfile(token: String, userId: Int)
     
-    case getProfileTrips(userId: Int)
+    case getProfileTrips(token: String, userId: Int)
     
     case updateProfile(token: String, name: String, image: String)
     
@@ -33,13 +33,14 @@ enum UserRequest: STRequest {
         
         switch self {
             
-        case .register, .login, .getProfileTrips, .appleLogin:
+        case .register, .login, .appleLogin:
             
             return [
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
-        case .getProfile(let token, _), .updateProfile(let token, _, _), .deleteUser(let token), .blockUser(let token, _), .unBlockUser(let token, _), .getBlockList(let token):
+        case .getProfile(let token, _), .updateProfile(let token, _, _), .getProfileTrips(let token, _),
+                .deleteUser(let token), .blockUser(let token, _), .unBlockUser(let token, _), .getBlockList(let token):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -136,7 +137,7 @@ enum UserRequest: STRequest {
         case .getProfile(_, let userId):
             return "/api/v1/user/\(userId)"
             
-        case .getProfileTrips(let userId):
+        case .getProfileTrips(_, let userId):
             return "/api/v1/user/\(userId)/trips"
             
         case .blockUser(_, let userId), .unBlockUser(_, let userId):

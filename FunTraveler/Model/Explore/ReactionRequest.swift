@@ -13,7 +13,7 @@ enum ReactionRequest: STRequest {
     
     case deleteComment(token: String, commentId: Int, tripId: Int)
 
-    case getComment(tripId: Int)
+    case getComment(token: String, tripId: Int)
     
     case postLiked(token: String, tripId: Int)
 
@@ -26,16 +26,10 @@ enum ReactionRequest: STRequest {
         switch self {
             
         case .postComment(let token, _, _), .deleteComment(let token, _, _),
-                .postLiked(let token, _) , .deleteUnLiked(let token, _) , .getLiked(let token, _):
+                .postLiked(let token, _) , .deleteUnLiked(let token, _) , .getLiked(let token, _), .getComment(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
-                STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
-            ]
-            
-        case .getComment:
-            
-            return [
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
         }
@@ -82,7 +76,7 @@ enum ReactionRequest: STRequest {
         case .deleteComment(_, let commentId, let tripId):
             return "/api/v1/trips/\(tripId)/comments/\(commentId)"
             
-        case .getComment(let tripId):
+        case .getComment(_, let tripId):
             return "/api/v1/trips/\(tripId)/comments"
             
         case .postLiked(_, let tripId):

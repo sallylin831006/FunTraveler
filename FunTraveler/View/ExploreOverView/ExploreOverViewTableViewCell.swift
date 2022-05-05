@@ -33,6 +33,9 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var lockIconImage: UIImageView!
+    
+    
     private var isCollected: Bool = false
     
     private var isLiked: Bool = false
@@ -66,6 +69,12 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         heartButton.isSelected = data.isLiked
 
         dateLabel.text = data.publishedDate
+        
+        if data.isPrivate {
+            lockIconImage.isHidden = false
+        } else {
+            lockIconImage.isHidden = true
+        }
         
     }
     

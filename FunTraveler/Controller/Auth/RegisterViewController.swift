@@ -35,23 +35,23 @@ class RegisterViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 200
         tableView.shouldIgnoreScrollingAdjustment = true
-        addCustomBackButton()
+//        addCustomBackButton()
     }
     
-    private func addCustomBackButton() {
-        let customBackButton = UIButton()
-        let frameY = UIScreen.height - 500 - 100 + 25
-        customBackButton.frame = CGRect(x: 20, y: frameY, width: 30, height: 30)
-        customBackButton.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
-        customBackButton.tintColor = .black
-        customBackButton.addTarget(self, action: #selector(backTap), for: .touchUpInside)
-        self.view.addSubview(customBackButton)
-    }
-    
-    @objc func backTap(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)        
-    }
-    
+//    private func addCustomBackButton() {
+//        let customBackButton = UIButton()
+//        let frameY = UIScreen.height - 500 - 100 + 25
+//        customBackButton.frame = CGRect(x: 20, y: frameY, width: 30, height: 30)
+//        customBackButton.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
+//        customBackButton.tintColor = .black
+//        customBackButton.addTarget(self, action: #selector(backTap), for: .touchUpInside)
+//        self.view.addSubview(customBackButton)
+//    }
+//
+//    @objc func backTap(_ sender: UIButton) {
+//        navigationController?.popViewController(animated: true)
+//    }
+//
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.layer.cornerRadius = 10
@@ -96,7 +96,7 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: RegisterTableViewCell.self), for: indexPath)
                 as? RegisterTableViewCell else { return UITableViewCell() }
-        cell.selectionStyle = .none
+
         cell.registerClosure = { [weak self] cell in
             guard let name = cell.nameTextField.text,
                   let email = cell.emailTextField.text,
@@ -107,6 +107,10 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        cell.cancelRegisterClosure = { [weak self] cell in
             self?.navigationController?.popViewController(animated: true)
         }
         return cell

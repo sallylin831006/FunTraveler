@@ -20,6 +20,7 @@ struct Explore: Codable {
     var isCollected: Bool
     var isLiked: Bool
     var likeCount: Int
+    var isPrivate: Bool
     var commentCount: Int
     var publishedDate: String
     
@@ -30,6 +31,7 @@ struct Explore: Codable {
         case commentCount = "comments_count"
         case isLiked = "is_liked"
         case publishedDate = "published_at"
+        case isPrivate = "is_private"
     }
 }
 

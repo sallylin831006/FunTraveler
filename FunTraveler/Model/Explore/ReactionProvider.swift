@@ -77,9 +77,10 @@ class ReactionProvider {
         
     // MARK: - GET COMMENTS
     func fetchComment(tripId: Int, completion: @escaping CommentHanlder) {
-        
+        let token = KeyChainManager.shared.token ?? ""
+
         HTTPClient.shared.request(
-            ReactionRequest.getComment(tripId: tripId), completion: { result in
+            ReactionRequest.getComment(token: token, tripId: tripId), completion: { result in
                 
                 switch result {
                     

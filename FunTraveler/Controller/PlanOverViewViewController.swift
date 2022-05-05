@@ -104,12 +104,21 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     
     @objc func tapScheduleButton() {
         
+        guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+        
         guard let addPlanVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
         let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
         navAddPlanVC.modalPresentationStyle = .fullScreen
         self.present(navAddPlanVC, animated: true)
         
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     // MARK: - Section Row

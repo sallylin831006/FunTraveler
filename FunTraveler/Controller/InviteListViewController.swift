@@ -35,6 +35,8 @@ class InviteListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+            title: "Something Else", style: .plain, target: nil, action: nil)
         fetchData()
     }
     
