@@ -33,8 +33,6 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
         tableView.registerCellWithNib(identifier: String(describing: CommentTableViewCell.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: CommentFooterView.self), bundle: nil)
@@ -44,8 +42,6 @@ class CommentViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "留言"
-
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
         fetchProfileImage() 
     }
@@ -138,14 +134,45 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
-            tableView.isEditing = false
-            self.deleteData(index: indexPath.row)
-            self.commentData.remove(at: index.row)
-            
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        guard let userId = KeyChainManager.shared.userId else { return nil}
+        guard let userIdNumber = Int(userId) else { return nil}
+        if userIdNumber == self.commentData[indexPath.row].user.id {
+            let deleteAction = UIContextualAction(style: .normal, title: "刪除") { _, _, _ in
+                tableView.isEditing = false
+                self.deleteData(index: indexPath.row)
+                self.commentData.remove(at: indexPath.row)
+                
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+           
+        } else {
+            let blockAction = UIContextualAction(style: .destructive, title: "封鎖") { (_, _, completionHandler) in
+                self.blockAction(index: indexPath.row)
+                completionHandler(true)
+            }
+            return UISwipeActionsConfiguration(actions: [blockAction])
         }
-        return [deleteAction]
+    }
+    
+    func blockAction(index: Int) {
+        let userName = commentData[index].user.name
+        let blockController = UIAlertController(
+            title: "封鎖\(userName)",
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            self.postToBlockUser(index: index)
+            self.tableView.reloadData()
+            ProgressHUD.showSuccess(text: "已封鎖")
+        })
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
     }
 
 }
@@ -224,7 +251,24 @@ extension CommentViewController {
                 self?.profileData = profileData
                 self?.tableView.reloadData()
             case .failure:
-                print("[ProfileVC] GET Profile 資料失敗！")
+                print("[CommentVC] GET Profile 資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST To Block User
+    private func postToBlockUser(index: Int) {
+        let userProvider = UserProvider()
+        let userId = commentData[index].user.id
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let blockResponse):
+                print("blockResponse", blockResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO Block User失敗！")
             }
         })
     }
