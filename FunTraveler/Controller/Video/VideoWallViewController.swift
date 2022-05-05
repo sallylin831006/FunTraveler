@@ -98,24 +98,21 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind
                         kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if indexPath.section == 0 {
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind, withReuseIdentifier: "VideoHeaderView", for: indexPath)
-                    as? VideoHeaderView else { return UICollectionReusableView() }
-            
-            return headerView
-        } else {
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
-                    as? VideoWallHeaderView else { return UICollectionReusableView() }
-            
-            headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
-            headerView.delegate = self
-            
-            return headerView
-        }
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind, withReuseIdentifier: "Header", for: indexPath)
+                as? VideoWallHeaderView else { return UICollectionReusableView() }
+        
+        headerView.layoutHeaderView(data: videoDataSource, section: indexPath.section)
+        headerView.delegate = self
+        
+        return headerView
+        //        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+        //            ofKind: kind, withReuseIdentifier: "VideoHeaderView", for: indexPath)
+        //                as? VideoHeaderView else { return UICollectionReusableView() }
+        //
+        //        return headerView
     }
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
             return videoDataSource.count
         }
@@ -222,6 +219,24 @@ extension VideoWallViewController {
             }
         })
     }
+    
+    // MARK: - POST To Block User
+    private func postToBlockUser(index: Int) {
+        let userProvider = UserProvider()
+        let userId = videoDataSource[index].user.id
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success:
+                self?.collectionView.reloadData()
+                
+            case .failure:
+                print("[ProfileVC] POST TO Block User失敗！")
+            }
+        })
+    }
+    
 }
 
 extension VideoWallViewController {
@@ -304,6 +319,29 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
+    }
+    
+    func blockUser(_ blockButton: UIButton, _ index: Int) {
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        if userIdNumber == self.videoDataSource[index].user.id { return }
+        
+        let userName = videoDataSource[index].user.name
+        let blockController = UIAlertController(
+            title: "封鎖\(userName)",
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            
+            self.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
+            self.postToBlockUser(index: index)
+            ProgressHUD.showSuccess(text: "已封鎖")
+        })
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
     }
    
 }

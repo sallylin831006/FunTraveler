@@ -11,6 +11,8 @@ protocol VideoWallHeaderViewDelegate: AnyObject {
     func tapToFollow(_ followButton: UIButton, _ section: Int)
     
     func tapToUserProfile(_ section: Int)
+    
+    func blockUser(_ blockButton: UIButton, _ index: Int)
 }
 
 class VideoWallHeaderView: UICollectionReusableView {
@@ -23,6 +25,8 @@ class VideoWallHeaderView: UICollectionReusableView {
     @IBOutlet weak var followButton: UIButton!
     
     @IBOutlet weak var userNameLabel: UILabel!
+    
+    @IBOutlet weak var blockButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -38,6 +42,9 @@ class VideoWallHeaderView: UICollectionReusableView {
         let nameGesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserName(gestureRecognizer:)))
         userNameLabel.isUserInteractionEnabled = true
         userNameLabel.addGestureRecognizer(nameGesture)
+        
+        blockButton.addTarget(self, action: #selector(tapBlockButton), for: .touchUpInside)
+    
     }
     
     func layoutHeaderView(data: [Video], section: Int) {
@@ -53,12 +60,11 @@ class VideoWallHeaderView: UICollectionReusableView {
         
         let isFriend = data[section].user.isFriend
         let isInvite = data[section].user.isInvite
-        guard let  userId = KeyChainManager.shared.userId else {
-            followButton.isHidden = true
-            return
-        }
+        guard let userId = KeyChainManager.shared.userId else { return }
+        
         if !isFriend && Int(userId) == data[section].user.id {
             followButton.isHidden = true
+            blockButton.isHidden = true
             return
         } else if isFriend {
             followButton.isHidden = false
@@ -90,6 +96,10 @@ class VideoWallHeaderView: UICollectionReusableView {
     
     @objc func tappedUserName(gestureRecognizer: UITapGestureRecognizer) {
         delegate?.tapToUserProfile(section)
+    }
+    
+    @objc func tapBlockButton(_ sender: UIButton, _ index: Int) {
+        delegate?.blockUser(sender, section)
     }
  
 }

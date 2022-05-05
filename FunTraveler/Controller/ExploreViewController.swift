@@ -212,7 +212,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                      attributes: .destructive) { action in
                 self.postToBlockUser(index: indexPath.row)
                 self.exploreData.remove(at: indexPath.row)
-                ProgressHUD.showSuccess(text: "")
+                ProgressHUD.showSuccess(text: "已封鎖")
             }
             return UIMenu(title: "", children: [blockAction])
         })
