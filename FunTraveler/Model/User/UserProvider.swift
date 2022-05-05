@@ -254,4 +254,48 @@ class UserProvider {
                 }
             })
     }
+    
+    // MARK: - POST To Block User
+        func blockUser(userId: Int, completion: @escaping (Result<String>) -> Void) {
+            
+            guard let token = KeyChainManager.shared.token else {
+                
+                return completion(Result.failure(FunTravelerSignInError.noToken))
+            }
+            
+            HTTPClient.shared.request(UserRequest.blockUser(token: token, userId: userId), completion: { result in
+                    
+                    switch result {
+                        
+                    case .success: break
+                        
+                    case .failure(let error):
+                        print(error)
+                        completion(Result.failure(error))
+                        
+                    }
+                })
+        }
+    
+    // MARK: - DELETE To UnBlock User
+        func unBlockUser(userId: Int, completion: @escaping (Result<String>) -> Void) {
+            
+            guard let token = KeyChainManager.shared.token else {
+                
+                return completion(Result.failure(FunTravelerSignInError.noToken))
+            }
+            
+            HTTPClient.shared.request(UserRequest.unBlockUser(token: token, userId: userId), completion: { result in
+                    
+                    switch result {
+                        
+                    case .success: break
+                                                
+                    case .failure(let error):
+                        print(error)
+                        completion(Result.failure(error))
+                        
+                    }
+                })
+        }
 }

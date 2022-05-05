@@ -35,7 +35,8 @@ class ExploreViewController: UIViewController {
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
-        
+//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+//        tableView.addGestureRecognizer(longPress)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +51,15 @@ class ExploreViewController: UIViewController {
                 frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
         }
     }
+    
+//    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
+//        if sender.state == .began {
+//            let touchPoint = sender.location(in: tableView)
+//            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+//                print("我長按了")
+//            }
+//        }
+//    }
     
     private func setupNavItem() {
 
@@ -180,11 +190,39 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         exploreDeatilVC.days = exploreData[indexPath.row].days
         navigationController?.pushViewController(exploreDeatilVC, animated: true)
         exploreDeatilVC.tabBarController?.tabBar.isHidden = true
-//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-//        // navExploreDeatilVC.modalPresentationStyle = .fullScreen
-//        self.present(navExploreDeatilVC, animated: true)
-        
+
     }
+    
+    func tableView(_ tableView: UITableView,
+                   contextMenuConfigurationForRowAt indexPath: IndexPath,
+                   point: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil,
+                                          actionProvider: { _ in
+            
+            guard let userId = KeyChainManager.shared.userId else { return nil}
+            guard let userIdNumber = Int(userId) else { return nil}
+            if userIdNumber == self.exploreData[indexPath.row].user.id {
+                return nil
+            }
+            
+            let blockAction =
+            UIAction(title: NSLocalizedString("封鎖該使用者", comment: ""),
+                     image: UIImage(systemName: "minus.circle"),
+                     attributes: .destructive) { action in
+                self.postToBlockUser(index: indexPath.row)
+                
+            }
+            return UIMenu(title: "", children: [blockAction])
+//            let duplicateAction =
+//            UIAction(title: NSLocalizedString("加入收藏", comment: ""),
+//                     image: UIImage(systemName: "plus.square.on.square")) { action in
+//                //                self.performDuplicate(indexPath)
+//            }
+//            return UIMenu(title: "", children: [inspectAction, duplicateAction])
+        })
+    }
+
 }
 
 extension ExploreViewController {
@@ -215,7 +253,7 @@ extension ExploreViewController {
                 
             case .success(let exploreData):
                 
-                self?.exploreData = exploreData.data
+                self?.exploreData = exploreData
                 
             case .failure:
                 print("[ExploreVC] GET 讀取資料失敗！")
@@ -233,7 +271,7 @@ extension ExploreViewController {
             switch result {
                 
             case .success(let searchResponse):
-                self.exploreData = searchResponse.data
+                self.exploreData = searchResponse
                 print("searchResponse", searchResponse)
                 
             case .failure:
@@ -273,6 +311,22 @@ extension ExploreViewController {
             })
             
         }
+    // MARK: - POST To Block User
+    private func postToBlockUser(index: Int) {
+        let userProvider = UserProvider()
+        let userId = exploreData[index].user.id
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let blockResponse):
+                print("blockResponse", blockResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO Block User失敗！")
+            }
+        })
+    }
        
 }
 

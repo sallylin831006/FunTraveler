@@ -336,7 +336,7 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
             title: "封鎖\(userName)",
             message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
-            // POST to Bolck
+            self.postToBlockUser()
             // Alert:已封鎖，可從黑名單中解除封鎖
         })
 
@@ -352,23 +352,6 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
         self.userNameTextField.text = text
         patchData(name: text, image: "")
         
-    }
-    
-    func blockAction() {
-        let blockController = UIAlertController(title: "確定封鎖使用者", message: "", preferredStyle: .actionSheet)
-        let blockAction = UIAlertAction(title: "封鎖", style: .default, handler: { (_) in
-//            blockAction.setValue(UIColor.red, forKey: "titleTextColor")
-            
-        })
-//        let privateAction = UIAlertAction(title: "私密", style: .default, handler: { (_) in
-//            self.patchData(isPrivate: true, isPublish: true)
-//            self.moveToHomePage()
-//        })
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
-        blockController.addAction(blockAction)
-        blockController.addAction(cancelAction)
-        present(blockController, animated: true, completion: nil)
     }
     
 }
@@ -468,9 +451,7 @@ extension ProfileViewController {
             })
             
         }
-    
-    
-    
+ 
     // MARK: - POST TO INVITE
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
@@ -484,6 +465,40 @@ extension ProfileViewController {
                 
             case .failure:
                 print("[ProfileVC] POST TO INVITE失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST To Block User
+    private func postToBlockUser() {
+        let userProvider = UserProvider()
+        guard let userId = userId else { return }
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let blockResponse):
+                print("blockResponse", blockResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO Block User失敗！")
+            }
+        })
+    }
+    
+    // MARK: - DELETE To unBlock User
+    private func deleteToUnBlockUser() {
+        let userProvider = UserProvider()
+        guard let userId = userId else { return }
+        userProvider.unBlockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let unBlockResponse):
+                print("unBlockResponse", unBlockResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO UnBlock User失敗！")
             }
         })
     }

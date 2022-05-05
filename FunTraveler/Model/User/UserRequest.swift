@@ -23,6 +23,11 @@ enum UserRequest: STRequest {
     
     case deleteUser(token: String)
     
+    case blockUser(token: String, userId: Int)
+
+    case unBlockUser(token: String, userId: Int)
+
+    
     var headers: [String: String] {
         
         switch self {
@@ -33,7 +38,7 @@ enum UserRequest: STRequest {
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
-        case .getProfile(let token, _), .updateProfile(let token, _, _), .deleteUser(let token):
+        case .getProfile(let token, _), .updateProfile(let token, _, _), .deleteUser(let token), .blockUser(let token, _), .unBlockUser(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -73,7 +78,7 @@ enum UserRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
-        case .getProfile, .deleteUser, .getProfileTrips: return nil
+        case .getProfile, .deleteUser, .getProfileTrips, .blockUser, .unBlockUser: return nil
             
         case .updateProfile(_, let name, let image):
             
@@ -103,6 +108,11 @@ enum UserRequest: STRequest {
         case .updateProfile : return STHTTPMethod.PATCH.rawValue
 
         case .deleteUser : return STHTTPMethod.DELETE.rawValue
+            
+        case .blockUser : return STHTTPMethod.POST.rawValue
+            
+        case .unBlockUser : return STHTTPMethod.DELETE.rawValue
+
 
         }
     }
@@ -126,6 +136,9 @@ enum UserRequest: STRequest {
             
         case .getProfileTrips(let userId):
             return "/api/v1/user/\(userId)/trips"
+            
+        case .blockUser(_, let userId), .unBlockUser(_, let userId):
+            return "/api/v1/user/\(userId)/block"
             
         }
         
