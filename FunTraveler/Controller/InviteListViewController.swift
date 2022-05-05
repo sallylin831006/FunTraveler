@@ -30,11 +30,31 @@ class InviteListViewController: UIViewController {
         super.viewDidLoad()
         tableView.separatorStyle = .none
         tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
+        setupSearchBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+    }
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    private func setupSearchBar() {
+        
+        searchController.searchBar.placeholder = "搜尋帳戶..."
+        searchController.searchBar.delegate = self
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.barTintColor = .themeRed
+        searchController.searchBar.tintColor = .themeRed
+
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
+     
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .themeRed
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+
     }
     
     // MARK: - GET Action
@@ -47,6 +67,11 @@ class InviteListViewController: UIViewController {
                 
             case .success(let inviteData):
                 self?.inviteData = inviteData.data
+                if inviteData.data.isEmpty {
+                    let label = UILabel()
+                    label.text = "目前尚無追蹤邀請"
+                    label.stickView(label, (self?.view)!)
+                }
                 self?.tableView.reloadData()
             case .failure:
                 print("[InvitedVC] GET資料失敗！")
@@ -121,4 +146,31 @@ extension InviteListViewController: InviteListTableViewCellDelegate {
         print("已取消交友邀請！")
     }
     
+}
+
+extension InviteListViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        print("TextDidEndEditing")
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("SearchButtonClicked")
+
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("textDidChange")
+//        postToSearchTrip(searchText: searchText)
+//        if searchText.isEmpty {
+//            fetchData()
+//        }
+        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        print("點了取消按鈕")
+//        fetchData()
+    }
 }
