@@ -211,15 +211,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                      image: UIImage(systemName: "minus.circle"),
                      attributes: .destructive) { action in
                 self.postToBlockUser(index: indexPath.row)
-                
+                self.exploreData.remove(at: indexPath.row)
+                ProgressHUD.showSuccess(text: "")
             }
             return UIMenu(title: "", children: [blockAction])
-//            let duplicateAction =
-//            UIAction(title: NSLocalizedString("加入收藏", comment: ""),
-//                     image: UIImage(systemName: "plus.square.on.square")) { action in
-//                //                self.performDuplicate(indexPath)
-//            }
-//            return UIMenu(title: "", children: [inspectAction, duplicateAction])
         })
     }
 
@@ -319,8 +314,8 @@ extension ExploreViewController {
             
             switch result {
                 
-            case .success(let blockResponse):
-                print("blockResponse", blockResponse)
+            case .success:
+                self?.tableView.reloadData()
                 
             case .failure:
                 print("[ProfileVC] POST TO Block User失敗！")

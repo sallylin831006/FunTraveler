@@ -33,6 +33,10 @@ struct Explore: Codable {
     }
 }
 
+struct BlockUsers: Codable {
+    var data: [User]
+}
+
 struct Users: Codable {
     var data: User
 }
