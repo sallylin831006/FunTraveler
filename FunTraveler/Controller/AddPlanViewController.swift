@@ -9,11 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
-    
-    var tripIdClosure: ((_ tripId: Int) -> Void)?
-    
-    var tripId: Int?
-    
+            
     var copyTripId: Int?
     
     var isCopiedTrip: Bool = false
@@ -25,15 +21,6 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     private var endDate: String?
     
     private var titleText: String?
-    
-    var textFieldClosure : ((_ text: String) -> Void)? {
-        
-        didSet {
-            
-            tableView.reloadData()
-            
-        }
-    }
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -131,16 +118,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             print("成功複製行程！")
         } else {
             postData()
-            guard let planDetailViewController = storyboard?.instantiateViewController(
-                withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-            textFieldClosure = { titleText in
-                planDetailViewController.tripTitle = titleText
-            }
-
-            tripIdClosure = { tripId in
-                planDetailViewController.tripId = tripId
-            }
-            navigationController?.pushViewController(planDetailViewController, animated: true)
         }
     }
     
@@ -159,8 +136,13 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
                 switch result {
                     
                 case .success(let tripIdResponse):
-                
-                    self.tripIdClosure?(tripIdResponse.id)
+                    
+                    guard let planDetailViewController = self.storyboard?.instantiateViewController(
+                        withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+                    
+                    planDetailViewController.myTripId = tripIdResponse.id
+
+                    self.navigationController?.pushViewController(planDetailViewController, animated: true)
                     
                 case .failure:
                     print("tripIdResponse讀取資料失敗！")
@@ -214,11 +196,8 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
 extension AddPlanViewController: AddPlanTableViewCellDelegate {
     
     func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
-        
         self.titleText = text
-        
-//        guard let textFieldClosure = textFieldClosure else { return }
-//        textFieldClosure(text) //closeure尚未生成，因此被RETURN
+ 
     }
     
 }

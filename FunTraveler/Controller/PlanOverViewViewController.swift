@@ -140,7 +140,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
 
-        planDetailViewController.tripId = tripData[indexPath.row].id
+        planDetailViewController.myTripId = tripData[indexPath.row].id
       
         addChild(planDetailViewController)
         
