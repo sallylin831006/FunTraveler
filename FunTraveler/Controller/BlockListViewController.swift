@@ -9,6 +9,8 @@ import UIKit
 
 class BlockListViewController: UIViewController {
     
+    private var blockListData: [User] = []
+    
     let containerView: UIView = {
         let view = UIView()
         return view }()
@@ -31,15 +33,51 @@ class BlockListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchData()
         navigationController?.setNavigationBarHidden(false, animated: animated)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = UIColor.white
 
         self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
-        //            fetchData()
-        //            tableView.reloadData()
+        self.navigationController?.navigationBar.scrollEdgeAppearance =
+        self.navigationController?.navigationBar.standardAppearance
+
+    }
+    
+    // MARK: - GET Action
+    private func fetchData() {
+        let userProvider = UserProvider()
+        userProvider.getBlockList(completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let blockListData):
+                
+                self?.blockListData = blockListData.data
+                self?.tableView.reloadData()
+                                
+            case .failure:
+                print("[ExploreVC] GET 讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - DELETE To unBlock User
+    private func deleteToUnBlockUser(index: Int) {
+        let userProvider = UserProvider()
+        let userId = blockListData[index].id
+        userProvider.unBlockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let unBlockResponse):
+                print("unBlockResponse", unBlockResponse)
+                
+            case .failure:
+                print("[ProfileVC] POST TO UnBlock User失敗！")
+            }
+        })
     }
 }
 
@@ -51,7 +89,7 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        50
+        blockListData.count
         
     }
     
@@ -59,12 +97,35 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell", for: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = "黑名單"
+        cell.textLabel?.text = blockListData[indexPath.row].name
         
         return cell
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        addAlert(index: indexPath.row)
+        
+    }
+    
+    func addAlert(index: Int) {
+        let alertController = UIAlertController(title: "解除封鎖\(blockListData[index].name)?", message: "", preferredStyle: .alert)
+        
+        let backAction = UIAlertAction(title: "解除封鎖", style: .destructive, handler: { (_) in
+            self.deleteToUnBlockUser(index: index)
+            
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+            self.tabBarController?.tabBar.isHidden = false
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
+        })
+        
+        alertController.addAction(backAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
         
     }
     

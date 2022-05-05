@@ -486,23 +486,6 @@ extension ProfileViewController {
         })
     }
     
-    // MARK: - DELETE To unBlock User
-    private func deleteToUnBlockUser() {
-        let userProvider = UserProvider()
-        guard let userId = userId else { return }
-        userProvider.unBlockUser(userId: userId, completion: { [weak self] result in
-            
-            switch result {
-                
-            case .success(let unBlockResponse):
-                print("unBlockResponse", unBlockResponse)
-                
-            case .failure:
-                print("[ProfileVC] POST TO UnBlock User失敗！")
-            }
-        })
-    }
-    
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
