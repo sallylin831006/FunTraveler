@@ -166,7 +166,9 @@ class UserProvider {
     // MARK: - GET USER PRIVATE/PUBLIC Trips IN PROFILE
     func getProfileTrips(userId: Int, completion: @escaping ProfileTripsHanlder) {
         
-        HTTPClient.shared.request(UserRequest.getProfileTrips(userId: userId), completion: { result in
+        let token = KeyChainManager.shared.token ?? ""
+        
+        HTTPClient.shared.request(UserRequest.getProfileTrips(token: token, userId: userId), completion: { result in
             
             switch result {
                 

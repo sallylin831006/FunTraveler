@@ -35,6 +35,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.placeholder = "搜尋景點..."
         searchBar.layer.borderWidth = 2
         searchBar.layer.borderColor = UIColor.themeApricot?.cgColor
         searchBar.barTintColor = .themeApricot

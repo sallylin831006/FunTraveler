@@ -14,7 +14,6 @@ class PlanDetailViewController: UIViewController {
     
     var trip: Trip?
 
-
     var schedules: [Schedule] = []
     
     var departureTime: String = ""
@@ -131,12 +130,10 @@ class PlanDetailViewController: UIViewController {
     @objc func tapToShare() {
         
         if schedules.isEmpty {
-            //  提醒請加入行程
+            ProgressHUD.showFailure(text: "行程不能是空的唷")
             return
         }
-        
-        postData()
-        
+                
         guard let sharePlanVC = self.storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
         
