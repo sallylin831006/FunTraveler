@@ -125,6 +125,39 @@ class ExploreDetailViewController: UIViewController {
         
     }
     
+    // MARK: - POST TO Like
+    private func postLiked() {
+            let reactionProvider = ReactionProvider()
+        guard let tripId = trip?.id else { return }
+        reactionProvider.postToLiked(tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] Liked postResponse失敗！")
+                }
+            })
+            
+        }
+    // MARK: - DELETE TO UnLike
+    private func deleteLiked() {
+            let reactionProvider = ReactionProvider()
+        guard let tripId = trip?.id else { return }
+        reactionProvider.deleteUnLiked(tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    print("[Explore] UnLiked postResponse失敗！")
+                }
+            })
+            
+        }
+    
 //    // MARK: - GET Action
 //    private func fetchCommentData() {
 //
@@ -191,22 +224,22 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             tableView.reloadData()
         }
         
-//        footerView.heartClosure = { isLiked in
-//            guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
-//            
-//            if isLiked {
-//                self.postLiked()
-//                self.trip?.isLiked = isLiked
-//                self.trip?.likeCount += 1
-//                tableView.reloadData()
-//            } else {
-//                self.deleteLiked()
-//                self.trip?.isLiked = isLiked
-//                self.trip?.likeCount -= 1
-//                tableView.reloadData()
-//            }
-//           
-//        }
+        footerView.heartClosure = { isLiked in
+            guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+            
+            if isLiked {
+                self.postLiked()
+                self.trip?.isLiked = isLiked
+                self.trip?.likeCount += 1
+                tableView.reloadData()
+            } else {
+                self.deleteLiked()
+                self.trip?.isLiked = isLiked
+                self.trip?.likeCount -= 1
+                tableView.reloadData()
+            }
+           
+        }
         
         footerView.copyClosure = { [weak self] in
             print("一鍵複製行程！")

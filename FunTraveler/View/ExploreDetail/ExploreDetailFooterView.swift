@@ -22,7 +22,8 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     var heartClosure: ((_ isLiked: Bool) -> Void)?
     private var isCollected: Bool = false
-    
+    private var isLiked: Bool = false
+
     func layoutFooterView(data: Trip) {
         collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
         collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
@@ -31,8 +32,9 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
         
         heartButton.setImage(UIImage.asset(.heartSelected), for: .selected)
         heartButton.setImage(UIImage.asset(.heartNormal), for: .normal)
-//        self.isLiked = data.isLiked
-//        heartButton.isSelected = data.isLiked
+        self.isLiked = data.isLiked
+        heartButton.isSelected = data.isLiked
+        numberOfLikeLabel.text = "\(data.likeCount)個讚"
     }
     
     override func awakeFromNib() {
@@ -49,8 +51,8 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     }
     
     @objc func tapHeartButton(_ sender: UIButton) {
-//        sender.isSelected = !isLiked
-//        heartClosure?(!isLiked)
+        sender.isSelected = !isLiked
+        heartClosure?(!isLiked)
     }
     
     override init(reuseIdentifier: String?) {
