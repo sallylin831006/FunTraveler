@@ -266,7 +266,7 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
     func tapToFollow(_ followButton: UIButton, _ section: Int) {
         postToInvite()
         followButton.setTitle("已送出邀請", for: .normal)
-        followButton.backgroundColor = .themeApricotDeep
+        followButton.backgroundColor = .themePink
         followButton.isUserInteractionEnabled = false
     }
     

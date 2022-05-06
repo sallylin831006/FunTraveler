@@ -84,7 +84,6 @@ class ProfileViewController: UIViewController {
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         
         if userId == nil && KeyChainManager.shared.userId == nil {
-            tableView.isHidden = true
             onShowLogin()
             return
         }
@@ -108,6 +107,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func onShowLogin() {
+        tableView.isHidden = true
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         authVC.delegate = self
@@ -437,7 +437,7 @@ extension ProfileViewController {
     private func postCollectedData(isCollected: Bool, tripId: Int) {
             let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected( isCollected: isCollected,
+            collectedProvider.addCollected(isCollected: isCollected,
                                            tripId: tripId, completion: { result in
                 
                 switch result {

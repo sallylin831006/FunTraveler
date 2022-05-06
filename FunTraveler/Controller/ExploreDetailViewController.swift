@@ -242,7 +242,6 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     private func onShowLogin() {
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-//        authVC.delegate = self
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
     }
