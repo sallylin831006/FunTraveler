@@ -53,7 +53,8 @@ struct Trip: Codable {
     var endDate: String?
     var editors: [User]
     var isCollected: Bool
-    var likeCount: Int?
+    var likeCount: Int
+    var isLiked: Bool
     var commentCount: Int?
     
     var schedules: [[Schedule]]?
@@ -65,6 +66,8 @@ struct Trip: Codable {
         case isCollected = "is_collected"
         case likeCount = "likes_count"
         case commentCount = "comments_count"
+        case isLiked = "is_liked"
+
     }
 }
 

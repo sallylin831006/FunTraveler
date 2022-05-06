@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class ExploreOverViewTableViewCell: UITableViewCell {
     
     var friendClosure: (() -> Void)?
@@ -34,7 +33,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var lockIconImage: UIImageView!
-    
     
     private var isCollected: Bool = false
     
