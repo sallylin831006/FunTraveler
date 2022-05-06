@@ -218,14 +218,18 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         footerView.layoutFooterView(data: trip)
         
         footerView.collectClosure = { isCollected in
-            guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+            guard KeyChainManager.shared.token != nil else { self.onShowLogin()
+                return
+            }
             self.postData(isCollected: isCollected, tripId: trip.id)
             self.trip?.isCollected = isCollected
             tableView.reloadData()
         }
         
         footerView.heartClosure = { isLiked in
-            guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+            guard KeyChainManager.shared.token != nil else {  self.onShowLogin()
+                return
+            }
             
             if isLiked {
                 self.postLiked()

@@ -273,7 +273,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        50.0
+        70.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -281,6 +281,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
+        footerView.backgroundColor = .clear
         footerView.scheduleButton.setTitle("+新增景點", for: .normal)
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)

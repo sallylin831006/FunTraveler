@@ -18,8 +18,6 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        scheduleButton.backgroundColor = UIColor.themeRed
-
         setupFooterView()
     }
 
@@ -31,7 +29,6 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
 
     private func setupFooterView() {
         contentView.backgroundColor = UIColor.clear
-
     }
     
 }
