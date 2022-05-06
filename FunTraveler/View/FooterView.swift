@@ -17,6 +17,7 @@ class FooterView: UITableViewHeaderFooterView {
         super.layoutSubviews()
         saveButton.layer.cornerRadius = CornerRadius.buttonCorner
         cancelButton.layer.cornerRadius = CornerRadius.buttonCorner
+        self.backgroundConfiguration = nil
     }
     
     override init(reuseIdentifier: String?) {

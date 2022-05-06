@@ -19,7 +19,7 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-    
+        self.backgroundConfiguration = nil
         setupHeaderView()
         titleLabel.text = "行程分享"
 

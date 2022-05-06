@@ -89,7 +89,9 @@ class PlanPickerViewController: UIViewController {
         tableView.addGestureRecognizer(longpress)
         tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
         tableView.backgroundView?.contentMode = .scaleAspectFill
-//        tableView.backgroundView?.alpha = 0.9
+        tableView.backgroundColor = .clear
+        
+        self.tableView.contentInsetAdjustmentBehavior = .never
 
     }
     
@@ -277,15 +279,13 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
+
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
-        footerView.backgroundColor = .clear
         footerView.scheduleButton.setTitle("+新增景點", for: .normal)
-        
+
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-        
         return footerView
     }
     

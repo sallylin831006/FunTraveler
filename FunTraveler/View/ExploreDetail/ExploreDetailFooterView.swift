@@ -25,6 +25,7 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     private var isLiked: Bool = false
 
     func layoutFooterView(data: Trip) {
+        self.backgroundConfiguration = nil
         collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
         collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
         self.isCollected = data.isCollected

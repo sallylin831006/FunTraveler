@@ -13,7 +13,9 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.backgroundConfiguration = nil
         scheduleButton.layer.cornerRadius = CornerRadius.buttonCorner
+        self.backgroundConfiguration = nil
     }
     
     override init(reuseIdentifier: String?) {
@@ -28,7 +30,8 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     }
 
     private func setupFooterView() {
-        contentView.backgroundColor = UIColor.clear
+//        contentView.backgroundColor = UIColor.clear
+//        self.backgroundColor = UIColor.clear
     }
     
 }

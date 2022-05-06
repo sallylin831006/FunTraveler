@@ -30,6 +30,7 @@ class SegementView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.backgroundConfiguration = nil
         self.backgroundColor = .themeApricot
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeApricotDeep ?? .white], for: .selected)
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeRed ?? .white], for: .normal)

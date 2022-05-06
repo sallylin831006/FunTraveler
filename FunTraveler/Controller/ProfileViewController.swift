@@ -97,6 +97,7 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
         tableView.isHidden = false
         navigationController?.setNavigationBarHidden(true, animated: animated)
         guard KeyChainManager.shared.token != nil else {
