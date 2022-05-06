@@ -23,7 +23,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.backgroundConfiguration = nil
         moveToLoginButton.addTarget(self, action: #selector(moveToLogin), for: .touchUpInside)
         sendCommentButton.addTarget(self, action: #selector(tapToSendComment), for: .touchUpInside)
         commentTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)

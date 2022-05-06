@@ -102,6 +102,15 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         trolleyTabBarItem.badgeColor = .brown
 
         delegate = self
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.themeApricotDeep
+            
+            self.tabBar.standardAppearance = appearance
+            self.tabBar.scrollEdgeAppearance = appearance
+        }
     }
     
     override func viewDidLayoutSubviews() {
