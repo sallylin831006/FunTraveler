@@ -60,6 +60,24 @@ class ProfileViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
         UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
         tableView.isHidden = true
+        setupAlertLoginView()
+        onShowLogin()
+    }
+    
+    let alertLoginView = AlertLoginView()
+    private func setupAlertLoginView() {
+        
+        alertLoginView.alertLabel.text = "登入以查看個人頁"
+        self.view.addSubview(alertLoginView)
+        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
+        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func tapToShowLogin() {
         onShowLogin()
     }
     
@@ -81,9 +99,14 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         tableView.isHidden = false
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
+        guard KeyChainManager.shared.token != nil else {
+            setupAlertLoginView()
+            onShowLogin()
+            return
+        }
         
         if userId == nil && KeyChainManager.shared.userId == nil {
+            setupAlertLoginView()
             onShowLogin()
             return
         }
@@ -217,8 +240,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             cell.userImageView.addGestureRecognizer(imageTapGesture)
             cell.userImageView.isUserInteractionEnabled = true
             
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
-            self.view.addGestureRecognizer(tapGesture)
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
+//            self.view.addGestureRecognizer(tapGesture)
             
             self.userNameTextField = cell.userNameTextField
             
@@ -251,7 +274,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let exploreDeatilVC = UIStoryboard.explore.instantiateViewController(
+            withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
         
+        exploreDeatilVC.tripId = collectedData[indexPath.row].id
+        exploreDeatilVC.days = collectedData[indexPath.row].days
+        navigationController?.pushViewController(exploreDeatilVC, animated: true)
+        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
     }
     
     @objc func tapToFriendList() {
@@ -261,24 +294,21 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         friendListVC.userId = userData?.id
         self.present(friendListVC, animated: true)
         
-        //        navigationController?.pushViewController(friendListVC, animated: true)
     }
     
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
         let navSettingVC = UINavigationController(rootViewController: settingVC)
-        //        navSettingVC.modalPresentationStyle = .fullScreen
-//        self.present(navSettingVC, animated: true)
         navigationController?.pushViewController(settingVC, animated: true)
     }
     
-    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
-        userNameTextField.resignFirstResponder()
-        guard let name = userNameTextField.text else { return }
-        patchData(name: name, image: "")
-        
-    }
+//    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+//        userNameTextField.resignFirstResponder()
+//        guard let name = userNameTextField.text else { return }
+//        patchData(name: name, image: "")
+//
+//    }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         let photoSourceRequestController = UIAlertController(
@@ -322,10 +352,14 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
         tableView.isHidden = false
+        setupAlertLoginView()
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         fetchUserData(userId: userIdNumber)
         fetchProfileTripsData(userId: userIdNumber)
+        if userId != nil {
+            alertLoginView.isHidden = true
+        }
     }
 }
 

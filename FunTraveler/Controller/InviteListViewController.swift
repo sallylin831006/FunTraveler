@@ -31,13 +31,45 @@ class InviteListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
         setupSearchBar()
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.backBarButtonItem = UIBarButtonItem(
-            title: "Something Else", style: .plain, target: nil, action: nil)
+        guard KeyChainManager.shared.token != nil else {
+            setupAlertLoginView()
+            return
+        }
+        
         fetchData()
+    }
+    let alertLoginView = AlertLoginView()
+    private func setupAlertLoginView() {
+        
+        alertLoginView.alertLabel.text = "登入以查看好友邀請"
+        self.view.addSubview(alertLoginView)
+        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
+        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func tapToShowLogin() {
+        onShowLogin()
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
+        alertLoginView.isHidden = true
     }
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -70,9 +102,12 @@ class InviteListViewController: UIViewController {
             case .success(let inviteData):
                 self?.inviteData = inviteData.data
                 if inviteData.data.isEmpty {
-                    let label = UILabel()
-                    label.text = "目前尚無追蹤邀請"
-                    label.stickView(label, (self?.view)!)
+                    let alertView = AlertLoginView()
+                    alertView.alertLabel.text = "目前尚無好友邀請"
+                    self?.view.addSubview(alertView)
+                    alertView.translatesAutoresizingMaskIntoConstraints = false
+                    alertView.centerXAnchor.constraint(equalTo: self!.view.centerXAnchor).isActive = true
+                    alertView.centerYAnchor.constraint(equalTo: self!.view.centerYAnchor).isActive = true
                 }
                 self?.tableView.reloadData()
             case .failure:
@@ -80,6 +115,8 @@ class InviteListViewController: UIViewController {
             }
         })
     }
+    
+    
     
     // MARK: - POST Action
     private func postData(index: Int, isAccept: Bool) {

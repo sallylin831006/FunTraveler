@@ -39,6 +39,11 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     private var isLiked: Bool = false
 
     func layoutCell(data: Explore) {
+        if KeyChainManager.shared.token == nil {
+            collectButton.isHidden = true
+        } else {
+            collectButton.isHidden = false
+        }
         
         heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
 

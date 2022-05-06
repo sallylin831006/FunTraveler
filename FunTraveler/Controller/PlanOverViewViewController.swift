@@ -88,7 +88,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        50.0
+        70.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
