@@ -30,8 +30,8 @@ class VideoWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLoadingView()
         self.setUpUI()
-        
         collectionView.register(UINib(nibName: String(
             describing: VideoWallHeaderView.self), bundle: nil),
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -44,11 +44,9 @@ class VideoWallViewController: UIViewController {
         
     }
 
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.view.backgroundColor = .themeApricot
-        showLoadingView()
         fetchData()
         navigationItem.title = "動態"
     }
@@ -185,11 +183,13 @@ extension VideoWallViewController {
     }
     
     // MARK: - POST TO INVITE
-    private func postToInvite() {
+    private func postToInvite(section: Int) {
         let friendsProvider = FriendsProvider()
-        guard let userId = KeyChainManager.shared.userId else { return }
-        guard let userIdNumber = Int(userId) else { return }
-        friendsProvider.postToInvite(userId: userIdNumber, completion: { [weak self] result in
+//        guard let userId = KeyChainManager.shared.userId else { return }
+//        guard let userIdNumber = Int(userId) else { return }
+        
+        let userId =  videoDataSource[section].user.id
+        friendsProvider.postToInvite(userId: userId, completion: { result in
             
             switch result {
                 
@@ -245,11 +245,9 @@ extension VideoWallViewController {
     
 }
 
-
 extension VideoWallViewController: VideoWallHeaderViewDelegate {
     func tapToUserProfile(_ section: Int) {
         guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
-        
         guard let profileVC = UIStoryboard.profile.instantiateViewController(
             withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
 
@@ -264,20 +262,15 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
     }
     
     func tapToFollow(_ followButton: UIButton, _ section: Int) {
-        postToInvite()
+        guard KeyChainManager.shared.token != nil else { return onShowLogin() }
+        postToInvite(section: section)
         followButton.setTitle("已送出邀請", for: .normal)
         followButton.backgroundColor = .themePink
         followButton.isUserInteractionEnabled = false
     }
     
-    private func onShowLogin() {
-        guard let authVC = UIStoryboard.auth.instantiateViewController(
-            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-        let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: false, completion: nil)
-    }
-    
     func blockUser(_ blockButton: UIButton, _ index: Int) {
+        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         if userIdNumber == self.videoDataSource[index].user.id { return }
@@ -298,6 +291,13 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
         blockController.addAction(blockAction)
         blockController.addAction(cancelAction)
         present(blockController, animated: true, completion: nil)
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
    
 }

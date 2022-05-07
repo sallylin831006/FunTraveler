@@ -60,14 +60,6 @@ class PlayerViewController: UIViewController {
                 print("Cannot save video.")
                 print(error ?? "unknown error")
             }
-            DispatchQueue.main.async {
-                
-                self?.dismiss(animated: true, completion: nil)
-                self?.presentingViewController?.navigationController?.popViewController(animated: true)
-                if let tabBarController = self?.presentingViewController as? UITabBarController {
-                    tabBarController.selectedIndex = 1
-                }
-            }
         }
     }
     func postVideoData(locationText: String, url: URL) {
@@ -78,9 +70,14 @@ class PlayerViewController: UIViewController {
         ]
         VideoManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos",
                                            parameters: parameters, dataPath: dataPath, completion: { (_) in
-//            DispatchQueue.main.async {
-//                self.processData(data: data)
-//            }
+            DispatchQueue.main.async {
+                
+                self.dismiss(animated: true, completion: nil)
+                self.presentingViewController?.navigationController?.popViewController(animated: true)
+                if let tabBarController = self.presentingViewController as? UITabBarController {
+                    tabBarController.selectedIndex = 1
+                }
+            }
         })
     }
     
