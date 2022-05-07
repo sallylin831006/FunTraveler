@@ -26,6 +26,7 @@ class ExploreViewController: UIViewController {
             
         }
     }
+    private let alertView = AlertLoginView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +85,9 @@ class ExploreViewController: UIViewController {
         
         searchController.searchBar.placeholder = "搜尋行程..."
         searchController.searchBar.delegate = self
-        
+        navigationController?.navigationBar.backgroundColor = .themeApricot
+        navigationController?.navigationBar.barTintColor = .themeApricot
+
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.barTintColor = .themeRed
@@ -267,13 +270,23 @@ extension ExploreViewController {
                 
             case .success(let searchResponse):
                 self.exploreData = searchResponse
-                print("searchResponse", searchResponse)
+                if searchResponse.isEmpty {
+                    self.setupAlertView()
+                }
                 
             case .failure:
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })
         
+    }
+    private func setupAlertView() {
+        alertView.isHidden = false
+        alertView.alertLabel.text = "查無資料"
+        self.view.addSubview(alertView)
+        alertView.translatesAutoresizingMaskIntoConstraints = false
+        alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     // MARK: - POST TO Like
@@ -337,12 +350,14 @@ extension ExploreViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         postToSearchTrip(searchText: searchText)
         if searchText.isEmpty {
+            alertView.isHidden = true
             fetchData()
         }
         
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        alertView.isHidden = true
         fetchData()
     }
 }

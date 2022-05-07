@@ -31,11 +31,15 @@ class InviteListViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
         setupSearchBar()
+        setupBackButton()
+
+    }
+    
+    func setupBackButton() {
         let backButton = UIBarButtonItem()
         backButton.title = ""
         backButton.tintColor = .black
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-
     }
     
     override func viewWillAppear(_ animated: Bool) {

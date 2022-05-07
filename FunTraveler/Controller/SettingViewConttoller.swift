@@ -42,15 +42,22 @@ class SettingViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.layoutMargins = .init(top: 0.0, left: 23.5, bottom: 0.0, right: 23.5)
         tableView.separatorInset = tableView.layoutMargins
-       
+        setupBackButton()
     }
     
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            navigationController?.setNavigationBarHidden(false, animated: animated)
-//            fetchData()
-//            tableView.reloadData()
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        //            fetchData()
+        //            tableView.reloadData()
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
 }
 
 extension SettingViewController: UITableViewDataSource, UITableViewDelegate {

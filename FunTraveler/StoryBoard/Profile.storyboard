@@ -22,15 +22,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-t5-CDi">
-                                <rect key="frame" x="16" y="98" width="37" height="34"/>
-                                <color key="tintColor" red="0.95300000910000005" green="0.91399997470000005" blue="0.84299999479999999" alpha="0.57533112580000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="登出"/>
-                                <connections>
-                                    <action selector="logoutButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eLC-L1-DNE"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="themeApricot"/>
@@ -39,8 +30,6 @@
                             <constraint firstItem="keL-eX-TKi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9JP-yq-UbA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="keL-eX-TKi" secondAttribute="trailing" id="QuO-Qs-7zQ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="keL-eX-TKi" secondAttribute="bottom" id="aMJ-0M-bWq"/>
-                            <constraint firstItem="w4y-t5-CDi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="lD3-86-her"/>
-                            <constraint firstItem="w4y-t5-CDi" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="topMargin" constant="10" id="v4O-oO-jg4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nlx-3v-tpk"/>
