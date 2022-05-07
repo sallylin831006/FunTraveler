@@ -242,4 +242,26 @@ class TripProvider {
                 }
             })
     }
+    
+    // MARK: - DELETE Trip
+    func deleteTrip(tripId: Int, completion: @escaping (Result<String>) -> Void) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(TripRequest.deleteTrip(token: token, tripId: tripId), completion: { result in
+            
+            switch result {
+                
+            case .success: break
+                
+            case .failure(let error):
+                print(error)
+                completion(Result.failure(error))
+                
+            }
+        })
+    }
 }

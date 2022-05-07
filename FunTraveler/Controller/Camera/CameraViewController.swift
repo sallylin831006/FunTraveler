@@ -21,14 +21,22 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func recordVideo(_ sender: Any) {
+        guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .camera)
     }
         
     @IBAction func pickVideo(_ sender: Any) {
+        guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .savedPhotosAlbum)
     }
     
-    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
+    }
+   
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       
