@@ -53,6 +53,7 @@ enum ImageAsset: String {
     case friendInvitedIcon
     
     case launchScreen
+    case logo
 
 }
 

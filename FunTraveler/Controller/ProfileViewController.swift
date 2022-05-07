@@ -58,7 +58,7 @@ class ProfileViewController: UIViewController {
     
     let alertLoginView = AlertLoginView()
     private func setupAlertLoginView() {
-        
+        alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看個人頁"
         self.view.addSubview(alertLoginView)
         alertLoginView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,10 +92,12 @@ class ProfileViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
         tableView.isHidden = false
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        guard KeyChainManager.shared.token != nil else {
+
+        if KeyChainManager.shared.token == nil {
             setupAlertLoginView()
             onShowLogin()
-            return
+        } else {
+            alertLoginView.isHidden = true
         }
         
         if userId == nil && KeyChainManager.shared.userId == nil {
@@ -344,15 +346,16 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        if KeyChainManager.shared.token != nil {
+            alertLoginView.isHidden = true
+        }
+        
         tableView.isHidden = false
         setupAlertLoginView()
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         fetchUserData(userId: userIdNumber)
         fetchProfileTripsData(userId: userIdNumber)
-        if userId != nil {
-            alertLoginView.isHidden = true
-        }
     }
 }
 

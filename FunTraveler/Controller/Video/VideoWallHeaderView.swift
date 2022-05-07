@@ -58,9 +58,12 @@ class VideoWallHeaderView: UICollectionReusableView {
         
         userNameLabel.text =  data[section].user.name
         
+        followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+        
         let isFriend = data[section].user.isFriend
         let isInvite = data[section].user.isInvite
         guard let userId = KeyChainManager.shared.userId else { return }
+        
         
         if !isFriend && Int(userId) == data[section].user.id {
             followButton.isHidden = true
@@ -73,7 +76,6 @@ class VideoWallHeaderView: UICollectionReusableView {
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && isInvite {
             followButton.isHidden = false
-
             followButton.setTitle("已送出邀請", for: .normal)
             followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false

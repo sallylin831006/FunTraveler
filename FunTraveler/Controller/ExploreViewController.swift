@@ -63,7 +63,7 @@ class ExploreViewController: UIViewController {
 //    }
     
     private func setupNavItem() {
-
+        addLogoToNavigationBarItem()
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage.asset(.friendInvitedIcon),
             style: .plain,
@@ -72,13 +72,18 @@ class ExploreViewController: UIViewController {
         )
 
     }
+    func addLogoToNavigationBarItem() {
+        let imageView = UIImageView(image: UIImage.asset(.logo))
+        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        self.navigationItem.titleView = imageView
+    }
     
     @objc func tapInviteList() {
         guard let inviteVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.inviteVC) as? InviteListViewController else { return }
         
         navigationController?.pushViewController(inviteVC, animated: true)
-//        inviteVC.tabBarController?.tabBar.isHidden = true
     }
     
     private func setupSearchBar() {
@@ -93,7 +98,7 @@ class ExploreViewController: UIViewController {
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
         searchController.searchBar.backgroundColor = .themeApricot
-        searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
      
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .themeRed
@@ -148,7 +153,13 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
         
+        if KeyChainManager.shared.token == nil {
+            cell.heartButton.setImage(UIImage.asset(.heartNormal), for: .selected)
+        }
         cell.heartClosure = { isLiked in
+            guard KeyChainManager.shared.token != nil else {                self.onShowLogin()
+                return
+            }
             if isLiked {
                 self.postLiked(index: indexPath.row)
                 self.exploreData[indexPath.row].isLiked = isLiked
@@ -185,6 +196,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
         
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let exploreDeatilVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
@@ -219,6 +231,13 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return UIMenu(title: "", children: [blockAction])
         })
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
 
 }
