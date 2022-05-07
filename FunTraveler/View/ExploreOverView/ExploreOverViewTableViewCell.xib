@@ -62,10 +62,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8T3-UM-aZN">
-                        <rect key="frame" x="325" y="6" width="20" height="33"/>
+                        <rect key="frame" x="325" y="8" width="20" height="29"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="BJF-jm-kj7"/>
-                            <constraint firstAttribute="height" constant="33" id="NHD-RU-Ild"/>
+                            <constraint firstAttribute="height" constant="29" id="NHD-RU-Ild"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="" image="collectedIconSelected"/>
@@ -82,7 +82,7 @@
                         <color key="textColor" systemColor="systemGray3Color"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.shield" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VBZ-Lt-G1g">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VBZ-Lt-G1g">
                         <rect key="frame" x="299" y="157" width="40" height="43"/>
                         <color key="tintColor" name="themeApricot"/>
                         <constraints>
@@ -108,7 +108,7 @@
                     <constraint firstAttribute="trailing" secondItem="Ek6-oK-l1u" secondAttribute="trailing" constant="16" id="Q8w-Sv-Ct6"/>
                     <constraint firstItem="PQJ-go-cQn" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="QHb-ni-0hK"/>
                     <constraint firstAttribute="bottom" secondItem="iJ3-Qa-9hi" secondAttribute="bottom" constant="20" id="VI6-0v-Czp"/>
-                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="XQq-wl-yxW"/>
+                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="XQq-wl-yxW"/>
                     <constraint firstAttribute="trailing" secondItem="VBZ-Lt-G1g" secondAttribute="trailing" constant="26" id="Xp5-1h-cba"/>
                     <constraint firstItem="iJ3-Qa-9hi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="fbE-kG-fli"/>
                     <constraint firstItem="Ek6-oK-l1u" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="gDv-AC-7qf"/>
@@ -136,9 +136,9 @@
     </objects>
     <resources>
         <image name="coberImage" width="1656" height="784"/>
-        <image name="collectedIconSelected" width="53.830001831054688" height="95.449996948242188"/>
+        <image name="collectedIconSelected" width="54" height="81.459999084472656"/>
         <image name="heartNormal" width="47.950000762939453" height="42.889999389648438"/>
-        <image name="lock.shield" catalog="system" width="128" height="118"/>
+        <image name="lock.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="themeApricot">
             <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -22,10 +22,10 @@
                     <buttonConfiguration key="configuration" style="plain" image="doc.on.doc.fill" catalog="system" title=""/>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OZ-Gu-vbA">
-                    <rect key="frame" x="444" y="0.0" width="33" height="54"/>
+                    <rect key="frame" x="457" y="10" width="20" height="29"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="9OZ-Gu-vbA" secondAttribute="height" multiplier="11:18" id="gxp-d4-HY2"/>
-                        <constraint firstAttribute="width" constant="33" id="w9u-hq-ENI"/>
+                        <constraint firstAttribute="height" constant="29" id="2fH-EU-se0"/>
+                        <constraint firstAttribute="width" constant="20" id="w9u-hq-ENI" userLabel="width = 20"/>
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="" image="collectedIconSelected"/>
@@ -66,7 +66,7 @@
                 <constraint firstItem="zE4-LU-7sN" firstAttribute="leading" secondItem="ZCy-qe-U0C" secondAttribute="trailing" constant="10" id="WmJ-Xg-JuX"/>
                 <constraint firstItem="zE4-LU-7sN" firstAttribute="centerY" secondItem="ZCy-qe-U0C" secondAttribute="centerY" id="ihP-1Y-EC9"/>
                 <constraint firstAttribute="bottom" secondItem="UTg-qA-fsR" secondAttribute="bottom" constant="16" id="m0U-C4-n3m"/>
-                <constraint firstItem="9OZ-Gu-vbA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="tty-ai-Lf3"/>
+                <constraint firstItem="9OZ-Gu-vbA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="tty-ai-Lf3"/>
                 <constraint firstItem="ZCy-qe-U0C" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="u9H-oa-Wvp"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gdz-T3-O6O" secondAttribute="trailing" constant="16" id="xYr-DG-f3W"/>
             </constraints>
@@ -82,7 +82,7 @@
         </view>
     </objects>
     <resources>
-        <image name="collectedIconSelected" width="53.830001831054688" height="95.449996948242188"/>
+        <image name="collectedIconSelected" width="54" height="81.459999084472656"/>
         <image name="doc.on.doc.fill" catalog="system" width="116" height="128"/>
         <image name="heartNormal" width="47.950000762939453" height="42.889999389648438"/>
         <namedColor name="themeApricotDeep">

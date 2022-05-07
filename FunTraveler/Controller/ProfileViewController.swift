@@ -348,10 +348,11 @@ extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
         if KeyChainManager.shared.token != nil {
             alertLoginView.isHidden = true
+        } else {
+            setupAlertLoginView()
         }
         
         tableView.isHidden = false
-        setupAlertLoginView()
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         fetchUserData(userId: userIdNumber)
@@ -516,7 +517,6 @@ extension ProfileViewController {
         })
     }
 
-    
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
