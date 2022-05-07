@@ -870,7 +870,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3A73528228018C9A00B4D8D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -881,7 +881,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};

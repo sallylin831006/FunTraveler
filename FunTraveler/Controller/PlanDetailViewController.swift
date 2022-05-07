@@ -88,7 +88,7 @@ class PlanDetailViewController: UIViewController {
                 self.present(navSharePlanVC, animated: true)
                 
             case .failure:
-                ProgressHUD.showFailure(text: "行程不能是空的唷")
+                ProgressHUD.showFailure(text: "不能有行程是空的唷")
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
         })
