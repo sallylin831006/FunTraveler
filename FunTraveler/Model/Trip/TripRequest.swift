@@ -160,7 +160,7 @@ enum TripRequest: STRequest {
             return "/api/v1/trips/duplicate"
             
         case .deleteTrip(_, let tripId):
-            return "/api/v1/delete/\(tripId)"
+            return "/api/v1/trips/\(tripId)"
             
         }
         

@@ -339,4 +339,42 @@ class UserProvider {
             }
         })
     }
+    
+    // MARK: - GET User List by Search
+    func getUserSearchList(text: String, completion: @escaping BlockUserHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(UserRequest.getUserSearchList(token: token, text: text), completion: { result in
+            
+            switch result {
+                
+            case .success(let data):
+                
+                do {
+                    let userSearchList = try JSONDecoder().decode(
+                        BlockUsers.self,
+                        from: data
+                    )
+                    
+                    DispatchQueue.main.async {
+                        
+                        completion(Result.success(userSearchList))
+                    }
+                    
+                } catch {
+                    print(error)
+                    completion(Result.failure(error))
+                }
+                
+            case .failure(let error):
+                print(error)
+                completion(Result.failure(error))
+                
+            }
+        })
+    }
 }
