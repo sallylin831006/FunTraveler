@@ -51,11 +51,7 @@ class PlanDetailViewController: UIViewController {
         let alertController = UIAlertController(title: "確定要離開編輯嗎？", message: "記得儲存您的旅遊規劃！", preferredStyle: .alert)
         
         let backAction = UIAlertAction(title: "儲存", style: .default, handler: { (_) in
-            self.postData()
-            
-            self.dismiss(animated: true, completion: nil)
-            self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.tabBar.isHidden = false
+            self.postToSaveData(isFinished: false)
             
         })
         
@@ -70,7 +66,7 @@ class PlanDetailViewController: UIViewController {
     }
     
     // MARK: - Action
-    private func postData() {
+    private func postToShareData(isFinished: Bool) {
         
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
@@ -78,12 +74,44 @@ class PlanDetailViewController: UIViewController {
         if schedules.isEmpty { return }
         
         let day = schedules[0].day
-        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
             switch result {
                 
-            case .success: break
+            case .success:
+                guard let sharePlanVC = self.storyboard?.instantiateViewController(
+                    withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
                 
+                sharePlanVC.myTripId = self.myTripId
+
+                let navSharePlanVC = UINavigationController(rootViewController: sharePlanVC)
+                self.present(navSharePlanVC, animated: true)
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "行程不能是空的唷")
+                print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - Action
+    private func postToSaveData(isFinished: Bool) {
+        
+        let tripProvider = TripProvider()
+        guard let tripId = myTripId else { return }
+        
+        if schedules.isEmpty { return }
+        
+        let day = schedules[0].day
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
+                self.tabBarController?.tabBar.isHidden = false
+      
             case .failure:
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
@@ -128,20 +156,11 @@ class PlanDetailViewController: UIViewController {
         
     }
     @objc func tapToShare() {
-        
         if schedules.isEmpty {
             ProgressHUD.showFailure(text: "行程不能是空的唷")
             return
         }
-                
-        guard let sharePlanVC = self.storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
-        
-        sharePlanVC.myTripId = myTripId
-
-        let navSharePlanVC = UINavigationController(rootViewController: sharePlanVC)
-        self.present(navSharePlanVC, animated: true)
-        
+        postToShareData(isFinished: true)
     }
     
     func moveToSharePage() {
@@ -200,5 +219,4 @@ class PlanDetailViewController: UIViewController {
 //        line.strokeWidth = 4.0
 //        line.map = mapView
 //    }
-    
-//}
+// }

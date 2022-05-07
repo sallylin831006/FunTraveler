@@ -103,9 +103,7 @@ class PlanPickerViewController: UIViewController {
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         
-        guard let tripId = myTripId else { return  }
-
-//        guard let tripId = tripId else { return  }
+        guard let tripId = myTripId else { return }
         
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
@@ -126,11 +124,11 @@ class PlanPickerViewController: UIViewController {
         
     }
     // MARK: - POST Action
-    func postData(days: Int) {
+    func postData(days: Int, isFinished: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
         
-        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { result in
             
             switch result {
                 
@@ -303,7 +301,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         searchVC.scheduleClosure = { [weak self] newSchedule in
             self?.schedule = newSchedule
-            self?.postData(days: self!.currentDay)
+            self?.postData(days: self!.currentDay, isFinished: false)
         }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
         self.present(navSearchVC, animated: true)
@@ -314,7 +312,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
             tableView.isEditing = false
             self.schedule.remove(at: index.row)
-            self.postData(days: self.currentDay)
+            self.postData(days: self.currentDay, isFinished: false)
         }
         return [deleteAction]
     }
@@ -393,10 +391,9 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
 
 @objc extension PlanPickerViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-        postData(days: currentDay)
+        postData(days: currentDay, isFinished: false)
         currentDay = index
         fetchData(days: index)
-        
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
