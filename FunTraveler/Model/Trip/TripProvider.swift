@@ -137,7 +137,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
-    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ScheduleInfoHanlder) {
+    func postTrip(tripId: Int, schedules: [Schedule], day: Int, isFinished: Bool, completion: @escaping ScheduleInfoHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -148,7 +148,7 @@ class TripProvider {
             TripRequest.postTrip(token: token,
                                  tripId: tripId,
                                  schedules: schedules,
-                                 day: day), completion: {  result in
+                                 day: day, isFinished: isFinished), completion: {  result in
                
                 switch result {
                     

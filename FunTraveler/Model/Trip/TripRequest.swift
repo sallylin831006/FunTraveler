@@ -15,7 +15,7 @@ enum TripRequest: STRequest {
     
     case getSchdule(token: String, tripId: Int, days: Int)
     
-    case postTrip(token: String, tripId: Int, schedules: [Schedule], day: Int)
+    case postTrip(token: String, tripId: Int, schedules: [Schedule], day: Int, isFinished: Bool)
     
     case updateTrip(token: String, tripId: Int, schedules: [Schedule], isPrivate: Bool, isPublish: Bool)
     
@@ -30,7 +30,7 @@ enum TripRequest: STRequest {
         case .getTrip(let token),
                 .addTrip(let token, _, _, _),
                 .getSchdule(let token, _, _),
-                .postTrip(let token, _, _, _),
+                .postTrip(let token, _, _, _, _),
                 .updateTrip(let token, _, _, _ , _),
                 .copyTrip(let token, _, _, _, _),
                 .deleteTrip(let token, _)
@@ -60,7 +60,7 @@ enum TripRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
-        case .postTrip(_, _, let schedules, let day):
+        case .postTrip(_, _, let schedules, let day, let isFinished):
             var scheduleData: [[String: Any]] = []
             
             for schedule in schedules {
@@ -81,7 +81,8 @@ enum TripRequest: STRequest {
             
             let body = [
                 "schedules": scheduleData,
-                "day": day
+                "day": day,
+                "is_finished": isFinished
             ] as [String: Any]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
@@ -106,7 +107,6 @@ enum TripRequest: STRequest {
             ] as [String: Any]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-            
             
             
         case .copyTrip(_, let title, let startDate, let endDate, let tripId):
@@ -150,7 +150,7 @@ enum TripRequest: STRequest {
         case .addTrip:
             return "/api/v1/trips"
             
-        case .postTrip(_, let tripId, _, _):
+        case .postTrip(_, let tripId, _, _, _):
             return "/api/v1/trips/\(tripId)"
             
         case .updateTrip(_, let tripId, _, _ , _):

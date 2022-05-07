@@ -69,7 +69,7 @@ extension PlanPickerViewController {
                     schedule.insert(schedule.remove(at: Path.initialIndexPath!.row), at: indexPath!.row)
                     tableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
                     Path.initialIndexPath = indexPath
-                    self.postData(days: self.currentDay)
+                    self.postData(days: self.currentDay, isFinished: false)
                 }
                 
             }

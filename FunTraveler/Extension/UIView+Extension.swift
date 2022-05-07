@@ -17,7 +17,7 @@ extension UIView {
         objectView.translatesAutoresizingMaskIntoConstraints = false
         objectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         objectView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        objectView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        objectView.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
     func stickView(_ objectView: UIView, _ view: UIView) {
