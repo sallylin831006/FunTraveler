@@ -45,6 +45,10 @@ class PlanOverViewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        guard KeyChainManager.shared.token != nil else {
+            self.onShowLogin()
+            return
+        }
         fetchData()
     }
     
@@ -59,9 +63,25 @@ class PlanOverViewViewController: UIViewController {
             case .success(let tripData):
                 
                 self.tripData = tripData.data
-                
+                self.tableView.reloadData()
             case .failure:
                 print("GET TRIP OVERVIEW API讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST Action
+    func deleteTrip(index: Int) {
+        let tripProvider = TripProvider()
+        let tripId = tripData[index].id
+        tripProvider.deleteTrip(tripId: tripId, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                self.tableView.reloadData()
+            case .failure:
+                print("deleteTrip API讀取資料失敗！")
             }
         })
     }
@@ -115,8 +135,10 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     private func onShowLogin() {
+        tripData = []
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        authVC.delegate = self
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: false, completion: nil)
     }
@@ -161,26 +183,17 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
             tableView.isEditing = false
+            self.deleteTrip(index: indexPath.row)
             self.tripData.remove(at: index.row)
-            self.deleteTrip(index: index.row)
+            
         }
         return [deleteAction]
     }
     
-    // MARK: - POST Action
-    func deleteTrip(index: Int) {
-        let tripProvider = TripProvider()
-        let tripId = tripData[index].id
-        tripProvider.deleteTrip(tripId: tripId, completion: { result in
-            
-            switch result {
-                
-            case .success:
-                self.tableView.reloadData()
-            case .failure:
-                print("POST TRIP DETAIL API讀取資料失敗！")
-            }
-        })
+}
+
+extension PlanOverViewViewController: AuthViewControllerDelegate {
+    func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        fetchData()
     }
-    
 }

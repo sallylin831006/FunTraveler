@@ -28,6 +28,8 @@ enum UserRequest: STRequest {
     case unBlockUser(token: String, userId: Int)
     
     case getBlockList(token: String)
+    
+    case getUserSearchList(token: String, text: String)
 
     var headers: [String: String] {
         
@@ -40,7 +42,11 @@ enum UserRequest: STRequest {
             ]
             
         case .getProfile(let token, _), .updateProfile(let token, _, _), .getProfileTrips(let token, _),
-                .deleteUser(let token), .blockUser(let token, _), .unBlockUser(let token, _), .getBlockList(let token):
+                .deleteUser(let token),
+                .blockUser(let token, _),
+                .unBlockUser(let token, _),
+                .getBlockList(let token),
+                .getUserSearchList(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -90,8 +96,17 @@ enum UserRequest: STRequest {
             ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-        }
         
+        
+    case .getUserSearchList(_, let text):
+        
+        let body = [
+            "name": text
+        ]
+        
+        return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    
+        }
     }
     var method: String {
         
@@ -116,6 +131,8 @@ enum UserRequest: STRequest {
         case .unBlockUser : return STHTTPMethod.DELETE.rawValue
 
         case .getBlockList : return STHTTPMethod.GET.rawValue
+            
+        case .getUserSearchList : return STHTTPMethod.GET.rawValue
 
         }
     }
@@ -145,6 +162,9 @@ enum UserRequest: STRequest {
             
         case .getBlockList:
             return "/api/v1/user/blocks"
+            
+        case .getUserSearchList:
+            return "/api/v1/user/search"
             
         }
         
