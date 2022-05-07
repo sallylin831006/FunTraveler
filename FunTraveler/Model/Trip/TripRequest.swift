@@ -21,6 +21,8 @@ enum TripRequest: STRequest {
     
     case copyTrip(token: String, title: String, startDate: String, endDate: String, tripId: Int)
     
+    case deleteTrip(token: String, tripId: Int)
+    
     var headers: [String: String] {
         
         switch self {
@@ -30,7 +32,9 @@ enum TripRequest: STRequest {
                 .getSchdule(let token, _, _),
                 .postTrip(let token, _, _, _),
                 .updateTrip(let token, _, _, _ , _),
-                .copyTrip(let token, _, _, _, _):
+                .copyTrip(let token, _, _, _, _),
+                .deleteTrip(let token, _)
+            :
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -44,7 +48,7 @@ enum TripRequest: STRequest {
         
         switch self {
             
-        case .getTrip, .getSchdule: return nil
+        case .getTrip, .getSchdule, .deleteTrip: return nil
             
         case .addTrip(_, let title, let startDate, let endDate):
             
@@ -128,6 +132,7 @@ enum TripRequest: STRequest {
         case .postTrip: return STHTTPMethod.POST.rawValue
         case .updateTrip: return STHTTPMethod.PATCH.rawValue
         case .copyTrip: return STHTTPMethod.POST.rawValue
+        case .deleteTrip: return STHTTPMethod.DELETE.rawValue
 
         }
     }
@@ -153,6 +158,9 @@ enum TripRequest: STRequest {
             
         case .copyTrip:
             return "/api/v1/trips/duplicate"
+            
+        case .deleteTrip(_, let tripId):
+            return "/api/v1/delete/\(tripId)"
             
         }
         

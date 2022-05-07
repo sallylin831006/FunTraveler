@@ -157,4 +157,30 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         planDetailViewController.tabBarController?.tabBar.isHidden = true
     }
     
+    // MARK: - Delete
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
+            tableView.isEditing = false
+            self.tripData.remove(at: index.row)
+            self.deleteTrip(index: index.row)
+        }
+        return [deleteAction]
+    }
+    
+    // MARK: - POST Action
+    func deleteTrip(index: Int) {
+        let tripProvider = TripProvider()
+        let tripId = tripData[index].id
+        tripProvider.deleteTrip(tripId: tripId, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                self.tableView.reloadData()
+            case .failure:
+                print("POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
+    }
+    
 }

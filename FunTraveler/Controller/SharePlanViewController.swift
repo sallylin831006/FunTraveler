@@ -118,7 +118,7 @@ class SharePlanViewController: UIViewController {
             switch result {
                 
             case .success:
-                print("PATCH TRIP API成功！")
+                self.moveToHomePage()
             case .failure:
                 print("PATCH TRIPAPI讀取資料失敗！")
             }
@@ -172,11 +172,9 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         let publishController = UIAlertController(title: "確定發文?", message: "選擇發文狀態", preferredStyle: .actionSheet)
         let publicAction = UIAlertAction(title: "公開", style: .default, handler: { (_) in
             self.patchData(isPrivate: false, isPublish: true)
-            self.moveToHomePage()
         })
         let privateAction = UIAlertAction(title: "私密", style: .default, handler: { (_) in
             self.patchData(isPrivate: true, isPublish: true)
-            self.moveToHomePage()
         })
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
