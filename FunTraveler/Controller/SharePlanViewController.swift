@@ -162,10 +162,16 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         footerView.saveButton.addTarget(target, action: #selector(tapSaveButton), for: .touchUpInside)
         
+        footerView.cancelButton.addTarget(target, action: #selector(tapCancelButton), for: .touchUpInside)
+        
         return footerView
     }
     @objc func tapSaveButton() {
         decidePublishStatus()
+    }
+    
+    @objc func tapCancelButton() {
+        dismiss(animated: true, completion: nil)
     }
     
     func decidePublishStatus() {
