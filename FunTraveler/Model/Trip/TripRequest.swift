@@ -145,16 +145,16 @@ enum TripRequest: STRequest {
             return "/api/v1/trips"
             
         case .getSchdule(_, let tripId, let days):
-            return "/api/v1/trips/\(tripId)?day=\(days)"
+            return "/api/v1/trips/\(tripId)/schedules?day=\(days)"
             
         case .addTrip:
             return "/api/v1/trips"
             
         case .postTrip(_, let tripId, _, _, _):
-            return "/api/v1/trips/\(tripId)"
+            return "/api/v1/trips/\(tripId)/schedules"
             
         case .updateTrip(_, let tripId, _, _ , _):
-            return "/api/v1/trips/\(tripId)"
+            return "/api/v1/trips/\(tripId)/schedules"
             
         case .copyTrip:
             return "/api/v1/trips/duplicate"
