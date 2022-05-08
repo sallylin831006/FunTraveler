@@ -43,6 +43,7 @@ enum ImageAsset: String {
     // Other
     case heartSelected
     case heartNormal
+    case heartNormalBlue
     
     case collectedIconSelected
     case collectedIconNormal
@@ -54,6 +55,9 @@ enum ImageAsset: String {
     
     case launchScreen
     case logo
+    
+    case copyIcon
+    case planOverviewEdit
 
 }
 

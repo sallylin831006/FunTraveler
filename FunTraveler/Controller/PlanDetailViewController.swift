@@ -13,6 +13,7 @@ class PlanDetailViewController: UIViewController {
     var myTripId: Int?
     
     var trip: Trip?
+    var currentDay: Int = 1
 
     var schedules: [Schedule] = []
     
@@ -99,10 +100,9 @@ class PlanDetailViewController: UIViewController {
         
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
-        
-        if schedules.isEmpty { return }
-        
-        let day = schedules[0].day
+
+        let day = currentDay
+
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
             switch result {
@@ -122,6 +122,7 @@ class PlanDetailViewController: UIViewController {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
         planPickerViewController.myTripId = myTripId
+        planPickerViewController.currentDay = currentDay
         
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
@@ -157,7 +158,7 @@ class PlanDetailViewController: UIViewController {
     }
     @objc func tapToShare() {
         if schedules.isEmpty {
-            ProgressHUD.showFailure(text: "行程不能是空的唷")
+            ProgressHUD.showFailure(text: "不能有行程是空的唷")
             return
         }
         postToShareData(isFinished: true)
