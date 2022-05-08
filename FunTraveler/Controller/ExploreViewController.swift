@@ -33,7 +33,7 @@ class ExploreViewController: UIViewController {
         setupSearchBar()
         setupNavItem()
         tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
 //        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
@@ -45,12 +45,12 @@ class ExploreViewController: UIViewController {
         fetchData()
         tableView.reloadData()
         self.tabBarController?.tabBar.isHidden = false
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0.0
-        } else {
-            tableView.tableHeaderView = UIView(
-                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
-        }
+//        if #available(iOS 15.0, *) {
+//            tableView.sectionHeaderTopPadding = 0.0
+//        } else {
+//            tableView.tableHeaderView = UIView(
+//                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+//        }
     }
     
 //    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
@@ -115,22 +115,22 @@ class ExploreViewController: UIViewController {
 
 extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     
-    // MARK: - Section Header
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 100.0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
-        
-        headerView.titleLabel.text = "探索"
-        
-        return headerView
-    }
+//    // MARK: - Section Header
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        
+//        return 100.0
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+//            withIdentifier: HeaderView.identifier)
+//                as? HeaderView else { return nil }
+//        
+//        headerView.titleLabel.text = "探索"
+//        
+//        return headerView
+//    }
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

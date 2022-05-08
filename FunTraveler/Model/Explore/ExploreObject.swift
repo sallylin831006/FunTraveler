@@ -35,7 +35,7 @@ struct Explore: Codable {
     }
 }
 
-struct BlockUsers: Codable {
+struct UsersList: Codable {
     var data: [User]
 }
 

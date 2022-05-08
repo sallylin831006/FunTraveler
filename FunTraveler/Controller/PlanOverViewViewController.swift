@@ -92,7 +92,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 120.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

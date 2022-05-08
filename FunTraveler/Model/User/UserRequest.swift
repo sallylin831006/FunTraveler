@@ -29,7 +29,7 @@ enum UserRequest: STRequest {
     
     case getBlockList(token: String)
     
-    case getUserSearchList(token: String, text: String)
+    case postToSearchUser(token: String, text: String)
 
     var headers: [String: String] {
         
@@ -46,7 +46,7 @@ enum UserRequest: STRequest {
                 .blockUser(let token, _),
                 .unBlockUser(let token, _),
                 .getBlockList(let token),
-                .getUserSearchList(let token, _):
+                .postToSearchUser(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -98,7 +98,7 @@ enum UserRequest: STRequest {
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
         
         
-    case .getUserSearchList(_, let text):
+    case .postToSearchUser(_, let text):
         
         let body = [
             "name": text
@@ -132,7 +132,7 @@ enum UserRequest: STRequest {
 
         case .getBlockList : return STHTTPMethod.GET.rawValue
             
-        case .getUserSearchList : return STHTTPMethod.GET.rawValue
+        case .postToSearchUser : return STHTTPMethod.POST.rawValue
 
         }
     }
@@ -163,7 +163,7 @@ enum UserRequest: STRequest {
         case .getBlockList:
             return "/api/v1/user/blocks"
             
-        case .getUserSearchList:
+        case .postToSearchUser:
             return "/api/v1/user/search"
             
         }

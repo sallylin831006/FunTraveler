@@ -49,6 +49,13 @@ extension UIView {
         objectView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
         objectView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
     }
-
+    
+    func addShadow() {
+        layer.masksToBounds = false
+        layer.cornerRadius = CornerRadius.buttonCorner
+        layer.shadowOpacity = 0.3
+        layer.shadowColor = UIColor.systemBrown.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
 
 }
