@@ -22,7 +22,6 @@ class ExploreDetailViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    
 //    var commentData: [Comment] = [] {
 //        didSet {
 //            tableView.reloadData()
@@ -157,27 +156,6 @@ class ExploreDetailViewController: UIViewController {
             })
             
         }
-    
-//    // MARK: - GET Action
-//    private func fetchCommentData() {
-//
-//        let reactionProvider = ReactionProvider()
-//        guard let tripId = tripId else { return }
-//        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
-//
-//            switch result {
-//
-//            case .success(let commentData):
-//
-//                self?.commentData = commentData.data
-//
-//                print("commentData", commentData)
-//
-//            case .failure:
-//                print("[CommentVC] GET 讀取資料失敗！")
-//            }
-//        })
-//    }
 }
 extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -192,21 +170,34 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ShareHeaderView.identifier)
                 as? ShareHeaderView else { return nil }
-        guard let tripTitle = trip?.title else { return nil }
-        headerView.titleLabel.text = tripTitle
+
+        guard let trip = trip else { return nil }
+
+        headerView.layoutHeaderView(data: trip)
+        
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
+                
+        headerView.collectClosure = { isCollected in
+            guard KeyChainManager.shared.token != nil else { self.onShowLogin()
+                return
+            }
+            self.postData(isCollected: isCollected, tripId: trip.id)
+            self.trip?.isCollected = isCollected
+            tableView.reloadData()
+        }
         
-        guard let tripStartDate = trip?.startDate else { return nil }
-        guard let tripEndtDate = trip?.endDate else { return nil }
-        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
         
         return headerView
     }
     
+    
+    
+    
+    
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        80.0
+        60.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -246,7 +237,9 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
         
         footerView.copyClosure = { [weak self] in
-            print("一鍵複製行程！")
+            guard KeyChainManager.shared.token != nil else { self?.onShowLogin()
+                return
+            }
 //            self?.postCopyTrip()
             guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
                 withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }

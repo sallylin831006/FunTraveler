@@ -14,6 +14,7 @@ class SettingViewController: UIViewController {
         case logOut = "登出"
         case blockList = "已封鎖的使用者"
         case privacy = "隱私權政策"
+        case eula = "最終用戶許可證(EULA)"
     }
     
     private struct SettingData: Hashable {
@@ -23,7 +24,8 @@ class SettingViewController: UIViewController {
     private var settingData: [SettingData] = [ SettingData(content: Setting.deleteAccount.rawValue),
                                                SettingData(content: Setting.logOut.rawValue),
                                                SettingData(content: Setting.blockList.rawValue),
-                                               SettingData(content: Setting.privacy.rawValue)
+                                               SettingData(content: Setting.privacy.rawValue),
+                                               SettingData(content: Setting.eula.rawValue)
     ]
     
     @IBOutlet weak var tableView: UITableView! {
@@ -82,7 +84,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell", for: indexPath)
                 as? UITableViewCell else { return UITableViewCell() }
-        
+        cell.selectionStyle = .none
         cell.textLabel?.text = settingData[indexPath.row].content
         
         return cell
@@ -99,6 +101,25 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
             let blockListViewController = BlockListViewController()
             self.navigationController?.pushViewController(blockListViewController, animated: true)
 
+        }
+        if indexPath.row == 3 {
+            let webViewController = WebViewController()
+            self.navigationController?.pushViewController(webViewController, animated: true)
+            webViewController.url = WebURL.privacyPolicy
+            webViewController.tabBarController?.tabBar.isHidden = true
+
+        }
+        if indexPath.row == 4 {
+            let webViewController = WebViewController()
+            self.navigationController?.pushViewController(webViewController, animated: true)
+            webViewController.url = WebURL.eula
+            webViewController.tabBarController?.tabBar.isHidden = true
+
+        }
+        
+        enum WebURL {
+            static let privacyPolicy: String = "https://www.privacypolicies.com/live/6de37506-6a29-4eeb-b813-f150e4ca0610"
+            static let eula: String = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
         }
     }
     

@@ -188,11 +188,16 @@ class TripProvider {
         }
         
         HTTPClient.shared.request(
-            TripRequest.updateTrip(token: token, tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: {  result in
+            TripRequest.updateTrip(token: token, tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: { result in
                
                 switch result {
                     
-                case .success : break
+                case .success:
+                    
+                    DispatchQueue.main.async {
+                        
+                        completion(Result.success("success"))
+                    }
                                     
                 case .failure(let error):
                     print(error)
