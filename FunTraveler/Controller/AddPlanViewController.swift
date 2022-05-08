@@ -20,6 +20,12 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
     private var endDate: String?
     
+    private var firstDate = Date()
+    
+    private var secondDate = Date()
+    
+    private var dayCalculateNum: Int = 0
+        
     private var titleText: String?
     
     @IBOutlet weak var tableView: UITableView! {
@@ -91,7 +97,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func tapSaveButton() {
-        
         if titleText == "" {
             ProgressHUD.showFailure(text: "請輸入標題")
             return
@@ -179,13 +184,38 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.titleDelegate = self
         
-        cell.departurePickerVIew.dateClosure = { [weak self] startDate in
+        cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
             self?.startDate = startDate
+            self?.firstDate = calaulateDate
+            let calendar = Calendar.current
+            guard let secondDate = self?.secondDate else { return }
+            let date1 = calendar.startOfDay(for: calaulateDate)
+            let date2 = calendar.startOfDay(for: secondDate)
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+            self?.tableView.reloadData()
         }
 
-        cell.backPickerVIew.dateClosure = { [weak self] endDate in
+        cell.backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
             self?.endDate =  endDate
+            self?.secondDate =  calaulateDate
+            let calendar = Calendar.current
+            guard let firstDate = self?.firstDate else { return }
+            let date1 = calendar.startOfDay(for: firstDate)
+            let date2 = calendar.startOfDay(for: calaulateDate)
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+            self?.tableView.reloadData()
         }
+        if dayCalculateNum <= -1 {
+            cell.dayCalculateLabel.text = ""
+        } else {
+            cell.dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
+        }
+        
+        
         
         return cell
         
