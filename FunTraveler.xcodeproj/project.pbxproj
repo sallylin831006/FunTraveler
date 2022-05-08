@@ -900,7 +900,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		AFC60E12D96E8C88082C0084 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
