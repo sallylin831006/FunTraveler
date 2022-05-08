@@ -15,7 +15,7 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     var isCopiedTrip: Bool = false
     
     var copyTextField: String?
-
+    
     private var startDate: String?
     
     private var endDate: String?
@@ -24,9 +24,16 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
     private var secondDate = Date()
     
-    private var dayCalculateNum: Int = 0
+    private var dayCalculateNum: Int = 0 {
+        didSet {
+            tableView.reloadData()
+        }
+    }
         
     private var titleText: String?
+    
+    private var currentText: String?
+
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -88,15 +95,111 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: FooterView.identifier)
                 as? FooterView else { return nil }
-        
-        footerView.saveButton.addTarget(target, action: #selector(tapSaveButton), for: .touchUpInside)
-        
-        footerView.cancelButton.addTarget(target, action: #selector(tapCancelButton), for: .touchUpInside)
-        
+        footerView.delegate = self
         return footerView
     }
     
-    @objc func tapSaveButton() {
+//    @objc func tapSaveButton() {
+//        if titleText == "" {
+//            ProgressHUD.showFailure(text: "請輸入標題")
+//            return
+//        }
+//
+//        guard let startDate = startDate else {
+//            ProgressHUD.showFailure(text: "請輸入出發日期")
+//            return
+//        }
+//        guard let endDate = endDate else {
+//            ProgressHUD.showFailure(text: "請輸入回程日期")
+//            return
+//        }
+//
+//        let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
+//        if isDescending == true {
+//            ProgressHUD.showFailure(text: "輸入錯誤")
+//            return
+//        }
+//
+//        if isCopiedTrip {
+//            postCopyTrip()
+//            dismiss(animated: true, completion: nil)
+//            print("成功複製行程！")
+//        } else {
+//            postData()
+//        }
+//    }
+
+  
+//    @objc func tapCancelButton() {
+//        self.dismiss(animated: true, completion: nil)
+//    }
+    
+    // MARK: - Section Row
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: String(describing: AddPlanTableViewCell.self), for: indexPath)
+                as? AddPlanTableViewCell else { return UITableViewCell() }
+        
+        cell.selectionStyle = .none
+        if copyTextField == nil {
+            cell.textField.text = ""
+        } else {
+            cell.textField.text = "複製 - \(copyTextField!)"
+        }
+        
+        cell.titleDelegate = self
+        cell.textField.text = titleText
+                
+        cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
+            self?.startDate = startDate
+            self?.firstDate = calaulateDate
+            let calendar = Calendar.current
+            guard let secondDate = self?.secondDate else { return }
+            let date1 = calendar.startOfDay(for: calaulateDate)
+            let date2 = calendar.startOfDay(for: secondDate)
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+//            self?.tableView.reloadData()
+        }
+
+        cell.backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
+            self?.endDate =  endDate
+            self?.secondDate =  calaulateDate
+            let calendar = Calendar.current
+            guard let firstDate = self?.firstDate else { return }
+            let date1 = calendar.startOfDay(for: firstDate)
+            let date2 = calendar.startOfDay(for: calaulateDate)
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+//            self?.tableView.reloadData()
+        }
+        if dayCalculateNum <= -1 {
+            cell.dayCalculateLabel.text = ""
+        } else {
+            cell.dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
+        }
+        
+        
+        
+        return cell
+        
+    }
+    
+}
+
+extension AddPlanViewController: FooterViewDelegate {
+    func saveButton(_ saveButton: UIButton) {
         if titleText == "" {
             ProgressHUD.showFailure(text: "請輸入標題")
             return
@@ -126,6 +229,22 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func cancelButton(_ saveButton: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+}
+
+extension AddPlanViewController: AddPlanTableViewCellDelegate {
+    
+    func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
+        self.titleText = text
+    }
+    
+}
+
+extension AddPlanViewController {
     // MARK: - POST API TO ADD NEW TRIP
         private func postData() {
             let tripProvider = TripProvider()
@@ -155,84 +274,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             })
             
         }
-  
-    @objc func tapCancelButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
     
-    // MARK: - Section Row
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: String(describing: AddPlanTableViewCell.self), for: indexPath)
-                as? AddPlanTableViewCell else { return UITableViewCell() }
-        
-        cell.selectionStyle = .none
-        if copyTextField == nil {
-            cell.textField.text = ""
-        } else {
-            cell.textField.text = "複製 - \(copyTextField!)"
-        }
-        
-        cell.titleDelegate = self
-        
-        cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
-            self?.startDate = startDate
-            self?.firstDate = calaulateDate
-            let calendar = Calendar.current
-            guard let secondDate = self?.secondDate else { return }
-            let date1 = calendar.startOfDay(for: calaulateDate)
-            let date2 = calendar.startOfDay(for: secondDate)
-
-            let components = calendar.dateComponents([.day], from: date1, to: date2)
-            self?.dayCalculateNum = components.day ?? 0
-            self?.tableView.reloadData()
-        }
-
-        cell.backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
-            self?.endDate =  endDate
-            self?.secondDate =  calaulateDate
-            let calendar = Calendar.current
-            guard let firstDate = self?.firstDate else { return }
-            let date1 = calendar.startOfDay(for: firstDate)
-            let date2 = calendar.startOfDay(for: calaulateDate)
-
-            let components = calendar.dateComponents([.day], from: date1, to: date2)
-            self?.dayCalculateNum = components.day ?? 0
-            self?.tableView.reloadData()
-        }
-        if dayCalculateNum <= -1 {
-            cell.dayCalculateLabel.text = ""
-        } else {
-            cell.dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
-        }
-        
-        
-        
-        return cell
-        
-    }
-    
-}
-
-extension AddPlanViewController: AddPlanTableViewCellDelegate {
-    
-    func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
-        self.titleText = text
- 
-    }
-    
-}
-
-extension AddPlanViewController {
     // MARK: - POST API TO COPY TRIP
         private func postCopyTrip() {
             let tripProvider = TripProvider()

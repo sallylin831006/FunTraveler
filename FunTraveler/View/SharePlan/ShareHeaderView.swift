@@ -47,7 +47,9 @@ class ShareHeaderView: UITableViewHeaderFooterView {
         self.isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
         addCollectButton(data: data)
-        dateLabel.text = "\(String(describing: data.startDate)) - \(String(describing: data.endDate))"
+        guard let startDate = data.startDate,
+              let endDate = data.endDate else { return }
+        dateLabel.text = "\(startDate) - \(endDate)"
         
         titleLabel.text = data.title
         
