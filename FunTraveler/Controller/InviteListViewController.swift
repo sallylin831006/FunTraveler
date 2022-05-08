@@ -15,6 +15,8 @@ class InviteListViewController: UIViewController {
         }
     }
     
+    private var isSearchUser: Bool = false
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -104,6 +106,7 @@ class InviteListViewController: UIViewController {
             switch result {
                 
             case .success(let inviteData):
+                self?.isSearchUser = false
                 self?.inviteData = inviteData.data
                 if inviteData.data.isEmpty {
                     let alertView = AlertLoginView()
@@ -120,18 +123,38 @@ class InviteListViewController: UIViewController {
         })
     }
     
-    
-    
+
     // MARK: - POST Action
     private func postData(index: Int, isAccept: Bool) {
         let friendsProvider = FriendsProvider()
         
-        friendsProvider.postToAccept(userId: inviteData[index].id, isAccept: isAccept, completion: { [weak self] result in
+        friendsProvider.postToAccept(userId: inviteData[index].id, isAccept: isAccept, completion: { result in
             
             switch result {
                 
             case .success(let postResponse):
                 print("postAcceptResponse", postResponse)
+                
+            case .failure:
+                print("[InvitedVC] POST資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST To Search User DATA
+    private func postToSearchUser(text: String) {
+        let userProvider = UserProvider()
+        
+        userProvider.postToSearchUser(text: text, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let userSearchListResponse):
+                self?.inviteData = userSearchListResponse.data
+                self?.isSearchUser = true
+                self?.tableView.reloadData()
+                
+                print("userSearchListResponse", userSearchListResponse)
                 
             case .failure:
                 print("[InvitedVC] GET資料失敗！")
@@ -158,6 +181,14 @@ extension InviteListViewController: UITableViewDataSource, UITableViewDelegate {
         let item = inviteData[indexPath.row]
         cell.layoutCell(data: item, index: indexPath.row)
         
+        if isSearchUser {
+            cell.confirmInviteButton.isHidden = true
+            cell.cancelInviteButton.isHidden = true
+        } else {
+            cell.confirmInviteButton.isHidden = false
+            cell.cancelInviteButton.isHidden = false
+        }
+        
         cell.delegate = self
         
         return cell
@@ -168,6 +199,7 @@ extension InviteListViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
         
         profileVC.userId = inviteData[indexPath.row].id
+        profileVC.isMyProfile = false
         self.present(profileVC, animated: true)
     }
 }
@@ -178,7 +210,6 @@ extension InviteListViewController: InviteListTableViewCellDelegate {
         self.inviteData.remove(at: index)
         tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         tableView.reloadData()
-        print("已接受交友邀請！")
     }
     
     func cancelInvitation(index: Int, isAccept: Bool) {
@@ -186,34 +217,28 @@ extension InviteListViewController: InviteListTableViewCellDelegate {
         self.inviteData.remove(at: index)
         tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
         tableView.reloadData()
-        print("已取消交友邀請！")
     }
     
 }
 
 extension InviteListViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("TextDidEndEditing")
         searchController.searchBar.resignFirstResponder()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("SearchButtonClicked")
-
         searchController.searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("textDidChange")
-//        postToSearchTrip(searchText: searchText)
-//        if searchText.isEmpty {
-//            fetchData()
-//        }
+        postToSearchUser(text: searchText)
+        if searchText.isEmpty {
+            fetchData()
+        }
         
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("點了取消按鈕")
-//        fetchData()
+        fetchData()
     }
 }

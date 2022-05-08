@@ -38,17 +38,18 @@ class ProfileTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .themeApricot
-        let margins = UIEdgeInsets(top: 10, left: 10, bottom: -10, right: 10)
+        let margins = UIEdgeInsets(top: 20, left: 30, bottom: -20, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 3
-        contentView.layer.cornerRadius = 15.0
-        contentView.layer.masksToBounds = true
         contentView.backgroundColor = .themeApricot
+        contentView.addShadow()
         userImageView.backgroundColor = UIColor.white
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
+        userImageView.layer.cornerRadius = CornerRadius.buttonCorner
+        userImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         editButton.isHidden = true
+        
+        
         
     }
 

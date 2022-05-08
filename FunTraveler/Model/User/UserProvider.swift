@@ -20,7 +20,7 @@ typealias ProfileHanlder = (Result<Profile>) -> Void
 
 typealias ProfileTripsHanlder = (Result<Explores>) -> Void
 
-typealias BlockUserHanlder = (Result<BlockUsers>) -> Void
+typealias UsersListHanlder = (Result<UsersList>) -> Void
 
 enum FunTravelerSignInError: Error {
     
@@ -303,7 +303,7 @@ class UserProvider {
     }
     
     // MARK: - GET Block List
-    func getBlockList(completion: @escaping BlockUserHanlder) {
+    func getBlockList(completion: @escaping UsersListHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -318,7 +318,7 @@ class UserProvider {
                 
                 do {
                     let blockListResponse = try JSONDecoder().decode(
-                        BlockUsers.self,
+                        UsersList.self,
                         from: data
                     )
                     
@@ -340,15 +340,15 @@ class UserProvider {
         })
     }
     
-    // MARK: - GET User List by Search
-    func getUserSearchList(text: String, completion: @escaping BlockUserHanlder) {
+    // MARK: - POST User List by Search
+    func postToSearchUser(text: String, completion: @escaping UsersListHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
             return completion(Result.failure(FunTravelerSignInError.noToken))
         }
         
-        HTTPClient.shared.request(UserRequest.getUserSearchList(token: token, text: text), completion: { result in
+        HTTPClient.shared.request(UserRequest.postToSearchUser(token: token, text: text), completion: { result in
             
             switch result {
                 
@@ -356,7 +356,7 @@ class UserProvider {
                 
                 do {
                     let userSearchList = try JSONDecoder().decode(
-                        BlockUsers.self,
+                        UsersList.self,
                         from: data
                     )
                     

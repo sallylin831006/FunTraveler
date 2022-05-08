@@ -144,8 +144,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
             //        return UIScreen.main.bounds.width / 39 * 10
-        case 0: return 100.0
-        case 1: return 70.0
+        case 0: return 120.0
+        case 1: return 90.0
         default: break
         }
         return .zero
