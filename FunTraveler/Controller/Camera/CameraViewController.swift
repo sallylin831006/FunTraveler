@@ -39,8 +39,7 @@ class CameraViewController: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-      
-      navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationItem.title = "拍立得"
     }
     
     private func pickVideo(from sourceType: UIImagePickerController.SourceType) {

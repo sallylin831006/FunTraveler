@@ -18,7 +18,7 @@ class SharePlanViewController: UIViewController {
         }
     }
     var myTripId: Int?
-
+    
     private var tripImage: UIImageView?
     private var imageIndex: Int = 0
     private var isSimpleMode: Bool = false {
@@ -113,12 +113,20 @@ class SharePlanViewController: UIViewController {
         guard let tripId = myTripId else { return }
         
         tripProvider.updateTrip(tripId: tripId, schedules: schedules,
-                                isPrivate: isPrivate, isPublish: isPublish, completion: { result in
+                                isPrivate: isPrivate, isPublish: isPublish, completion: { [weak self] result in
             
             switch result {
                 
             case .success:
-                self.moveToHomePage()
+                if isPublish {
+                    ProgressHUD.showSuccess(text: "成功發布貼文")
+                    self?.moveToPage(tabIndex: 0)
+                }
+                if isPrivate {
+                    ProgressHUD.showSuccess(text: "成功發布私密貼文")
+                    self?.moveToPage(tabIndex: 4)
+                }
+               
             case .failure:
                 print("PATCH TRIPAPI讀取資料失敗！")
             }
@@ -190,11 +198,11 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         present(publishController, animated: true, completion: nil)
     }
     
-    func moveToHomePage() {
+    func moveToPage(tabIndex: Int) {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
         
         if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = 0
+            tabBarController.selectedIndex = tabIndex
             tabBarController.tabBar.isHidden = false
         }
     }
@@ -255,7 +263,6 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     
     func detectTextViewChange(_ textView: UITextView, _ index: Int) {
         schedules[index].description.append(textView.text)
-
         patchData(isPrivate: false, isPublish: false)
     }
     
