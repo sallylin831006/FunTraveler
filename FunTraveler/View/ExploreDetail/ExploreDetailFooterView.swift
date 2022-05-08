@@ -30,9 +30,9 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
         collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
         self.isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
-        
+        heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
         heartButton.setImage(UIImage.asset(.heartSelected), for: .selected)
-        heartButton.setImage(UIImage.asset(.heartNormal), for: .normal)
+        heartButton.setImage(UIImage.asset(.heartNormalBlue), for: .normal)
         self.isLiked = data.isLiked
         heartButton.isSelected = data.isLiked
         numberOfLikeLabel.text = "\(data.likeCount)個讚"

@@ -206,7 +206,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        60.0
+        80.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

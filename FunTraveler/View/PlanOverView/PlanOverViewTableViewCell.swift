@@ -22,14 +22,13 @@ class PlanOverViewTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .themeApricot
-        let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        let margins = UIEdgeInsets(top: 15, left: 30, bottom: 5, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 8
-        contentView.layer.cornerRadius = 10.0
-        contentView.layer.masksToBounds = true
-        
-        planImageView.backgroundColor = UIColor.themeApricotDeep
+//        contentView.layer.borderColor = UIColor.white.cgColor
+//        contentView.layer.borderWidth = 6
+//        contentView.layer.cornerRadius = 10.0
+//        contentView.layer.masksToBounds = true
+        contentView.addShadow()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -37,4 +36,14 @@ class PlanOverViewTableViewCell: UITableViewCell {
         
     }
     
+}
+
+extension UIView {
+    func addShadow() {
+        layer.masksToBounds = false
+        layer.cornerRadius = CornerRadius.buttonCorner
+        layer.shadowOpacity = 0.3
+        layer.shadowColor = UIColor.systemBrown.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
 }
