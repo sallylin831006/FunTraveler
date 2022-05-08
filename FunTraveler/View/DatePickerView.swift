@@ -72,7 +72,7 @@ extension DatePickerView {
 
         datePicker.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
 
-        datePicker.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        datePicker.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
     }
     
 }
