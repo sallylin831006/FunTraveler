@@ -15,6 +15,17 @@ struct ScheduleInfo: Codable {
     var data: Trip
 }
 
+struct CopyTrips: Codable {
+    var data: CopyTrip
+}
+
+struct CopyTrip: Codable {
+    var id: Int
+    var title: String
+    var startDate: String?
+    var endDate: String?
+    var days: Int
+}
 
 struct Schedules: Codable {
     var schedules: [Schedule]

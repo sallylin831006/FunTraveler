@@ -12,6 +12,8 @@ typealias TripHanlder = (Result<Trips>) -> Void
 typealias AddTripHanlder = (Result<AddTrip>) -> Void
 typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
 typealias ResponseHanlder = (Result<String>) -> Void
+typealias CopyHanlder = (Result<CopyTrip>) -> Void
+
 
 class TripProvider {
     
@@ -208,7 +210,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO COPY TRIP
-    func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping ScheduleInfoHanlder) {
+    func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping CopyHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -226,13 +228,13 @@ class TripProvider {
                     do {
 
                         let copyTrip = try JSONDecoder().decode(
-                            ScheduleInfo.self,
+                            CopyTrips.self,
                             from: data
                         )
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(copyTrip))
+                            completion(Result.success(copyTrip.data))
                         }
                         
                     } catch {

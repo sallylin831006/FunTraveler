@@ -219,6 +219,7 @@ extension AddPlanViewController {
                 switch result {
                     
                 case .success(let tripIdResponse):
+                    ProgressHUD.showSuccess(text: "成功複製行程到行程編輯頁")
                 print("copy tripIdResponse", tripIdResponse)
                     
                 case .failure:
