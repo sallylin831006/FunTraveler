@@ -10,70 +10,72 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="296" id="KGk-i7-Jjw" customClass="AddPlanTableViewCell" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="424" height="296"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="263" id="KGk-i7-Jjw" customClass="AddPlanTableViewCell" customModule="FunTraveler" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="424" height="263"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="424" height="296"/>
+                <rect key="frame" x="0.0" y="0.0" width="424" height="263"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="行程名稱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cip-hm-APv">
-                        <rect key="frame" x="30" y="30" width="70" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="行程名稱" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cip-hm-APv">
+                        <rect key="frame" x="40" y="30" width="70" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BnL-d6-QRv">
-                        <rect key="frame" x="30" y="67" width="300" height="49"/>
+                        <rect key="frame" x="40" y="61" width="300" height="40"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="40" id="PIG-sV-Q1J"/>
                             <constraint firstAttribute="width" constant="300" id="fUM-Dd-ex7"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="出發日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YJX-Lw-2zI">
-                        <rect key="frame" x="30" y="132" width="70" height="21"/>
+                        <rect key="frame" x="40" y="131" width="70" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VjX-eu-XXL" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="25" y="163" width="170" height="35"/>
+                        <rect key="frame" x="130" y="121.5" width="170" height="40"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="35" id="JA6-ar-wHL"/>
-                            <constraint firstAttribute="width" constant="170" id="Jq8-dr-YbQ"/>
+                            <constraint firstAttribute="width" constant="170" id="XtI-EV-Kb0"/>
+                            <constraint firstAttribute="height" constant="40" id="uBV-gh-kiJ"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzS-H4-SMA" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
-                        <rect key="frame" x="25" y="245" width="170" height="35"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="35" id="C6l-BC-J6F"/>
-                            <constraint firstAttribute="width" constant="170" id="ZZq-dP-biz"/>
-                        </constraints>
-                    </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="回程日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cu-TG-AEm">
-                        <rect key="frame" x="30" y="214" width="70" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="回程日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6cu-TG-AEm">
+                        <rect key="frame" x="40" y="198.5" width="70" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzS-H4-SMA" customClass="DatePickerView" customModule="FunTraveler" customModuleProvider="target">
+                        <rect key="frame" x="130" y="184" width="170" height="40"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="C6l-BC-J6F"/>
+                            <constraint firstAttribute="width" constant="170" id="ZZq-dP-biz"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="6cu-TG-AEm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="7SZ-1K-oZQ"/>
-                    <constraint firstItem="6cu-TG-AEm" firstAttribute="top" secondItem="VjX-eu-XXL" secondAttribute="bottom" constant="16" id="FwY-jU-iik"/>
+                    <constraint firstItem="6cu-TG-AEm" firstAttribute="top" secondItem="YJX-Lw-2zI" secondAttribute="bottom" constant="46.5" id="3XD-ap-PHJ"/>
+                    <constraint firstItem="YJX-Lw-2zI" firstAttribute="leading" secondItem="Cip-hm-APv" secondAttribute="leading" id="6uz-o5-KEi"/>
+                    <constraint firstItem="wzS-H4-SMA" firstAttribute="leading" secondItem="6cu-TG-AEm" secondAttribute="trailing" constant="20" id="CCO-zw-uYM"/>
+                    <constraint firstItem="wzS-H4-SMA" firstAttribute="leading" secondItem="6cu-TG-AEm" secondAttribute="trailing" constant="20" id="D2q-7X-4L9"/>
                     <constraint firstItem="Cip-hm-APv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="GR6-1n-McP"/>
-                    <constraint firstItem="Cip-hm-APv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="J4U-Ax-C0b"/>
-                    <constraint firstItem="YJX-Lw-2zI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Lte-5s-Ee3"/>
-                    <constraint firstAttribute="bottom" secondItem="wzS-H4-SMA" secondAttribute="bottom" constant="16" id="Pyq-1S-UK5"/>
-                    <constraint firstItem="VjX-eu-XXL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="Pys-zW-wDb"/>
-                    <constraint firstItem="YJX-Lw-2zI" firstAttribute="top" secondItem="BnL-d6-QRv" secondAttribute="bottom" constant="16" id="YxE-Zf-LgU"/>
-                    <constraint firstItem="BnL-d6-QRv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="cXx-Ha-sFN"/>
-                    <constraint firstItem="wzS-H4-SMA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="cy3-dW-oIq"/>
-                    <constraint firstItem="VjX-eu-XXL" firstAttribute="top" secondItem="YJX-Lw-2zI" secondAttribute="bottom" constant="10" id="rwT-W9-onZ"/>
-                    <constraint firstItem="wzS-H4-SMA" firstAttribute="top" secondItem="6cu-TG-AEm" secondAttribute="bottom" constant="10" id="s50-EZ-QkS"/>
-                    <constraint firstItem="BnL-d6-QRv" firstAttribute="top" secondItem="Cip-hm-APv" secondAttribute="bottom" constant="16" id="yY1-7T-goa"/>
+                    <constraint firstItem="Cip-hm-APv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="J4U-Ax-C0b"/>
+                    <constraint firstAttribute="bottom" secondItem="wzS-H4-SMA" secondAttribute="bottom" constant="39" id="Lmb-Km-dLI"/>
+                    <constraint firstItem="6cu-TG-AEm" firstAttribute="leading" secondItem="YJX-Lw-2zI" secondAttribute="leading" id="QcU-3Y-xym"/>
+                    <constraint firstItem="YJX-Lw-2zI" firstAttribute="top" secondItem="BnL-d6-QRv" secondAttribute="bottom" constant="30" id="YxE-Zf-LgU"/>
+                    <constraint firstItem="VjX-eu-XXL" firstAttribute="centerY" secondItem="YJX-Lw-2zI" secondAttribute="centerY" id="Zvb-5f-Kbj"/>
+                    <constraint firstItem="BnL-d6-QRv" firstAttribute="leading" secondItem="Cip-hm-APv" secondAttribute="leading" id="f12-jq-Dlk"/>
+                    <constraint firstItem="wzS-H4-SMA" firstAttribute="top" secondItem="VjX-eu-XXL" secondAttribute="bottom" constant="22.5" id="fap-kc-Wug"/>
+                    <constraint firstItem="VjX-eu-XXL" firstAttribute="leading" secondItem="YJX-Lw-2zI" secondAttribute="trailing" constant="20" id="kTz-kG-bHw"/>
+                    <constraint firstItem="BnL-d6-QRv" firstAttribute="top" secondItem="Cip-hm-APv" secondAttribute="bottom" constant="10" id="yY1-7T-goa"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -82,7 +84,7 @@
                 <outlet property="departurePickerVIew" destination="VjX-eu-XXL" id="jPR-Lc-s8V"/>
                 <outlet property="textField" destination="BnL-d6-QRv" id="AeE-UG-pwm"/>
             </connections>
-            <point key="canvasLocation" x="207.24637681159422" y="185.49107142857142"/>
+            <point key="canvasLocation" x="207.24637681159422" y="169.08482142857142"/>
         </tableViewCell>
     </objects>
 </document>
