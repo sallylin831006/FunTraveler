@@ -153,7 +153,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         if copyTextField == nil {
             cell.textField.text = titleText
         } else {
-            cell.textField.text = "複製 - \(copyTextField!)"
+            cell.textField.text = copyTextField!
         }
         
         cell.titleDelegate = self
@@ -240,6 +240,7 @@ extension AddPlanViewController: AddPlanTableViewCellDelegate {
     
     func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
         self.titleText = text
+        self.copyTextField = text
     }
     
 }

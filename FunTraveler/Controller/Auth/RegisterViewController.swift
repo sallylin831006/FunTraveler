@@ -35,23 +35,8 @@ class RegisterViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 200
         tableView.shouldIgnoreScrollingAdjustment = true
-//        addCustomBackButton()
     }
-    
-//    private func addCustomBackButton() {
-//        let customBackButton = UIButton()
-//        let frameY = UIScreen.height - 500 - 100 + 25
-//        customBackButton.frame = CGRect(x: 20, y: frameY, width: 30, height: 30)
-//        customBackButton.setBackgroundImage(UIImage(systemName: "chevron.backward"), for: .normal)
-//        customBackButton.tintColor = .black
-//        customBackButton.addTarget(self, action: #selector(backTap), for: .touchUpInside)
-//        self.view.addSubview(customBackButton)
-//    }
-//
-//    @objc func backTap(_ sender: UIButton) {
-//        navigationController?.popViewController(animated: true)
-//    }
-//
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.layer.cornerRadius = 10
