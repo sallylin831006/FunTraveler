@@ -196,6 +196,7 @@ extension CommentViewController {
                     self.scrollToBottom()
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[CommetVC] post Comment失敗！")
                 }
             })
@@ -215,6 +216,7 @@ extension CommentViewController {
                 case .success: break
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[CommetVC] delete Comment失敗！")
                 }
             })
@@ -235,6 +237,7 @@ extension CommentViewController {
                 self?.commentData = commentData.data
                                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CommentVC] GET 讀取資料失敗！")
             }
         })
@@ -254,6 +257,7 @@ extension CommentViewController {
                 self?.profileData = profileData
                 self?.tableView.reloadData()
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CommentVC] GET Profile 資料失敗！")
             }
         })
@@ -271,6 +275,7 @@ extension CommentViewController {
                 print("blockResponse", blockResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

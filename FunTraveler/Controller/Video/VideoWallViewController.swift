@@ -177,6 +177,7 @@ extension VideoWallViewController {
                 self?.collectionView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CameraVC] GET video失敗！")
             }
         })
@@ -197,6 +198,7 @@ extension VideoWallViewController {
                 print("postResponse", postResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[VedioVC] POST TO INVITE失敗！")
             }
         })
@@ -214,6 +216,7 @@ extension VideoWallViewController {
                 self?.collectionView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

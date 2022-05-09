@@ -157,7 +157,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.titleDelegate = self
-//        cell.textField.text = titleText
                 
         cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
             self?.startDate = startDate
@@ -270,6 +269,7 @@ extension AddPlanViewController {
                     self.navigationController?.pushViewController(planDetailViewController, animated: true)
                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("tripIdResponse讀取資料失敗！")
                 }
             })
@@ -296,6 +296,7 @@ extension AddPlanViewController {
                 print("copy tripIdResponse", tripIdResponse)
                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("POST COPY TRIP 失敗！")
                 }
             })

@@ -86,6 +86,7 @@ class SharePlanViewController: UIViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
             }
         })
@@ -128,6 +129,7 @@ class SharePlanViewController: UIViewController {
                 }
                
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("PATCH TRIPAPI讀取資料失敗！")
             }
         })
