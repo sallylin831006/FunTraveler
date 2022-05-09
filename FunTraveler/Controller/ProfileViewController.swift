@@ -277,9 +277,13 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
         exploreDeatilVC.tripId = collectedData[indexPath.row].id
         exploreDeatilVC.days = collectedData[indexPath.row].days
+        
+//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
+//        present(navExploreDeatilVC, animated: true, completion: nil)
+        
         navigationController?.pushViewController(exploreDeatilVC, animated: true)
         exploreDeatilVC.tabBarController?.tabBar.isHidden = true
-        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
+//        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
     }
     
     @objc func tapToFriendList() {

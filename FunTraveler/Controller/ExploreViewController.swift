@@ -38,8 +38,8 @@ class ExploreViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
 //        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
 //        tableView.addGestureRecognizer(longPress)
-    }
-    
+
+          }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
@@ -181,6 +181,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             
             guard let profileVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+            let navProfileVC = UINavigationController(rootViewController: profileVC)
             
             profileVC.userId = self.exploreData[indexPath.row].user.id
             
@@ -189,7 +190,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 profileVC.isMyProfile = false
             }
-            self.present(profileVC, animated: true)
+//            self.present(profileVC, animated: true)
+            self.present(navProfileVC, animated: true)
 
         }
         

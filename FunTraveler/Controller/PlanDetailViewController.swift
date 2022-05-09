@@ -182,14 +182,29 @@ class PlanDetailViewController: UIViewController {
         
     }
     
+    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     func addMarker() {
+        
         var markerArray: [CLLocationCoordinate2D] = []
         mapView.clear()
         for (index, schedule) in schedules.enumerated() {
 
             let marker = GMSMarker()
-            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
+//            let markerView = UIImageView(image: UIImage.asset(.orderMarker))
+//            marker.iconView = markerView
+//
+            let markerView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 60))
+            markerView.image =  UIImage.asset(.orderMarker)
             marker.iconView = markerView
+//            marker.icon = self.imageWithImage(image: UIImage.asset(.orderMarker)!, scaledToSize: CGSize(width: 45.0, height: 60.0))
+
             marker.position = CLLocationCoordinate2DMake(
                 CLLocationDegrees(schedule.position.lat),
                 CLLocationDegrees(schedule.position.long))
@@ -201,15 +216,15 @@ class PlanDetailViewController: UIViewController {
 
             let orderLabel = UILabel()
             orderLabel.text = String(index + 1)
-            orderLabel.font = orderLabel.font.withSize(30)
+            orderLabel.font = orderLabel.font.withSize(15)
 
             orderLabel.textColor = UIColor.themeRed
-            marker.iconView?.addSubview(orderLabel)
+            markerView.addSubview(orderLabel)
 
             orderLabel.translatesAutoresizingMaskIntoConstraints = false
             orderLabel.topAnchor.constraint(
-                equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
-            orderLabel.centerXAnchor.constraint(equalTo: marker.iconView!.centerXAnchor).isActive = true
+                equalTo: markerView.layoutMarginsGuide.topAnchor, constant: 5).isActive = true
+            orderLabel.centerXAnchor.constraint(equalTo: markerView.centerXAnchor).isActive = true
         }
         
         let path = GMSMutablePath()
@@ -223,3 +238,4 @@ class PlanDetailViewController: UIViewController {
         line.map = mapView
     }
  }
+

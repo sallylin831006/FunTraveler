@@ -25,21 +25,8 @@
                             <constraint firstAttribute="height" constant="30" id="zdK-rl-Vja"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S91-Xz-N7C">
-                        <rect key="frame" x="313" y="10.5" width="50" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="S91-Xz-N7C" secondAttribute="height" multiplier="5:3" id="3Tx-ND-kr6"/>
-                            <constraint firstAttribute="width" constant="50" id="O1W-NW-rlb"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="tintColor" name="themeRed"/>
-                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                        <state key="normal" title="回覆">
-                            <color key="titleColor" name="themeRed"/>
-                        </state>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="狗狗笑得好開心！！！！！" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTG-yx-ATA">
-                        <rect key="frame" x="100" y="10" width="187" height="16"/>
+                        <rect key="frame" x="153" y="10" width="210" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="210" id="hfX-6n-kE9"/>
                         </constraints>
@@ -48,10 +35,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="UMr-UO-Pcc">
-                        <rect key="frame" x="62" y="7" width="31" height="37"/>
+                        <rect key="frame" x="62" y="7" width="84" height="37"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jan-Gu-1rN">
-                                <rect key="frame" x="0.0" y="0.0" width="31" height="20"/>
+                                <rect key="frame" x="0.0" y="0.0" width="84" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="CJb-gd-7E1"/>
                                 </constraints>
@@ -63,7 +50,7 @@
                                 </state>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6分鐘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTG-TB-vRV">
-                                <rect key="frame" x="0.0" y="22" width="31" height="15"/>
+                                <rect key="frame" x="0.0" y="22" width="84" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="EZB-Bo-iZt"/>
                                 </constraints>
@@ -73,21 +60,19 @@
                             </label>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="nm2-wS-Axe"/>
                             <constraint firstItem="MTG-TB-vRV" firstAttribute="height" secondItem="Jan-Gu-1rN" secondAttribute="height" multiplier="0.75" id="znT-Z6-AI1"/>
                         </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9PP-Ap-Ali" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10.5" id="5Z2-vg-j6O"/>
-                    <constraint firstItem="S91-Xz-N7C" firstAttribute="leading" secondItem="vTG-yx-ATA" secondAttribute="trailing" constant="26" id="Ac5-jN-aFy"/>
                     <constraint firstItem="UMr-UO-Pcc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Db6-yN-eAA"/>
                     <constraint firstItem="vTG-yx-ATA" firstAttribute="leading" secondItem="UMr-UO-Pcc" secondAttribute="trailing" constant="7" id="GVc-oP-nUg"/>
                     <constraint firstItem="UMr-UO-Pcc" firstAttribute="leading" secondItem="9PP-Ap-Ali" secondAttribute="trailing" constant="16" id="KE2-C2-jmo"/>
-                    <constraint firstItem="S91-Xz-N7C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OI9-Mg-SDu"/>
                     <constraint firstItem="vTG-yx-ATA" firstAttribute="top" secondItem="UMr-UO-Pcc" secondAttribute="top" constant="3" id="Uab-wa-0nt"/>
                     <constraint firstItem="9PP-Ap-Ali" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="WbB-Vs-opq"/>
-                    <constraint firstAttribute="trailing" secondItem="S91-Xz-N7C" secondAttribute="trailing" constant="16" id="Yyg-HK-P5O"/>
-                    <constraint firstItem="S91-Xz-N7C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="o8k-FU-AKx"/>
+                    <constraint firstAttribute="trailing" secondItem="vTG-yx-ATA" secondAttribute="trailing" constant="16" id="aYY-jB-Yx6"/>
                     <constraint firstItem="9PP-Ap-Ali" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qGT-eR-qFK"/>
                 </constraints>
             </tableViewCellContentView>
@@ -95,7 +80,6 @@
             <connections>
                 <outlet property="commentLabel" destination="vTG-yx-ATA" id="8qN-bI-gR9"/>
                 <outlet property="durationLabel" destination="MTG-TB-vRV" id="zsS-52-Vpm"/>
-                <outlet property="replyButton" destination="S91-Xz-N7C" id="IQp-JE-l8e"/>
                 <outlet property="userImageView" destination="9PP-Ap-Ali" id="MNj-dt-1Op"/>
                 <outlet property="userNameButton" destination="Jan-Gu-1rN" id="3CC-uQ-Q49"/>
             </connections>

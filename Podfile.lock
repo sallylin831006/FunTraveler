@@ -1,16 +1,58 @@
 PODS:
+  - Firebase/CoreOnly (8.13.0):
+    - FirebaseCore (= 8.13.0)
+  - Firebase/Crashlytics (8.13.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 8.13.0)
+  - FirebaseCore (8.13.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+  - FirebaseCoreDiagnostics (8.13.0):
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+    - nanopb (~> 2.30908.0)
+  - FirebaseCrashlytics (8.13.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseInstallations (8.13.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleDataTransport (9.1.2):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
   - GoogleMaps (6.1.1):
     - GoogleMaps/Maps (= 6.1.1)
   - GoogleMaps/Base (6.1.1)
   - GoogleMaps/Maps (6.1.1):
     - GoogleMaps/Base
   - GooglePlaces (6.1.1)
+  - GoogleUtilities/Environment (7.7.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.7.0):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/UserDefaults (7.7.0):
+    - GoogleUtilities/Logger
   - IQKeyboardManagerSwift (6.5.9)
   - JGProgressHUD (2.2)
   - KeychainAccess (4.2.2)
   - Kingfisher (7.2.1)
   - lottie-ios (3.3.0)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
   - NWWebSocket (0.5.2)
+  - PromisesObjC (2.0.0)
   - PusherSwift (10.0.0):
     - NWWebSocket (~> 0.5.2)
     - TweetNacl (~> 1.0.0)
@@ -18,6 +60,7 @@ PODS:
   - TweetNacl (1.0.2)
 
 DEPENDENCIES:
+  - Firebase/Crashlytics
   - GoogleMaps
   - GooglePlaces
   - IQKeyboardManagerSwift
@@ -30,31 +73,49 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - GoogleDataTransport
     - GoogleMaps
     - GooglePlaces
+    - GoogleUtilities
     - IQKeyboardManagerSwift
     - JGProgressHUD
     - KeychainAccess
     - Kingfisher
     - lottie-ios
+    - nanopb
     - NWWebSocket
+    - PromisesObjC
     - PusherSwift
     - SwiftLint
     - TweetNacl
 
 SPEC CHECKSUMS:
+  Firebase: ee9b1d9b1801371e29f5591eda89eb5a314ab599
+  FirebaseCore: c7e3fa30492e50ccdeef280bf0d5584af38da3e1
+  FirebaseCoreDiagnostics: c2836d254a8f0bbb4121ff18f2c2ea39d118fd08
+  FirebaseCrashlytics: 3b6eafb7e508c26d37ff7a256d0f74406f7e47bd
+  FirebaseInstallations: 60edbf7e11d91ae4c751d26c200dfd037099abe0
+  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleMaps: 94e6e0851beece6678af9f508f4918b7a7c61722
   GooglePlaces: 9c1f3baa75191b94dfc12b80a801292e03977f73
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   NWWebSocket: 21f0c73639815da3272862c912275b26102aa80c
+  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   PusherSwift: 264eaceb921a5f8e166f01a2242371179540c7ff
   SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
   TweetNacl: 3abf4d1d2082b0114e7a67410e300892448951e6
 
-PODFILE CHECKSUM: 89c3dd0207c97b8b9136fb5aabbe3c8102796ccc
+PODFILE CHECKSUM: 4722a00f61af8fde5983519a4397907eb8a02e24
 
 COCOAPODS: 1.11.2
