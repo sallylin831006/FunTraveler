@@ -28,11 +28,11 @@ class PlanPickerViewController: UIViewController {
 
     var myTripId: Int?
     
-    var tripId: Int? {
-        didSet {
-//            fetchData(days: 1)
-        }
-    }
+//    var tripId: Int? {
+//        didSet {
+////            fetchData(days: 1)
+//        }
+//    }
     var trip: Trip? {
         didSet {
             tableView.reloadData()
@@ -43,7 +43,6 @@ class PlanPickerViewController: UIViewController {
     
     var schedule: [Schedule] = [] {
         didSet {
-            showLoadingView()
             if !self.schedule.isEmpty {
                 self.schedule[0].startTime = selectedDepartmentTimes
             }
@@ -132,8 +131,8 @@ class PlanPickerViewController: UIViewController {
             
             switch result {
                 
-            case .success:
-                self.showLoadingView()
+            case .success: break
+//                self.showLoadingView()
                 
             case .failure:
                 print("POST TRIP DETAIL API讀取資料失敗！")
@@ -144,7 +143,7 @@ class PlanPickerViewController: UIViewController {
     // MARK: - POST To Add Editor
     func postToAddEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         coEditProvider.postToAddEditor(tripId: tripId, editorId: editorId, completion: { result in
             
@@ -161,7 +160,7 @@ class PlanPickerViewController: UIViewController {
     // MARK: - Delete Editor
     func deleteEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         coEditProvider.deleteCoEditor(tripId: tripId, editorId: editorId, completion: { result in
             
@@ -550,8 +549,12 @@ extension PlanPickerViewController: PusherDelegate {
                             Schedules.self,
                             from: data.data(using: .utf8)!
                         )
-//                        print("Decode Data:", tripSchedule)
-                        if tripSchedule.tripId != self.tripId { return }
+                        
+                        if tripSchedule.tripId != self.myTripId { return }
+                        if tripSchedule.schedules.first == nil {
+                            self.schedule = []
+                            self.tableView.reloadData()
+                        }
                         if tripSchedule.schedules.first?.day != self.currentDay { return }
                         self.schedule = tripSchedule.schedules
                         self.rearrangeTime()

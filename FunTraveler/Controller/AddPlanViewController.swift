@@ -151,13 +151,13 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.selectionStyle = .none
         if copyTextField == nil {
-            cell.textField.text = ""
+            cell.textField.text = titleText
         } else {
             cell.textField.text = "複製 - \(copyTextField!)"
         }
         
         cell.titleDelegate = self
-        cell.textField.text = titleText
+//        cell.textField.text = titleText
                 
         cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
             self?.startDate = startDate
