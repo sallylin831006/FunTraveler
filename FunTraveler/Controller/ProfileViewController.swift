@@ -204,7 +204,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapFollowButton(_ sender: UIButton) {
         postToInvite()
         sender.setTitle("已送出追蹤邀請", for: .normal)
-        sender.backgroundColor = .themeApricotDeep
+        sender.backgroundColor = .themePink
         sender.isUserInteractionEnabled = false
     }
     

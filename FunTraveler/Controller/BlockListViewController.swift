@@ -34,15 +34,23 @@ class BlockListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+        self.view.backgroundColor = .themeApricot
+        tableView.backgroundColor = .clear
         navigationController?.setNavigationBarHidden(false, animated: animated)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = UIColor.white
+        appearance.backgroundColor = UIColor.themeApricot
 
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.scrollEdgeAppearance =
         self.navigationController?.navigationBar.standardAppearance
-
+        setupBackButton()
+    }
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     // MARK: - GET Action
@@ -67,7 +75,7 @@ class BlockListViewController: UIViewController {
     private func deleteToUnBlockUser(index: Int) {
         let userProvider = UserProvider()
         let userId = blockListData[index].id
-        userProvider.unBlockUser(userId: userId, completion: { [weak self] result in
+        userProvider.unBlockUser(userId: userId, completion: { result in
             
             switch result {
                 
@@ -96,7 +104,7 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(
             withIdentifier: "cell", for: indexPath) as UITableViewCell
-        
+        cell.backgroundColor = .clear
         cell.textLabel?.text = blockListData[indexPath.row].name
         
         return cell
@@ -112,10 +120,13 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
         
         let backAction = UIAlertAction(title: "解除封鎖", style: .destructive, handler: { (_) in
             self.deleteToUnBlockUser(index: index)
+            ProgressHUD.showSuccess(text: "已解除封鎖")
+            self.blockListData.remove(at: index)
+            self.tableView.reloadData()
             
-            self.dismiss(animated: true, completion: nil)
-            self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.tabBar.isHidden = false
+//            self.dismiss(animated: true, completion: nil)
+//            self.navigationController?.popViewController(animated: true)
+//            self.tabBarController?.tabBar.isHidden = false
             
         })
         

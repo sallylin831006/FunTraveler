@@ -46,6 +46,8 @@ class RegisterTableViewCell: UITableViewCell {
         emailTextField.addBottomBorder(textField: emailTextField)
         passwordTextfield.addBottomBorder(textField: passwordTextfield)
         passwordCheckTextfield.addBottomBorder(textField: passwordCheckTextfield)
+        
+        emailTextField.keyboardType = .emailAddress
     }
 
     @objc func tapRegisterButton() {

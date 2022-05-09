@@ -164,8 +164,11 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             self.postToBlockUser(index: index)
-            self.tableView.reloadData()
+            self.deleteData(index: index)
             ProgressHUD.showSuccess(text: "已封鎖")
+            self.commentData.remove(at: index)
+//            self.tableView.reloadData()
+            
         })
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
