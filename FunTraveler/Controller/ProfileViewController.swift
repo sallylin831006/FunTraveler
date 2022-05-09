@@ -399,6 +399,7 @@ extension ProfileViewController {
                 self?.userData = userData
                 self?.tableView.reloadData()
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] GET Profile 資料失敗！")
             }
         })
@@ -439,6 +440,7 @@ extension ProfileViewController {
                 self.tableView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("PATCH Profile失敗！")
             }
         })
@@ -459,6 +461,7 @@ extension ProfileViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] GET 讀取資料失敗！")
             }
         })
@@ -477,6 +480,7 @@ extension ProfileViewController {
                     self.tableView.reloadData()
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] collected postResponse失敗！")
                 }
             })
@@ -495,6 +499,7 @@ extension ProfileViewController {
                 print("postResponse", postResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO INVITE失敗！")
             }
         })
@@ -512,6 +517,7 @@ extension ProfileViewController {
                 print("blockResponse", blockResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

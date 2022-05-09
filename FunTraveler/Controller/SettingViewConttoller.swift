@@ -157,6 +157,7 @@ extension SettingViewController {
             case .success: break
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[SettingVC] 刪除帳戶失敗！")
             }
         })

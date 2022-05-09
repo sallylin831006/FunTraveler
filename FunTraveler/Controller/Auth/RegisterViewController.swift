@@ -117,6 +117,7 @@ extension RegisterViewController {
             case .success: break
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("POST TO Register 失敗！")
             }
         })

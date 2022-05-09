@@ -45,9 +45,12 @@ class PlanOverViewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        guard KeyChainManager.shared.token != nil else {
+        if KeyChainManager.shared.token == nil {
+            setupAlertLoginView()
             self.onShowLogin()
             return
+        } else {
+            alertLoginView.isHidden = true
         }
         fetchData()
     }
@@ -65,6 +68,7 @@ class PlanOverViewViewController: UIViewController {
                 self.tripData = tripData.data
                 self.tableView.reloadData()
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("GET TRIP OVERVIEW API讀取資料失敗！")
             }
         })
@@ -81,9 +85,27 @@ class PlanOverViewViewController: UIViewController {
             case .success:
                 self.tableView.reloadData()
             case .failure:
+                ProgressHUD.showFailure(text: "連線不穩")
                 print("deleteTrip API讀取資料失敗！")
             }
         })
+    }
+    
+    let alertLoginView = AlertLoginView()
+    private func setupAlertLoginView() {
+        alertLoginView.isHidden = false
+        alertLoginView.alertLabel.text = "登入以編輯旅遊行程"
+        self.view.addSubview(alertLoginView)
+        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
+        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func tapToShowLogin() {
+        onShowLogin()
     }
     
 }
@@ -190,6 +212,12 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
 
 extension PlanOverViewViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        if KeyChainManager.shared.token != nil {
+            alertLoginView.isHidden = true
+        } else {
+            setupAlertLoginView()
+        }
+        
         fetchData()
     }
 }

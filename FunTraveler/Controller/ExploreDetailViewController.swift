@@ -99,6 +99,7 @@ class ExploreDetailViewController: UIViewController {
                 self?.schedule = schedules.first ?? []
                    
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[Explore Detail] GET schedule Detai 讀取資料失敗！")
             }
         })
@@ -118,6 +119,7 @@ class ExploreDetailViewController: UIViewController {
                 //print("按了收藏按鈕！", postResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[Explore] collected postResponse失敗！")
             }
         })
@@ -135,6 +137,7 @@ class ExploreDetailViewController: UIViewController {
                 case .success: break
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] Liked postResponse失敗！")
                 }
             })
@@ -151,6 +154,7 @@ class ExploreDetailViewController: UIViewController {
                 case .success: break
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] UnLiked postResponse失敗！")
                 }
             })

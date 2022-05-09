@@ -114,6 +114,7 @@ class PlanDetailViewController: UIViewController {
                 self.tabBarController?.tabBar.isHidden = false
       
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
         })

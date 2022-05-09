@@ -163,6 +163,7 @@ extension SearchViewController: UISearchBarDelegate {
                 self.searchData = searchData.results
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("searchProvider讀取資料失敗！")
             }
         })

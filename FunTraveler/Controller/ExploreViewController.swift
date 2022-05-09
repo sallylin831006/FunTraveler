@@ -256,6 +256,7 @@ extension ExploreViewController {
 //                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] collected postResponse失敗！")
                 }
             })
@@ -294,6 +295,7 @@ extension ExploreViewController {
                 }
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })
@@ -318,6 +320,7 @@ extension ExploreViewController {
                 case .success: break
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] Liked postResponse失敗！")
                 }
             })
@@ -333,6 +336,7 @@ extension ExploreViewController {
                 case .success: break
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] UnLiked postResponse失敗！")
                 }
             })
@@ -350,6 +354,7 @@ extension ExploreViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

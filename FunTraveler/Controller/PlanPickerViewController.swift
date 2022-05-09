@@ -117,6 +117,7 @@ class PlanPickerViewController: UIViewController {
                 self?.schedule = schedule
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
             }
         })
@@ -135,6 +136,7 @@ class PlanPickerViewController: UIViewController {
 //                self.showLoadingView()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("POST TRIP DETAIL API讀取資料失敗！")
             }
         })
@@ -152,6 +154,7 @@ class PlanPickerViewController: UIViewController {
             case .success(let coEditorResponse):
                 print("coEditorResponse", coEditorResponse)
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("postToAddEditor失敗！")
             }
         })
@@ -169,6 +172,7 @@ class PlanPickerViewController: UIViewController {
             case .success(let coEditorResponse):
                 print("coEditorResponse", coEditorResponse)
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("postToDeleteEditor失敗！")
             }
         })

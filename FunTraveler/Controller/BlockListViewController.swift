@@ -66,6 +66,7 @@ class BlockListViewController: UIViewController {
                 self?.tableView.reloadData()
                                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
@@ -83,6 +84,7 @@ class BlockListViewController: UIViewController {
                 print("unBlockResponse", unBlockResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO UnBlock User失敗！")
             }
         })
