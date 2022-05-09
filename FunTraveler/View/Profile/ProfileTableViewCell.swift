@@ -10,11 +10,14 @@ import UIKit
 protocol ProfileTableViewCellDelegate: AnyObject {
     
     func didChangeName( _ cell: ProfileTableViewCell, text: String)
+    
+    func blockUser(_ blockButton: UIButton)
+
 }
 
 class ProfileTableViewCell: UITableViewCell {
     
-    weak var changeNameDelegate: ProfileTableViewCellDelegate?
+    weak var delegate: ProfileTableViewCellDelegate?
     
     @IBOutlet weak var settingButton: UIButton!
     
@@ -30,20 +33,23 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var numberOfFriendsButton: UIButton!
     
+    @IBOutlet weak var blockButton: UIButton!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .themeApricot
-        let margins = UIEdgeInsets(top: 10, left: 10, bottom: -10, right: 10)
+        let margins = UIEdgeInsets(top: 20, left: 30, bottom: -20, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 3
-        contentView.layer.cornerRadius = 15.0
-        contentView.layer.masksToBounds = true
         contentView.backgroundColor = .themeApricot
+        contentView.addShadow()
         userImageView.backgroundColor = UIColor.white
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
+        userImageView.layer.cornerRadius = CornerRadius.buttonCorner
+        userImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         editButton.isHidden = true
+        
+        
         
     }
 
@@ -51,7 +57,7 @@ class ProfileTableViewCell: UITableViewCell {
         super.awakeFromNib()
         userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
         userNameTextField.delegate = self
-        
+        blockButton.addTarget(self, action: #selector(tapBlockButton(_:)), for: .touchUpInside)
         
 //        let textFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserNameTextField(_:)))
 //        userNameTextField.addGestureRecognizer(textFieldTapGesture)
@@ -60,12 +66,15 @@ class ProfileTableViewCell: UITableViewCell {
     }
     
     
-    
     @objc func editUserNameTextField(_ textField: UITextField) {
         editButton.isHidden = false //NOT WORKING
         userNameTextField.isUserInteractionEnabled = true
-        userNameTextField.addBottomBorder()
+//        userNameTextField.addBottomBorder()
         
+    }
+    
+    @objc func tapBlockButton(_ sender: UIButton) {
+        delegate?.blockUser(sender)
     }
     
 //    @objc func tapUserNameTextField(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -85,7 +94,7 @@ class ProfileTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func layoutCell(data: Profile) {
+    func layoutCell(data: Profile, isMyProfile: Bool) {
         userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
@@ -94,6 +103,12 @@ class ProfileTableViewCell: UITableViewCell {
         }
         numberOfFriendLabel.text = String(data.numberOfFriends)
         numberOfTrips.text = String(data.numberOfTrips)
+        
+        if isMyProfile {
+            blockButton.isHidden = true
+        } else {
+            settingButton.isHidden = true
+        }
     }
 }
 
@@ -103,17 +118,7 @@ extension ProfileTableViewCell: UITextFieldDelegate {
         
         guard let name = textField.text else { return }
         
-        changeNameDelegate?.didChangeName(self, text: name)
+        delegate?.didChangeName(self, text: name)
         
-    }
-}
-
-extension UITextField {
-    func addBottomBorder() {
-        let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
-        bottomLine.backgroundColor = UIColor.white.cgColor
-        borderStyle = .none
-        layer.addSublayer(bottomLine)
     }
 }

@@ -30,9 +30,13 @@ class SegementView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+//        let margins = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+//        contentView.frame = contentView.frame.inset(by: margins)
+        self.backgroundConfiguration = nil
         self.backgroundColor = .themeApricot
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeApricotDeep ?? .white], for: .selected)
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeRed ?? .white], for: .normal)
+        followbutton.layer.cornerRadius = CornerRadius.buttonCorner
     }
     
     override init(reuseIdentifier: String?) {

@@ -64,6 +64,7 @@ class SearchDetailViewController: UIViewController {
                 print("成功讀取資料！")
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("讀取資料失敗！")
             }
         })

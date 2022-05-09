@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-typealias ExploreHanlder = (Result<Explores>) -> Void
+typealias ExploreHanlder = (Result<[Explore]>) -> Void
 
 class ExploreProvider {
     
@@ -34,7 +34,7 @@ class ExploreProvider {
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(exploreData))
+                            completion(Result.success(exploreData.data))
                         }
                         
                     } catch {
@@ -68,7 +68,7 @@ class ExploreProvider {
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(searchData))
+                            completion(Result.success(searchData.data))
                         }
                         
                     } catch {

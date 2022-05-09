@@ -30,40 +30,25 @@ class VideoWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showLoadingView()
         self.setUpUI()
-        
         collectionView.register(UINib(nibName: String(
             describing: VideoWallHeaderView.self), bundle: nil),
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: "Header")
         
-        setupSearchBar()
-    }
-    
-    private let searchController = UISearchController(searchResultsController: nil)
-    private func setupSearchBar() {
+        collectionView.register(UINib(nibName: String(
+            describing: VideoHeaderView.self), bundle: nil),
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: "VideoHeaderView")
         
-        searchController.searchBar.placeholder = "搜尋..."
-        searchController.searchBar.delegate = self
-        
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchBar.barTintColor = .themeRed
-        searchController.searchBar.tintColor = .themeRed
-
-        searchController.searchBar.searchTextField.backgroundColor = .themeApricotDeep
-     
-        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .themeRed
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.view.backgroundColor = .themeApricotDeep
-        showLoadingView()
+        self.view.backgroundColor = .themeApricot
         fetchData()
+        navigationItem.title = "動態"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -101,8 +86,13 @@ extension VideoWallViewController: UICollectionViewDataSource, UICollectionViewD
         headerView.delegate = self
         
         return headerView
+        //        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+        //            ofKind: kind, withReuseIdentifier: "VideoHeaderView", for: indexPath)
+        //                as? VideoHeaderView else { return UICollectionReusableView() }
+        //
+        //        return headerView
     }
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
             return videoDataSource.count
         }
@@ -187,16 +177,20 @@ extension VideoWallViewController {
                 self?.collectionView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CameraVC] GET video失敗！")
             }
         })
     }
     
     // MARK: - POST TO INVITE
-    private func postToInvite() {
+    private func postToInvite(section: Int) {
         let friendsProvider = FriendsProvider()
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+//        guard let userId = KeyChainManager.shared.userId else { return }
+//        guard let userIdNumber = Int(userId) else { return }
+        
+        let userId =  videoDataSource[section].user.id
+        friendsProvider.postToInvite(userId: userId, completion: { result in
             
             switch result {
                 
@@ -204,10 +198,30 @@ extension VideoWallViewController {
                 print("postResponse", postResponse)
                 
             case .failure:
-                print("[ProfileVC] POST TO INVITE失敗！")
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[VedioVC] POST TO INVITE失敗！")
             }
         })
     }
+    
+    // MARK: - POST To Block User
+    private func postToBlockUser(index: Int) {
+        let userProvider = UserProvider()
+        let userId = videoDataSource[index].user.id
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success:
+                self?.collectionView.reloadData()
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[ProfileVC] POST TO Block User失敗！")
+            }
+        })
+    }
+    
 }
 
 extension VideoWallViewController {
@@ -234,39 +248,59 @@ extension VideoWallViewController {
     
 }
 
-extension VideoWallViewController: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("TextDidEndEditing")
-        searchController.searchBar.resignFirstResponder()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("SearchButtonClicked")
-
-        searchController.searchBar.resignFirstResponder()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("textDidChange")
-//        postToSearchTrip(searchText: searchText)
-//        if searchText.isEmpty {
-//            fetchData()
-//        }
-        
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("點了取消按鈕")
-//        fetchData()
-    }
-}
-
 extension VideoWallViewController: VideoWallHeaderViewDelegate {
+    func tapToUserProfile(_ section: Int) {
+        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
+        guard let profileVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+
+        profileVC.userId = self.videoDataSource[section].user.id
+
+        if String(self.videoDataSource[section].user.id) == KeyChainManager.shared.userId {
+            profileVC.isMyProfile = true
+        } else {
+            profileVC.isMyProfile = false
+        }
+        self.present(profileVC, animated: true)
+    }
+    
     func tapToFollow(_ followButton: UIButton, _ section: Int) {
-        postToInvite()
+        guard KeyChainManager.shared.token != nil else { return onShowLogin() }
+        postToInvite(section: section)
         followButton.setTitle("已送出邀請", for: .normal)
-        followButton.backgroundColor = .themeApricotDeep
+        followButton.backgroundColor = .themePink
         followButton.isUserInteractionEnabled = false
+    }
+    
+    func blockUser(_ blockButton: UIButton, _ index: Int) {
+        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        if userIdNumber == self.videoDataSource[index].user.id { return }
+        
+        let userName = videoDataSource[index].user.name
+        let blockController = UIAlertController(
+            title: "封鎖\(userName)",
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            
+            self.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
+            self.postToBlockUser(index: index)
+            ProgressHUD.showSuccess(text: "已封鎖")
+        })
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
    
 }

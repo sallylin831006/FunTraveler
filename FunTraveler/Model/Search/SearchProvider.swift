@@ -50,7 +50,7 @@ class SearchProvider {
 //                                             status: "OK")
 //        completion(Result.success(searchMockData))
 //        return
-//
+
 //        // ----mock Data -----//
   
         HTTPClient.shared.maprequest(

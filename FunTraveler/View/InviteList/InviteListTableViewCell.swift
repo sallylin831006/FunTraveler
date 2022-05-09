@@ -27,12 +27,12 @@ class InviteListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cancelInviteButton: UIButton!
     
-    @IBAction func tapConfirmButton(_ sender: Any) {
+    @IBAction func tapConfirmButton(_ sender: UIButton) {
 
         delegate?.confirmInvitation(index: index, isAccept: true)
     }
     
-    @IBAction func tapCancelButton(_ sender: Any) {
+    @IBAction func tapCancelButton(_ sender: UIButton) {
         delegate?.cancelInvitation(index: index, isAccept: false)
     }
     

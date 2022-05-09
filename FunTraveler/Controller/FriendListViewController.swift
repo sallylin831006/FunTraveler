@@ -62,6 +62,7 @@ class FriendListViewController: UIViewController {
                 self?.friendListData = friendListData.data
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[FriendVC] GET 讀取資料失敗！")
             }
         })
