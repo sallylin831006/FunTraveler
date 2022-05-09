@@ -26,11 +26,13 @@ class PlanPickerViewController: UIViewController {
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
 
-    var tripId: Int? {
-        didSet {
-            fetchData(days: 1)
-        }
-    }
+    var myTripId: Int?
+    
+//    var tripId: Int? {
+//        didSet {
+////            fetchData(days: 1)
+//        }
+//    }
     var trip: Trip? {
         didSet {
             tableView.reloadData()
@@ -41,7 +43,6 @@ class PlanPickerViewController: UIViewController {
     
     var schedule: [Schedule] = [] {
         didSet {
-            showLoadingView()
             if !self.schedule.isEmpty {
                 self.schedule[0].startTime = selectedDepartmentTimes
             }
@@ -87,15 +88,21 @@ class PlanPickerViewController: UIViewController {
         tableView.addGestureRecognizer(longpress)
         tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
         tableView.backgroundView?.contentMode = .scaleAspectFill
-//        tableView.backgroundView?.alpha = 0.9
+        tableView.backgroundColor = .clear
+        
+        self.tableView.contentInsetAdjustmentBehavior = .never
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData(days: 1)
     }
         
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         
-        guard let tripId = tripId else { return  }
+        guard let tripId = myTripId else { return }
         
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
@@ -110,24 +117,26 @@ class PlanPickerViewController: UIViewController {
                 self?.schedule = schedule
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
             }
         })
         
     }
     // MARK: - POST Action
-    func postData(days: Int) {
+    func postData(days: Int, isFinished: Bool) {
         let tripProvider = TripProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
-        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, completion: { result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { result in
             
             switch result {
                 
-            case .success:
-                self.showLoadingView()
+            case .success: break
+//                self.showLoadingView()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("POST TRIP DETAIL API讀取資料失敗！")
             }
         })
@@ -136,7 +145,7 @@ class PlanPickerViewController: UIViewController {
     // MARK: - POST To Add Editor
     func postToAddEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         coEditProvider.postToAddEditor(tripId: tripId, editorId: editorId, completion: { result in
             
@@ -145,6 +154,7 @@ class PlanPickerViewController: UIViewController {
             case .success(let coEditorResponse):
                 print("coEditorResponse", coEditorResponse)
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("postToAddEditor失敗！")
             }
         })
@@ -153,7 +163,7 @@ class PlanPickerViewController: UIViewController {
     // MARK: - Delete Editor
     func deleteEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         coEditProvider.deleteCoEditor(tripId: tripId, editorId: editorId, completion: { result in
             
@@ -162,6 +172,7 @@ class PlanPickerViewController: UIViewController {
             case .success(let coEditorResponse):
                 print("coEditorResponse", coEditorResponse)
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("postToDeleteEditor失敗！")
             }
         })
@@ -242,8 +253,10 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapToInvite() {
         guard let friendListVC = UIStoryboard.profile.instantiateViewController(
             withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        friendListVC.userId = userId
+        
+        guard let userId = KeyChainManager.shared.userId else { return }
+        
+        friendListVC.userId = Int(userId)
         
         friendListVC.isEditMode = true
         
@@ -263,18 +276,17 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        50.0
+        70.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
+
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
         footerView.scheduleButton.setTitle("+新增景點", for: .normal)
-        
+
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-        
         return footerView
     }
     
@@ -292,7 +304,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         searchVC.scheduleClosure = { [weak self] newSchedule in
             self?.schedule = newSchedule
-            self?.postData(days: self!.currentDay)
+            self?.postData(days: self!.currentDay, isFinished: false)
         }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
         self.present(navSearchVC, animated: true)
@@ -303,7 +315,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
             tableView.isEditing = false
             self.schedule.remove(at: index.row)
-            self.postData(days: self.currentDay)
+            self.postData(days: self.currentDay, isFinished: false)
         }
         return [deleteAction]
     }
@@ -382,10 +394,9 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
 
 @objc extension PlanPickerViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-        postData(days: currentDay)
+        postData(days: currentDay, isFinished: false)
         currentDay = index
         fetchData(days: index)
-        
     }
     
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
@@ -542,8 +553,12 @@ extension PlanPickerViewController: PusherDelegate {
                             Schedules.self,
                             from: data.data(using: .utf8)!
                         )
-//                        print("Decode Data:", tripSchedule)
-                        if tripSchedule.tripId != self.tripId { return }
+                        
+                        if tripSchedule.tripId != self.myTripId { return }
+                        if tripSchedule.schedules.first == nil {
+                            self.schedule = []
+                            self.tableView.reloadData()
+                        }
                         if tripSchedule.schedules.first?.day != self.currentDay { return }
                         self.schedule = tripSchedule.schedules
                         self.rearrangeTime()

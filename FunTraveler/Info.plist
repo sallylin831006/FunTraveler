@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -18,7 +20,7 @@
 	<key>MapBaseURL</key>
 	<string>https://maps.googleapis.com/maps/api</string>
 	<key>Privacy — Location Always and When In Use Usage Description</key>
-	<string>open map</string>
+	<string>讓您可使用地圖規劃行程</string>
 	<key>STBaseURL</key>
 	<string>https://travel.newideas.com.tw</string>
 	<key>UIApplicationSceneManifest</key>

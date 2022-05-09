@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class ExploreOverViewTableViewCell: UITableViewCell {
     
     var friendClosure: (() -> Void)?
@@ -28,18 +27,23 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     @IBOutlet weak var collectButton: UIButton!
     
     @IBOutlet weak var heartButton: UIButton!
-    
-    @IBOutlet weak var followButton: UIButton!
-    
+        
     @IBOutlet weak var numberOfLikeLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var lockIconImage: UIImageView!
     
     private var isCollected: Bool = false
     
     private var isLiked: Bool = false
 
     func layoutCell(data: Explore) {
+        if KeyChainManager.shared.token == nil {
+            collectButton.isHidden = true
+        } else {
+            collectButton.isHidden = false
+        }
         
         heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
 
@@ -67,11 +71,13 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         self.isLiked = data.isLiked
         heartButton.isSelected = data.isLiked
 
-        followButton.setTitle("追蹤", for: .normal)
-        followButton.setTitleColor(UIColor.themeApricotDeep, for: .normal)
-        followButton.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        
         dateLabel.text = data.publishedDate
+        
+        if data.isPrivate {
+            lockIconImage.isHidden = false
+        } else {
+            lockIconImage.isHidden = true
+        }
         
     }
     
@@ -80,7 +86,6 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         
         heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
         collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
-        followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserImage(gestureRecognizer:)))
         userImageView.isUserInteractionEnabled = true

@@ -45,7 +45,7 @@ class LoadingView: UIView {
     private func lottieSetting() {
         loadingView.animation = Animation.named(LottieConstants.loading)
         loadingView.contentMode = .scaleAspectFit
-        loadingView.animationSpeed = 1.5
+        loadingView.animationSpeed = 3
         loadingView.loopMode = .playOnce
 
         loadingView.play(fromProgress: 0,

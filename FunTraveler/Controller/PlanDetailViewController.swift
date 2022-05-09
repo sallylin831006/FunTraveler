@@ -9,20 +9,11 @@ import UIKit
 import GoogleMaps
 
 class PlanDetailViewController: UIViewController {
-        
-    var tripIdClosure: ((_ tripId: Int) -> Void)? {
-        didSet {
-            tripIdClosure?(tripId ?? 0)
-        }
-    }
-        
+    
+    var myTripId: Int?
+    
     var trip: Trip?
-
-    var tripId: Int? {
-        didSet {
-            tripIdClosure?(tripId ?? 0)
-        }
-    }
+    var currentDay: Int = 1
 
     var schedules: [Schedule] = []
     
@@ -53,48 +44,77 @@ class PlanDetailViewController: UIViewController {
     }
     
     @objc func backTap(_ sender: UIButton) {
-        addAlert()
+        self.postToSaveData(isFinished: false)
+//        addAlert()
         
     }
     
-    func addAlert() {
-        let alertController = UIAlertController(title: "確定要離開編輯嗎？", message: "記得儲存您的旅遊規劃！", preferredStyle: .alert)
-        
-        let backAction = UIAlertAction(title: "儲存", style: .default, handler: { (_) in
-            self.postData()
-            
-            self.dismiss(animated: true, completion: nil)
-            self.navigationController?.popViewController(animated: true)
-            self.tabBarController?.tabBar.isHidden = false
-            
-        })
-        
-        let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
-        })
-        
-        alertController.addAction(backAction)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-        
-    }
+//    func addAlert() {
+//        let alertController = UIAlertController(title: "確定要離開編輯嗎？", message: "記得儲存您的旅遊規劃！", preferredStyle: .alert)
+//        
+//        let backAction = UIAlertAction(title: "儲存", style: .default, handler: { (_) in
+//            self.postToSaveData(isFinished: false)
+//            
+//        })
+//        
+//        let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
+//        })
+//        
+//        alertController.addAction(backAction)
+//        alertController.addAction(cancelAction)
+//        
+//        present(alertController, animated: true, completion: nil)
+//        
+//    }
     
     // MARK: - Action
-    private func postData() {
+    private func postToShareData(isFinished: Bool) {
         
         let tripProvider = TripProvider()
-        guard let tripId = tripId else { return }
+        guard let tripId = myTripId else { return }
         
         if schedules.isEmpty { return }
         
         let day = schedules[0].day
-        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, completion: { result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
             switch result {
                 
-            case .success: break
+            case .success:
+                guard let sharePlanVC = self.storyboard?.instantiateViewController(
+                    withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
+                
+                sharePlanVC.myTripId = self.myTripId
+
+                let navSharePlanVC = UINavigationController(rootViewController: sharePlanVC)
+                self.present(navSharePlanVC, animated: true)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "不能有行程是空的唷")
+                print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - Action
+    private func postToSaveData(isFinished: Bool) {
+        
+        let tripProvider = TripProvider()
+        guard let tripId = myTripId else { return }
+
+        let day = currentDay
+
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                self.dismiss(animated: true, completion: nil)
+                self.navigationController?.popViewController(animated: true)
+                self.tabBarController?.tabBar.isHidden = false
+      
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[Plan Detail] POST TRIP DETAIL API讀取資料失敗！")
             }
         })
@@ -103,6 +123,8 @@ class PlanDetailViewController: UIViewController {
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
+        planPickerViewController.myTripId = myTripId
+        planPickerViewController.currentDay = currentDay
         
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
@@ -112,11 +134,7 @@ class PlanDetailViewController: UIViewController {
         planPickerViewController.tripClosure = { [weak self] trip in
             self?.trip = trip
         }
-        
-        tripIdClosure  = { tripId in
-            planPickerViewController.tripId = tripId
-        }
-        
+
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
         
@@ -141,23 +159,11 @@ class PlanDetailViewController: UIViewController {
         
     }
     @objc func tapToShare() {
-        
         if schedules.isEmpty {
-            //  提醒請加入行程
+            ProgressHUD.showFailure(text: "不能有行程是空的唷")
             return
         }
-        
-        postData()
-        
-        guard let shareVC = self.storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
-        self.tripIdClosure  = { tripId in
-            shareVC.tripId = tripId
-            shareVC.trip = self.trip
-        }
-        let navShareVC = UINavigationController(rootViewController: shareVC)
-        self.present(navShareVC, animated: true)
-        
+        postToShareData(isFinished: true)
     }
     
     func moveToSharePage() {
@@ -166,7 +172,7 @@ class PlanDetailViewController: UIViewController {
     
     let label = UILabel()
     let mapView = GMSMapView()
-    
+
     func addMap() {
         mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(mapView)
@@ -180,26 +186,26 @@ class PlanDetailViewController: UIViewController {
         var markerArray: [CLLocationCoordinate2D] = []
         mapView.clear()
         for (index, schedule) in schedules.enumerated() {
-            
+
             let marker = GMSMarker()
             let markerView = UIImageView(image: UIImage.asset(.orderMarker))
             marker.iconView = markerView
             marker.position = CLLocationCoordinate2DMake(
                 CLLocationDegrees(schedule.position.lat),
                 CLLocationDegrees(schedule.position.long))
-            
+
             marker.map = mapView
             marker.title = schedule.name
             marker.snippet = schedule.address
             markerArray.append(marker.position)
-            
+
             let orderLabel = UILabel()
             orderLabel.text = String(index + 1)
             orderLabel.font = orderLabel.font.withSize(30)
-            
+
             orderLabel.textColor = UIColor.themeRed
             marker.iconView?.addSubview(orderLabel)
-            
+
             orderLabel.translatesAutoresizingMaskIntoConstraints = false
             orderLabel.topAnchor.constraint(
                 equalTo: marker.iconView!.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
@@ -207,7 +213,7 @@ class PlanDetailViewController: UIViewController {
         }
         
         let path = GMSMutablePath()
-        
+
         for coord in markerArray {
             path.add(coord)
         }
@@ -216,5 +222,4 @@ class PlanDetailViewController: UIViewController {
         line.strokeWidth = 4.0
         line.map = mapView
     }
-    
-}
+ }

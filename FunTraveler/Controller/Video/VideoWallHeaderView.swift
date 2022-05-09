@@ -9,6 +9,10 @@ import UIKit
 
 protocol VideoWallHeaderViewDelegate: AnyObject {
     func tapToFollow(_ followButton: UIButton, _ section: Int)
+    
+    func tapToUserProfile(_ section: Int)
+    
+    func blockUser(_ blockButton: UIButton, _ index: Int)
 }
 
 class VideoWallHeaderView: UICollectionReusableView {
@@ -22,12 +26,25 @@ class VideoWallHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
+    @IBOutlet weak var blockButton: UIButton!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
         followButton.layer.cornerRadius = CornerRadius.buttonCorner
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserImage(gestureRecognizer:)))
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(gesture)
+        
+        let nameGesture = UITapGestureRecognizer(target: self, action: #selector(tappedUserName(gestureRecognizer:)))
+        userNameLabel.isUserInteractionEnabled = true
+        userNameLabel.addGestureRecognizer(nameGesture)
+        
+        blockButton.addTarget(self, action: #selector(tapBlockButton), for: .touchUpInside)
+    
     }
     
     func layoutHeaderView(data: [Video], section: Int) {
@@ -41,22 +58,26 @@ class VideoWallHeaderView: UICollectionReusableView {
         
         userNameLabel.text =  data[section].user.name
         
+        followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
+        
         let isFriend = data[section].user.isFriend
         let isInvite = data[section].user.isInvite
-
-        if !isFriend && Int(KeyChainManager.shared.userId!) == data[section].user.id {
+        guard let userId = KeyChainManager.shared.userId else { return }
+        
+        
+        if !isFriend && Int(userId) == data[section].user.id {
             followButton.isHidden = true
+            blockButton.isHidden = true
             return
         } else if isFriend {
             followButton.isHidden = false
             followButton.setTitle("已追蹤", for: .normal)
-            followButton.backgroundColor = .themeApricotDeep
+            followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && isInvite {
             followButton.isHidden = false
-
             followButton.setTitle("已送出邀請", for: .normal)
-            followButton.backgroundColor = .themeApricotDeep
+            followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && !isInvite {
             followButton.isHidden = false
@@ -69,6 +90,18 @@ class VideoWallHeaderView: UICollectionReusableView {
     
     @objc func tapFollowButton(_ sender: UIButton) {
         delegate?.tapToFollow(sender, section)
+    }
+    
+    @objc func tappedUserImage(gestureRecognizer: UITapGestureRecognizer) {
+        delegate?.tapToUserProfile(section)
+    }
+    
+    @objc func tappedUserName(gestureRecognizer: UITapGestureRecognizer) {
+        delegate?.tapToUserProfile(section)
+    }
+    
+    @objc func tapBlockButton(_ sender: UIButton, _ index: Int) {
+        delegate?.blockUser(sender, section)
     }
  
 }

@@ -12,6 +12,8 @@ typealias TripHanlder = (Result<Trips>) -> Void
 typealias AddTripHanlder = (Result<AddTrip>) -> Void
 typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
 typealias ResponseHanlder = (Result<String>) -> Void
+typealias CopyHanlder = (Result<CopyTrip>) -> Void
+
 
 class TripProvider {
     
@@ -101,10 +103,7 @@ class TripProvider {
     // MARK: - Public method
     func fetchSchedule(tripId: Int, days: Int, completion: @escaping ScheduleInfoHanlder) {
         
-        guard let token = KeyChainManager.shared.token else {
-            
-            return completion(Result.failure(FunTravelerSignInError.noToken))
-        }
+        let token = KeyChainManager.shared.token ?? ""
         
         HTTPClient.shared.request(
             TripRequest.getSchdule(token: token, tripId: tripId, days: days) ,
@@ -140,7 +139,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
-    func postTrip(tripId: Int, schedules: [Schedule], day: Int, completion: @escaping ScheduleInfoHanlder) {
+    func postTrip(tripId: Int, schedules: [Schedule], day: Int, isFinished: Bool, completion: @escaping ScheduleInfoHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -151,7 +150,7 @@ class TripProvider {
             TripRequest.postTrip(token: token,
                                  tripId: tripId,
                                  schedules: schedules,
-                                 day: day), completion: {  result in
+                                 day: day, isFinished: isFinished), completion: {  result in
                
                 switch result {
                     
@@ -191,11 +190,16 @@ class TripProvider {
         }
         
         HTTPClient.shared.request(
-            TripRequest.updateTrip(token: token, tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: {  result in
+            TripRequest.updateTrip(token: token, tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: { result in
                
                 switch result {
                     
-                case .success : break
+                case .success:
+                    
+                    DispatchQueue.main.async {
+                        
+                        completion(Result.success("success"))
+                    }
                                     
                 case .failure(let error):
                     print(error)
@@ -206,7 +210,7 @@ class TripProvider {
     }
     
     // MARK: - POST TO COPY TRIP
-    func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping ScheduleInfoHanlder) {
+    func copyTrip(title: String, startDate: String, endDate: String, tripId: Int, completion: @escaping CopyHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -224,13 +228,13 @@ class TripProvider {
                     do {
 
                         let copyTrip = try JSONDecoder().decode(
-                            ScheduleInfo.self,
+                            CopyTrips.self,
                             from: data
                         )
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(copyTrip))
+                            completion(Result.success(copyTrip.data))
                         }
                         
                     } catch {
@@ -244,5 +248,27 @@ class TripProvider {
                     
                 }
             })
+    }
+    
+    // MARK: - DELETE Trip
+    func deleteTrip(tripId: Int, completion: @escaping (Result<String>) -> Void) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(TripRequest.deleteTrip(token: token, tripId: tripId), completion: { result in
+            
+            switch result {
+                
+            case .success: break
+                
+            case .failure(let error):
+                print(error)
+                completion(Result.failure(error))
+                
+            }
+        })
     }
 }

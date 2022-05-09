@@ -37,7 +37,7 @@ private enum Tab {
 
         controller.tabBarItem = tabBarItem()
 
-        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 4.0, left: 0.0, bottom: 3.0, right: 0.0)
+        controller.tabBarItem.imageInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0)
 
         return controller
     }
@@ -102,12 +102,21 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         trolleyTabBarItem.badgeColor = .brown
 
         delegate = self
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor.themeApricotDeep
+            
+            self.tabBar.standardAppearance = appearance
+            self.tabBar.scrollEdgeAppearance = appearance
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tabBar.frame.size.height = 90
-        tabBar.frame.origin.y = view.frame.height - 90
+//        tabBar.frame.size.height = 90
+//        tabBar.frame.origin.y = view.frame.height - 90
         tabBar.tintColor = .black
         tabBar.layer.borderWidth = 0
         tabBar.clipsToBounds = true
