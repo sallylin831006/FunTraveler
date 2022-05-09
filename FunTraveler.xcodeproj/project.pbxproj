@@ -118,6 +118,7 @@
 		3A8E50682814F58B00DF40AE /* VideoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50672814F58B00DF40AE /* VideoRequest.swift */; };
 		3A8E506A2814F5B700DF40AE /* VideoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50692814F5B700DF40AE /* VideoProvider.swift */; };
 		3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E506B2814F5C200DF40AE /* VideoObject.swift */; };
+		3A9A51072828F00200F49181 /* Orientation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A51062828F00200F49181 /* Orientation+Extension.swift */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
 		3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */; };
@@ -268,6 +269,7 @@
 		3A8E50672814F58B00DF40AE /* VideoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRequest.swift; sourceTree = "<group>"; };
 		3A8E50692814F5B700DF40AE /* VideoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProvider.swift; sourceTree = "<group>"; };
 		3A8E506B2814F5C200DF40AE /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
+		3A9A51062828F00200F49181 /* Orientation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Orientation+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -643,6 +645,7 @@
 				3A5445F0281E7AA10078518E /* Font+Extension.swift */,
 				3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */,
 				3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */,
+				3A9A51062828F00200F49181 /* Orientation+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1017,6 +1020,7 @@
 				3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */,
 				3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */,
 				3A13495C281027F7008CECEA /* CollectedRequest.swift in Sources */,
+				3A9A51072828F00200F49181 /* Orientation+Extension.swift in Sources */,
 				3A7E4D962808DD1A00281E17 /* SharePlanTableViewCell.swift in Sources */,
 				3A73527F2801802A00B4D8D3 /* TimePickerView.swift in Sources */,
 				3A7E4D9F2809437E00281E17 /* ExploreViewController.swift in Sources */,
