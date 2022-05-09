@@ -276,6 +276,7 @@ extension ExploreViewController {
                 self?.exploreData = exploreData
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
