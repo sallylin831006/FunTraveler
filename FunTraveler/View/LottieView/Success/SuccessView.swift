@@ -45,7 +45,7 @@ class SuccessView: UIView {
     private func lottieSetting() {
         successView.animation = Animation.named(LottieConstants.success)
         successView.contentMode = .scaleAspectFit
-        successView.animationSpeed = 1.5
+        successView.animationSpeed = 3
         successView.loopMode = .playOnce
 
         successView.play(fromProgress: 0,

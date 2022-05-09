@@ -13,18 +13,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CommentFooterView" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="452" height="72"/>
+            <rect key="frame" x="0.0" y="0.0" width="452" height="79"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ogb-lZ-g20">
-                    <rect key="frame" x="16" y="16" width="45" height="45"/>
+                    <rect key="frame" x="24" y="16" width="45" height="45"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="45" id="lah-pf-rMo"/>
                         <constraint firstAttribute="height" constant="45" id="yu7-fZ-zqp"/>
                     </constraints>
                 </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xkf-dk-6EJ">
-                    <rect key="frame" x="71" y="18.5" width="365" height="40"/>
+                    <rect key="frame" x="79" y="18.5" width="349" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="FFj-Gt-RoP"/>
                     </constraints>
@@ -32,10 +32,17 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPd-Ym-jXH">
-                    <rect key="frame" x="391" y="18.5" width="46.5" height="40"/>
+                    <rect key="frame" x="383" y="18.5" width="46.5" height="40"/>
                     <color key="tintColor" name="themeRed"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system" title=""/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJb-M0-cTy">
+                    <rect key="frame" x="24" y="16" width="404" height="47"/>
+                    <color key="backgroundColor" name="themePink"/>
+                    <color key="tintColor" name="themeApricot"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="登入以新增留言"/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -43,24 +50,35 @@
             <constraints>
                 <constraint firstItem="qPd-Ym-jXH" firstAttribute="top" secondItem="xkf-dk-6EJ" secondAttribute="top" id="2uN-sc-eCO"/>
                 <constraint firstItem="qPd-Ym-jXH" firstAttribute="bottom" secondItem="xkf-dk-6EJ" secondAttribute="bottom" id="35D-is-uhO"/>
-                <constraint firstItem="ogb-lZ-g20" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="7eD-Wk-jZj"/>
+                <constraint firstItem="ogb-lZ-g20" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="7eD-Wk-jZj"/>
                 <constraint firstItem="ogb-lZ-g20" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="8ok-0R-YIm"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="tJb-M0-cTy" secondAttribute="trailing" constant="24" id="BZY-UH-N6f"/>
                 <constraint firstItem="qPd-Ym-jXH" firstAttribute="leading" secondItem="xkf-dk-6EJ" secondAttribute="trailing" constant="-45" id="DqC-0k-pNG"/>
                 <constraint firstItem="xkf-dk-6EJ" firstAttribute="leading" secondItem="ogb-lZ-g20" secondAttribute="trailing" constant="10" id="LiV-Q2-5Dm"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xkf-dk-6EJ" secondAttribute="trailing" constant="16" id="QWd-WU-IwQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xkf-dk-6EJ" secondAttribute="trailing" constant="24" id="QWd-WU-IwQ"/>
+                <constraint firstAttribute="bottom" secondItem="tJb-M0-cTy" secondAttribute="bottom" constant="16" id="ZSI-Ps-jSx"/>
                 <constraint firstItem="xkf-dk-6EJ" firstAttribute="centerY" secondItem="ogb-lZ-g20" secondAttribute="centerY" id="ivf-ys-Sst"/>
+                <constraint firstItem="tJb-M0-cTy" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="24" id="qPM-R4-P1T"/>
+                <constraint firstItem="tJb-M0-cTy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="uec-e1-yWM"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="commentTextField" destination="xkf-dk-6EJ" id="qCy-gg-I6N"/>
+                <outlet property="moveToLoginButton" destination="tJb-M0-cTy" id="9E6-Ev-r3W"/>
                 <outlet property="sendCommentButton" destination="qPd-Ym-jXH" id="yGU-e5-CU4"/>
                 <outlet property="userImageView" destination="ogb-lZ-g20" id="JZx-1j-j6w"/>
             </connections>
-            <point key="canvasLocation" x="162.31884057971016" y="-222.32142857142856"/>
+            <point key="canvasLocation" x="162.31884057971016" y="-219.97767857142856"/>
         </view>
     </objects>
     <resources>
         <image name="paperplane" catalog="system" width="128" height="118"/>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themePink">
+            <color red="0.9100000262260437" green="0.60799998044967651" blue="0.54900002479553223" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeRed">
             <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

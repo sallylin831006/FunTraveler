@@ -43,12 +43,21 @@ enum ImageAsset: String {
     // Other
     case heartSelected
     case heartNormal
+    case heartNormalBlue
     
     case collectedIconSelected
     case collectedIconNormal
     
     case defaultUserImage
     case imagePlaceholder
+    
+    case friendInvitedIcon
+    
+    case launchScreen
+    case logo
+    
+    case copyIcon
+    case planOverviewEdit
 
 }
 

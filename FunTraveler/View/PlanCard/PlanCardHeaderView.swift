@@ -24,7 +24,6 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var inviteButton: UIButton!
     
-    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     
@@ -35,6 +34,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.backgroundConfiguration = nil
         ownerImageView.layer.cornerRadius = ownerImageView.frame.width/2
         ownerImageView.contentMode = .scaleAspectFill
         ownerImageView.layer.borderWidth = 2

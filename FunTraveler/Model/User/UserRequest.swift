@@ -17,23 +17,36 @@ enum UserRequest: STRequest {
     
     case getProfile(token: String, userId: Int)
     
-    case getProfileTrips(userId: Int)
+    case getProfileTrips(token: String, userId: Int)
     
     case updateProfile(token: String, name: String, image: String)
     
     case deleteUser(token: String)
     
+    case blockUser(token: String, userId: Int)
+
+    case unBlockUser(token: String, userId: Int)
+    
+    case getBlockList(token: String)
+    
+    case postToSearchUser(token: String, text: String)
+
     var headers: [String: String] {
         
         switch self {
             
-        case .register, .login, .getProfileTrips, .appleLogin:
+        case .register, .login, .appleLogin:
             
             return [
                 STHTTPHeaderField.contentType.rawValue: STHTTPHeaderValue.json.rawValue
             ]
             
-        case .getProfile(let token, _), .updateProfile(let token, _, _), .deleteUser(let token):
+        case .getProfile(let token, _), .updateProfile(let token, _, _), .getProfileTrips(let token, _),
+                .deleteUser(let token),
+                .blockUser(let token, _),
+                .unBlockUser(let token, _),
+                .getBlockList(let token),
+                .postToSearchUser(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -73,7 +86,7 @@ enum UserRequest: STRequest {
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
-        case .getProfile, .deleteUser, .getProfileTrips: return nil
+        case .getProfile, .deleteUser, .getProfileTrips, .blockUser, .unBlockUser, .getBlockList: return nil
             
         case .updateProfile(_, let name, let image):
             
@@ -83,8 +96,17 @@ enum UserRequest: STRequest {
             ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-        }
         
+        
+    case .postToSearchUser(_, let text):
+        
+        let body = [
+            "name": text
+        ]
+        
+        return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+    
+        }
     }
     var method: String {
         
@@ -103,6 +125,14 @@ enum UserRequest: STRequest {
         case .updateProfile : return STHTTPMethod.PATCH.rawValue
 
         case .deleteUser : return STHTTPMethod.DELETE.rawValue
+            
+        case .blockUser : return STHTTPMethod.POST.rawValue
+            
+        case .unBlockUser : return STHTTPMethod.DELETE.rawValue
+
+        case .getBlockList : return STHTTPMethod.GET.rawValue
+            
+        case .postToSearchUser : return STHTTPMethod.POST.rawValue
 
         }
     }
@@ -124,8 +154,17 @@ enum UserRequest: STRequest {
         case .getProfile(_, let userId):
             return "/api/v1/user/\(userId)"
             
-        case .getProfileTrips(let userId):
+        case .getProfileTrips(_, let userId):
             return "/api/v1/user/\(userId)/trips"
+            
+        case .blockUser(_, let userId), .unBlockUser(_, let userId):
+            return "/api/v1/user/\(userId)/block"
+            
+        case .getBlockList:
+            return "/api/v1/user/blocks"
+            
+        case .postToSearchUser:
+            return "/api/v1/user/search"
             
         }
         

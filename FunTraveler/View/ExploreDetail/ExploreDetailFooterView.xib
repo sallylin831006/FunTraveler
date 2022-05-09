@@ -12,56 +12,79 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ExploreDetailFooterView" customModule="FunTraveler" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="540" height="64"/>
+            <rect key="frame" x="0.0" y="0.0" width="540" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gdz-T3-O6O">
-                    <rect key="frame" x="477" y="17" width="47" height="31"/>
-                    <color key="tintColor" name="themeRed"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="doc.on.doc.fill" catalog="system" title=""/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9OZ-Gu-vbA">
-                    <rect key="frame" x="452" y="20" width="25" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="25" id="qfo-RM-vGY"/>
-                        <constraint firstAttribute="width" constant="25" id="y4N-oJ-rRg"/>
-                    </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="" image="collectSelected"/>
-                    <buttonConfiguration key="configuration" style="plain" image="collectSelected" title=""/>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yPs-RP-RVA">
+                    <rect key="frame" x="30" y="20" width="75.5" height="20"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZCy-qe-U0C">
+                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="6Cf-dq-Adf"/>
+                                <constraint firstAttribute="height" constant="20" id="cWJ-PV-V4d"/>
+                            </constraints>
+                            <color key="tintColor" red="0.0" green="0.37254901960784315" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="heartNormalBlue"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100個讚" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zE4-LU-7sN">
+                            <rect key="frame" x="30" y="0.0" width="45.5" height="20"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.0" green="0.37254901960784315" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UTg-qA-fsR">
-                    <rect key="frame" x="16" y="21" width="107" height="27"/>
+                    <rect key="frame" x="116" y="16.5" width="107" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="tintColor" name="themeRed"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="查看全部100則留言"/>
+                    <state key="normal" title="查看全部100則留言">
+                        <color key="titleColor" name="themeRed"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gdz-T3-O6O">
+                    <rect key="frame" x="491" y="12" width="33" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Gdz-T3-O6O" secondAttribute="height" multiplier="11:12" id="0FM-1t-Acr"/>
+                        <constraint firstAttribute="width" constant="33" id="oUm-OJ-1dI"/>
+                    </constraints>
+                    <color key="tintColor" name="themePink"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="" image="copyIcon"/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="themeApricotDeep"/>
             <constraints>
-                <constraint firstItem="9OZ-Gu-vbA" firstAttribute="centerY" secondItem="Gdz-T3-O6O" secondAttribute="centerY" id="7J6-48-IKk"/>
-                <constraint firstItem="UTg-qA-fsR" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Qbp-Hb-A67"/>
-                <constraint firstAttribute="bottom" secondItem="Gdz-T3-O6O" secondAttribute="bottom" constant="16" id="SwH-AH-JDa"/>
-                <constraint firstItem="Gdz-T3-O6O" firstAttribute="leading" secondItem="9OZ-Gu-vbA" secondAttribute="trailing" id="VAn-IS-L9F"/>
-                <constraint firstAttribute="bottom" secondItem="UTg-qA-fsR" secondAttribute="bottom" constant="16" id="m0U-C4-n3m"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gdz-T3-O6O" secondAttribute="trailing" constant="16" id="xYr-DG-f3W"/>
+                <constraint firstItem="yPs-RP-RVA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="Ijb-P7-gbK"/>
+                <constraint firstItem="yPs-RP-RVA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Vcr-qw-cSy"/>
+                <constraint firstItem="Gdz-T3-O6O" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="aB0-dh-03j"/>
+                <constraint firstItem="UTg-qA-fsR" firstAttribute="leading" secondItem="zE4-LU-7sN" secondAttribute="trailing" constant="10.5" id="hMc-HD-SZ5"/>
+                <constraint firstItem="UTg-qA-fsR" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hRO-DQ-gnu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Gdz-T3-O6O" secondAttribute="trailing" constant="16" id="lQx-5N-OfP"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="copyButton" destination="Gdz-T3-O6O" id="kr9-lX-Nzx"/>
+                <outlet property="heartButton" destination="ZCy-qe-U0C" id="p8r-Nn-ylB"/>
                 <outlet property="moveToCommentButton" destination="UTg-qA-fsR" id="rxs-RO-JNp"/>
+                <outlet property="numberOfLikeLabel" destination="zE4-LU-7sN" id="APw-eu-Cy7"/>
             </connections>
-            <point key="canvasLocation" x="228.98550724637684" y="-152.00892857142856"/>
+            <point key="canvasLocation" x="228.98550724637684" y="-144.64285714285714"/>
         </view>
     </objects>
     <resources>
-        <image name="collectSelected" width="70" height="70"/>
-        <image name="doc.on.doc.fill" catalog="system" width="116" height="128"/>
+        <image name="copyIcon" width="68.959999084472656" height="69.790000915527344"/>
+        <image name="heartNormalBlue" width="47.950000762939453" height="42.889999389648438"/>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themePink">
+            <color red="0.9100000262260437" green="0.60799998044967651" blue="0.54900002479553223" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeRed">
             <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

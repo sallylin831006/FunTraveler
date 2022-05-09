@@ -38,8 +38,6 @@ struct StoryboardCategory {
     
     static let exploreDetailVC = "ExploreDetailViewController"
     
-    static let collectedVC = "CollectedViewController"
-    
     static let authVC = "AuthViewController"
     
     static let registerVC = "RegisterViewController"
@@ -51,8 +49,6 @@ struct StoryboardCategory {
     static let inviteVC = "InviteListViewController"
     
     static let friendListVC = "FriendListViewController"
-
-    
     
 }
 
