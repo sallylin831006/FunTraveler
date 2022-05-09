@@ -15,6 +15,6 @@ target 'FunTraveler' do
     pod 'PusherSwift'
     pod 'KeychainAccess'
     pod 'JGProgressHUD'
-
+    pod 'Firebase/Crashlytics' 
 
 end
