@@ -62,19 +62,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8T3-UM-aZN">
-                        <rect key="frame" x="325" y="6" width="20" height="33"/>
+                        <rect key="frame" x="325" y="8" width="20" height="29"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="BJF-jm-kj7"/>
-                            <constraint firstAttribute="height" constant="33" id="NHD-RU-Ild"/>
+                            <constraint firstAttribute="height" constant="29" id="NHD-RU-Ild"/>
                         </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" title="" image="collectedIconSelected"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mpm-AC-aBC">
-                        <rect key="frame" x="127.5" y="20.5" width="53" height="31"/>
-                        <color key="tintColor" name="themeApricotDeep"/>
-                        <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" title="追蹤"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="墾丁三天兩夜輕旅行" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCu-i2-BWH">
                         <rect key="frame" x="30" y="161" width="156" height="21"/>
@@ -82,32 +76,42 @@
                         <color key="textColor" name="themeApricotDeep"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2021年10月06日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ek6-oK-l1u">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2021年10月06日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ek6-oK-l1u">
                         <rect key="frame" x="270" y="209" width="79" height="12"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" systemColor="systemGray3Color"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lock.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VBZ-Lt-G1g">
+                        <rect key="frame" x="299" y="157" width="40" height="43"/>
+                        <color key="tintColor" name="themeApricot"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="VBZ-Lt-G1g" secondAttribute="height" multiplier="10:11" id="PJv-oF-Qq7"/>
+                            <constraint firstAttribute="width" constant="40" id="u8j-f9-ZA4"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" name="themeApricot"/>
                 <constraints>
+                    <constraint firstItem="Ek6-oK-l1u" firstAttribute="top" secondItem="VBZ-Lt-G1g" secondAttribute="bottom" constant="8.5" id="2or-oc-XjN"/>
                     <constraint firstAttribute="bottom" secondItem="l45-X5-BuB" secondAttribute="bottom" id="3w3-Cy-r25"/>
                     <constraint firstItem="mw6-fS-mee" firstAttribute="centerY" secondItem="iJ3-Qa-9hi" secondAttribute="centerY" id="4lB-c0-bA5"/>
                     <constraint firstItem="HCu-i2-BWH" firstAttribute="top" secondItem="LXi-3M-QXv" secondAttribute="bottom" constant="8" symbolic="YES" id="67J-sb-P9D"/>
                     <constraint firstItem="l45-X5-BuB" firstAttribute="top" secondItem="m9L-ao-1UQ" secondAttribute="bottom" constant="5" id="D7X-M1-hfy"/>
                     <constraint firstItem="m9L-ao-1UQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="FyH-Nf-93H"/>
                     <constraint firstAttribute="trailing" secondItem="8T3-UM-aZN" secondAttribute="trailing" constant="20" id="GPt-V5-Ptn"/>
+                    <constraint firstAttribute="bottom" secondItem="Ek6-oK-l1u" secondAttribute="bottom" constant="11" id="HHs-fB-7L7"/>
                     <constraint firstItem="HCu-i2-BWH" firstAttribute="leading" secondItem="iJ3-Qa-9hi" secondAttribute="leading" id="ICz-NC-rzd"/>
                     <constraint firstAttribute="trailing" secondItem="l45-X5-BuB" secondAttribute="trailing" id="Igx-rW-g2A"/>
                     <constraint firstItem="iJ3-Qa-9hi" firstAttribute="top" secondItem="HCu-i2-BWH" secondAttribute="bottom" constant="10" id="LYS-1S-p4T"/>
                     <constraint firstItem="mw6-fS-mee" firstAttribute="leading" secondItem="iJ3-Qa-9hi" secondAttribute="trailing" constant="10" id="N6O-uB-elf"/>
+                    <constraint firstAttribute="trailing" secondItem="Ek6-oK-l1u" secondAttribute="trailing" constant="16" id="Q8w-Sv-Ct6"/>
                     <constraint firstItem="PQJ-go-cQn" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="QHb-ni-0hK"/>
-                    <constraint firstItem="Mpm-AC-aBC" firstAttribute="centerY" secondItem="m9L-ao-1UQ" secondAttribute="centerY" id="TJ1-XW-fvn"/>
                     <constraint firstAttribute="bottom" secondItem="iJ3-Qa-9hi" secondAttribute="bottom" constant="20" id="VI6-0v-Czp"/>
-                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="XQq-wl-yxW"/>
+                    <constraint firstItem="8T3-UM-aZN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="XQq-wl-yxW"/>
+                    <constraint firstAttribute="trailing" secondItem="VBZ-Lt-G1g" secondAttribute="trailing" constant="26" id="Xp5-1h-cba"/>
                     <constraint firstItem="iJ3-Qa-9hi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="fbE-kG-fli"/>
-                    <constraint firstItem="Mpm-AC-aBC" firstAttribute="leading" secondItem="PQJ-go-cQn" secondAttribute="trailing" constant="10" id="fs6-fK-Cao"/>
+                    <constraint firstItem="Ek6-oK-l1u" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="gDv-AC-7qf"/>
                     <constraint firstItem="m9L-ao-1UQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="geh-pQ-xHg"/>
                     <constraint firstItem="LXi-3M-QXv" firstAttribute="leading" secondItem="iJ3-Qa-9hi" secondAttribute="leading" id="sVb-le-e4a"/>
                     <constraint firstItem="l45-X5-BuB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="t4S-n0-CEv"/>
@@ -119,8 +123,8 @@
                 <outlet property="collectButton" destination="8T3-UM-aZN" id="7jT-D5-O5i"/>
                 <outlet property="dateLabel" destination="Ek6-oK-l1u" id="ME8-wb-CQ8"/>
                 <outlet property="dayTitleLabel" destination="LXi-3M-QXv" id="Uj1-X2-1yS"/>
-                <outlet property="followButton" destination="Mpm-AC-aBC" id="ZHc-8U-qHG"/>
                 <outlet property="heartButton" destination="iJ3-Qa-9hi" id="fxJ-Ai-vHX"/>
+                <outlet property="lockIconImage" destination="VBZ-Lt-G1g" id="Ueb-hp-OtJ"/>
                 <outlet property="numberOfLikeLabel" destination="mw6-fS-mee" id="caD-RZ-yvt"/>
                 <outlet property="planImageView" destination="l45-X5-BuB" id="p5C-LT-MT2"/>
                 <outlet property="tripTitleLabel" destination="HCu-i2-BWH" id="dpq-Er-WSp"/>
@@ -132,8 +136,9 @@
     </objects>
     <resources>
         <image name="coberImage" width="1656" height="784"/>
-        <image name="collectedIconSelected" width="53.830001831054688" height="95.449996948242188"/>
+        <image name="collectedIconSelected" width="54" height="81.459999084472656"/>
         <image name="heartNormal" width="47.950000762939453" height="42.889999389648438"/>
+        <image name="lock.circle" catalog="system" width="128" height="121"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="themeApricot">
             <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,6 +149,9 @@
         <namedColor name="themeRed">
             <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

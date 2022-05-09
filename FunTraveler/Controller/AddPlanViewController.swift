@@ -9,31 +9,31 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
-    
-    var tripIdClosure: ((_ tripId: Int) -> Void)?
-    
-    var tripId: Int?
-    
+            
     var copyTripId: Int?
     
     var isCopiedTrip: Bool = false
     
     var copyTextField: String?
-
+    
     private var startDate: String?
     
     private var endDate: String?
     
-    private var titleText: String?
+    private var firstDate = Date()
     
-    var textFieldClosure : ((_ text: String) -> Void)? {
-        
+    private var secondDate = Date()
+    
+    private var dayCalculateNum: Int = 0 {
         didSet {
-            
             tableView.reloadData()
-            
         }
     }
+        
+    private var titleText: String?
+    
+    private var currentText: String?
+
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -71,7 +71,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 120.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -95,67 +95,44 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: FooterView.identifier)
                 as? FooterView else { return nil }
-        
-        footerView.saveButton.addTarget(target, action: #selector(tapSaveButton), for: .touchUpInside)
-        
-        footerView.cancelButton.addTarget(target, action: #selector(tapCancelButton), for: .touchUpInside)
-        
+        footerView.delegate = self
         return footerView
     }
     
-    @objc func tapSaveButton() {
-        if titleText == nil || startDate == nil || endDate == nil {
-            print("show alert")
-            return
-        }
-        
-        if isCopiedTrip {
-            postCopyTrip()
-            dismiss(animated: true, completion: nil)
-            print("成功複製行程！")
-        } else {
-            postData()
-            guard let planDetailViewController = storyboard?.instantiateViewController(
-                withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-            textFieldClosure = { titleText in
-                planDetailViewController.tripTitle = titleText
-            }
-            
-            tripIdClosure = { tripId in
-                planDetailViewController.tripId = tripId
-            }
-            navigationController?.pushViewController(planDetailViewController, animated: true)
-        }
-    }
-    
-    // MARK: - POST API TO ADD NEW TRIP
-        private func postData() {
-            let tripProvider = TripProvider()
-            guard let titleText = titleText,
-                  let startDate = startDate,
-                  let endDate = endDate else { return }
-            
-            tripProvider.addTrip(title: titleText,
-                                 startDate: startDate,
-                                 endDate: endDate,
-                                 completion: { result in
-                
-                switch result {
-                    
-                case .success(let tripIdResponse):
-                
-                    self.tripIdClosure?(tripIdResponse.id)
-                    
-                case .failure:
-                    print("tripIdResponse讀取資料失敗！")
-                }
-            })
-            
-        }
+//    @objc func tapSaveButton() {
+//        if titleText == "" {
+//            ProgressHUD.showFailure(text: "請輸入標題")
+//            return
+//        }
+//
+//        guard let startDate = startDate else {
+//            ProgressHUD.showFailure(text: "請輸入出發日期")
+//            return
+//        }
+//        guard let endDate = endDate else {
+//            ProgressHUD.showFailure(text: "請輸入回程日期")
+//            return
+//        }
+//
+//        let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
+//        if isDescending == true {
+//            ProgressHUD.showFailure(text: "輸入錯誤")
+//            return
+//        }
+//
+//        if isCopiedTrip {
+//            postCopyTrip()
+//            dismiss(animated: true, completion: nil)
+//            print("成功複製行程！")
+//        } else {
+//            postData()
+//        }
+//    }
+
   
-    @objc func tapCancelButton() {
-        self.dismiss(animated: true, completion: nil)
-    }
+//    @objc func tapCancelButton() {
+//        self.dismiss(animated: true, completion: nil)
+//    }
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -174,20 +151,45 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.selectionStyle = .none
         if copyTextField == nil {
-            cell.textField.text = ""
+            cell.textField.text = titleText
         } else {
-            cell.textField.text = "複製 - \(copyTextField!)"
+            cell.textField.text = copyTextField!
         }
         
         cell.titleDelegate = self
-        
-        cell.departurePickerVIew.dateClosure = { [weak self] startDate in
+                
+        cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
             self?.startDate = startDate
+            self?.firstDate = calaulateDate
+            let calendar = Calendar.current
+            guard let secondDate = self?.secondDate else { return }
+            let date1 = calendar.startOfDay(for: calaulateDate)
+            let date2 = calendar.startOfDay(for: secondDate)
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+//            self?.tableView.reloadData()
         }
 
-        cell.backPickerVIew.dateClosure = { [weak self] endDate in
+        cell.backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
             self?.endDate =  endDate
+            self?.secondDate =  calaulateDate
+            let calendar = Calendar.current
+            guard let firstDate = self?.firstDate else { return }
+            let date1 = calendar.startOfDay(for: firstDate)
+            let date2 = calendar.startOfDay(for: calaulateDate)
+
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+//            self?.tableView.reloadData()
         }
+        if dayCalculateNum <= -1 {
+            cell.dayCalculateLabel.text = ""
+        } else {
+            cell.dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
+        }
+        
+        
         
         return cell
         
@@ -195,19 +197,85 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension AddPlanViewController: FooterViewDelegate {
+    func saveButton(_ saveButton: UIButton) {
+        if titleText == "" {
+            ProgressHUD.showFailure(text: "請輸入標題")
+            return
+        }
+        
+        guard let startDate = startDate else {
+            ProgressHUD.showFailure(text: "請輸入出發日期")
+            return
+        }
+        guard let endDate = endDate else {
+            ProgressHUD.showFailure(text: "請輸入回程日期")
+            return
+        }
+        
+        let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
+        if isDescending == true {
+            ProgressHUD.showFailure(text: "輸入錯誤")
+            return
+        }
+        
+        if isCopiedTrip {
+            postCopyTrip()
+            dismiss(animated: true, completion: nil)
+            print("成功複製行程！")
+        } else {
+            postData()
+        }
+    }
+    
+    func cancelButton(_ saveButton: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+}
+
 extension AddPlanViewController: AddPlanTableViewCellDelegate {
     
     func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
-        
         self.titleText = text
-        
-//        guard let textFieldClosure = textFieldClosure else { return }
-//        textFieldClosure(text) //closeure尚未生成，因此被RETURN
+        self.copyTextField = text
     }
     
 }
 
 extension AddPlanViewController {
+    // MARK: - POST API TO ADD NEW TRIP
+        private func postData() {
+            let tripProvider = TripProvider()
+            guard let titleText = titleText,
+                  let startDate = startDate,
+                  let endDate = endDate else { return }
+            
+            tripProvider.addTrip(title: titleText,
+                                 startDate: startDate,
+                                 endDate: endDate,
+                                 completion: { result in
+                
+                switch result {
+                    
+                case .success(let tripIdResponse):
+                    
+                    guard let planDetailViewController = self.storyboard?.instantiateViewController(
+                        withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+                    
+                    planDetailViewController.myTripId = tripIdResponse.id
+
+                    self.navigationController?.pushViewController(planDetailViewController, animated: true)
+                    
+                case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
+                    print("tripIdResponse讀取資料失敗！")
+                }
+            })
+            
+        }
+    
     // MARK: - POST API TO COPY TRIP
         private func postCopyTrip() {
             let tripProvider = TripProvider()
@@ -224,9 +292,11 @@ extension AddPlanViewController {
                 switch result {
                     
                 case .success(let tripIdResponse):
+                    ProgressHUD.showSuccess(text: "成功複製行程到行程編輯頁")
                 print("copy tripIdResponse", tripIdResponse)
                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("POST COPY TRIP 失敗！")
                 }
             })

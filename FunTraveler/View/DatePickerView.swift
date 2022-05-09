@@ -9,7 +9,7 @@ import UIKit
 
 class DatePickerView: UIView {
     
-    var dateClosure : ((_ text: String) -> Void)?
+    var dateClosure : ((_ text: String, _ date: Date) -> Void)?
 
     var datePicker = UIDatePicker()
     
@@ -55,7 +55,7 @@ extension DatePickerView {
         // formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.dateFormat = "yyyy-MM-dd"
 
-        dateClosure?(formatter.string(from: datePicker.date))
+        dateClosure?(formatter.string(from: datePicker.date), datePicker.date)
     }
     
     func layoutOfPicker() {
@@ -72,7 +72,17 @@ extension DatePickerView {
 
         datePicker.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
 
-        datePicker.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        datePicker.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
     }
     
+}
+
+extension Calendar {
+    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let fromDate = startOfDay(for: from)
+        let toDate = startOfDay(for: to)
+        let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
+        
+        return numberOfDays.day! + 1 // <1>
+    }
 }

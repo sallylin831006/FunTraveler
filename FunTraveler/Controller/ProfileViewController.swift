@@ -56,10 +56,20 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    @IBAction func logoutButton(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "FuntravelerToken")
-        UserDefaults.standard.removeObject(forKey: "FuntravelerUserId")
-        userData = nil
+    let alertLoginView = AlertLoginView()
+    private func setupAlertLoginView() {
+        alertLoginView.isHidden = false
+        alertLoginView.alertLabel.text = "登入以查看個人頁"
+        self.view.addSubview(alertLoginView)
+        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
+        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func tapToShowLogin() {
         onShowLogin()
     }
     
@@ -79,16 +89,29 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tabBarController?.tabBar.isHidden = false
+        tableView.isHidden = false
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        guard KeyChainManager.shared.token != nil else { return onShowLogin()  }
+
+        if KeyChainManager.shared.token == nil {
+            setupAlertLoginView()
+            onShowLogin()
+        } else {
+            alertLoginView.isHidden = true
+        }
         
-        if userId == nil && KeyChainManager.shared.userId == nil { return onShowLogin() }
+        if userId == nil && KeyChainManager.shared.userId == nil {
+            setupAlertLoginView()
+            onShowLogin()
+            return
+        }
         
         if isMyProfile {
-            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-            fetchUserData(userId: userId)
-            fetchProfileTripsData(userId: userId)
+            guard let userId = KeyChainManager.shared.userId else { return }
+            guard let userIdNumber = Int(userId) else { return }
+            
+            fetchUserData(userId: userIdNumber)
+            fetchProfileTripsData(userId: userIdNumber)
         } else {
             fetchUserData(userId: userId ?? 0)
             fetchProfileTripsData(userId: userId ?? 0)
@@ -102,6 +125,7 @@ class ProfileViewController: UIViewController {
     }
     
     private func onShowLogin() {
+        tableView.isHidden = true
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         authVC.delegate = self
@@ -120,8 +144,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
             //        return UIScreen.main.bounds.width / 39 * 10
-        case 0: return 100.0
-        case 1: return 70.0
+        case 0: return 120.0
+        case 1: return 90.0
         default: break
         }
         return .zero
@@ -156,11 +180,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 guard let isInvite = userData?.isInvite else { return UIView()}
                 if isFriend {
                     headerView.followbutton.setTitle("已追蹤", for: .normal)
-                    headerView.followbutton.backgroundColor = .themeApricotDeep
+                    headerView.followbutton.backgroundColor = .themePink
                     headerView.followbutton.isUserInteractionEnabled = false
                 } else if !isFriend && isInvite {
                     headerView.followbutton.setTitle("已送出追蹤邀請", for: .normal)
-                    headerView.followbutton.backgroundColor = .themeApricotDeep
+                    headerView.followbutton.backgroundColor = .themePink
                     headerView.followbutton.isUserInteractionEnabled = false
                 } else {
                     headerView.followbutton.setTitle("追蹤", for: .normal)
@@ -180,7 +204,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapFollowButton(_ sender: UIButton) {
         postToInvite()
         sender.setTitle("已送出追蹤邀請", for: .normal)
-        sender.backgroundColor = .themeApricotDeep
+        sender.backgroundColor = .themePink
         sender.isUserInteractionEnabled = false
     }
     
@@ -205,18 +229,18 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.selectionStyle = .none
             guard let userData = userData else { return UITableViewCell()}
-            cell.layoutCell(data: userData)
+            cell.layoutCell(data: userData, isMyProfile: isMyProfile)
             
             let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
             cell.userImageView.addGestureRecognizer(imageTapGesture)
             cell.userImageView.isUserInteractionEnabled = true
             
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
-            self.view.addGestureRecognizer(tapGesture)
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
+//            self.view.addGestureRecognizer(tapGesture)
             
             self.userNameTextField = cell.userNameTextField
             
-            cell.changeNameDelegate = self
+            cell.delegate = self
             cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
             cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
@@ -245,7 +269,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let exploreDeatilVC = UIStoryboard.explore.instantiateViewController(
+            withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
         
+        exploreDeatilVC.tripId = collectedData[indexPath.row].id
+        exploreDeatilVC.days = collectedData[indexPath.row].days
+        navigationController?.pushViewController(exploreDeatilVC, animated: true)
+        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
     }
     
     @objc func tapToFriendList() {
@@ -255,23 +289,21 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         friendListVC.userId = userData?.id
         self.present(friendListVC, animated: true)
         
-        //        navigationController?.pushViewController(friendListVC, animated: true)
     }
     
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
         let navSettingVC = UINavigationController(rootViewController: settingVC)
-        //        navSettingVC.modalPresentationStyle = .fullScreen
-        self.present(navSettingVC, animated: true)
+        navigationController?.pushViewController(settingVC, animated: true)
     }
     
-    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
-        userNameTextField.resignFirstResponder()
-        guard let name = userNameTextField.text else { return }
-        patchData(name: name, image: "")
-        
-    }
+//    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+//        userNameTextField.resignFirstResponder()
+//        guard let name = userNameTextField.text else { return }
+//        patchData(name: name, image: "")
+//
+//    }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         let photoSourceRequestController = UIAlertController(
@@ -314,14 +346,37 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ProfileViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        fetchUserData(userId: userId)
-        fetchProfileTripsData(userId: userId)
-
+        if KeyChainManager.shared.token != nil {
+            alertLoginView.isHidden = true
+        } else {
+            setupAlertLoginView()
+        }
+        
+        tableView.isHidden = false
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        fetchUserData(userId: userIdNumber)
+        fetchProfileTripsData(userId: userIdNumber)
     }
 }
 
 extension ProfileViewController: ProfileTableViewCellDelegate {
+    func blockUser(_ blockButton: UIButton) {
+        let userName = userData?.name ?? "此位使用者"
+        let blockController = UIAlertController(
+            title: "封鎖\(userName)",
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            self.postToBlockUser()
+            // Alert:已封鎖，可從黑名單中解除封鎖
+        })
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
+    }
     
     func didChangeName(_ cell: ProfileTableViewCell, text: String) {
             
@@ -344,6 +399,7 @@ extension ProfileViewController {
                 self?.userData = userData
                 self?.tableView.reloadData()
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] GET Profile 資料失敗！")
             }
         })
@@ -384,6 +440,7 @@ extension ProfileViewController {
                 self.tableView.reloadData()
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("PATCH Profile失敗！")
             }
         })
@@ -404,7 +461,8 @@ extension ProfileViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
-                print("[CollectedVC] GET 讀取資料失敗！")
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[ProfileVC] GET 讀取資料失敗！")
             }
         })
     }
@@ -413,7 +471,7 @@ extension ProfileViewController {
     private func postCollectedData(isCollected: Bool, tripId: Int) {
             let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected( isCollected: isCollected,
+            collectedProvider.addCollected(isCollected: isCollected,
                                            tripId: tripId, completion: { result in
                 
                 switch result {
@@ -422,14 +480,13 @@ extension ProfileViewController {
                     self.tableView.reloadData()
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[Explore] collected postResponse失敗！")
                 }
             })
             
         }
-    
-    
-    
+ 
     // MARK: - POST TO INVITE
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
@@ -442,11 +499,30 @@ extension ProfileViewController {
                 print("postResponse", postResponse)
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO INVITE失敗！")
             }
         })
     }
     
+    // MARK: - POST To Block User
+    private func postToBlockUser() {
+        let userProvider = UserProvider()
+        guard let userId = userId else { return }
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let blockResponse):
+                print("blockResponse", blockResponse)
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[ProfileVC] POST TO Block User失敗！")
+            }
+        })
+    }
+
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -474,8 +550,9 @@ extension ProfileViewController: SegementViewDelegate {
         self.segmentedControl = segmentedControl
         if segmentedControl.selectedSegmentIndex == 0 {
             print("我點了旅遊回憶")
-            guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-            fetchProfileTripsData(userId: userId)
+            guard let userId = KeyChainManager.shared.userId else { return }
+            guard let userIdNumber = Int(userId) else { return }
+            fetchProfileTripsData(userId: userIdNumber)
           
         } else if segmentedControl.selectedSegmentIndex == 1 {
             print("我點了收藏")

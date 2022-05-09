@@ -22,14 +22,9 @@ class PlanOverViewTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .themeApricot
-        let margins = UIEdgeInsets(top: 10, left: 30, bottom: 10, right: 30)
+        let margins = UIEdgeInsets(top: 15, left: 30, bottom: 5, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
-        contentView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        contentView.layer.borderWidth = 8
-        contentView.layer.cornerRadius = 10.0
-        contentView.layer.masksToBounds = true
-        
-        planImageView.backgroundColor = UIColor.themeApricotDeep
+        contentView.addShadow()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

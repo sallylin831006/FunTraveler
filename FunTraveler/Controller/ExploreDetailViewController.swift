@@ -22,7 +22,6 @@ class ExploreDetailViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    
 //    var commentData: [Comment] = [] {
 //        didSet {
 //            tableView.reloadData()
@@ -100,32 +99,67 @@ class ExploreDetailViewController: UIViewController {
                 self?.schedule = schedules.first ?? []
                    
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[Explore Detail] GET schedule Detai 讀取資料失敗！")
             }
         })
         
     }
     
-//    // MARK: - GET Action
-//    private func fetchCommentData() {
-//
-//        let reactionProvider = ReactionProvider()
-//        guard let tripId = tripId else { return }
-//        reactionProvider.fetchComment(tripId: tripId, completion: { [weak self] result in
-//
-//            switch result {
-//
-//            case .success(let commentData):
-//
-//                self?.commentData = commentData.data
-//
-//                print("commentData", commentData)
-//
-//            case .failure:
-//                print("[CommentVC] GET 讀取資料失敗！")
-//            }
-//        })
-//    }
+    // MARK: - POST TO ADD NEW COLLECTED
+    private func postData(isCollected: Bool, tripId: Int) {
+        let collectedProvider = CollectedProvider()
+        
+        collectedProvider.addCollected(isCollected: isCollected,
+                                       tripId: tripId, completion: { result in
+            
+            switch result {
+                
+            case .success: break
+                //print("按了收藏按鈕！", postResponse)
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[Explore] collected postResponse失敗！")
+            }
+        })
+        
+    }
+    
+    // MARK: - POST TO Like
+    private func postLiked() {
+            let reactionProvider = ReactionProvider()
+        guard let tripId = trip?.id else { return }
+        reactionProvider.postToLiked(tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
+                    print("[Explore] Liked postResponse失敗！")
+                }
+            })
+            
+        }
+    // MARK: - DELETE TO UnLike
+    private func deleteLiked() {
+            let reactionProvider = ReactionProvider()
+        guard let tripId = trip?.id else { return }
+        reactionProvider.deleteUnLiked(tripId: tripId, completion: { result in
+                
+                switch result {
+                    
+                case .success: break
+                                    
+                case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
+                    print("[Explore] UnLiked postResponse失敗！")
+                }
+            })
+            
+        }
 }
 extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -140,17 +174,30 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ShareHeaderView.identifier)
                 as? ShareHeaderView else { return nil }
-        guard let tripTitle = trip?.title else { return nil }
-        headerView.titleLabel.text = tripTitle
+
+        guard let trip = trip else { return nil }
+
+        headerView.layoutHeaderView(data: trip)
+        
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
+                
+        headerView.collectClosure = { isCollected in
+            guard KeyChainManager.shared.token != nil else { self.onShowLogin()
+                return
+            }
+            self.postData(isCollected: isCollected, tripId: trip.id)
+            self.trip?.isCollected = isCollected
+            tableView.reloadData()
+        }
         
-        guard let tripStartDate = trip?.startDate else { return nil }
-        guard let tripEndtDate = trip?.endDate else { return nil }
-        headerView.dateLabel.text = "\(tripStartDate) - \(tripEndtDate)"
         
         return headerView
     }
+    
+    
+    
+    
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -162,9 +209,41 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ExploreDetailFooterView.identifier)
                 as? ExploreDetailFooterView else { return nil }
+        guard let trip = trip else { return nil }
+        footerView.layoutFooterView(data: trip)
+        
+        footerView.collectClosure = { isCollected in
+            guard KeyChainManager.shared.token != nil else { self.onShowLogin()
+                return
+            }
+            self.postData(isCollected: isCollected, tripId: trip.id)
+            self.trip?.isCollected = isCollected
+            tableView.reloadData()
+        }
+        
+        footerView.heartClosure = { isLiked in
+            guard KeyChainManager.shared.token != nil else {  self.onShowLogin()
+                return
+            }
+            
+            if isLiked {
+                self.postLiked()
+                self.trip?.isLiked = isLiked
+                self.trip?.likeCount += 1
+                tableView.reloadData()
+            } else {
+                self.deleteLiked()
+                self.trip?.isLiked = isLiked
+                self.trip?.likeCount -= 1
+                tableView.reloadData()
+            }
+           
+        }
         
         footerView.copyClosure = { [weak self] in
-            print("一鍵複製行程！")
+            guard KeyChainManager.shared.token != nil else { self?.onShowLogin()
+                return
+            }
 //            self?.postCopyTrip()
             guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
                 withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
@@ -178,7 +257,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
         
         footerView.moveToCommentButton.addTarget(self, action: #selector(tapToCommentView), for: .touchUpInside)
-        guard let numberOfComment = trip?.commentCount else { return nil}
+        guard let numberOfComment = trip.commentCount else { return nil}
         footerView.moveToCommentButton.setTitle("查看全部\(numberOfComment)則留言", for: .normal)
         return footerView
     }
@@ -192,6 +271,13 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
 
         self.present(navCommentVC, animated: true)
      
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     // MARK: - Section Row

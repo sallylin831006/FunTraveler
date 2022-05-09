@@ -15,6 +15,17 @@ struct ScheduleInfo: Codable {
     var data: Trip
 }
 
+struct CopyTrips: Codable {
+    var data: CopyTrip
+}
+
+struct CopyTrip: Codable {
+    var id: Int
+    var title: String
+    var startDate: String?
+    var endDate: String?
+    var days: Int
+}
 
 struct Schedules: Codable {
     var schedules: [Schedule]
@@ -52,7 +63,9 @@ struct Trip: Codable {
     var startDate: String?
     var endDate: String?
     var editors: [User]
-    var likeCount: Int?
+    var isCollected: Bool
+    var likeCount: Int
+    var isLiked: Bool
     var commentCount: Int?
     
     var schedules: [[Schedule]]?
@@ -61,8 +74,11 @@ struct Trip: Codable {
         case id, days, title, user, schedules, editors
         case startDate = "start_date"
         case endDate = "end_date"
+        case isCollected = "is_collected"
         case likeCount = "likes_count"
         case commentCount = "comments_count"
+        case isLiked = "is_liked"
+
     }
 }
 

@@ -33,9 +33,6 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
         tableView.registerCellWithNib(identifier: String(describing: CommentTableViewCell.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: CommentFooterView.self), bundle: nil)
@@ -44,6 +41,7 @@ class CommentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = "留言"
         fetchData()
         fetchProfileImage() 
     }
@@ -52,22 +50,22 @@ class CommentViewController: UIViewController {
 
 extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
     
-    // MARK: - Section Header
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 100.0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: HeaderView.identifier)
-                as? HeaderView else { return nil }
-        
-        headerView.titleLabel.text = "留言"
-        
-        return headerView
-    }
+//    // MARK: - Section Header
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//
+//        return 100.0
+//    }
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        guard let headerView = tableView.dequeueReusableHeaderFooterView(
+//            withIdentifier: HeaderView.identifier)
+//                as? HeaderView else { return nil }
+//
+//        headerView.titleLabel.text = "留言"
+//
+//        return headerView
+//    }
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         80.0
@@ -78,7 +76,19 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: CommentFooterView.identifier)
                 as? CommentFooterView else { return nil }
+
+        if profileData == nil {
+            footerView.moveToLoginButton.isHidden = false
+            footerView.moveToLoginClosure = {  [weak self] in
+                self?.onShowLogin()
+            }
+            return footerView
+        } else {
+            footerView.moveToLoginButton.isHidden = true
+        }
+        
         guard let profileData = profileData else { return UIView() }
+        
         footerView.layoutFooter(data: profileData)
         footerView.sendCommentClosure = { [weak self] in
             guard let newComment = footerView.commentTextField.text else { return }
@@ -88,6 +98,13 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         return footerView
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     private func scrollToBottom() {
@@ -109,7 +126,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: CommentTableViewCell.self), for: indexPath)
                 as? CommentTableViewCell else { return UITableViewCell() }
-        
+        tableView.separatorStyle = .none
         let item = commentData[indexPath.row]
         cell.layoutCell(data: item)
         
@@ -117,14 +134,48 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
-            tableView.isEditing = false
-            self.deleteData(index: indexPath.row)
-            self.commentData.remove(at: index.row)
-            
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        guard let userId = KeyChainManager.shared.userId else { return nil}
+        guard let userIdNumber = Int(userId) else { return nil}
+        if userIdNumber == self.commentData[indexPath.row].user.id {
+            let deleteAction = UIContextualAction(style: .normal, title: "刪除") { _, _, _ in
+                tableView.isEditing = false
+                self.deleteData(index: indexPath.row)
+                self.commentData.remove(at: indexPath.row)
+                
+            }
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+           
+        } else {
+            let blockAction = UIContextualAction(style: .destructive, title: "封鎖") { (_, _, completionHandler) in
+                self.blockAction(index: indexPath.row)
+                completionHandler(true)
+            }
+            return UISwipeActionsConfiguration(actions: [blockAction])
         }
-        return [deleteAction]
+    }
+    
+    func blockAction(index: Int) {
+        let userName = commentData[index].user.name
+        let blockController = UIAlertController(
+            title: "封鎖\(userName)",
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            self.postToBlockUser(index: index)
+            self.deleteData(index: index)
+            ProgressHUD.showSuccess(text: "已封鎖")
+            self.commentData.remove(at: index)
+//            self.tableView.reloadData()
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        blockController.addAction(blockAction)
+        blockController.addAction(cancelAction)
+        present(blockController, animated: true, completion: nil)
     }
 
 }
@@ -145,6 +196,7 @@ extension CommentViewController {
                     self.scrollToBottom()
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[CommetVC] post Comment失敗！")
                 }
             })
@@ -164,6 +216,7 @@ extension CommentViewController {
                 case .success: break
                                     
                 case .failure:
+                    ProgressHUD.showFailure(text: "讀取失敗")
                     print("[CommetVC] delete Comment失敗！")
                 }
             })
@@ -184,6 +237,7 @@ extension CommentViewController {
                 self?.commentData = commentData.data
                                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CommentVC] GET 讀取資料失敗！")
             }
         })
@@ -192,8 +246,10 @@ extension CommentViewController {
     // MARK: - GET My Profile Image
     private func fetchProfileImage() {
         let userProvider = UserProvider()
-        guard let userId = Int(KeyChainManager.shared.userId!) else { return }
-        userProvider.getProfile(userId: userId, completion: { [weak self] result in
+        
+        guard let userId = KeyChainManager.shared.userId else { return }
+        guard let userIdNumber = Int(userId) else { return }
+        userProvider.getProfile(userId: userIdNumber, completion: { [weak self] result in
             
             switch result {
                 
@@ -201,7 +257,26 @@ extension CommentViewController {
                 self?.profileData = profileData
                 self?.tableView.reloadData()
             case .failure:
-                print("[ProfileVC] GET Profile 資料失敗！")
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[CommentVC] GET Profile 資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST To Block User
+    private func postToBlockUser(index: Int) {
+        let userProvider = UserProvider()
+        let userId = commentData[index].user.id
+        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success(let blockResponse):
+                print("blockResponse", blockResponse)
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+                print("[ProfileVC] POST TO Block User失敗！")
             }
         })
     }

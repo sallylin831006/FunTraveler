@@ -45,6 +45,13 @@ class PlanOverViewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        if KeyChainManager.shared.token == nil {
+            setupAlertLoginView()
+            self.onShowLogin()
+            return
+        } else {
+            alertLoginView.isHidden = true
+        }
         fetchData()
     }
     
@@ -59,11 +66,46 @@ class PlanOverViewViewController: UIViewController {
             case .success(let tripData):
                 
                 self.tripData = tripData.data
-                
+                self.tableView.reloadData()
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("GET TRIP OVERVIEW API讀取資料失敗！")
             }
         })
+    }
+    
+    // MARK: - POST Action
+    func deleteTrip(index: Int) {
+        let tripProvider = TripProvider()
+        let tripId = tripData[index].id
+        tripProvider.deleteTrip(tripId: tripId, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                self.tableView.reloadData()
+            case .failure:
+                ProgressHUD.showFailure(text: "連線不穩")
+                print("deleteTrip API讀取資料失敗！")
+            }
+        })
+    }
+    
+    let alertLoginView = AlertLoginView()
+    private func setupAlertLoginView() {
+        alertLoginView.isHidden = false
+        alertLoginView.alertLabel.text = "登入以編輯旅遊行程"
+        self.view.addSubview(alertLoginView)
+        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
+        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func tapToShowLogin() {
+        onShowLogin()
     }
     
 }
@@ -72,7 +114,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 100.0
+        return 120.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -88,7 +130,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        50.0
+        70.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -104,12 +146,23 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     
     @objc func tapScheduleButton() {
         
+        guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+        
         guard let addPlanVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
         let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
         navAddPlanVC.modalPresentationStyle = .fullScreen
         self.present(navAddPlanVC, animated: true)
         
+    }
+    
+    private func onShowLogin() {
+        tripData = []
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        authVC.delegate = self
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: false, completion: nil)
     }
     
     // MARK: - Section Row
@@ -127,11 +180,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         let days = tripData[indexPath.row].days 
         cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
         cell.tripTitle.text = tripData[indexPath.row].title
-        
-        cell.planImageView.layer.borderColor = UIColor.themeApricotDeep?.cgColor
-        cell.planImageView.layer.borderWidth = 3
-        cell.planImageView.layer.cornerRadius = 10.0
-        cell.planImageView.layer.masksToBounds = true
+
         
         return cell
         
@@ -140,7 +189,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
 
-        planDetailViewController.tripId = tripData[indexPath.row].id
+        planDetailViewController.myTripId = tripData[indexPath.row].id
       
         addChild(planDetailViewController)
         
@@ -148,4 +197,27 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         planDetailViewController.tabBarController?.tabBar.isHidden = true
     }
     
+    // MARK: - Delete
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
+            tableView.isEditing = false
+            self.deleteTrip(index: indexPath.row)
+            self.tripData.remove(at: index.row)
+            
+        }
+        return [deleteAction]
+    }
+    
+}
+
+extension PlanOverViewViewController: AuthViewControllerDelegate {
+    func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
+        if KeyChainManager.shared.token != nil {
+            alertLoginView.isHidden = true
+        } else {
+            setupAlertLoginView()
+        }
+        
+        fetchData()
+    }
 }

@@ -6,7 +6,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,15 +21,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4y-t5-CDi">
-                                <rect key="frame" x="16" y="98" width="37" height="34"/>
-                                <color key="tintColor" red="0.95300000910000005" green="0.91399997470000005" blue="0.84299999479999999" alpha="0.57533112580000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="登出"/>
-                                <connections>
-                                    <action selector="logoutButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eLC-L1-DNE"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="themeApricot"/>
@@ -39,8 +29,6 @@
                             <constraint firstItem="keL-eX-TKi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="9JP-yq-UbA"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="keL-eX-TKi" secondAttribute="trailing" id="QuO-Qs-7zQ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="keL-eX-TKi" secondAttribute="bottom" id="aMJ-0M-bWq"/>
-                            <constraint firstItem="w4y-t5-CDi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="lD3-86-her"/>
-                            <constraint firstItem="w4y-t5-CDi" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="topMargin" constant="10" id="v4O-oO-jg4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nlx-3v-tpk"/>
@@ -52,36 +40,6 @@
             </objects>
             <point key="canvasLocation" x="1034.7826086956522" y="80.357142857142847"/>
         </scene>
-        <!--Collected View Controller-->
-        <scene sceneID="oBu-Xu-C1i">
-            <objects>
-                <viewController storyboardIdentifier="CollectedViewController" id="CaZ-GS-iPK" customClass="CollectedViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="758-vv-2oY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="w9x-Y8-XdZ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="78d-wD-bXh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="w9x-Y8-XdZ" firstAttribute="leading" secondItem="78d-wD-bXh" secondAttribute="leading" id="IIM-1E-co1"/>
-                            <constraint firstItem="w9x-Y8-XdZ" firstAttribute="top" secondItem="78d-wD-bXh" secondAttribute="top" id="O64-jk-up6"/>
-                            <constraint firstItem="78d-wD-bXh" firstAttribute="bottom" secondItem="w9x-Y8-XdZ" secondAttribute="bottom" id="V4q-jC-W0A"/>
-                            <constraint firstItem="78d-wD-bXh" firstAttribute="trailing" secondItem="w9x-Y8-XdZ" secondAttribute="trailing" id="irD-cZ-7ed"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="w9x-Y8-XdZ" id="pdU-Q5-wod"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1fo-81-c67" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2794" y="927"/>
-        </scene>
         <!--Setting View Controller-->
         <scene sceneID="1v2-c8-QWY">
             <objects>
@@ -92,7 +50,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="UKo-up-cqD">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Jn9-xu-4D2">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
@@ -101,12 +59,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LZY-Yb-jMo"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="LZY-Yb-jMo" firstAttribute="bottom" secondItem="UKo-up-cqD" secondAttribute="bottom" id="2V1-e6-ev5"/>
                             <constraint firstItem="LZY-Yb-jMo" firstAttribute="trailing" secondItem="UKo-up-cqD" secondAttribute="trailing" id="7Vj-fX-YZF"/>
@@ -176,8 +135,5 @@
         <namedColor name="themeApricot">
             <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
