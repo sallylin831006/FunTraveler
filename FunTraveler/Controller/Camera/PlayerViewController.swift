@@ -34,11 +34,11 @@ class PlayerViewController: UIViewController {
     private func showInputTextfield() {
         let controller = UIAlertController(title: "旅遊動態", message: "輸入地點發布你的旅遊回憶", preferredStyle: .alert)
         controller.addTextField { textField in
-           textField.placeholder = "地點"
+           textField.placeholder = "輸入地點"
             textField.keyboardType = UIKeyboardType.default
         }
         let okAction = UIAlertAction(title: "確定", style: .default) { [unowned controller] _ in
-            guard let locationText = controller.textFields?[0].text else { return }
+            let locationText = controller.textFields?[0].text ?? ""
             self.saveVideoToPhotos(locationText: locationText)
            print(locationText)
         }
@@ -57,6 +57,7 @@ class PlayerViewController: UIViewController {
                 self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
                 print("Video saved.")
             } else {
+                ProgressHUD.showFailure()
                 print("Cannot save video.")
                 print(error ?? "unknown error")
             }
@@ -69,7 +70,7 @@ class PlayerViewController: UIViewController {
             "location": locationText
         ]
         VideoManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos",
-                                           parameters: parameters, dataPath: dataPath, completion: { (_) in
+                                           parameters: parameters, dataPath: dataPath, completion: { (Data) in
             DispatchQueue.main.async {
                 
                 self.dismiss(animated: true, completion: nil)
@@ -78,6 +79,8 @@ class PlayerViewController: UIViewController {
                     tabBarController.selectedIndex = 1
                 }
             }
+            
+            
         })
     }
     
