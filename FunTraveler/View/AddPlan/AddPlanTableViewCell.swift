@@ -28,7 +28,23 @@ class AddPlanTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
-        textField.addtextfieldBorder(textField: textField)
+        
+        switch UIDevice.current.userInterfaceIdiom {
+           case .phone:
+            print("phone")
+           case .pad:
+            print("ipad")
+
+            @unknown default:
+            print("default")
+           }
+        
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            print("ipad")
+        } else {
+            textField.addtextfieldBorder(textField: textField)
+        }
 
         textField.delegate = self
     }
