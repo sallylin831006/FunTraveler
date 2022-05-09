@@ -87,12 +87,16 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                   let email = cell.emailTextField.text,
                   let password = cell.passwordTextfield.text,
                   let passwordCheck = cell.passwordCheckTextfield.text else { return }
+            if name == "" || email  == "" || password  == "" || passwordCheck   == "" {
+                ProgressHUD.showFailure(text: "請輸入完整資料")
+                return
+            }
             if passwordCheck != password {
-                print("密碼確認錯誤，請再次確認！")
+                ProgressHUD.showFailure(text: "密碼輸入不同")
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)
-            self?.navigationController?.popViewController(animated: true)
+            
         }
         
         cell.cancelRegisterClosure = { [weak self] cell in
@@ -114,10 +118,11 @@ extension RegisterViewController {
             
             switch result {
                 
-            case .success: break
+            case .success:
+                self.navigationController?.popViewController(animated: true)
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "註冊失敗")
                 print("POST TO Register 失敗！")
             }
         })
