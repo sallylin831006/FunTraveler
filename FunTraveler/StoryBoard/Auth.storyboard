@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="oFk-M9-c47">
-                                <rect key="frame" x="0.0" y="362" width="414" height="500"/>
+                                <rect key="frame" x="0.0" y="396" width="414" height="500"/>
                                 <color key="backgroundColor" name="themeApricot"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="CRT-HR-Vgs"/>
@@ -28,7 +28,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="oFk-M9-c47" secondAttribute="bottom" id="9Ub-HB-nhB"/>
+                            <constraint firstAttribute="bottom" secondItem="oFk-M9-c47" secondAttribute="bottom" id="SQK-2E-TPd"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="oFk-M9-c47" secondAttribute="trailing" id="nWh-mg-sn0"/>
                             <constraint firstItem="oFk-M9-c47" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="p84-wy-gN1"/>
                         </constraints>
@@ -51,7 +51,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YYM-0F-5pt">
-                                <rect key="frame" x="0.0" y="362" width="414" height="500"/>
+                                <rect key="frame" x="0.0" y="396" width="414" height="500"/>
                                 <color key="backgroundColor" name="themeApricot"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="zoe-RG-XUF"/>
@@ -61,7 +61,7 @@
                         <viewLayoutGuide key="safeArea" id="bco-7b-kZD"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bco-7b-kZD" firstAttribute="bottom" secondItem="YYM-0F-5pt" secondAttribute="bottom" id="JPK-e1-vEy"/>
+                            <constraint firstAttribute="bottom" secondItem="YYM-0F-5pt" secondAttribute="bottom" id="81d-CI-2bg"/>
                             <constraint firstItem="YYM-0F-5pt" firstAttribute="leading" secondItem="bco-7b-kZD" secondAttribute="leading" id="ZuO-3m-LbL"/>
                             <constraint firstItem="bco-7b-kZD" firstAttribute="trailing" secondItem="YYM-0F-5pt" secondAttribute="trailing" id="csE-ra-nDe"/>
                         </constraints>
@@ -74,28 +74,10 @@
             </objects>
             <point key="canvasLocation" x="2578.2608695652175" y="99.776785714285708"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="BOL-cs-a1J">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cku-nD-0k5" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ATH-CU-ZPA">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="gm7-9y-5jQ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A0J-OR-vs4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="913.04347826086962" y="99.776785714285708"/>
-        </scene>
     </scenes>
     <resources>
         <namedColor name="themeApricot">
-            <color red="1" green="0.95686274509803915" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
