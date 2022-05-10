@@ -30,6 +30,7 @@ class VideoWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.delegate = self
 //        showLoadingView()
         self.setUpUI()
         collectionView.register(UINib(nibName: String(
@@ -49,6 +50,7 @@ class VideoWallViewController: UIViewController {
         self.view.backgroundColor = .themeApricot
         fetchData()
         navigationItem.title = "動態"
+        collectionView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -167,6 +169,7 @@ extension VideoWallViewController {
 extension VideoWallViewController {
     // MARK: - GET Videos
     private func fetchData() {
+        
         ProgressHUD.show()
         let videoProvider = VideoProvider()
         videoProvider.fetchVideo(completion: { [weak self] result in
@@ -174,6 +177,9 @@ extension VideoWallViewController {
             switch result {
                 
             case .success(let videoData):
+                DispatchQueue.main.async {
+                    self?.collectionView.delegate = self
+                }
                 self?.videoDataSource = videoData
                 self?.collectionView.reloadData()
                 
@@ -215,11 +221,15 @@ extension VideoWallViewController {
                 
             case .success:
                 ProgressHUD.showSuccess(text: "已封鎖")
-                self?.collectionView.reloadData()
+                self?.fetchData()
+            
+//                DispatchQueue.main.async {
+//                    self?.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
+//                    self?.collectionView.reloadData()
+//                }
                 
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ProfileVC] POST TO Block User失敗！")
             }
         })
     }
@@ -257,7 +267,7 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
             withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
 
         profileVC.userId = self.videoDataSource[section].user.id
-
+        profileVC.delegate = self
         if String(self.videoDataSource[section].user.id) == KeyChainManager.shared.userId {
             profileVC.isMyProfile = true
         } else {
@@ -286,8 +296,8 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
             message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             
-            self.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
             self.postToBlockUser(index: index)
+            self.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
             
         })
 
@@ -305,4 +315,12 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
         present(navAuthVC, animated: false, completion: nil)
     }
    
+}
+
+
+extension VideoWallViewController: ProfileViewControllerDelegate {
+    func detectProfileDissmiss(_ viewController: UIViewController) {
+        fetchData()
+    }
+    
 }

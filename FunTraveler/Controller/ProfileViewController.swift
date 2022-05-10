@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ProfileViewControllerDelegate: AnyObject {
+    func detectProfileDissmiss(_ viewController: UIViewController)
+}
+
 class ProfileViewController: UIViewController {
+    
+    weak var delegate: ProfileViewControllerDelegate?
     
     private var collectedData: [Explore] = [] {
         didSet {
@@ -526,8 +532,12 @@ extension ProfileViewController {
             
             switch result {
                 
-            case .success(let blockResponse):
-                print("blockResponse", blockResponse)
+            case .success:
+                ProgressHUD.showSuccess(text: "已封鎖")
+                DispatchQueue.main.async {
+                    self?.dismiss(animated: true, completion: nil)
+                    self?.delegate?.detectProfileDissmiss(self!)
+                }
                 
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
