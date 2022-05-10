@@ -76,12 +76,12 @@ class ExploreDetailViewController: UIViewController {
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
-        
+        ProgressHUD.show()
         guard let tripId = tripId else { return }
 //        guard let days = days else { return }
 
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
-            
+            ProgressHUD.dismiss()
             switch result {
                 
             case .success(let tripSchedule):

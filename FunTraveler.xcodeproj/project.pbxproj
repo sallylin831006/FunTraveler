@@ -1241,7 +1241,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "授權取用您的麥克風以錄製聲音";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "讓您可發布相機膠卷內的相片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "授權取用您的相片或影片以發布動態";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1278,7 +1278,7 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "授權取用您的麥克風以錄製聲音";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "讓您可發布相機膠卷內的相片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "授權取用您的相片或影片以發布動態";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
