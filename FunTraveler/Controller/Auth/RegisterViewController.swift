@@ -92,7 +92,6 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)
-            self?.navigationController?.popViewController(animated: true)
         }
         
         cell.cancelRegisterClosure = { [weak self] cell in
@@ -110,14 +109,15 @@ extension RegisterViewController {
         let userProvider = UserProvider()
         
         userProvider.postToRegister(
-            email: email, password: password, name: name, completion: { result in
+            email: email, password: password, name: name, completion: { [weak self] result in
             
             switch result {
                 
-            case .success: break
-                
+            case .success:
+                ProgressHUD.showFailure(text: "註冊成功")
+                self?.navigationController?.popViewController(animated: true)
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "註冊失敗")
                 print("POST TO Register 失敗！")
             }
         })

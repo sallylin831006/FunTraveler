@@ -102,8 +102,41 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         cell.moveToRegisterButton.addTarget(self, action: #selector(tapMoveToRegisterButton), for: .touchUpInside)
+        cell.privacyButton.addTarget(self, action: #selector(tapMoveToPrivacyPage), for: .touchUpInside)
+        
+        cell.eulaButton.addTarget(self, action: #selector(tapMoveToEULAPage), for: .touchUpInside)
+        
+        
         return cell
         
+    }
+    
+    @objc func tapMoveToPrivacyPage() {
+        
+        let webViewController = WebViewController()
+        self.navigationController?.pushViewController(webViewController, animated: true)
+        webViewController.url = WebURL.privacyPolicy
+        webViewController.modalPresentationStyle = .fullScreen
+        webViewController.navigationController?.isNavigationBarHidden = false
+        webViewController.tabBarController?.tabBar.isHidden = true
+        setupBackButton() 
+    }
+    
+    @objc func tapMoveToEULAPage() {
+        let webViewController = WebViewController()
+        self.navigationController?.pushViewController(webViewController, animated: true)
+        webViewController.url = WebURL.eula
+        webViewController.modalPresentationStyle = .fullScreen
+        webViewController.navigationController?.isNavigationBarHidden = false
+        webViewController.tabBarController?.tabBar.isHidden = true
+        setupBackButton()
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     @objc func tapMoveToRegisterButton() {
