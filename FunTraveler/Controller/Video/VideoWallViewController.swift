@@ -30,7 +30,7 @@ class VideoWallViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showLoadingView()
+//        showLoadingView()
         self.setUpUI()
         collectionView.register(UINib(nibName: String(
             describing: VideoWallHeaderView.self), bundle: nil),
@@ -167,9 +167,10 @@ extension VideoWallViewController {
 extension VideoWallViewController {
     // MARK: - GET Videos
     private func fetchData() {
+        ProgressHUD.show()
         let videoProvider = VideoProvider()
         videoProvider.fetchVideo(completion: { [weak self] result in
-            
+            ProgressHUD.dismiss()
             switch result {
                 
             case .success(let videoData):

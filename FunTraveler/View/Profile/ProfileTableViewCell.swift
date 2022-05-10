@@ -37,6 +37,7 @@ class ProfileTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.backgroundConfiguration = nil
         self.backgroundColor = .themeApricot
         let margins = UIEdgeInsets(top: 20, left: 30, bottom: -20, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)

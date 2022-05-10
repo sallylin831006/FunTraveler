@@ -255,10 +255,9 @@ extension ExploreViewController {
                 switch result {
                     
                 case .success: break
-//                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "收藏失敗")
                     print("[Explore] collected postResponse失敗！")
                 }
             })
@@ -266,9 +265,10 @@ extension ExploreViewController {
         }
     // MARK: - GET Action
     private func fetchData() {
+        ProgressHUD.show()
         let exploreProvider = ExploreProvider()
         exploreProvider.fetchExplore(completion: { [weak self] result in
-            
+            ProgressHUD.dismiss()
             switch result {
                 
             case .success(let exploreData):
@@ -298,7 +298,7 @@ extension ExploreViewController {
                 }
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "搜尋失敗")
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })
@@ -323,7 +323,7 @@ extension ExploreViewController {
                 case .success: break
                                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "按讚失敗")
                     print("[Explore] Liked postResponse失敗！")
                 }
             })
@@ -339,7 +339,7 @@ extension ExploreViewController {
                 case .success: break
                                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "取消失敗")
                     print("[Explore] UnLiked postResponse失敗！")
                 }
             })
@@ -357,7 +357,7 @@ extension ExploreViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "封鎖失敗")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

@@ -280,10 +280,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         
 //        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
 //        present(navExploreDeatilVC, animated: true, completion: nil)
-        
+        setupBackButton()
         navigationController?.pushViewController(exploreDeatilVC, animated: true)
         exploreDeatilVC.tabBarController?.tabBar.isHidden = true
 //        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     @objc func tapToFriendList() {
