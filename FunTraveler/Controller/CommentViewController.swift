@@ -104,7 +104,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: false, completion: nil)
+        present(navAuthVC, animated: true, completion: nil)
     }
     
     private func scrollToBottom() {
