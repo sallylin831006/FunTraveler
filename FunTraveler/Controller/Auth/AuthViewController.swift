@@ -15,6 +15,8 @@ protocol AuthViewControllerDelegate: AnyObject {
 class AuthViewController: UIViewController {
     
     weak var delegate: AuthViewControllerDelegate?
+    
+    private var userRegisterEmail: String = ""
 
     @IBOutlet weak var tableView: UITableView! {
         
@@ -105,7 +107,7 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
         cell.privacyButton.addTarget(self, action: #selector(tapMoveToPrivacyPage), for: .touchUpInside)
         
         cell.eulaButton.addTarget(self, action: #selector(tapMoveToEULAPage), for: .touchUpInside)
-        
+        cell.emailTextField.text = userRegisterEmail
         
         return cell
         
@@ -142,6 +144,9 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapMoveToRegisterButton() {
         guard let registerVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.registerVC) as? RegisterViewController else { return }
+        registerVC.userRegisterEmailClosure = { [weak self] email in
+            self?.userRegisterEmail  = email
+        }
         navigationController?.pushViewController(registerVC, animated: true)
     }
     
