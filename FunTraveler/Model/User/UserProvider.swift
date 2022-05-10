@@ -306,8 +306,8 @@ class UserProvider {
             
             switch result {
                 
-            case .success: break
-                
+            case .success:
+                completion(Result.success("success"))
             case .failure(let error):
                 print(error)
                 completion(Result.failure(error))

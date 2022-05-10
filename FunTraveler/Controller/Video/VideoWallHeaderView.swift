@@ -70,16 +70,19 @@ class VideoWallHeaderView: UICollectionReusableView {
             blockButton.isHidden = true
             return
         } else if isFriend {
+            blockButton.isHidden = false
             followButton.isHidden = false
             followButton.setTitle("已追蹤", for: .normal)
             followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && isInvite {
+            blockButton.isHidden = false
             followButton.isHidden = false
             followButton.setTitle("已送出邀請", for: .normal)
             followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false
         } else if !isFriend && !isInvite {
+            blockButton.isHidden = false
             followButton.isHidden = false
             followButton.backgroundColor = .themeRed
             followButton.setTitle("追蹤", for: .normal)

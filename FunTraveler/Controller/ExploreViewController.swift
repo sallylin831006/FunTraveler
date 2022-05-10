@@ -184,7 +184,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             let navProfileVC = UINavigationController(rootViewController: profileVC)
             
             profileVC.userId = self.exploreData[indexPath.row].user.id
-            
+            profileVC.delegate = self
             if String(self.exploreData[indexPath.row].user.id) == KeyChainManager.shared.userId {
                 profileVC.isMyProfile = true
             } else {
@@ -387,4 +387,11 @@ extension ExploreViewController: UISearchBarDelegate {
         alertView.isHidden = true
         fetchData()
     }
+}
+
+extension ExploreViewController: ProfileViewControllerDelegate {
+    func detectProfileDissmiss(_ viewController: UIViewController) {
+        fetchData()
+    }
+    
 }
