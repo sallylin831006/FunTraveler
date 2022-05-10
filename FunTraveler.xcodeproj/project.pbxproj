@@ -786,7 +786,7 @@
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
 				3A9A510E28290A5800F49181 /* ShellScript */,
-				10A63D518B8C4C37C9C179C4 /* [CP] Copy Pods Resources */,
+				558B52C2CE6B51573E6C8843 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -880,23 +880,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		10A63D518B8C4C37C9C179C4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3A73528228018C9A00B4D8D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
@@ -932,6 +915,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		558B52C2CE6B51573E6C8843 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1242,10 +1242,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
+				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需開啟您的相機，以執行拍攝的功能";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "授權取用您的麥克風以錄製聲音";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "授權取用您的相片或影片以發布動態";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以執行影片聲音錄製的功能";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以執行上傳及分享的功能";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1279,10 +1279,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
+				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需開啟您的相機，以執行拍攝的功能";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "授權取用您的麥克風以錄製聲音";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "授權取用您的相片或影片以發布動態";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以執行影片聲音錄製的功能";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以執行上傳及分享的功能";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
