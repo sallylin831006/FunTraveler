@@ -298,7 +298,7 @@ extension ExploreViewController {
                 }
                 
             case .failure:
-                ProgressHUD.showFailure(text: "搜尋失敗")
+//                ProgressHUD.showFailure(text: "搜尋失敗")
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })
@@ -354,7 +354,10 @@ extension ExploreViewController {
             switch result {
                 
             case .success:
-                self?.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                
                 
             case .failure:
                 ProgressHUD.showFailure(text: "封鎖失敗")
