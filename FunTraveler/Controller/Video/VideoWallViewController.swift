@@ -214,6 +214,7 @@ extension VideoWallViewController {
             switch result {
                 
             case .success:
+                ProgressHUD.showSuccess(text: "已封鎖")
                 self?.collectionView.reloadData()
                 
             case .failure:
@@ -282,12 +283,12 @@ extension VideoWallViewController: VideoWallHeaderViewDelegate {
         let userName = videoDataSource[index].user.name
         let blockController = UIAlertController(
             title: "封鎖\(userName)",
-            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             
             self.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
             self.postToBlockUser(index: index)
-            ProgressHUD.showSuccess(text: "已封鎖")
+            
         })
 
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)

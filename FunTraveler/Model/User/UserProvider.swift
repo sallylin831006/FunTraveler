@@ -60,13 +60,20 @@ class UserProvider {
                         case .decodeDataFail: break
                             
                         case .clientError(let data):
-                            let errorResponse = try JSONDecoder().decode(
-                                RegisterSeverError.self,
-                                from: data
-                            )
-                            
-                            DispatchQueue.main.async {
-                                failure(Result.success(errorResponse))
+                            do {
+                                
+                                let errorResponse = try JSONDecoder().decode(
+                                    RegisterSeverError.self,
+                                    from: data
+                                )
+                                
+                                DispatchQueue.main.async {
+                                    failure(Result.success(errorResponse))
+                                }
+                                
+                            } catch {
+                                print(error)
+                                failure(Result.failure(error))
                             }
                             
                             

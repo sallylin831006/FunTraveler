@@ -318,7 +318,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         let photoSourceRequestController = UIAlertController(
-            title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
+            title: "", message: "選擇大頭貼照片", preferredStyle: .alert)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -376,7 +376,7 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
         let userName = userData?.name ?? "此位使用者"
         let blockController = UIAlertController(
             title: "封鎖\(userName)",
-            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             self.postToBlockUser()
             // Alert:已封鎖，可從黑名單中解除封鎖

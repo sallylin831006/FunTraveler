@@ -277,7 +277,7 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     
     func selectImageAction(sender: UITapGestureRecognizer) {
 //        guard let view = sender.view else { return }
-        let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .actionSheet)
+        let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .alert)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
             self.showLoadingView()
@@ -310,7 +310,19 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
 //        photoSourceRequestController.addAction(cameraAction)
         photoSourceRequestController.addAction(cancelAction)
         
+        // iPad specific code
+        photoSourceRequestController.popoverPresentationController?.sourceView = self.view
+        
+        let xOrigin = self.view.bounds.width / 2
+        
+        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
+        
+        photoSourceRequestController.popoverPresentationController?.sourceRect = popoverRect
+        
+        photoSourceRequestController.popoverPresentationController?.permittedArrowDirections = .up
+        
         present(photoSourceRequestController, animated: true, completion: nil)
+
         
     }
 }
