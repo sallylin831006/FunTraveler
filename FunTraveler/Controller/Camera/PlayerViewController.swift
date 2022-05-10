@@ -70,7 +70,7 @@ class PlayerViewController: UIViewController {
             "location": locationText
         ]
         VideoManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos",
-                                           parameters: parameters, dataPath: dataPath, completion: { (Data) in
+                                           parameters: parameters, dataPath: dataPath, completion: { (_) in
             DispatchQueue.main.async {
                 
                 self.dismiss(animated: true, completion: nil)

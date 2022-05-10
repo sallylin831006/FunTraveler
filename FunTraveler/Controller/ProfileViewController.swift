@@ -29,12 +29,12 @@ class ProfileViewController: UIViewController {
     }
     
     private var userNameTextField: UITextField!
-    
     private var segmentedControl: UISegmentedControl!
     var userId: Int?
     
     var isMyProfile: Bool = true
-    
+    private var isMyMemory: Bool = true
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -254,15 +254,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let item = collectedData[indexPath.row]
             cell.layoutCell(data: item)
             
-//            cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .normal)
             cell.collectClosure = { isCollected in
-                self.postCollectedData(isCollected: item.isCollected, tripId: self.collectedData[indexPath.row].id)
-                self.collectedData.remove(at: indexPath.row)
-//                tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .left)
-//                tableView.reloadData()
-                
+                self.postCollectedData(isCollected: isCollected, tripId: self.collectedData[indexPath.row].id, index: indexPath.row )
             }
-            
+            if isMyMemory {
+                cell.collectButton.isHidden = true
+            } else {
+                cell.collectButton.isHidden = false
+            }
+
             return cell
             
         default: break
@@ -479,7 +479,7 @@ extension ProfileViewController {
     }
     
     // MARK: - POST TO ADJUST COLLECTED status
-    private func postCollectedData(isCollected: Bool, tripId: Int) {
+    private func postCollectedData(isCollected: Bool, tripId: Int, index: Int) {
             let collectedProvider = CollectedProvider()
         
             collectedProvider.addCollected(isCollected: isCollected,
@@ -488,6 +488,8 @@ extension ProfileViewController {
                 switch result {
                     
                 case .success:
+                    ProgressHUD.showSuccess()
+                    self.collectedData.remove(at: index)
                     self.tableView.reloadData()
                                     
                 case .failure:
@@ -560,13 +562,13 @@ extension ProfileViewController: SegementViewDelegate {
     func switchSegement(_ segmentedControl: UISegmentedControl) {
         self.segmentedControl = segmentedControl
         if segmentedControl.selectedSegmentIndex == 0 {
-            print("我點了旅遊回憶")
+            isMyMemory = true
             guard let userId = KeyChainManager.shared.userId else { return }
             guard let userIdNumber = Int(userId) else { return }
             fetchProfileTripsData(userId: userIdNumber)
           
         } else if segmentedControl.selectedSegmentIndex == 1 {
-            print("我點了收藏")
+            isMyMemory = false
             fetchCollectedData()
             
         }
