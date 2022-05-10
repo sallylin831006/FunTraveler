@@ -136,7 +136,7 @@ class ProfileViewController: UIViewController {
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         authVC.delegate = self
         let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: false, completion: nil)
+        present(navAuthVC, animated: true, completion: nil)
     }
     
 }
