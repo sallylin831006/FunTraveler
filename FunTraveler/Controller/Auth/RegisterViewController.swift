@@ -10,6 +10,9 @@ import IQKeyboardManagerSwift
 
 class RegisterViewController: UIViewController {
     
+    var userRegisterEmailClosure: ((_ text: String) -> Void)?
+
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -109,19 +112,18 @@ extension RegisterViewController {
         let userProvider = UserProvider()
         
         userProvider.postToRegister(
-            email: email, password: password, name: name, completion: { [weak self] result in
-            
-            switch result {
+            email: email, password: password, name: name) {
+                ProgressHUD.showSuccess(text: "註冊成功")
+            } failure: { error in
+                switch error {
+                case .success(let data):
+                    ProgressHUD.showFailure(text: "\(data.errorMessage)")
+                case .failure(_): break
+                    
+                }
                 
-            case .success:
-                ProgressHUD.showFailure(text: "註冊成功")
-                self?.navigationController?.popViewController(animated: true)
-            case .failure:
-                ProgressHUD.showFailure(text: "註冊失敗")
-                print("POST TO Register 失敗！")
             }
-        })
-        
+
     }
 
 }
