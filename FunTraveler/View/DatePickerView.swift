@@ -11,6 +11,7 @@ class DatePickerView: UIView {
     
     var dateClosure : ((_ text: String, _ date: Date) -> Void)?
 
+
     var datePicker = UIDatePicker()
     
     override init(frame: CGRect) {
@@ -25,6 +26,8 @@ class DatePickerView: UIView {
     
     private func commonInit() {
         setupSettingPickerView()
+        
+
     }
 }
 
@@ -48,6 +51,7 @@ extension DatePickerView {
         addSubview(datePicker)
  
         layoutOfPicker()
+        
     }
     
     @objc func tapToChangeDate(datePicker: UIDatePicker) {
