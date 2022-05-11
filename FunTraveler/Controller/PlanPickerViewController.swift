@@ -60,6 +60,13 @@ class PlanPickerViewController: UIViewController {
 
     private var isMoveDown: Bool = false
     
+    @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.bottomHeightConstraint.constant = UIScreen.height/14
+    }
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {

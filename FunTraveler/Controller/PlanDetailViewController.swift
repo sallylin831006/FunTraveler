@@ -140,7 +140,8 @@ class PlanDetailViewController: UIViewController {
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()
-        bottomView.frame = CGRect(x: 0, y: UIScreen.height - 80, width: UIScreen.width, height: 80)
+        let height = UIScreen.height/14
+        bottomView.frame = CGRect(x: 0, y: UIScreen.height - height, width: UIScreen.width, height: height)
         bottomView.backgroundColor = UIColor.themeApricotDeep
         self.view.addSubview(bottomView)
         
