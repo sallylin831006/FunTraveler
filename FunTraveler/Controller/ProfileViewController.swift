@@ -237,17 +237,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let userData = userData else { return UITableViewCell()}
             cell.layoutCell(data: userData, isMyProfile: isMyProfile)
             
-            let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
-            cell.userImageView.addGestureRecognizer(imageTapGesture)
-            cell.userImageView.isUserInteractionEnabled = true
-            
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
-//            self.view.addGestureRecognizer(tapGesture)
-            
+            if isMyProfile {
+                let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+                cell.userImageView.addGestureRecognizer(imageTapGesture)
+                cell.userImageView.isUserInteractionEnabled = true
+                cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
+
+            }
+
             self.userNameTextField = cell.userNameTextField
             
             cell.delegate = self
-            cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
             cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
             
@@ -280,16 +280,19 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let exploreDeatilVC = UIStoryboard.explore.instantiateViewController(
             withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
+        switch indexPath.section {
+        case 0:
+            return
+        case 1:
+            exploreDeatilVC.tripId = collectedData[indexPath.row].id
+            exploreDeatilVC.days = collectedData[indexPath.row].days
+       
+            setupBackButton()
+            navigationController?.pushViewController(exploreDeatilVC, animated: true)
+            exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+        default: break
+        }
         
-        exploreDeatilVC.tripId = collectedData[indexPath.row].id
-        exploreDeatilVC.days = collectedData[indexPath.row].days
-        
-//        let navExploreDeatilVC = UINavigationController(rootViewController: exploreDeatilVC)
-//        present(navExploreDeatilVC, animated: true, completion: nil)
-        setupBackButton()
-        navigationController?.pushViewController(exploreDeatilVC, animated: true)
-        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
-//        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
     }
     
     func setupBackButton() {

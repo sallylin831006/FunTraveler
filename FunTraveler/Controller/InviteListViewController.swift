@@ -137,7 +137,7 @@ class InviteListViewController: UIViewController {
                 print("postAcceptResponse", postResponse)
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "邀請失敗")
                 print("[InvitedVC] POST資料失敗！")
             }
         })
@@ -159,7 +159,6 @@ class InviteListViewController: UIViewController {
                 print("userSearchListResponse", userSearchListResponse)
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[InvitedVC] GET資料失敗！")
             }
         })

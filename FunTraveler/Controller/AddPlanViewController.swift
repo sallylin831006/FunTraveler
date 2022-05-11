@@ -178,6 +178,10 @@ extension AddPlanViewController: FooterViewDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let nowDate = formatter.string(from: datePicker.date)
+        
+        if titleText == nil {
+            ProgressHUD.showFailure(text: "請輸入標題")
+        }
 
         if startDate == nil {
             startDate = nowDate
