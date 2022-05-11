@@ -74,6 +74,7 @@ class ASVideoPlayerController: NSObject, NSCacheDelegate {
                     break
                 case .failed, .cancelled:
                     print("Failed to load asset successfully")
+                ProgressHUD.showSuccess(text: "影片讀取失敗")
                     return
                 default:
                     print("Unkown state of asset")
