@@ -81,6 +81,7 @@
                         <color key="tintColor" name="themeApricotDeep"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="c6G-Hg-nOg"/>
+                            <constraint firstAttribute="height" constant="20" id="iJ3-Nh-t0Q"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="預計停留時間：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27J-Py-z8B">
@@ -119,6 +120,7 @@
                     <constraint firstItem="7Aj-Dm-bNU" firstAttribute="centerY" secondItem="xJL-at-h0T" secondAttribute="centerY" id="P5z-ic-AXz"/>
                     <constraint firstItem="xJL-at-h0T" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Qcm-j7-Mqy"/>
                     <constraint firstItem="Vmz-31-bb6" firstAttribute="centerX" secondItem="IwA-bK-0MV" secondAttribute="centerX" id="QzF-C3-9Fz"/>
+                    <constraint firstAttribute="bottom" secondItem="xC2-Ed-s4T" secondAttribute="bottom" constant="10" id="WvT-Bd-rAd"/>
                     <constraint firstItem="mFv-oK-es9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="XUX-4Q-EKP"/>
                     <constraint firstItem="IwA-bK-0MV" firstAttribute="width" secondItem="xJL-at-h0T" secondAttribute="width" id="YJ1-43-ezk"/>
                     <constraint firstItem="exU-Mw-uIn" firstAttribute="top" secondItem="IwA-bK-0MV" secondAttribute="bottom" constant="5" id="Yd8-Cy-bx1"/>
