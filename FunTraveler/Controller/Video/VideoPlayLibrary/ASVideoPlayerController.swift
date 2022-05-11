@@ -21,7 +21,7 @@ protocol ASAutoPlayVideoLayerContainer {
 class ASVideoPlayerController: NSObject, NSCacheDelegate {
     var minimumLayerHeightToPlay: CGFloat = 60
     // Mute unmute video
-    var mute = false
+    var mute = true
     var preferredPeakBitRate: Double = 1000000
     static private var playerViewControllerKVOContext = 0
     static let sharedVideoPlayer = ASVideoPlayerController()
@@ -118,7 +118,6 @@ class ASVideoPlayerController: NSObject, NSCacheDelegate {
         currentLayer = nil
         if let videoContainer = self.videoCache.object(forKey: url as NSString) {
             videoContainer.playOn = false
-            //videoContainer.play = false
             removeObserverFor(url: url)
         }
     }

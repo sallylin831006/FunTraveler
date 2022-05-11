@@ -60,32 +60,33 @@ class VideoHeaderView: UITableViewHeaderFooterView {
         
         followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
         
-        let isFriend = data[section].user.isFriend
+        let isMyFriend = data[section].user.isFriend
         let isInvite = data[section].user.isInvite
         guard let userId = KeyChainManager.shared.userId else { return }
         
         
-        if !isFriend && Int(userId) == data[section].user.id {
+        if !isMyFriend && Int(userId) == data[section].user.id {
             followButton.isHidden = true
             blockButton.isHidden = true
             return
-        } else if isFriend {
+        } else if isMyFriend {
             blockButton.isHidden = false
             followButton.isHidden = false
             followButton.setTitle("已追蹤", for: .normal)
             followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false
-        } else if !isFriend && isInvite {
+        } else if !isMyFriend && isInvite {
             blockButton.isHidden = false
             followButton.isHidden = false
             followButton.setTitle("已送出邀請", for: .normal)
             followButton.backgroundColor = .themePink
             followButton.isUserInteractionEnabled = false
-        } else if !isFriend && !isInvite {
+        } else if !isMyFriend && !isInvite {
             blockButton.isHidden = false
             followButton.isHidden = false
             followButton.backgroundColor = .themeRed
             followButton.setTitle("追蹤", for: .normal)
+            followButton.isUserInteractionEnabled = true
             followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
         }
 

@@ -36,9 +36,8 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="追蹤"/>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeU-eB-OMQ">
-                    <rect key="frame" x="349" y="9" width="39" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FeU-eB-OMQ">
+                    <rect key="frame" x="349" y="14.5" width="39" height="31"/>
                     <color key="tintColor" name="themeRed"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="⋯"/>
@@ -49,10 +48,12 @@
             <constraints>
                 <constraint firstItem="dDP-ka-QmX" firstAttribute="centerY" secondItem="GEZ-MR-pG1" secondAttribute="centerY" id="1Pe-es-zbS"/>
                 <constraint firstItem="GEZ-MR-pG1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Gch-dt-Hgb"/>
+                <constraint firstAttribute="trailing" secondItem="FeU-eB-OMQ" secondAttribute="trailing" constant="26" id="Qkg-Iz-dHs"/>
                 <constraint firstItem="iVL-x4-lfJ" firstAttribute="leading" secondItem="GEZ-MR-pG1" secondAttribute="trailing" constant="16" id="d6r-Im-lXs"/>
                 <constraint firstItem="dDP-ka-QmX" firstAttribute="leading" secondItem="iVL-x4-lfJ" secondAttribute="trailing" constant="16" id="ghX-8M-bYO"/>
                 <constraint firstItem="iVL-x4-lfJ" firstAttribute="centerY" secondItem="GEZ-MR-pG1" secondAttribute="centerY" id="h0f-Zu-UzR"/>
                 <constraint firstItem="GEZ-MR-pG1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="30" id="rqA-Pd-hUU"/>
+                <constraint firstItem="FeU-eB-OMQ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="wSx-RI-agr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

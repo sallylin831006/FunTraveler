@@ -357,10 +357,10 @@ extension ExploreViewController {
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
-                
+                ProgressHUD.showSuccess(text: "已封鎖")
                 
             case .failure:
-                ProgressHUD.showFailure(text: "封鎖失敗")
+                ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

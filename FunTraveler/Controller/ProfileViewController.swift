@@ -385,10 +385,9 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
         let userName = userData?.name ?? "此位使用者"
         let blockController = UIAlertController(
             title: "封鎖\(userName)",
-            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
+            message: "你不會再看到\(userName)的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             self.postToBlockUser()
-            // Alert:已封鎖，可從黑名單中解除封鎖
         })
 
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -543,7 +542,7 @@ extension ProfileViewController {
                 }
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })

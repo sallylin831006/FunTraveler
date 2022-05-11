@@ -815,6 +815,7 @@
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
 				3A9A510E28290A5800F49181 /* ShellScript */,
 				3A041E99282B670C0034BFDD /* ShellScript */,
+				BD490DEDD0881F22BA0C666C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1002,6 +1003,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD490DEDD0881F22BA0C666C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1284,10 +1302,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需開啟您的相機，以執行拍攝的功能";
+				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需取用您的相機，以拍攝影片來發布到動態牆分享";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以執行影片聲音錄製的功能";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以執行上傳及分享的功能";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以錄製影片聲音來發布到動態牆分享\n";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以發布照片或影片到動態牆分享\n";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1321,10 +1339,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需開啟您的相機，以執行拍攝的功能";
+				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需取用您的相機，以拍攝影片來發布到動態牆分享";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以執行影片聲音錄製的功能";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以執行上傳及分享的功能";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以錄製影片聲音來發布到動態牆分享\n";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以發布照片或影片到動態牆分享\n";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

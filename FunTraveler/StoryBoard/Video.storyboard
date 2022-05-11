@@ -4,8 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,16 +17,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KM3-qB-4KL">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KM3-qB-4KL">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="themeApricot"/>
                         <constraints>
                             <constraint firstItem="KM3-qB-4KL" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="BPR-Ho-YHx"/>
-                            <constraint firstItem="KM3-qB-4KL" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Ufa-zo-1Ue"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="top" secondItem="KM3-qB-4KL" secondAttribute="top" id="Ufa-zo-1Ue"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KM3-qB-4KL" secondAttribute="trailing" id="Xrf-Rb-LHi"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="KM3-qB-4KL" secondAttribute="bottom" id="yox-BN-qRf"/>
                         </constraints>
@@ -60,8 +60,8 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
