@@ -13,7 +13,6 @@ class VideoViewController: UIViewController {
     
     private var videoDataSource: [Video] = []
 
-
     @IBOutlet var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -22,9 +21,8 @@ class VideoViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
-        tableView.isPagingEnabled = true
-        
+//        tableView.isPagingEnabled = true
+
         tableView.rowHeight = UITableView.automaticDimension
         let shotTableViewCellIdentifier = "ShotTableViewCell"
         let loadingCellTableViewCellCellIdentifier = "LoadingCellTableViewCell"
@@ -33,25 +31,39 @@ class VideoViewController: UIViewController {
         tableView.registerHeaderWithNib(identifier: String(describing: VideoHeaderView.self), bundle: nil)
 
         tableView.separatorStyle = .none
+        tableView.contentInsetAdjustmentBehavior = .never
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.appEnteredFromBackground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
                 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
+    
     
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        pausePlayeVideos()
+        startPlayeVideos()
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            pausePlayeVideos()
+            startPlayeVideos()
         }
     }
     
-    func pausePlayeVideos(){
+    func startPlayeVideos(){
         ASVideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView)
     }
     
@@ -64,7 +76,7 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 50.0
+        return 60.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -72,7 +84,6 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: VideoHeaderView.identifier)
                 as? VideoHeaderView else { return nil }
-        headerView.backgroundColor = .orange
         headerView.layoutHeaderView(data: videoDataSource, section: section)
         headerView.delegate = self
         
@@ -87,7 +98,11 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.safeAreaLayoutGuide.layoutFrame.height
+        print("UIScreen.main.bounds.height", UIScreen.main.bounds.height)
+        print("view.safeAreaLayoutGuide.layoutFrame.height", view.safeAreaLayoutGuide.layoutFrame.height)
+        let heightOfnavigationBar = navigationController?.navigationBar.frame.height ?? 44
+        let heightOfTabBar = tabBarController?.tabBar.frame.height
+        return view.safeAreaLayoutGuide.layoutFrame.height - 60
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,8 +110,10 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "ShotTableViewCell", for: indexPath)
                 as? ShotTableViewCell else { return UITableViewCell() }
-   
-        cell.configureCell(videoUrl: videoDataSource[indexPath.row].url)
+        
+        cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
+        
+        cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
 
         return cell
     }
@@ -141,7 +158,7 @@ extension VideoViewController {
                 }
                 self?.videoDataSource = videoData
                 self?.tableView.reloadData()
-                self?.pausePlayeVideos()
+                self?.startPlayeVideos()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CameraVC] GET video失敗！")
@@ -228,7 +245,7 @@ extension VideoViewController: VideoWallHeaderViewDelegate {
         let userName = videoDataSource[index].user.name
         let blockController = UIAlertController(
             title: "封鎖\(userName)",
-            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
+            message: "你不會再看到\(userName)的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             
             self.postToBlockUser(index: index)
