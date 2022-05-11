@@ -155,7 +155,7 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
         } else {
             guard let selectedTimes = Double(trafficTimes[row]) else { return }
             trafficTime = selectedTimes
-            self.trafficPickerView.timeTextField.text = "\(trafficTimes)小時"
+            self.trafficPickerView.timeTextField.text = "\(selectedTimes)小時"
         }
         
     }
