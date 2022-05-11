@@ -178,7 +178,12 @@ extension AddPlanViewController: FooterViewDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let nowDate = formatter.string(from: datePicker.date)
-        
+        if isCopiedTrip {
+            if titleText == nil {
+                guard let copyTextField = copyTextField else { return }
+                titleText = "複製- \(String(describing: copyTextField))"
+            }
+        }
         if titleText == nil {
             ProgressHUD.showFailure(text: "請輸入標題")
         }
