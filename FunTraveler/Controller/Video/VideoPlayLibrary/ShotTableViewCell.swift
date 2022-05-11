@@ -50,7 +50,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     override func layoutSubviews() {
         super.layoutSubviews()
         videoLayer.borderWidth = 3
-        videoLayer.borderColor = UIColor.white.cgColor
+        videoLayer.borderColor = UIColor.red.cgColor
         videoLayer.frame = screenImageView.bounds
     }
     
