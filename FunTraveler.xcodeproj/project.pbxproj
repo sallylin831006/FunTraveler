@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A041EB4282BA61A0034BFDD /* ASVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */; };
+		3A041EB6282BA62D0034BFDD /* ASVideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */; };
+		3A041EB8282BA6400034BFDD /* ASVideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */; };
+		3A041EBA282BA6800034BFDD /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB9282BA6800034BFDD /* VideoViewController.swift */; };
+		3A041EBC282BA7070034BFDD /* ShotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */; };
+		3A041EBE282BAB740034BFDD /* ShotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A041EBD282BAB740034BFDD /* ShotTableViewCell.xib */; };
 		3A0C3CDF281AA345006632AC /* LoadingText.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CDE281AA345006632AC /* LoadingText.json */; };
 		3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE0281AAF6C006632AC /* UnFollowTableViewCell.swift */; };
 		3A0C3CE3281AAF6C006632AC /* UnFollowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE1281AAF6C006632AC /* UnFollowTableViewCell.xib */; };
@@ -160,6 +166,12 @@
 /* Begin PBXFileReference section */
 		3A041E97282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		3A041E98282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoContainer.swift; sourceTree = "<group>"; };
+		3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoPlayerController.swift; sourceTree = "<group>"; };
+		3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoLayerObject.swift; sourceTree = "<group>"; };
+		3A041EB9282BA6800034BFDD /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotTableViewCell.swift; sourceTree = "<group>"; };
+		3A041EBD282BAB740034BFDD /* ShotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShotTableViewCell.xib; sourceTree = "<group>"; };
 		3A0C3CDE281AA345006632AC /* LoadingText.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingText.json; sourceTree = "<group>"; };
 		3A0C3CE0281AAF6C006632AC /* UnFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnFollowTableViewCell.swift; sourceTree = "<group>"; };
 		3A0C3CE1281AAF6C006632AC /* UnFollowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnFollowTableViewCell.xib; sourceTree = "<group>"; };
@@ -335,6 +347,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3A041EB2282BA5F60034BFDD /* VideoPlayLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */,
+				3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */,
+				3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */,
+				3A041EB9282BA6800034BFDD /* VideoViewController.swift */,
+				3A041EBD282BAB740034BFDD /* ShotTableViewCell.xib */,
+				3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */,
+			);
+			path = VideoPlayLibrary;
+			sourceTree = "<group>";
+		};
 		3A0C3CEA281AFB50006632AC /* InviteList */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +486,7 @@
 		3A2B6B2C281420F400D00638 /* Video */ = {
 			isa = PBXGroup;
 			children = (
+				3A041EB2282BA5F60034BFDD /* VideoPlayLibrary */,
 				3A3528932822CC12003E6400 /* VideoHeaderView.swift */,
 				3A3528942822CC12003E6400 /* VideoHeaderView.xib */,
 				3A5445EC281E21400078518E /* VideoWallHeaderView.swift */,
@@ -862,6 +888,7 @@
 				3AC099A5280D62370023A1C0 /* Video.storyboard in Resources */,
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
 				3A40D36C2817880500A7BF51 /* CommentTableViewCell.xib in Resources */,
+				3A041EBE282BAB740034BFDD /* ShotTableViewCell.xib in Resources */,
 				3A3528962822CC12003E6400 /* VideoHeaderView.xib in Resources */,
 				3A134944280E5C42008CECEA /* ShareHeaderView.xib in Resources */,
 				3A0C3CE5281ABF2F006632AC /* SegementView.xib in Resources */,
@@ -1008,6 +1035,7 @@
 				3A40D34E2816CF6B00A7BF51 /* KeyChainManger.swift in Sources */,
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
 				3A40D36728177E5600A7BF51 /* CommentViewController.swift in Sources */,
+				3A041EB6282BA62D0034BFDD /* ASVideoPlayerController.swift in Sources */,
 				3A0C3CF5281B5587006632AC /* FriendsProvider.swift in Sources */,
 				3A2B6B302814215000D00638 /* PlayerView.swift in Sources */,
 				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
@@ -1034,6 +1062,7 @@
 				3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
+				3A041EBC282BA7070034BFDD /* ShotTableViewCell.swift in Sources */,
 				3A2B6B5A2814B54300D00638 /* LoadingView.swift in Sources */,
 				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
 				3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */,
@@ -1041,6 +1070,7 @@
 				3A40D3462816C14E00A7BF51 /* UserProvider.swift in Sources */,
 				3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */,
 				3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */,
+				3A041EB8282BA6400034BFDD /* ASVideoLayerObject.swift in Sources */,
 				3ACC6C7B281EB044002B7256 /* JGProgressHUDWrapper.swift in Sources */,
 				3A185C4B28058CA6004F5BB3 /* SearchDetailTableViewCell.swift in Sources */,
 				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
@@ -1076,6 +1106,7 @@
 				3A0C3CED281AFB6F006632AC /* InviteListTableViewCell.swift in Sources */,
 				3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */,
 				3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */,
+				3A041EB4282BA61A0034BFDD /* ASVideoContainer.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
@@ -1105,6 +1136,7 @@
 				3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */,
 				3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */,
 				3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */,
+				3A041EBA282BA6800034BFDD /* VideoViewController.swift in Sources */,
 				3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
 				3A40D34C2816CE6B00A7BF51 /* UserObject.swift in Sources */,
