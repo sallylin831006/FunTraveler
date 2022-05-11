@@ -91,7 +91,7 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                   let password = cell.passwordTextfield.text,
                   let passwordCheck = cell.passwordCheckTextfield.text else { return }
             if passwordCheck != password {
-                print("密碼確認錯誤，請再次確認！")
+                ProgressHUD.showFailure(text: "請輸入相同密碼")
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)

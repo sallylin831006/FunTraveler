@@ -56,7 +56,7 @@ class ProfileTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
+        
         userNameTextField.delegate = self
         blockButton.addTarget(self, action: #selector(tapBlockButton(_:)), for: .touchUpInside)
         
@@ -96,6 +96,8 @@ class ProfileTableViewCell: UITableViewCell {
     }
     
     func layoutCell(data: Profile, isMyProfile: Bool) {
+        
+        
         userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
@@ -107,7 +109,9 @@ class ProfileTableViewCell: UITableViewCell {
         
         if isMyProfile {
             blockButton.isHidden = true
+            userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
         } else {
+            userNameTextField.isUserInteractionEnabled = false
             settingButton.isHidden = true
         }
     }
