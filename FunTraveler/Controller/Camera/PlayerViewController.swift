@@ -44,6 +44,7 @@ class PlayerViewController: UIViewController {
         }
         controller.addAction(okAction)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+//        dismiss(animated: true, completion: nil)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
     }

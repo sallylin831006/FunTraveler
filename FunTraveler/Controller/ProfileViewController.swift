@@ -96,7 +96,9 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        tableView.isHidden = false
+        DispatchQueue.main.async {
+            self.tableView.isHidden = false
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
 
         if KeyChainManager.shared.token == nil {
@@ -131,7 +133,10 @@ class ProfileViewController: UIViewController {
     }
     
     private func onShowLogin() {
-        tableView.isHidden = true
+        DispatchQueue.main.async {
+            self.tableView.isHidden = true
+        }
+        
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         authVC.delegate = self
@@ -371,8 +376,9 @@ extension ProfileViewController: AuthViewControllerDelegate {
         } else {
             setupAlertLoginView()
         }
-        
-        tableView.isHidden = false
+        DispatchQueue.main.async {
+            self.tableView.isHidden = false
+        }
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         fetchUserData(userId: userIdNumber)

@@ -47,6 +47,7 @@ class CameraViewController: UIViewController {
         pickerController.sourceType = sourceType
         pickerController.mediaTypes = [kUTTypeMovie as String]
         pickerController.videoQuality = .typeIFrame1280x720
+//        pickerController.videoMaximumDuration = TimeInterval(5.0)
         if sourceType == .camera {
             pickerController.cameraDevice = .rear
         }
@@ -100,9 +101,7 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
                 let navPlayerViewController = UINavigationController(rootViewController: playerViewController)
                 guard let url = self.pickedURL else { return }
                 playerViewController.videoURL = url
-//                let playerViewController = PlayerViewController()
-//                self.present(playerViewController, animated: true)
-
+//                navPlayerViewController.modalPresentationStyle = .fullScreen
                 self.present(navPlayerViewController, animated: true)
                 
             }
