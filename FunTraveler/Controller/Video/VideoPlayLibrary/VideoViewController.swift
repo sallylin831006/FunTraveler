@@ -40,6 +40,7 @@ class VideoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -102,7 +103,7 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         print("view.safeAreaLayoutGuide.layoutFrame.height", view.safeAreaLayoutGuide.layoutFrame.height)
         let heightOfnavigationBar = navigationController?.navigationBar.frame.height ?? 44
         let heightOfTabBar = tabBarController?.tabBar.frame.height
-        return view.safeAreaLayoutGuide.layoutFrame.height - 60
+        return view.safeAreaLayoutGuide.layoutFrame.height - 60 - heightOfnavigationBar
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
