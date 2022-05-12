@@ -216,7 +216,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         return UIContextMenuConfiguration(identifier: nil,
                                           previewProvider: nil,
                                           actionProvider: { _ in
-            
+            guard KeyChainManager.shared.token != nil else {
+                self.onShowLogin()
+                return nil
+            }
             guard let userId = KeyChainManager.shared.userId else { return nil}
             guard let userIdNumber = Int(userId) else { return nil}
             if userIdNumber == self.exploreData[indexPath.row].user.id {

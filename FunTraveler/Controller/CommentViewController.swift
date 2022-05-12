@@ -136,7 +136,10 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+        guard KeyChainManager.shared.token != nil else {
+            self.onShowLogin()
+            return nil
+        }
         guard let userId = KeyChainManager.shared.userId else { return nil}
         guard let userIdNumber = Int(userId) else { return nil}
         if userIdNumber == self.commentData[indexPath.row].user.id {
