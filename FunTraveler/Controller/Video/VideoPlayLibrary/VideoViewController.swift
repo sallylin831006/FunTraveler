@@ -97,9 +97,9 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return nil
-    }
+//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        return nil
+//    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         videoDataSource.count
