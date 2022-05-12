@@ -21,7 +21,7 @@ protocol ASAutoPlayVideoLayerContainer {
 class ASVideoPlayerController: NSObject, NSCacheDelegate {
     var minimumLayerHeightToPlay: CGFloat = 60
     // Mute unmute video
-    var mute = true
+    var mute = false
     var preferredPeakBitRate: Double = 1000000
     static private var playerViewControllerKVOContext = 0
     static let sharedVideoPlayer = ASVideoPlayerController()
@@ -195,7 +195,7 @@ class ASVideoPlayerController: NSObject, NSCacheDelegate {
      Play UITableViewCell's videoplayer that has max visible video layer height
      when the scroll stops.
      */
-    func pausePlayeVideosFor(tableView: UITableView, appEnteredFromBackground: Bool = false) {
+    func pausePlayeVideosFor(tableView: UITableView, appEnteredFromBackground: Bool = false, isVideoStop: Bool = false) {
         let visisbleCells = tableView.visibleCells
         var videoCellContainer: ASAutoPlayVideoLayerContainer?
         var maxHeight: CGFloat = 0.0
@@ -225,7 +225,10 @@ class ASVideoPlayerController: NSObject, NSCacheDelegate {
             if appEnteredFromBackground {
                 setupVideoFor(url: videoCellURL)
             }
-            playVideo(withLayer: videoCell.videoLayer, url: videoCellURL)
+            if !isVideoStop {
+               playVideo(withLayer: videoCell.videoLayer, url: videoCellURL)
+           }
+            
         }
     }
     
