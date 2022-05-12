@@ -419,7 +419,7 @@ extension ProfileViewController {
                 self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ProfileVC] GET Profile 資料失敗！")
+                self?.onShowLogin()
             }
         })
     }

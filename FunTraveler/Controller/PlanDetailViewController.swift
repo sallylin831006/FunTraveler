@@ -103,7 +103,7 @@ class PlanDetailViewController: UIViewController {
         guard let tripId = myTripId else { return }
 
         let day = currentDay
-
+//        let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
             switch result {

@@ -64,6 +64,7 @@ class PlayerViewController: UIViewController {
         }
     }
     func postVideoData(locationText: String, url: URL) {
+        ProgressHUD.show()
         let video = try? Data(contentsOf: url, options: .mappedIfSafe)
         let dataPath = ["file": video!]
         let parameters = [
@@ -72,7 +73,7 @@ class PlayerViewController: UIViewController {
         VideoManager().requestWithFormData(urlString: "https://travel.newideas.com.tw/api/v1/videos",
                                            parameters: parameters, dataPath: dataPath, completion: { (_) in
             DispatchQueue.main.async {
-                
+                ProgressHUD.dismiss()
                 self.dismiss(animated: true, completion: nil)
                 self.presentingViewController?.navigationController?.popViewController(animated: true)
                 if let tabBarController = self.presentingViewController as? UITabBarController {
