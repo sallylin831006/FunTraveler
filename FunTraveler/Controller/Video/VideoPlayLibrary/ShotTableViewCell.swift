@@ -10,12 +10,10 @@ import AVFoundation
 class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     
     let screenImageView =  UIImageView()
-    let videoHeaderView =  UIView()
     
     private let locationLabel = UILabel()
     private let dateLabel = UILabel()
-
-
+  
     var playerController: ASVideoPlayerController?
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
     var videoURL: String? {
@@ -35,15 +33,19 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
+//        self.layer.borderColor = UIColor.themeApricot?.cgColor
+//        self.layer.borderWidth = 20
         setupImageView()
+//        setupVedioHeaderView()
         setupDateLabel()
         setupLocationLabel()
+        
         screenImageView.layer.cornerRadius = 5
 //        screenImageView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         screenImageView.image = UIImage.asset(.imagePlaceholder)
         screenImageView.clipsToBounds = true
         screenImageView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
-        screenImageView.layer.borderWidth = 0.5
+        screenImageView.layer.borderWidth = 3
         videoLayer.backgroundColor = UIColor.clear.cgColor
         videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         screenImageView.layer.addSublayer(videoLayer)
@@ -59,6 +61,8 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         videoLayer.borderWidth = 3
         videoLayer.borderColor = UIColor.white.cgColor
         videoLayer.frame = screenImageView.bounds
+        let margins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        contentView.frame = contentView.frame.inset(by: margins)
     }
     
     func visibleVideoHeight() -> CGFloat {
@@ -71,22 +75,19 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         return visibleVideoFrame.size.height
     }
     
+    
+    
     func setupImageView() {
         self.addSubview(screenImageView)
         screenImageView.translatesAutoresizingMaskIntoConstraints = false
-        screenImageView.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+        screenImageView.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
 
-        screenImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30).isActive = true
-//        screenImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30).isActive = true
-//        screenImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30).isActive = true
-        
-        screenImageView.widthAnchor.constraint(equalToConstant: UIScreen.width * 4/5).isActive = true
-        screenImageView.heightAnchor.constraint(equalToConstant: UIScreen.width * 4/5 * 2).isActive = true
-        
-        screenImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        screenImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
+        screenImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
+        screenImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        screenImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
     }
+ 
+    
     
     func setupDateLabel() {
         self.addSubview(dateLabel)
@@ -94,10 +95,9 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         dateLabel.font = UIFont(name: UIFont.AppleColorEmoji.colorEmoji.rawValue, size: 10)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.rightAnchor.constraint(equalTo: screenImageView.rightAnchor, constant: -15).isActive = true
-//        dateLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 60).isActive = true
         dateLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
-        dateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -25).isActive = true
+        dateLabel.bottomAnchor.constraint(equalTo: screenImageView.bottomAnchor, constant: -15).isActive = true
     }
     
     func setupLocationLabel() {
@@ -106,7 +106,6 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         locationLabel.font = UIFont(name: UIFont.AppleColorEmoji.colorEmoji.rawValue, size: 16)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.rightAnchor.constraint(equalTo: screenImageView.rightAnchor, constant: -15).isActive = true
-//        locationLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 60).isActive = true
         locationLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
 
         locationLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0).isActive = true

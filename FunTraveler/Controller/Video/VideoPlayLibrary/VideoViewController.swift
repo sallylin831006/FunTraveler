@@ -12,6 +12,7 @@ class VideoViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     
     private var videoDataSource: [Video] = []
+    private var index: Int = 0
 
     @IBOutlet var tableView: UITableView! {
         didSet {
@@ -21,7 +22,8 @@ class VideoViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        tableView.isPagingEnabled = true
+        
+        tableView.isPagingEnabled = true
 
         tableView.rowHeight = UITableView.automaticDimension
         let shotTableViewCellIdentifier = "ShotTableViewCell"
@@ -40,6 +42,7 @@ class VideoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -76,7 +79,11 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 60.0
+        return 65.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -89,6 +96,10 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         videoDataSource.count
@@ -98,11 +109,7 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        print("UIScreen.main.bounds.height", UIScreen.main.bounds.height)
-        print("view.safeAreaLayoutGuide.layoutFrame.height", view.safeAreaLayoutGuide.layoutFrame.height)
-        let heightOfnavigationBar = navigationController?.navigationBar.frame.height ?? 44
-        let heightOfTabBar = tabBarController?.tabBar.frame.height
-        return view.safeAreaLayoutGuide.layoutFrame.height - 60 - heightOfnavigationBar
+        return view.safeAreaLayoutGuide.layoutFrame.height - 65
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,10 +117,13 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "ShotTableViewCell", for: indexPath)
                 as? ShotTableViewCell else { return UITableViewCell() }
-        
+        self.index = indexPath.row
         cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
         
         cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
+//        cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
+//
+//        cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
 
         return cell
     }
