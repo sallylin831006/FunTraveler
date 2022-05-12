@@ -42,6 +42,10 @@ class VideoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        navigationItem.title = "動態"
+//        navigationController?.navigationBar.backgroundColor = .themeApricot
+//        self.navigationController?.hidesBarsOnSwipe = true
+
         navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
     }
@@ -97,9 +101,9 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         return headerView
     }
     
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        return nil
-//    }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         videoDataSource.count

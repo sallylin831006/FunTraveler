@@ -142,7 +142,7 @@ class InviteListViewController: UIViewController {
                 
             case .failure:
                 ProgressHUD.showFailure(text: "邀請失敗")
-                print("[InvitedVC] POST資料失敗！")
+                print("[InvitedVC] POST邀請失敗！")
             }
         })
     }
@@ -163,6 +163,11 @@ class InviteListViewController: UIViewController {
                 print("userSearchListResponse", userSearchListResponse)
                 
             case .failure:
+                guard KeyChainManager.shared.token != nil else {
+                    ProgressHUD.showFailure(text: "請先登入")
+                    return
+                }
+                ProgressHUD.showFailure(text: "搜尋失敗")
                 print("[InvitedVC] POST資料失敗！")
             }
         })
