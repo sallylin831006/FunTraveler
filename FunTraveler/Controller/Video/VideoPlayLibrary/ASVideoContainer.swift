@@ -11,11 +11,6 @@ class ASVideoContainer {
     var url: String
     var playOn: Bool {
         didSet {
-            if playOn == false {
-                print("playOn == false")
-                player.isMuted = true
-            }
-            
             player.isMuted = ASVideoPlayerController.sharedVideoPlayer.mute
             playerItem.preferredPeakBitRate = ASVideoPlayerController.sharedVideoPlayer.preferredPeakBitRate
             if playOn && playerItem.status == .readyToPlay {
@@ -23,7 +18,6 @@ class ASVideoContainer {
             }
             else{
                 player.pause()
-                player.isMuted = true
             }
         }
     }

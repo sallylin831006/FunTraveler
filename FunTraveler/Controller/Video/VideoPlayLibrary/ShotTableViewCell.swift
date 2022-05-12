@@ -39,7 +39,8 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         setupDateLabel()
         setupLocationLabel()
         screenImageView.layer.cornerRadius = 5
-        screenImageView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+//        screenImageView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        screenImageView.image = UIImage.asset(.imagePlaceholder)
         screenImageView.clipsToBounds = true
         screenImageView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
         screenImageView.layer.borderWidth = 0.5
