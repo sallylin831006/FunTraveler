@@ -21,7 +21,13 @@ class PlanCardTableViewCell: UITableViewCell {
     
     var trafficTime: Double = 1 {
         didSet {
-            trafficPickerView.timeTextField.text = "\(trafficTime)小時"
+            var showTrafficTime: String = ""
+            if trafficTime < 60 {
+                showTrafficTime = "\(Int(trafficTime))分鐘"
+            } else if trafficTime > 60 {
+                showTrafficTime = "\(Int(trafficTime)/60)小時\(Int(trafficTime) - Int(trafficTime/60)*60)分鐘"
+            }
+            trafficPickerView.timeTextField.text = showTrafficTime
             calculateTime()
         }
     }
@@ -34,9 +40,10 @@ class PlanCardTableViewCell: UITableViewCell {
     }
 
     private var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
-    
-    private var trafficTimes = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
-    
+    private var trafficTimes = ["0.5","1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
+
+//    private var trafficTimes = ["30分鐘", "1小時", "1小時30分鐘", "2小時", "2小時30分鐘", "3小時", "3小時30分鐘", "4小時", "4小時30分鐘", "5小時", "5小時30分鐘", "6小時"]
+
     var startTime: String = "" {
         didSet {
             startTimeLabel.text = startTime
@@ -98,9 +105,6 @@ class PlanCardTableViewCell: UITableViewCell {
             let date = try TimeManager.getDateFromString(startTime: startTime, duration: durationTime)
             let formatMinutes = String(format: "%02d", date.endMinutes)
             endTimeLabel.text = "\(date.endHours):\(formatMinutes)"
-
-//            endTimeClosure?("\(date.endHours):\(formatMinutes)")
-            
         } catch let wrongError {
             print("Error message: \(wrongError),Please add correct time!")
         }
@@ -111,12 +115,13 @@ class PlanCardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func layouCell(data: Schedule, index: Int) {
+    func layouCell(data: Schedule, index: Int, rearrangeTrafficTime: Double) {
         nameLabel.text = data.name
         addressLabel.text = data.address
         startTime = data.startTime
         durationTime = data.duration
-        trafficTime = data.trafficTime
+        trafficTime = rearrangeTrafficTime
+//        trafficTime = data.trafficTime
         orderLabel.text = String(index + 1)
     }
 
@@ -141,7 +146,7 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
         if pickerView.tag == 1 {
             return "\(times[row])小時"
         } else {
-            return "\(trafficTimes[row])小時"
+            return "\(trafficTimes[row])"
         }
         
     }
@@ -153,9 +158,10 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
             self.timePickerView.timeTextField.text = "\(durationTime)小時"
             
         } else {
-            guard let selectedTimes = Double(trafficTimes[row]) else { return }
-            trafficTime = selectedTimes
-            self.trafficPickerView.timeTextField.text = "\(selectedTimes)小時"
+            let selectedTimes = trafficTimes[row]
+            guard let selectedTime = Double(selectedTimes) else { return }
+            trafficTime = selectedTime
+            self.trafficPickerView.timeTextField.text = "\(trafficTime)"
         }
         
     }
