@@ -56,8 +56,8 @@ class CameraViewController: UIViewController {
         pickerController.delegate = self
 
         present(pickerController, animated: true)
-        let loadingView = LoadingView()
-        pickerController.view.layoutLoadingView(loadingView, pickerController.view)
+//        let loadingView = LoadingView()
+//        pickerController.view.layoutLoadingView(loadingView, pickerController.view)
     }
     
     private func showVideo(at url: URL) {

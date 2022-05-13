@@ -159,7 +159,7 @@ class PlanPickerViewController: UIViewController {
             switch result {
                 
             case .success(let coEditorResponse):
-                ProgressHUD.showSuccess(text: "成功加入")
+//                ProgressHUD.showSuccess(text: "成功加入")
                 print("coEditorResponse", coEditorResponse)
             case .failure:
                 ProgressHUD.showFailure(text: "新增失敗")
@@ -180,7 +180,6 @@ class PlanPickerViewController: UIViewController {
             case .success(let coEditorResponse):
                 print("coEditorResponse", coEditorResponse)
             case .failure:
-                ProgressHUD.showFailure(text: "刪除失敗")
                 print("postToDeleteEditor失敗！")
             }
         })
