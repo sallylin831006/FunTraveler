@@ -213,11 +213,6 @@ extension VideoViewController {
                 ProgressHUD.showSuccess(text: "已封鎖")
                 self?.fetchData()
 
-//                DispatchQueue.main.async {
-//                    self?.collectionView.deleteItems(at: [IndexPath(row: 0, section: index)])
-//                    self?.collectionView.reloadData()
-//                }
-
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
             }
@@ -258,18 +253,28 @@ extension VideoViewController: VideoWallHeaderViewDelegate {
         
         let userName = videoDataSource[index].user.name
         let blockController = UIAlertController(
-            title: "封鎖\(userName)",
-            message: "你不會再看到\(userName)的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
-        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
-            
+            title: "封鎖用戶或檢舉貼文",
+            message: "", preferredStyle: .alert)
+        
+        let blockAction = UIAlertAction(title: "封鎖此用戶", style: .destructive, handler: { (_) in
             self.postToBlockUser(index: index)
-            //self.tableView.deleteItems(at: [IndexPath(row: 0, section: index)])
+        })
+
+        let reportAction = UIAlertAction(title: "檢舉此動態", style: .destructive, handler: { (_) in
+            ProgressHUD.showSuccess(text: "收到您的檢舉，團隊將在24小時盡快內處理")
+        })
+        
+        let blockAndReportAction = UIAlertAction(title: "封鎖並檢舉此動態", style: .destructive, handler: { (_) in
+            ProgressHUD.showSuccess(text: "已封鎖該用戶，且團隊將在24小時盡快內處理您的檢舉")
+            self.postToBlockUser(index: index)
             
         })
 
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         blockController.addAction(blockAction)
+        blockController.addAction(reportAction)
+        blockController.addAction(blockAndReportAction)
         blockController.addAction(cancelAction)
         present(blockController, animated: true, completion: nil)
     }
