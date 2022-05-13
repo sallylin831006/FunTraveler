@@ -148,14 +148,16 @@ class PlanDetailViewController: UIViewController {
         // ADD SHARE BUTTON
         let shareButton = UIButton()
         shareButton.setTitleColor(.themeRed, for: .normal)
-        shareButton.setTitle("分享", for: .normal)
+
+        shareButton.setBackgroundImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
+        shareButton.tintColor = UIColor.themeApricot
         bottomView.addSubview(shareButton)
         shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
         
         shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.leadingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -70).isActive = true
+        shareButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -24).isActive = true
         shareButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: 0).isActive = true
-        shareButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         shareButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
     }

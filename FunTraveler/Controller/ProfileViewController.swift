@@ -135,13 +135,13 @@ class ProfileViewController: UIViewController {
     private func onShowLogin() {
         DispatchQueue.main.async {
             self.tableView.isHidden = true
+            guard let authVC = UIStoryboard.auth.instantiateViewController(
+                withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+            authVC.delegate = self
+            let navAuthVC = UINavigationController(rootViewController: authVC)
+            self.present(navAuthVC, animated: true, completion: nil)
         }
-        
-        guard let authVC = UIStoryboard.auth.instantiateViewController(
-            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-        authVC.delegate = self
-        let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: true, completion: nil)
+
     }
     
 }
