@@ -253,7 +253,7 @@ extension VideoViewController: VideoWallHeaderViewDelegate {
         
         let userName = videoDataSource[index].user.name
         let blockController = UIAlertController(
-            title: "封鎖用戶或檢舉貼文",
+            title: "封鎖用戶或檢舉動態",
             message: "", preferredStyle: .alert)
         
         let blockAction = UIAlertAction(title: "封鎖此用戶", style: .destructive, handler: { (_) in
