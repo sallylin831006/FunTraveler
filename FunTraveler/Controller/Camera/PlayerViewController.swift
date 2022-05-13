@@ -37,15 +37,19 @@ class PlayerViewController: UIViewController {
            textField.placeholder = "輸入地點"
             textField.keyboardType = UIKeyboardType.default
         }
-        let okAction = UIAlertAction(title: "確定", style: .default) { [unowned controller] _ in
+        let okAction = UIAlertAction(title: "確定發布", style: .default) { [unowned controller] _ in
             let locationText = controller.textFields?[0].text ?? ""
             self.saveVideoToPhotos(locationText: locationText)
            print(locationText)
         }
-        controller.addAction(okAction)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-//        dismiss(animated: true, completion: nil)
+        
+        
+        let cancelAction = UIAlertAction(title: "放棄", style: .destructive) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
         controller.addAction(cancelAction)
+        controller.addAction(okAction)
         present(controller, animated: true, completion: nil)
     }
     

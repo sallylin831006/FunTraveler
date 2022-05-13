@@ -47,13 +47,17 @@ class CameraViewController: UIViewController {
         pickerController.sourceType = sourceType
         pickerController.mediaTypes = [kUTTypeMovie as String]
         pickerController.videoQuality = .typeIFrame1280x720
-//        pickerController.videoMaximumDuration = TimeInterval(5.0)
+        pickerController.allowsEditing = true
+
+        pickerController.videoMaximumDuration = TimeInterval(10.0)
         if sourceType == .camera {
             pickerController.cameraDevice = .rear
         }
         pickerController.delegate = self
-        
+
         present(pickerController, animated: true)
+        let loadingView = LoadingView()
+        pickerController.view.layoutLoadingView(loadingView, pickerController.view)
     }
     
     private func showVideo(at url: URL) {
@@ -101,7 +105,7 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
                 let navPlayerViewController = UINavigationController(rootViewController: playerViewController)
                 guard let url = self.pickedURL else { return }
                 playerViewController.videoURL = url
-//                navPlayerViewController.modalPresentationStyle = .fullScreen
+                navPlayerViewController.modalPresentationStyle = .fullScreen
                 self.present(navPlayerViewController, animated: true)
                 
             }

@@ -284,27 +284,9 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: ExploreDetailTableViewCell.self), for: indexPath)
                 as? ExploreDetailTableViewCell else { return UITableViewCell() }
-        
-        cell.selectionStyle = .none
-        
-        cell.orderLabel.text = String(indexPath.row + 1)
-        cell.nameLabel.text = schedule[indexPath.row].name
-        cell.addressLabel.text = schedule[indexPath.row].address
-        cell.durationLabel.text = "停留時間：\(schedule[indexPath.row].duration)"
-        
-        if schedule[indexPath.row].images.isEmpty {
-            cell.tripImage.image = nil
-            cell.tripImage.backgroundColor = UIColor.themeApricotDeep
-        } else {
-            cell.tripImage.loadImage(schedule[indexPath.row].images.first, placeHolder: UIImage.asset(.imagePlaceholder))
-            cell.tripImage.contentMode = .scaleAspectFill
-        }
-        
-        if schedule[indexPath.row].description.isEmpty {
-            cell.storiesTextLabel.text = nil
-        } else {
-            cell.storiesTextLabel.text = schedule[indexPath.row].description
-        }
+                
+        let item = schedule[indexPath.row]
+        cell.layoutCell(data: item, index: indexPath.row)
         
         return cell
         
