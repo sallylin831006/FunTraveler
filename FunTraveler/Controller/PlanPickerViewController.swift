@@ -7,6 +7,7 @@
 
 import UIKit
 import PusherSwift
+import CoreLocation
 
 protocol PlanPickerViewControllerDelegate: AnyObject {
     func reloadCollectionView(_ collectionView: UICollectionView)
@@ -27,12 +28,7 @@ class PlanPickerViewController: UIViewController {
     var tripClosure: ((_ schedule: Trip) -> Void)?
 
     var myTripId: Int?
-    
-//    var tripId: Int? {
-//        didSet {
-////            fetchData(days: 1)
-//        }
-//    }
+
     var trip: Trip? {
         didSet {
             tableView.reloadData()
@@ -48,7 +44,7 @@ class PlanPickerViewController: UIViewController {
             }
             rearrangeTime()
             tableView.reloadData()
-            scheduleClosure?(schedule)
+            scheduleClosure?(schedule) //?????
             
             // scrollToBottom()
         }
@@ -339,8 +335,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
         tableView.separatorColor = .clear
-        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
-        
+        let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
+        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row, rearrangeTrafficTime: rearrangeTrafficTime)
+//        tripCell.trafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         tripCell.index = indexPath.row
         tripCell.delegate = self
                 
@@ -424,7 +421,10 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         var previousEndTime = ""
         for (index, schedule) in self.schedule.enumerated() {
             do {
-                let totalDuration = schedule.duration + schedule.trafficTime
+//                let totalDuration = schedule.duration + schedule.trafficTime
+                let distance = (calculateTrafficTime(index: index)/1000).ceiling(toInteger: 1)
+                let totalDuration = schedule.duration + distance/60
+
                 let date = try TimeManager.getDateFromString(startTime: schedule.startTime, duration: totalDuration)
                 
                 let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
@@ -446,6 +446,25 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
                 print("Error message: \(wrongError),Please add correct time!")
             }
         }
+
+    }
+    
+    func calculateTrafficTime(index: Int) -> Double {
+        let lastIndex = schedule.count - 1
+        if index == lastIndex {
+            return 0
+        }
+        // calculate time
+        let coordinate₀ = CLLocation(
+            latitude: schedule[index].position.lat,
+            longitude: schedule[index].position.long
+        )
+        
+        let coordinate₁ = CLLocation(
+            latitude: schedule[index+1].position.lat,
+            longitude: schedule[index+1].position.long
+        )
+        return coordinate₀.distance(from: coordinate₁)
     }
     
 }

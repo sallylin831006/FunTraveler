@@ -107,15 +107,14 @@ extension SearchViewController: SearchTableViewCellDelegate {
             return
             
         }
-        let newTrafficTime = calculateTrafficTime(index: indexPath.row)
-        scheduleArray[scheduleArray.endIndex-1].trafficTime = newTrafficTime
+//        let newTrafficTime = calculateTrafficTime(index: indexPath.row)
+//        scheduleArray[scheduleArray.endIndex-1].trafficTime = newTrafficTime
         scheduleArray.append(schedule)
         print("成功加入行程！！")
         
     }
     
     func calculateTrafficTime(index: Int) -> Double {
-
         if index == 0 {
             return 0
         }
@@ -125,18 +124,19 @@ extension SearchViewController: SearchTableViewCellDelegate {
         }
         // calculate time
         let coordinate₀ = CLLocation(
-            latitude: Double(searchData[index-1].geometry.location.lat),
-            longitude: Double(searchData[index-1].geometry.location.lat)
+            latitude: CLLocationDegrees(searchData[index-1].geometry.location.lat),
+            longitude: CLLocationDegrees(searchData[index-1].geometry.location.lng)
         )
         let coordinate₁ = CLLocation(
-            latitude: Double(searchData[index].geometry.location.lat),
-            longitude: Double(searchData[index].geometry.location.lat)
+            latitude: CLLocationDegrees(searchData[index].geometry.location.lat),
+            longitude: CLLocationDegrees(searchData[index].geometry.location.lng)
         )
 
         let distance = coordinate₀.distance(from: coordinate₁)/1000
         let carSpeed: Double = 60
         
-       return Double(distance.rounding(toDecimal: 2)/carSpeed)
+        return coordinate₀.distance(from: coordinate₁)
+//       return Double(distance.rounding(toDecimal: 2)/carSpeed)
     }
     
 }
