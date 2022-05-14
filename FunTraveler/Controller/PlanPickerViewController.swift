@@ -23,6 +23,9 @@ class PlanPickerViewController: UIViewController {
     
     var headerCollectionView: UICollectionView!
     
+    var currentdayClosure: ((_ currentday: Int) -> Void)?
+
+    
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
@@ -31,7 +34,7 @@ class PlanPickerViewController: UIViewController {
 
     var trip: Trip? {
         didSet {
-            tableView.reloadData()
+//            tableView.reloadData()
             guard let trip = trip else { return  }
             tripClosure?(trip)
         }
@@ -43,7 +46,7 @@ class PlanPickerViewController: UIViewController {
                 self.schedule[0].startTime = selectedDepartmentTimes
             }
             rearrangeTime()
-            tableView.reloadData()
+//            tableView.reloadData()
             scheduleClosure?(schedule) //?????
             
             // scrollToBottom()
@@ -130,14 +133,12 @@ class PlanPickerViewController: UIViewController {
     func postData(days: Int, isFinished: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
-        
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { result in
             
             switch result {
                 
-            case .success: break
-//                self.showLoadingView()
-                
+            case .success:
+                self.tableView.reloadData()
             case .failure:
 //                ProgressHUD.showFailure(text: "讀取失敗")
                 print("POST TRIP DETAIL API讀取資料失敗！")
@@ -213,7 +214,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 190.0
+        return 200.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -279,7 +280,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        70.0
+        0.0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -287,32 +288,31 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
-        footerView.scheduleButton.setTitle("+新增景點", for: .normal)
-
-        footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
+//        footerView.scheduleButton.setTitle("+新增景點", for: .normal)
+//        footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
         return footerView
     }
     
-    @objc func tapScheduleButton() {
-        
-        guard let searchVC = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
-        searchVC.scheduleArray = schedule
-        
-        if schedule.isEmpty {
-            searchVC.day = 1
-        } else {
-            searchVC.day = schedule[0].day
-        }
-        
-        searchVC.scheduleClosure = { [weak self] newSchedule in
-            self?.schedule = newSchedule
-            self?.postData(days: self!.currentDay, isFinished: false)
-        }
-        let navSearchVC = UINavigationController(rootViewController: searchVC)
-        self.present(navSearchVC, animated: true)
-        
-    }
+//    @objc func tapScheduleButton() {
+//
+//        guard let searchVC = storyboard?.instantiateViewController(
+//            withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
+//        searchVC.scheduleArray = schedule
+//
+//        if schedule.isEmpty {
+//            searchVC.day = 1
+//        } else {
+//            searchVC.day = schedule[0].day
+//        }
+//
+//        searchVC.scheduleClosure = { [weak self] newSchedule in
+//            self?.schedule = newSchedule
+//            self?.postData(days: self!.currentDay, isFinished: false)
+//        }
+//        let navSearchVC = UINavigationController(rootViewController: searchVC)
+//        self.present(navSearchVC, animated: true)
+//
+//    }
     // MARK: - Delete
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
@@ -335,9 +335,17 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
         tableView.separatorColor = .clear
+//        if isTrafficTimeSelfSelect {
+//            tripCell.trafficTime = currentSelectTrafficTimeArray[indexPath.row]
+//        } else {
+//            let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
+//            tripCell.trafficTime = rearrangeTrafficTime
+//        }
+        
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
-        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row, rearrangeTrafficTime: rearrangeTrafficTime)
-//        tripCell.trafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
+        tripCell.trafficTime = rearrangeTrafficTime
+        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
+        
         tripCell.index = indexPath.row
         tripCell.delegate = self
                 
@@ -379,6 +387,9 @@ extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate
 }
 
 extension PlanPickerViewController: TimePickerViewDelegate {
+    func tapOnTimePicker() {
+    }
+    
     func donePickerViewAction() {
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
         if !self.schedule.isEmpty {
@@ -400,6 +411,7 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
         postData(days: currentDay, isFinished: false)
         currentDay = index
+        currentdayClosure?(index)
         fetchData(days: index)
     }
     
@@ -414,7 +426,8 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         self.schedule[index].startTime = startTime
         self.schedule[index].duration = duration
         self.schedule[index].trafficTime = trafficTime
-        
+//        self.currentSelectTrafficTime = trafficTime
+//        self.isTrafficTimeSelfSelect = true
     }
     
     func rearrangeTime() {
@@ -446,7 +459,7 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
                 print("Error message: \(wrongError),Please add correct time!")
             }
         }
-
+        tableView.reloadData()
     }
     
     func calculateTrafficTime(index: Int) -> Double {
@@ -494,14 +507,7 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
         
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let last = max(numberOfFriends, 0) - 1
-//        if indexPath.item == last {
-//            // shareLink() 行為很奇怪要按很多下
-//        }
-        
-    }
+
     
     func shareLink() {
         let shareURl = URL(string: "https://game.dev.newideas.com.tw/")!

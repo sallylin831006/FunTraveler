@@ -115,12 +115,12 @@ class PlanCardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func layouCell(data: Schedule, index: Int, rearrangeTrafficTime: Double) {
+    func layouCell(data: Schedule, index: Int) {
         nameLabel.text = data.name
         addressLabel.text = data.address
         startTime = data.startTime
         durationTime = data.duration
-        trafficTime = rearrangeTrafficTime
+//        trafficTime = rearrangeTrafficTime
 //        trafficTime = data.trafficTime
         orderLabel.text = String(index + 1)
     }
@@ -168,6 +168,10 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
 }
 
 extension PlanCardTableViewCell: TimePickerViewDelegate {
+    func tapOnTimePicker() {
+        
+    }
+    
     func donePickerViewAction() {
         calculateTime()
         delegate?.updateTime(startTime: startTime, duration: durationTime, trafficTime: trafficTime, index: index)

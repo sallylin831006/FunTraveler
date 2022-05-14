@@ -14,13 +14,15 @@ class PlanDetailViewController: UIViewController {
     
     var trip: Trip?
     var currentDay: Int = 1
+    var testcurrentDay: Int = 1
 
     var schedules: [Schedule] = []
     
     var departureTime: String = ""
     var backTime: String = ""
     var tripTitle: String = ""
-    
+    private let label = UILabel()
+    private let mapView = GMSMapView()
     override func viewDidLoad() {
         super.viewDidLoad()
         addMap()
@@ -45,28 +47,9 @@ class PlanDetailViewController: UIViewController {
     
     @objc func backTap(_ sender: UIButton) {
         self.postToSaveData(isFinished: false)
-//        addAlert()
         
     }
-    
-//    func addAlert() {
-//        let alertController = UIAlertController(title: "確定要離開編輯嗎？", message: "記得儲存您的旅遊規劃！", preferredStyle: .alert)
-//        
-//        let backAction = UIAlertAction(title: "儲存", style: .default, handler: { (_) in
-//            self.postToSaveData(isFinished: false)
-//            
-//        })
-//        
-//        let cancelAction = UIAlertAction(title: "繼續編輯", style: .cancel, handler: { (_) in
-//        })
-//        
-//        alertController.addAction(backAction)
-//        alertController.addAction(cancelAction)
-//        
-//        present(alertController, animated: true, completion: nil)
-//        
-//    }
-    
+
     // MARK: - Action
     private func postToShareData(isFinished: Bool) {
         
@@ -103,6 +86,7 @@ class PlanDetailViewController: UIViewController {
         guard let tripId = myTripId else { return }
 
         let day = currentDay
+        print("postToSaveData", currentDay)
 //        let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
@@ -119,13 +103,34 @@ class PlanDetailViewController: UIViewController {
             }
         })
     }
+
+    // MARK: - POST Action
+    func postData(days: Int, isFinished: Bool) {
+        let tripProvider = TripProvider()
+        guard let tripId = myTripId else { return }
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: days, isFinished: isFinished, completion: { result in
+            
+            switch result {
+                
+            case .success:
+                print("[PlanDetail] POST成功")
+            case .failure:
+//                ProgressHUD.showFailure(text: "讀取失敗")
+                print("POST TRIP DETAIL API讀取資料失敗！")
+            }
+        })
+    }
+    
+    
     
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
+        planPickerViewController.currentdayClosure = { currentday in
+            self.testcurrentDay = currentday
+        }
         planPickerViewController.myTripId = myTripId
         planPickerViewController.currentDay = currentDay
-        
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
             self?.addMarker()
@@ -137,30 +142,72 @@ class PlanDetailViewController: UIViewController {
 
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
+
         
         // ADD BOTTOM VIEW
         let bottomView = UIView()
-        let height = UIScreen.height/14
+        let height = UIScreen.height/12
         bottomView.frame = CGRect(x: 0, y: UIScreen.height - height, width: UIScreen.width, height: height)
         bottomView.backgroundColor = UIColor.themeApricotDeep
+
         self.view.addSubview(bottomView)
         
         // ADD SHARE BUTTON
         let shareButton = UIButton()
-        shareButton.setTitleColor(.themeRed, for: .normal)
+//        shareButton.setTitleColor(.themeRed, for: .normal)
 
         shareButton.setBackgroundImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
-        shareButton.tintColor = UIColor.themeApricot
+        shareButton.tintColor = UIColor.themePink
         bottomView.addSubview(shareButton)
         shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
         
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -24).isActive = true
-        shareButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: 0).isActive = true
-        shareButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        shareButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        shareButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -10).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        //Add Schedule Button
+        let searchButton = UIButton()
+        bottomView.addSubview(searchButton)
+        
+        searchButton.backgroundColor = .themeRed
+        searchButton.layer.cornerRadius = CornerRadius.buttonCorner
+        searchButton.setTitle("+新增景點", for: .normal)
+        searchButton.tintColor = UIColor.themeApricotDeep
+        searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        searchButton.translatesAutoresizingMaskIntoConstraints = false
+
+        searchButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -10).isActive = true
+        searchButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor, constant: 0).isActive = true
+        searchButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        searchButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        searchButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
+    }
+    @objc func tapScheduleButton() {
+        
+        guard let searchVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
+        searchVC.scheduleArray = schedules
+        
+        if schedules.isEmpty {
+            searchVC.day = 1
+        } else {
+            searchVC.day = schedules[0].day
+        }
+        
+        searchVC.scheduleClosure = { [weak self] newSchedule in
+            self?.schedules = newSchedule
+            self?.postData(days: self!.testcurrentDay, isFinished: false)
+            
+        }
+        let navSearchVC = UINavigationController(rootViewController: searchVC)
+        self.present(navSearchVC, animated: true)
         
     }
+    
+    
+    
     @objc func tapToShare() {
         if schedules.isEmpty {
             ProgressHUD.showFailure(text: "不能有行程是空的唷")
@@ -168,13 +215,13 @@ class PlanDetailViewController: UIViewController {
         }
         postToShareData(isFinished: true)
     }
+  
     
-    func moveToSharePage() {
-        
-    }
     
-    let label = UILabel()
-    let mapView = GMSMapView()
+ }
+
+extension PlanDetailViewController {
+    
 
     func addMap() {
         mapView.frame = CGRect.init(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -240,5 +287,4 @@ class PlanDetailViewController: UIViewController {
         line.strokeWidth = 4.0
         line.map = mapView
     }
- }
-
+}
