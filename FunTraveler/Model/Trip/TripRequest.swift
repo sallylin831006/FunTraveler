@@ -85,6 +85,8 @@ enum TripRequest: STRequest {
                 "is_finished": isFinished
             ] as [String: Any]
             
+            print("postTrip BODY", body)
+            
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .updateTrip(_, _, let schedules, let isPrivate, let isPublish):

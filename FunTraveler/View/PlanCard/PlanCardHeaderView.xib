@@ -89,9 +89,9 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="7IJ-75-Um4"/>
                         </constraints>
-                        <color key="tintColor" name="themeRed"/>
+                        <color key="tintColor" name="themeApricotDeep"/>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system" title=""/>
+                        <buttonConfiguration key="configuration" style="plain" image="person.3.sequence.fill" catalog="system" title=""/>
                     </button>
                 </subviews>
                 <constraints>
@@ -106,6 +106,7 @@
                     <constraint firstItem="KfF-6A-O8s" firstAttribute="leading" secondItem="e9j-sr-FTg" secondAttribute="trailing" constant="4" id="hTb-Sb-Dxq"/>
                     <constraint firstItem="zyt-k1-DcS" firstAttribute="top" secondItem="45E-pd-iDp" secondAttribute="bottom" constant="10" id="imU-YS-yGc"/>
                     <constraint firstAttribute="trailing" secondItem="Fc0-vZ-WDa" secondAttribute="trailing" constant="20" id="j4T-TW-L09"/>
+                    <constraint firstItem="Fc0-vZ-WDa" firstAttribute="height" secondItem="KfF-6A-O8s" secondAttribute="height" multiplier="0.775" id="lC3-j9-7fa"/>
                     <constraint firstItem="zyt-k1-DcS" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="leh-kV-mi4"/>
                     <constraint firstItem="cot-6R-Mzr" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="nmA-py-Cw2"/>
                     <constraint firstAttribute="trailing" secondItem="45E-pd-iDp" secondAttribute="trailing" constant="20" id="nxN-w3-yjH"/>
@@ -127,12 +128,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="person.2.fill" catalog="system" width="128" height="80"/>
+        <image name="person.3.sequence.fill" catalog="system" width="128" height="58"/>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="themeRed">
-            <color red="0.82400000095367432" green="0.3919999897480011" blue="0.3880000114440918" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

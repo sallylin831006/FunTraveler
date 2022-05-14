@@ -9,6 +9,8 @@ import UIKit
 
 protocol TimePickerViewDelegate: AnyObject {
     func donePickerViewAction()
+    
+    func tapOnTimePicker()
 }
 
 class TimePickerView: UIView {
@@ -65,10 +67,14 @@ extension TimePickerView {
         timeTextField.layer.cornerRadius = 5
         
         timeTextField.textAlignment = .center
-
+        timeTextField.addTarget(self, action: #selector(tapOnPicker), for: .editingDidBegin)
         addSubview(timeTextField)
 
         layoutOfTimePickerView()
+    }
+    
+    @objc func tapOnPicker() {
+        delegate?.tapOnTimePicker()
     }
     
     @objc func donePicker() {

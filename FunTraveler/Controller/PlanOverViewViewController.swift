@@ -140,7 +140,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
                 as? PlanCardFooterView else { return nil }
         
         footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-        
+        footerView.scheduleButton.setTitle("+建立行程規劃", for: .normal)
         return footerView
     }
     
