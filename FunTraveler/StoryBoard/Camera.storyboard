@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2S3-Uf-jNW">
-                                <rect key="frame" x="107" y="210.5" width="200" height="175"/>
+                                <rect key="frame" x="107" y="230.5" width="200" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2S3-Uf-jNW" secondAttribute="height" multiplier="244:213" id="1dm-hs-YSA"/>
                                     <constraint firstAttribute="width" constant="200" id="hJ9-EA-8mf" userLabel="width = 200"/>
@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上傳影片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZj-RW-vtK">
-                                <rect key="frame" x="172" y="383" width="70" height="21"/>
+                                <rect key="frame" x="172" y="403" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -56,18 +56,35 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerBackgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="raH-i0-4vv">
+                                <rect key="frame" x="0.0" y="88" width="414" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="KjF-X7-XaU"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="拍立得" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99k-Po-Nnd">
+                                <rect key="frame" x="169" y="119" width="76" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" name="themeApricot"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="themeApricotDeep"/>
                         <constraints>
+                            <constraint firstItem="99k-Po-Nnd" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="8oq-bR-Cze"/>
                             <constraint firstItem="2S3-Uf-jNW" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="CNf-BQ-1CU"/>
                             <constraint firstItem="KOv-wB-QSa" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="Ldn-EN-0aB"/>
+                            <constraint firstItem="raH-i0-4vv" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="topMargin" id="S2j-id-rwY"/>
                             <constraint firstItem="SZj-RW-vtK" firstAttribute="top" secondItem="2S3-Uf-jNW" secondAttribute="bottom" constant="-2.5" id="cbe-b8-5Ax"/>
                             <constraint firstItem="KOv-wB-QSa" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="150" id="exG-Hj-xZo"/>
                             <constraint firstItem="SZj-RW-vtK" firstAttribute="centerX" secondItem="2S3-Uf-jNW" secondAttribute="centerX" id="nXp-MP-Jbo"/>
-                            <constraint firstItem="2S3-Uf-jNW" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-150" id="njl-dS-d0W"/>
+                            <constraint firstItem="2S3-Uf-jNW" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-130" id="njl-dS-d0W"/>
+                            <constraint firstItem="99k-Po-Nnd" firstAttribute="centerY" secondItem="raH-i0-4vv" secondAttribute="centerY" constant="-14" id="qm8-Ca-p6O"/>
                             <constraint firstItem="Byh-qZ-2GX" firstAttribute="top" secondItem="KOv-wB-QSa" secondAttribute="bottom" constant="21" id="rrQ-aa-WsE"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="raH-i0-4vv" secondAttribute="trailing" id="xff-ge-RRq"/>
                             <constraint firstItem="Byh-qZ-2GX" firstAttribute="centerX" secondItem="KOv-wB-QSa" secondAttribute="centerX" id="ySx-Um-xrQ"/>
+                            <constraint firstItem="raH-i0-4vv" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="zmK-wL-s0P"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oAI-Y0-0bU"/>
@@ -148,6 +165,10 @@
     <resources>
         <image name="albumImage" width="645.5999755859375" height="526.04998779296875"/>
         <image name="cameraImage" width="574.91998291015625" height="483.47000122070312"/>
+        <image name="headerBackgroundImage" width="828" height="211.71000671386719"/>
+        <namedColor name="themeApricot">
+            <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeApricotDeep">
             <color red="0.95300000905990601" green="0.91399997472763062" blue="0.84299999475479126" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

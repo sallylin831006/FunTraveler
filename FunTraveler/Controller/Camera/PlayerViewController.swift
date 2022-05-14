@@ -82,7 +82,7 @@ class PlayerViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
                 self.presentingViewController?.navigationController?.popViewController(animated: true)
                 if let tabBarController = self.presentingViewController as? UITabBarController {
-                    tabBarController.selectedIndex = 1
+                    tabBarController.selectedIndex = 3
                 }
             }
             
