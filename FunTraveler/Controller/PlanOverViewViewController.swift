@@ -9,6 +9,8 @@ import UIKit
 
 class PlanOverViewViewController: UIViewController {
     
+    private var startDateTextField: UITextField!
+    
     var tripData: [Trip] = [] {
         didSet {
             tableView.reloadData()
@@ -87,6 +89,25 @@ class PlanOverViewViewController: UIViewController {
             case .failure:
                 ProgressHUD.showFailure(text: "連線不穩")
                 print("deleteTrip API讀取資料失敗！")
+            }
+        })
+    }
+    
+    // MARK: - POST To Edit/Update Trip Info
+    func updateTripInfo(title: String, startDate: String, endDate: String, index: Int) {
+        let tripProvider = TripProvider()
+        let tripId = tripData[index].id
+        
+        tripProvider.updateTripInfo(tripId: tripId, title: title, startDate: startDate, endDate: endDate, completion: { [weak self] result in
+            
+            switch result {
+                
+            case .success:
+                ProgressHUD.showSuccess(text: "修改成功")
+                self?.fetchData()
+            case .failure:
+                ProgressHUD.showFailure(text: "修改失敗")
+                print("updateTripInfo 失敗！")
             }
         })
     }
@@ -205,10 +226,82 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             self.tripData.remove(at: index.row)
             
         }
-        return [deleteAction]
+        
+        let editAction = UITableViewRowAction(style: .normal, title: "編輯") { _, index in
+            self.showEditTextfield(index: index.row)
+//            tableView.isEditing = false
+//            updateTripInfo(title: String, startDate: String, endDate: String, index: Int)
+            
+        }
+        return [deleteAction, editAction]
     }
     
+    private func showEditTextfield(index: Int) {
+       
+        let controller = UIAlertController(title: "編輯行程資訊", message: "修改標題或天數", preferredStyle: .alert)
+        controller.addTextField { titleTextField in
+            titleTextField.placeholder = "修改標題"
+            titleTextField.keyboardType = UIKeyboardType.default
+        }
+        
+        controller.addTextField { startDateTextField in
+            startDateTextField.placeholder = "去程日期 yyyy-MM-dd"
+            startDateTextField.keyboardType = UIKeyboardType.numbersAndPunctuation
+            startDateTextField.delegate = self
+        }
+        
+        controller.addTextField { endDateTextField in
+            endDateTextField.placeholder = "回程日期 yyyy-MM-dd"
+            endDateTextField.keyboardType = UIKeyboardType.numbersAndPunctuation
+        }
+        
+        let okAction = UIAlertAction(title: "確定修改", style: .default) { [unowned controller] _ in
+            let title = controller.textFields?[0].text ?? ""
+            let startDate = controller.textFields?[1].text ?? ""
+            let endDate = controller.textFields?[2].text ?? ""
+
+            self.updateTripInfo(title: title, startDate: startDate, endDate: endDate, index: index)
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        controller.addAction(cancelAction)
+        controller.addAction(okAction)
+        present(controller, animated: true, completion: nil)
+    }
+    
+   
 }
+
+extension PlanOverViewViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        //Format Date of Birth dd-MM-yyyy
+
+        //initially identify your textfield
+
+        if textField == startDateTextField {
+
+            // check the chars length dd -->2 at the same time calculate the dd-MM --> 5
+            if (startDateTextField?.text?.count == 2) || (startDateTextField?.text?.count == 5) {
+                //Handle backspace being pressed
+                if !(string == "") {
+                    // append the text
+                    startDateTextField?.text = (startDateTextField?.text)! + "-"
+                }
+            }
+            // check the condition not exceed 9 chars
+            return !(textField.text!.count > 9 && (string.count ) > range.length)
+        }
+        else {
+            return true
+        }
+    }
+}
+
+
 
 extension PlanOverViewViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {

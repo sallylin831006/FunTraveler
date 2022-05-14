@@ -85,8 +85,7 @@ class PlanDetailViewController: UIViewController {
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
 
-        let day = currentDay
-        print("postToSaveData", currentDay)
+        let day = testcurrentDay
 //        let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
