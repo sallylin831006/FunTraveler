@@ -19,11 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KOv-wB-QSa">
-                                <rect key="frame" x="104" y="512" width="206" height="172"/>
+                                <rect key="frame" x="117" y="523" width="180" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="172" id="T2G-fX-G1j"/>
                                     <constraint firstAttribute="width" secondItem="KOv-wB-QSa" secondAttribute="height" multiplier="103:86" id="Uo3-ZX-Iap"/>
+                                    <constraint firstAttribute="width" constant="180" id="aeK-Az-FhB"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -33,10 +33,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2S3-Uf-jNW">
-                                <rect key="frame" x="85" y="191.5" width="244" height="213"/>
+                                <rect key="frame" x="107" y="210.5" width="200" height="175"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2S3-Uf-jNW" secondAttribute="height" multiplier="244:213" id="1dm-hs-YSA"/>
-                                    <constraint firstAttribute="width" constant="244" id="hJ9-EA-8mf"/>
+                                    <constraint firstAttribute="width" constant="200" id="hJ9-EA-8mf" userLabel="width = 200"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="" image="albumImage"/>
@@ -45,13 +45,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上傳影片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZj-RW-vtK">
-                                <rect key="frame" x="172" y="402" width="70" height="21"/>
+                                <rect key="frame" x="172" y="383" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="錄製影片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byh-qZ-2GX">
-                                <rect key="frame" x="172" y="705" width="70" height="21"/>
+                                <rect key="frame" x="172" y="694" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -71,6 +71,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oAI-Y0-0bU"/>
+                    <connections>
+                        <outlet property="pickVideoButton" destination="2S3-Uf-jNW" id="Vzc-d8-D0h"/>
+                        <outlet property="recordVideoButton" destination="KOv-wB-QSa" id="EL1-8w-neN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
