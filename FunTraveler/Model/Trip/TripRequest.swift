@@ -23,6 +23,9 @@ enum TripRequest: STRequest {
     
     case deleteTrip(token: String, tripId: Int)
     
+    case updateTripInfo(token: String, tripId: Int, title: String, startDate: String, endDate: String)
+
+    
     var headers: [String: String] {
         
         switch self {
@@ -33,8 +36,8 @@ enum TripRequest: STRequest {
                 .postTrip(let token, _, _, _, _),
                 .updateTrip(let token, _, _, _ , _),
                 .copyTrip(let token, _, _, _, _),
-                .deleteTrip(let token, _)
-            :
+                .deleteTrip(let token, _),
+                .updateTripInfo(let token, _, _, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -121,6 +124,17 @@ enum TripRequest: STRequest {
             ] as [String: Any]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            
+        case .updateTripInfo(_, _, let title, let startDate, let endDate):
+            
+            let body = [
+                "title": title,
+                "start_date": startDate,
+                "end_date": endDate
+            ]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        
         }
     }
     
@@ -135,6 +149,7 @@ enum TripRequest: STRequest {
         case .updateTrip: return STHTTPMethod.PATCH.rawValue
         case .copyTrip: return STHTTPMethod.POST.rawValue
         case .deleteTrip: return STHTTPMethod.DELETE.rawValue
+        case .updateTripInfo: return STHTTPMethod.PATCH.rawValue
 
         }
     }
@@ -161,7 +176,7 @@ enum TripRequest: STRequest {
         case .copyTrip:
             return "/api/v1/trips/duplicate"
             
-        case .deleteTrip(_, let tripId):
+        case .deleteTrip(_, let tripId), .updateTripInfo(_, let tripId, _, _, _):
             return "/api/v1/trips/\(tripId)"
             
         }
