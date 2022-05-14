@@ -58,11 +58,15 @@ class CameraViewController: UIViewController {
     
     
     @IBAction func recordVideo(_ sender: Any) {
+        let loadingView = LoadingView()
+        self.view.layoutLoadingView(loadingView, self.view)
         guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .camera)
     }
         
     @IBAction func pickVideo(_ sender: Any) {
+        let loadingView = LoadingView()
+        self.view.layoutLoadingView(loadingView, self.view)
         guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .savedPhotosAlbum)
     }
@@ -76,12 +80,16 @@ class CameraViewController: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-        navigationItem.title = "拍立得"
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+
+//        navigationItem.title = "拍立得"
         buttonAnimation()
     }
     
     private func buttonAnimation() {
-//        pickVideoButton.adjustsImageWhenHighlighted = false
+        pickVideoButton.adjustsImageWhenHighlighted = false
+        recordVideoButton.adjustsImageWhenHighlighted = false
+
         pickVideoButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 3,
           delay: 0,
@@ -119,8 +127,6 @@ class CameraViewController: UIViewController {
         pickerController.delegate = self
 
         present(pickerController, animated: true)
-//        let loadingView = LoadingView()
-//        pickerController.view.layoutLoadingView(loadingView, pickerController.view)
     }
     
     private func showVideo(at url: URL) {
