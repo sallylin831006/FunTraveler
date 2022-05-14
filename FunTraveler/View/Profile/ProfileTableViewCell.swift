@@ -25,7 +25,6 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userNameTextField: UITextField!
     
-    @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var numberOfFriendLabel: UILabel!
     
@@ -48,7 +47,6 @@ class ProfileTableViewCell: UITableViewCell {
         userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = CornerRadius.buttonCorner
         userImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        editButton.isHidden = true
         
         
         
@@ -68,7 +66,6 @@ class ProfileTableViewCell: UITableViewCell {
     
     
     @objc func editUserNameTextField(_ textField: UITextField) {
-        editButton.isHidden = false //NOT WORKING
         userNameTextField.isUserInteractionEnabled = true
 //        userNameTextField.addBottomBorder()
         
