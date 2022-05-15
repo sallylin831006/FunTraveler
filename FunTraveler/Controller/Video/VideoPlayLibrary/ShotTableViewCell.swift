@@ -49,7 +49,6 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         setupIconArray(numberOfIcon: 5)
         
         screenImageView.layer.cornerRadius = 5
-//        screenImageView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         screenImageView.image = UIImage.asset(.videoPlaceHolder)
         screenImageView.clipsToBounds = true
         screenImageView.layer.borderColor = UIColor.white.withAlphaComponent(0.3).cgColor
@@ -138,33 +137,34 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     }
     
     let indicatorView = UIView()
-    var iconViewArray: [UIImage] = []
+    var iconViewArray: [UIImage] = [UIImage(named: "blue_like")!,
+                                    UIImage(named: "red_heart")!,
+                                    UIImage(named: "surprised")!,
+                                    UIImage(named: "cry_laugh")!,
+                                    UIImage(named: "cry")!,
+                                    UIImage(named: "angry")!]
+    
     func setupIconArray(numberOfIcon: Int, iconImage: UIImage = UIImage.asset(.cameraNormal)!) {
-        for num in 0...numberOfIcon - 1 {
+        for num in 0...iconViewArray.count - 1{
             let iconView = UIImageView()
-            iconView.backgroundColor = .orange
+//            iconView.backgroundColor = .orange
+            iconView.image = iconViewArray[num]
+
 //            iconView.image = iconImage
 //            guard let image = iconView.image else { return }
 //            iconViewArray.append(iconView.image)
             let width: CGFloat = 25
-            let leading = UIScreen.width * 1/5 / 2 + 5
-            iconView.frame = CGRect(x: leading + CGFloat(num)*(width+5), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+            let leading = UIScreen.width * 1/5 / 2 + 10
+            iconView.frame = CGRect(x: leading + CGFloat(num)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
             self.addSubview(iconView)
             
             
-            let numberLabel = UILabel()
-            numberLabel.backgroundColor = .systemYellow
-
-            let labelWidth: CGFloat = 10
-            numberLabel.frame = CGRect(x: iconView.frame.width - 5, y: -5, width: labelWidth, height: labelWidth)
-            iconView.addSubview(numberLabel)
-            
-
-
-//             SET number Label
-//            indicatorView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-//            indicatorView.backgroundColor = .themePink
-//            self.insertSubview(indicatorView, at: 0)
+//            let numberLabel = UILabel()
+//            numberLabel.backgroundColor = .systemYellow
+//
+//            let labelWidth: CGFloat = 10
+//            numberLabel.frame = CGRect(x: iconView.frame.width - 5, y: -5, width: labelWidth, height: labelWidth)
+//            iconView.addSubview(numberLabel)
             
         }
     }

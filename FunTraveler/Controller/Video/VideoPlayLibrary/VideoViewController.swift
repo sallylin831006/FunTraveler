@@ -20,6 +20,58 @@ class VideoViewController: UIViewController {
             tableView.delegate = self
         }
     }
+    // MARK: - icon Animation
+    private var iconFrame: CGFloat = 0
+    let bgImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage())
+        return imageView
+    }()
+    
+    let iconsContainerView: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = .white
+
+        let iconHeight: CGFloat = 38
+        let padding: CGFloat = 6
+        
+        let images = [#imageLiteral(resourceName: "blue_like"), #imageLiteral(resourceName: "red_heart"), #imageLiteral(resourceName: "surprised"), #imageLiteral(resourceName: "cry_laugh"), #imageLiteral(resourceName: "cry"), #imageLiteral(resourceName: "angry")]
+        
+        let arrangedSubviews = images.map({ (image) -> UIView in
+            let imageView = UIImageView(image: image)
+            imageView.layer.cornerRadius = iconHeight / 2
+
+            imageView.isUserInteractionEnabled = true
+            return imageView
+
+        })
+        
+        let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
+        stackView.distribution = .fillEqually
+        
+        stackView.spacing = padding
+        stackView.layoutMargins = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        
+        containerView.addSubview(stackView)
+        
+        let numIcons = CGFloat(arrangedSubviews.count)
+        let width =  numIcons * iconHeight + (numIcons + 1) * padding
+        
+        containerView.frame = CGRect(x: 0, y: 0, width: width, height: iconHeight + 2 * padding)
+        containerView.layer.cornerRadius = containerView.frame.height / 2
+        
+        // shadow
+        containerView.layer.shadowColor = UIColor(white: 0.4, alpha: 0.4).cgColor
+        containerView.layer.shadowRadius = 8
+        containerView.layer.shadowOpacity = 0.5
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
+        stackView.frame = containerView.frame
+        
+        return containerView
+    }()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +92,10 @@ class VideoViewController: UIViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(closeView), name: NSNotification.Name("CloseView"), object: nil)
+        view.addSubview(bgImageView)
+        bgImageView.frame = view.frame
+        setupLongPressGesture()
+        
 
         let gesture = UITapGestureRecognizer(target: self, action: #selector(closeView(_:)))
         self.view.addGestureRecognizer(gesture)
@@ -100,6 +156,122 @@ class VideoViewController: UIViewController {
         ASVideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView, appEnteredFromBackground: true)
         stopVideo()
     }
+}
+
+// MARK: - Add icon animation
+extension VideoViewController {
+    fileprivate func setupLongPressGesture() {
+        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
+    }
+    
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            handleGestureBegan(gesture: gesture)
+        } else if gesture.state == .ended {
+            
+            switch iconFrame {
+            case 6.0:
+                onShowIcon(UIImage(named: "blue_like")!)
+            case 50.0:
+                onShowIcon(UIImage(named: "red_heart")!)
+            case 94.0:
+                onShowIcon(UIImage(named: "surprised")!)
+            case 138.0:
+                onShowIcon(UIImage(named: "cry_laugh")!)
+            case 182.0:
+                onShowIcon(UIImage(named: "cry")!)
+            case 226.0:
+                onShowIcon(UIImage(named: "angry")!)
+            default:
+                onShowIcon(UIImage(named: "blue_like")!)
+            }
+        
+            
+            // clean up the animation
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                let stackView = self.iconsContainerView.subviews.first
+                stackView?.subviews.forEach({ (imageView) in
+                    imageView.transform = .identity
+                })
+                
+                self.iconsContainerView.transform = self.iconsContainerView.transform.translatedBy(x: 0, y: 50)
+                self.iconsContainerView.alpha = 0
+                
+            }, completion: { (_) in
+                self.iconsContainerView.removeFromSuperview()
+            })
+            
+            
+        } else if gesture.state == .changed {
+            handleGestureChanged(gesture: gesture)
+        }
+    }
+    
+    fileprivate func handleGestureChanged(gesture: UILongPressGestureRecognizer) {
+        let pressedLocation = gesture.location(in: self.iconsContainerView)
+//        print(pressedLocation)
+        
+        let fixedYLocation = CGPoint(x: pressedLocation.x, y: self.iconsContainerView.frame.height / 2)
+        
+        let hitTestView = iconsContainerView.hitTest(fixedYLocation, with: nil)
+        
+        if hitTestView is UIImageView {
+            
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                
+                let stackView = self.iconsContainerView.subviews.first
+                stackView?.subviews.forEach({ (imageView) in
+                    imageView.transform = .identity
+                })
+                
+                hitTestView?.transform = CGAffineTransform(translationX: 0, y: -50)
+                guard let hitTestView = hitTestView else { return }
+                self.iconFrame = hitTestView.frame.minX
+                
+            })
+        }
+    }
+    
+    private func onShowIcon(_ image: UIImage) {
+        let iconView = UIImageView()
+        iconView.image = image
+        let iconWidth: CGFloat = 100
+        iconView.frame = CGRect(x: UIScreen.width/2 - iconWidth/2, y: UIScreen.height/2 - iconWidth/2, width: iconWidth, height: iconWidth)
+        self.view.addSubview(iconView)
+        iconView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 3.0,
+          options: .allowUserInteraction,
+          animations: { [weak self] in
+            iconView.transform = .identity
+          },
+          completion: {_ in
+            iconView.isHidden = true  }
+        )
+    }
+    
+    fileprivate func handleGestureBegan(gesture: UILongPressGestureRecognizer) {
+        view.addSubview(iconsContainerView)
+        
+        let pressedLocation = gesture.location(in: self.view)
+        
+        // transformation of the red box
+        let centeredX = (view.frame.width - iconsContainerView.frame.width) / 2
+        
+        iconsContainerView.alpha = 0
+        self.iconsContainerView.transform = CGAffineTransform(translationX: centeredX, y: pressedLocation.y)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            self.iconsContainerView.alpha = 1
+            self.iconsContainerView.transform = CGAffineTransform(translationX: centeredX, y: pressedLocation.y - self.iconsContainerView.frame.height)
+        })
+    }
+    
+    override var prefersStatusBarHidden: Bool { return true }
+
 }
 
 extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
@@ -164,7 +336,7 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
 extension VideoViewController: ShotTableViewCellDelegate {
 
     func detectDoubleClick(_ index: Int) {
-        print("detectDoubleClick")
+//        print("detectDoubleClick")
 //        guard let ratingVC = storyboard?.instantiateViewController(
 //            withIdentifier: StoryboardCategory.ratingVC) as? RatingViewController else { return }
 //        ratingVC.delegate = self
@@ -173,14 +345,14 @@ extension VideoViewController: ShotTableViewCellDelegate {
         
 //        ratingView.stickView(ratingView, self.view)
         
-        self.view.addSubview(ratingView)
-        ratingView.translatesAutoresizingMaskIntoConstraints = false
-        ratingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        ratingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        ratingView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-
-        ratingView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        ratingView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+//        self.view.addSubview(ratingView)
+//        ratingView.translatesAutoresizingMaskIntoConstraints = false
+//        ratingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        ratingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        ratingView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//
+//        ratingView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//        ratingView.heightAnchor.constraint(equalToConstant: 180).isActive = true
 
     }
     
