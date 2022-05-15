@@ -33,7 +33,6 @@ class ASVideoContainer {
         playOn = false
         
         if playOn == false {
-            print("playOn == false")
             player.isMuted = true
         }
     }

@@ -150,6 +150,8 @@
 		3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */; };
 		3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */; };
 		3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */; };
+		3AED9024282FCD6D00CA4D43 /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED9023282FCD6D00CA4D43 /* RatingViewController.swift */; };
+		3AED902628307EC300CA4D43 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED902528307EC300CA4D43 /* RatingView.swift */; };
 		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
 		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
 		3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9E280C1203008029D7 /* ExploreRequest.swift */; };
@@ -313,6 +315,8 @@
 		3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditRequest.swift; sourceTree = "<group>"; };
 		3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditProvider.swift; sourceTree = "<group>"; };
 		3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewConttoller.swift; sourceTree = "<group>"; };
+		3AED9023282FCD6D00CA4D43 /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		3AED902528307EC300CA4D43 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3AF4DC9E280C1203008029D7 /* ExploreRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRequest.swift; sourceTree = "<group>"; };
@@ -360,6 +364,8 @@
 				3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */,
 				3A041EBF282BAED40034BFDD /* VideoHeaderView.xib */,
 				3A041EC1282BAEE10034BFDD /* VideoHeaderView.swift */,
+				3AED9023282FCD6D00CA4D43 /* RatingViewController.swift */,
+				3AED902528307EC300CA4D43 /* RatingView.swift */,
 			);
 			path = VideoPlayLibrary;
 			sourceTree = "<group>";
@@ -1131,8 +1137,10 @@
 				3A40D36B2817880500A7BF51 /* CommentTableViewCell.swift in Sources */,
 				3AB6D6462827798400193902 /* WebViewController.swift in Sources */,
 				3A0C3CF1281B554A006632AC /* FriendsObject.swift in Sources */,
+				3AED902628307EC300CA4D43 /* RatingView.swift in Sources */,
 				3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */,
 				3A73527D2801802A00B4D8D3 /* SegmentControlView.swift in Sources */,
+				3AED9024282FCD6D00CA4D43 /* RatingViewController.swift in Sources */,
 				3A185C2228043A52004F5BB3 /* ExploreOverViewTableViewCell.swift in Sources */,
 				3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */,
 				3A40D372281790D800A7BF51 /* CommentFooterView.swift in Sources */,
