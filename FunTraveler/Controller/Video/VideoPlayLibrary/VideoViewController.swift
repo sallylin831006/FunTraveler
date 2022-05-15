@@ -13,7 +13,7 @@ class VideoViewController: UIViewController {
     
     private var videoDataSource: [Video] = []
     private var index: Int = 0
-
+    private let ratingView = RatingView()
     @IBOutlet var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -37,15 +37,37 @@ class VideoViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.appEnteredFromBackground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(closeView), name: NSNotification.Name("CloseView"), object: nil)
+
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(closeView(_:)))
+        self.view.addGestureRecognizer(gesture)
+        ratingView.addGestureRecognizer(gesture)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+
+       
                 
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        print("上滑動")
+        ratingView.removeFromSuperview()
+    }
+    
+    @objc private func closeView(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        ratingView.removeFromSuperview()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationItem.title = "動態"
-//        navigationController?.navigationBar.backgroundColor = .themeApricot
-//        self.navigationController?.hidesBarsOnSwipe = true
-
         navigationController?.setNavigationBarHidden(true, animated: animated)
         fetchData()
     }
@@ -76,6 +98,7 @@ class VideoViewController: UIViewController {
     
     @objc func appEnteredFromBackground() {
         ASVideoPlayerController.sharedVideoPlayer.pausePlayeVideosFor(tableView: tableView, appEnteredFromBackground: true)
+        stopVideo()
     }
 }
 
@@ -125,10 +148,8 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
         
         cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
-//        cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
-//
-//        cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
-
+        cell.delegate = self
+        
         return cell
     }
     
@@ -137,26 +158,57 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
             ASVideoPlayerController.sharedVideoPlayer.removeLayerFor(cell: videoCell)
         }
     }
+
 }
 
-//extension VideoViewController {
-//    // MARK: - GET Videos
-//    private func fetchData() {
-//        
-//        let videoProvider = VideoProvider()
-//        videoProvider.fetchVideo(completion: { [weak self] result in
-//            switch result {
-//                
-//            case .success(let videoData):
-//                self?.videoDataSource = videoData
-//                self?.tableView.reloadData()
-//                self?.pausePlayeVideos()
-//            case .failure:
-//                print("[CameraVC] GET video失敗！")
-//            }
-//        })
-//    }
-//}
+extension VideoViewController: ShotTableViewCellDelegate {
+
+    func detectDoubleClick(_ index: Int) {
+        print("detectDoubleClick")
+//        guard let ratingVC = storyboard?.instantiateViewController(
+//            withIdentifier: StoryboardCategory.ratingVC) as? RatingViewController else { return }
+//        ratingVC.delegate = self
+//        addChild(ratingVC)
+//        view.addSubview(ratingVC.view)
+        
+//        ratingView.stickView(ratingView, self.view)
+        
+        self.view.addSubview(ratingView)
+        ratingView.translatesAutoresizingMaskIntoConstraints = false
+        ratingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        ratingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        ratingView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+
+        ratingView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        ratingView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+
+    }
+    
+    
+}
+
+extension VideoViewController: RatingViewControllerDelegate {
+    func passingIncon(_ icon: UIImageView) {
+        let iconView = UIImageView()
+        iconView.image = UIImage.asset(.collectSelected)
+        iconView.centerView(iconView, self.view, width: 100, height: 100)
+        self.view.addSubview(iconView)
+        iconView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 1,
+                       delay: 0,
+                       usingSpringWithDamping: 0.2,
+                       initialSpringVelocity: 3.0,
+          options: .allowUserInteraction,
+          animations: { [weak self] in
+            iconView.transform = .identity
+          },
+          completion: {_ in
+            iconView.isHidden = true  }
+        )
+    }
+
+}
+
 extension VideoViewController {
     // MARK: - GET Videos
     private func fetchData() {

@@ -40,6 +40,68 @@
             </objects>
             <point key="canvasLocation" x="903" y="117"/>
         </scene>
+        <!--Rating View Controller-->
+        <scene sceneID="qoY-Rr-tan">
+            <objects>
+                <viewController storyboardIdentifier="RatingViewController" id="gwh-MT-ajv" customClass="RatingViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hrt-Tr-REO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="Pes-y9-Mov">
+                                <rect key="frame" x="16" y="398" width="382" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="49T-6s-tOI">
+                                        <rect key="frame" x="0.0" y="0.0" width="78.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="heart.fill" catalog="system" title=""/>
+                                        <connections>
+                                            <action selector="tabOnLikeButton:" destination="gwh-MT-ajv" eventType="touchUpInside" id="zUA-ld-tuT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQ1-4e-aHD">
+                                        <rect key="frame" x="101.5" y="0.0" width="78" height="22"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="" image="hand.thumbsup.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapOnThumbsUpIcon:" destination="gwh-MT-ajv" eventType="touchUpInside" id="kMm-Qt-bC8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jCu-1h-Nwu">
+                                        <rect key="frame" x="202.5" y="0.0" width="78.5" height="22"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="" image="hand.thumbsdown.fill" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3e-CH-GWc">
+                                        <rect key="frame" x="304" y="0.0" width="78" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="shareplay" catalog="system"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="OHm-Uq-3Cf"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MWG-sH-6oQ"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Pes-y9-Mov" firstAttribute="centerY" secondItem="hrt-Tr-REO" secondAttribute="centerY" id="Vni-Iz-i8L"/>
+                            <constraint firstItem="Pes-y9-Mov" firstAttribute="leading" secondItem="MWG-sH-6oQ" secondAttribute="leading" constant="16" id="cP0-Z0-ykI"/>
+                            <constraint firstAttribute="trailing" secondItem="Pes-y9-Mov" secondAttribute="trailing" constant="16" id="gVB-X0-KjY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="angeryButton" destination="jCu-1h-Nwu" id="hqi-2e-c14"/>
+                        <outlet property="cryButton" destination="g3e-CH-GWc" id="7RC-Ca-bU6"/>
+                        <outlet property="likeButton" destination="49T-6s-tOI" id="9TV-8d-KAa"/>
+                        <outlet property="thumbsUpIcon" destination="fQ1-4e-aHD" id="ZBA-6g-7t4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="D6a-rt-Hdb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1689.8550724637682" y="116.51785714285714"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="iw1-SD-bjc">
             <objects>
@@ -60,6 +122,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="hand.thumbsdown.fill" catalog="system" width="128" height="121"/>
+        <image name="hand.thumbsup.fill" catalog="system" width="128" height="121"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="shareplay" catalog="system" width="128" height="73"/>
         <namedColor name="themeApricot">
             <color red="1" green="0.9570000171661377" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

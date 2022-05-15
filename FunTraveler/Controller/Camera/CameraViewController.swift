@@ -30,25 +30,6 @@ class CameraViewController: UIViewController {
     
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         buttonAnimation()
-//        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            
-//            switch swipeGesture.direction {
-//            case .right:
-//                buttonAnimation()
-//                print("Swiped right")
-//            case .down:
-//                buttonAnimation()
-//                print("Swiped down")
-//            case .left:
-//                buttonAnimation()
-//                print("Swiped left")
-//            case .up:
-//                buttonAnimation()
-//                print("Swiped up")
-//            default:
-//                break
-//            }
-//        }
     }
  
     @IBOutlet weak var pickVideoButton: UIButton!

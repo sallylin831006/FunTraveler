@@ -7,13 +7,20 @@
 
 import UIKit
 import AVFoundation
+
+protocol ShotTableViewCellDelegate: AnyObject {
+    func detectDoubleClick(_ index: Int)
+}
+
+
 class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
+    weak var delegate: ShotTableViewCellDelegate?
     
     let screenImageView =  UIImageView()
     
     private let locationLabel = UILabel()
     private let dateLabel = UILabel()
-  
+    private var index: Int = 0
     var playerController: ASVideoPlayerController?
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
     var videoURL: String? {
@@ -26,6 +33,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     }
     
     func layoutCell(data: Video, index: Int) {
+        self.index = index
         locationLabel.text = data.location
         dateLabel.text = data.createdTime
     }
@@ -38,6 +46,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         setupImageView()
         setupDateLabel()
         setupLocationLabel()
+        setupIconArray(numberOfIcon: 5)
         
         screenImageView.layer.cornerRadius = 5
 //        screenImageView.backgroundColor = UIColor.white.withAlphaComponent(0.3)
@@ -49,6 +58,22 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         screenImageView.layer.addSublayer(videoLayer)
         selectionStyle = .none
+        
+        let doubleTapped = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
+        doubleTapped.numberOfTapsRequired = 2
+        addGestureRecognizer(doubleTapped)
+        
+        let oneTapped = UITapGestureRecognizer(target: self, action: #selector(oneTapped))
+        oneTapped.numberOfTapsRequired = 1
+        addGestureRecognizer(oneTapped)
+    }
+    
+    @objc func doubleTapped() {
+        delegate?.detectDoubleClick(index)
+    }
+    
+    @objc func oneTapped() {
+//        print("點了一下")
     }
     
     func configureCell(videoUrl: String?) {
@@ -110,6 +135,38 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         locationLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
 
         locationLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0).isActive = true
+    }
+    
+    let indicatorView = UIView()
+    var iconViewArray: [UIImage] = []
+    func setupIconArray(numberOfIcon: Int, iconImage: UIImage = UIImage.asset(.cameraNormal)!) {
+        for num in 0...numberOfIcon - 1 {
+            let iconView = UIImageView()
+            iconView.backgroundColor = .orange
+//            iconView.image = iconImage
+//            guard let image = iconView.image else { return }
+//            iconViewArray.append(iconView.image)
+            let width: CGFloat = 25
+            let leading = UIScreen.width * 1/5 / 2 + 5
+            iconView.frame = CGRect(x: leading + CGFloat(num)*(width+5), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+            self.addSubview(iconView)
+            
+            
+            let numberLabel = UILabel()
+            numberLabel.backgroundColor = .systemYellow
+
+            let labelWidth: CGFloat = 10
+            numberLabel.frame = CGRect(x: iconView.frame.width - 5, y: -5, width: labelWidth, height: labelWidth)
+            iconView.addSubview(numberLabel)
+            
+
+
+//             SET number Label
+//            indicatorView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+//            indicatorView.backgroundColor = .themePink
+//            self.insertSubview(indicatorView, at: 0)
+            
+        }
     }
     
 }
