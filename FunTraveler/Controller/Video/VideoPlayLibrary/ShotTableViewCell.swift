@@ -21,6 +21,36 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     private let locationLabel = UILabel()
     private let dateLabel = UILabel()
     private var index: Int = 0
+    private var iconViewArray: [UIImage] = []
+    
+    
+    private func switchIcon(_ type: Int) -> UIImage {
+        switch type {
+
+        case 1:
+            return UIImage(named: "blue_like")!
+        case 2:
+            return UIImage(named: "red_heart")!
+        case 3:
+            return UIImage(named: "surprised")!
+        case 4:
+            return UIImage(named: "cry_laugh")!
+        case 5:
+            return  UIImage(named: "cry")!
+        case 6:
+            return  UIImage(named: "angry")!
+        default:
+            return UIImage()
+        }
+        
+    }
+    
+//    private var iconViewArray: [UIImage] = [UIImage(named: "blue_like")!,
+//                                    UIImage(named: "red_heart")!,
+//                                    UIImage(named: "surprised")!,
+//                                    UIImage(named: "cry_laugh")!,
+//                                    UIImage(named: "cry")!,
+//                                    UIImage(named: "angry")!]
     var playerController: ASVideoPlayerController?
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
     var videoURL: String? {
@@ -36,6 +66,13 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         self.index = index
         locationLabel.text = data.location
         dateLabel.text = data.createdTime
+//        data.ratings.type
+        
+        for type in  data.ratings.type {
+            var icon = switchIcon(type)
+            iconViewArray.append(icon)
+        }
+        setupIconArray()
     }
     
     override func awakeFromNib() {
@@ -46,7 +83,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         setupImageView()
         setupDateLabel()
         setupLocationLabel()
-        setupIconArray(numberOfIcon: 5)
+        
         
         screenImageView.layer.cornerRadius = 5
         screenImageView.image = UIImage.asset(.videoPlaceHolder)
@@ -137,35 +174,19 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     }
     
     let indicatorView = UIView()
-    var iconViewArray: [UIImage] = [UIImage(named: "blue_like")!,
-                                    UIImage(named: "red_heart")!,
-                                    UIImage(named: "surprised")!,
-                                    UIImage(named: "cry_laugh")!,
-                                    UIImage(named: "cry")!,
-                                    UIImage(named: "angry")!]
     
-    func setupIconArray(numberOfIcon: Int, iconImage: UIImage = UIImage.asset(.cameraNormal)!) {
-        for num in 0...iconViewArray.count - 1{
+    
+    func setupIconArray(iconImage: UIImage = UIImage.asset(.cameraNormal)!) {
+        for (index, iconImage) in iconViewArray.enumerated() {
             let iconView = UIImageView()
 //            iconView.backgroundColor = .orange
-            iconView.image = iconViewArray[num]
+            iconView.image = iconImage
 
-//            iconView.image = iconImage
-//            guard let image = iconView.image else { return }
-//            iconViewArray.append(iconView.image)
             let width: CGFloat = 25
             let leading = UIScreen.width * 1/5 / 2 + 10
-            iconView.frame = CGRect(x: leading + CGFloat(num)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
             self.addSubview(iconView)
-            
-            
-//            let numberLabel = UILabel()
-//            numberLabel.backgroundColor = .systemYellow
-//
-//            let labelWidth: CGFloat = 10
-//            numberLabel.frame = CGRect(x: iconView.frame.width - 5, y: -5, width: labelWidth, height: labelWidth)
-//            iconView.addSubview(numberLabel)
-            
+
         }
     }
     
