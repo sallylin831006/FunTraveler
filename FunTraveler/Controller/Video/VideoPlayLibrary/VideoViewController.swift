@@ -157,8 +157,6 @@ extension VideoViewController: ShotTableViewCellDelegate {
             case 6.0:
                 onShowIcon(UIImage(named: "blue_like")!)
                 postLikeVideo(type: 1, index: index)
-                print("index", index)
-//                postLikeVideo(type: 1, index: indexOfSection-1)
             case 50.0:
                 postLikeVideo(type: 2, index: index)
                 onShowIcon(UIImage(named: "red_heart")!)
@@ -309,8 +307,6 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
             withIdentifier: "ShotTableViewCell", for: indexPath)
                 as? ShotTableViewCell else { return UITableViewCell() }
         self.indexOfSection = indexPath.section
-        print("Cell section:", indexPath.section)
-
         cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
         
         cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
@@ -326,31 +322,6 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
 
 }
 
-//extension VideoViewController: ShotTableViewCellDelegate {
-//
-//    func detectDoubleClick(_ index: Int) {
-//        print("detectDoubleClick")
-//        guard let ratingVC = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.ratingVC) as? RatingViewController else { return }
-//        ratingVC.delegate = self
-//        addChild(ratingVC)
-//        view.addSubview(ratingVC.view)
-        
-//        ratingView.stickView(ratingView, self.view)
-        
-//        self.view.addSubview(ratingView)
-//        ratingView.translatesAutoresizingMaskIntoConstraints = false
-//        ratingView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        ratingView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        ratingView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//
-//        ratingView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        ratingView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-//
-//    }
-//
-//
-//}
 
 extension VideoViewController: RatingViewControllerDelegate {
     func passingIncon(_ icon: UIImageView) {
@@ -439,24 +410,18 @@ extension VideoViewController {
     // MARK: - POST Like Video
     private func postLikeVideo(type: Int, index: Int) {
         let videoProvider = VideoProvider()
-        if index < 0 {
-            return
-        }
         let videoId = videoDataSource[index].id
-        print("videoId", videoId, "indexOfSection", index)
+
         videoProvider.postLikeVideo(videoId: videoId, type: type, completion: { [weak self] result in
 
             switch result {
 
             case .success(let ratingResponse):
                 DispatchQueue.main.async {
-//                    self?.videoDataSource[index].ratings.type = []
                     self?.videoDataSource[index].ratings.type = ratingResponse.type
-                    print("ratingResponse.type", ratingResponse.type)
-//                    self?.tableView.reloadData()
-//                    self?.fetchData()
-//                    let indexPath = IndexPath(item: index, section: 0)
-//                    self?.tableView.reloadRows(at: [indexPath], with: .none)
+
+                    let sectionIndex = IndexSet(integer: index)
+                    self?.tableView.reloadSections(sectionIndex, with: .none)
                 }
                 
             case .failure:
