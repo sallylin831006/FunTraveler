@@ -57,39 +57,36 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
             videoLayer.isHidden = videoURL == nil
         }
     }
+    private var iconViewImage: [UIImageView] = []
     
     func layoutCell(data: Video, index: Int) {
         self.index = index
         locationLabel.text = data.location
         dateLabel.text = data.createdTime
-//
-//        iconViewArray = []
-//        for type in  data.ratings.type {
-//            let icon = switchIcon(type)
-//            iconViewArray.append(icon)
-//        }
-//        print("iconViewArray count\(iconViewArray.count):", iconViewArray)
-//        
-//        var iconViewImage: [UIImageView] = []
-//
-//        for image in iconViewImage {
-//            image.removeFromSuperview()
-//        }
-//        iconViewImage = [UIImageView]()
-//        
-//        iconView.removeFromSuperview()
-//        for (index, iconImage) in iconViewArray.enumerated() {
-//            let iconView = UIImageView()
-//            iconView.image = iconImage
-//
-//            let width: CGFloat = 25
-//            let leading = UIScreen.width * 1/5 / 2 + 10
-//            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
-//            
-//           
-//            self.addSubview(iconView)
-//            iconViewImage.append(iconView)
-//        }
+
+        iconViewArray = []
+        for type in  data.ratings.type {
+            let icon = switchIcon(type)
+            iconViewArray.append(icon)
+        }
+    
+        for image in iconViewImage {
+            image.removeFromSuperview()
+        }
+        iconViewImage = [UIImageView]()
+        
+        iconView.removeFromSuperview()
+        for (index, iconImage) in iconViewArray.enumerated() {
+            let iconView = UIImageView()
+            iconView.image = iconImage
+
+            let width: CGFloat = 25
+            let leading = UIScreen.width * 1/5 / 2 + 10
+            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+           
+            self.addSubview(iconView)
+            iconViewImage.append(iconView)
+        }
 
     }
     
