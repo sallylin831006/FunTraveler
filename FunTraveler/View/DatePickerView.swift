@@ -63,20 +63,7 @@ extension DatePickerView {
     }
     
     func layoutOfPicker() {
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        datePicker.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        
-        datePicker.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0).isActive = true
-        
-        datePicker.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
-        
-        datePicker.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
-
-        datePicker.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
-
-        datePicker.heightAnchor.constraint(equalToConstant: self.bounds.height).isActive = true
+        datePicker.stickView(datePicker, self)
     }
     
 }

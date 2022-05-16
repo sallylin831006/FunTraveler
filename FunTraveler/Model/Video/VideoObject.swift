@@ -13,15 +13,26 @@ struct Videos: Codable {
 
 struct Video: Codable {
     var user: VideoUser
+    var id: Int
     var url: String
     var location: String
+    var ratings: Rating
     var createdTime: String
     
     enum CodingKeys: String, CodingKey {
-        case user, url, location
+        case user, id, url, location, ratings
         case createdTime = "created_at"
        
     }
+}
+
+struct RatingData: Codable {
+    var ratings: Rating
+}
+
+struct Rating: Codable {
+    var total: Int
+    var type: [Int]
 }
 
 struct VideoUser: Codable {

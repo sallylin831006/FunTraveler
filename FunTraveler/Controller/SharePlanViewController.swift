@@ -201,12 +201,22 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func moveToPage(tabIndex: Int) {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
         
-        if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
-            tabBarController.selectedIndex = tabIndex
-            tabBarController.tabBar.isHidden = false
+        if self.presentingViewController?.presentingViewController == nil {
+            dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
+            if let tabBarController = self.presentingViewController as? UITabBarController {
+                tabBarController.selectedIndex = tabIndex
+                tabBarController.tabBar.isHidden = false
+            }
+        } else {
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            if let tabBarController = self.presentingViewController?.presentingViewController as? UITabBarController {
+                tabBarController.selectedIndex = tabIndex
+                tabBarController.tabBar.isHidden = false
+            }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

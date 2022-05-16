@@ -136,7 +136,10 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
+        guard KeyChainManager.shared.token != nil else {
+            self.onShowLogin()
+            return nil
+        }
         guard let userId = KeyChainManager.shared.userId else { return nil}
         guard let userIdNumber = Int(userId) else { return nil}
         if userIdNumber == self.commentData[indexPath.row].user.id {
@@ -153,29 +156,50 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 self.blockAction(index: indexPath.row)
                 completionHandler(true)
             }
-            return UISwipeActionsConfiguration(actions: [blockAction])
+            
+            let reportAction = UIContextualAction(style: .normal, title: "檢舉") { (_, _, completionHandler) in
+                self.reportAction(index: indexPath.row)
+                completionHandler(true)
+            }
+
+            return UISwipeActionsConfiguration(actions: [blockAction, reportAction])
         }
     }
     
     func blockAction(index: Int) {
-        let userName = commentData[index].user.name
+//        let userName = commentData[index].user.name
+
         let blockController = UIAlertController(
-            title: "封鎖\(userName)",
-            message: "你不會再看到\(userName)的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
-        let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
+            title: "封鎖用戶",
+            message: "", preferredStyle: .alert)
+        let blockAction = UIAlertAction(title: "封鎖此用戶", style: .destructive, handler: { (_) in
             self.postToBlockUser(index: index)
             self.deleteData(index: index)
-            ProgressHUD.showSuccess(text: "已封鎖")
             self.commentData.remove(at: index)
-//            self.tableView.reloadData()
             
         })
-        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         blockController.addAction(blockAction)
         blockController.addAction(cancelAction)
         present(blockController, animated: true, completion: nil)
+    }
+    
+    func reportAction(index: Int) {
+        let userName = commentData[index].user.name
+
+        let reportController = UIAlertController(
+            title: "檢舉留言",
+            message: "", preferredStyle: .alert)
+        let reportAction = UIAlertAction(title: "檢舉此留言", style: .destructive, handler: { (_) in
+            ProgressHUD.showSuccess(text: "收到您的檢舉，團隊將在24小時盡快內處理")
+            
+        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        reportController.addAction(reportAction)
+        reportController.addAction(cancelAction)
+        present(reportController, animated: true, completion: nil)
     }
 
 }
@@ -272,7 +296,7 @@ extension CommentViewController {
             switch result {
                 
             case .success(let blockResponse):
-                print("blockResponse", blockResponse)
+                ProgressHUD.showSuccess(text: "已封鎖")
                 
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")

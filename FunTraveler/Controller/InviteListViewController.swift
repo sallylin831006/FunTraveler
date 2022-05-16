@@ -16,7 +16,7 @@ class InviteListViewController: UIViewController {
     }
     
     private var isSearchUser: Bool = false
-    
+    private let alertView = AlertLoginView()
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -55,13 +55,11 @@ class InviteListViewController: UIViewController {
     }
     let alertLoginView = AlertLoginView()
     private func setupAlertLoginView() {
-        
+        alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看好友邀請"
-        self.view.addSubview(alertLoginView)
-        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
-        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        alertLoginView.centerView(alertLoginView, view)
+
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
         alertLoginView.addGestureRecognizer(imageTapGesture)
     }
@@ -109,12 +107,7 @@ class InviteListViewController: UIViewController {
                 self?.isSearchUser = false
                 self?.inviteData = inviteData.data
                 if inviteData.data.isEmpty {
-                    let alertView = AlertLoginView()
-                    alertView.alertLabel.text = "目前尚無好友邀請"
-                    self?.view.addSubview(alertView)
-                    alertView.translatesAutoresizingMaskIntoConstraints = false
-                    alertView.centerXAnchor.constraint(equalTo: self!.view.centerXAnchor).isActive = true
-                    alertView.centerYAnchor.constraint(equalTo: self!.view.centerYAnchor).isActive = true
+                    self?.setupAlertView()
                 }
                 self?.tableView.reloadData()
             case .failure:
@@ -122,6 +115,13 @@ class InviteListViewController: UIViewController {
                 print("[InvitedVC] GET資料失敗！")
             }
         })
+    }
+    
+    func setupAlertView() {
+        alertView.isHidden = false
+        alertView.alertLabel.text = "目前尚無好友邀請"
+        
+        alertView.centerView(alertView, view)
     }
     
 
@@ -138,7 +138,7 @@ class InviteListViewController: UIViewController {
                 
             case .failure:
                 ProgressHUD.showFailure(text: "邀請失敗")
-                print("[InvitedVC] POST資料失敗！")
+                print("[InvitedVC] POST邀請失敗！")
             }
         })
     }
@@ -146,7 +146,7 @@ class InviteListViewController: UIViewController {
     // MARK: - POST To Search User DATA
     private func postToSearchUser(text: String) {
         let userProvider = UserProvider()
-        
+        if text == "" { return }
         userProvider.postToSearchUser(text: text, completion: { [weak self] result in
             
             switch result {
@@ -159,7 +159,12 @@ class InviteListViewController: UIViewController {
                 print("userSearchListResponse", userSearchListResponse)
                 
             case .failure:
-                print("[InvitedVC] GET資料失敗！")
+                guard KeyChainManager.shared.token != nil else {
+                    ProgressHUD.showFailure(text: "請先登入")
+                    return
+                }
+                ProgressHUD.showFailure(text: "搜尋失敗")
+                print("[InvitedVC] POST資料失敗！")
             }
         })
     }
@@ -225,14 +230,17 @@ extension InviteListViewController: InviteListTableViewCellDelegate {
 
 extension InviteListViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        alertView.isHidden = true
         searchController.searchBar.resignFirstResponder()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        alertView.isHidden = true
         searchController.searchBar.resignFirstResponder()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        alertView.isHidden = true
         postToSearchUser(text: searchText)
         if searchText.isEmpty {
             fetchData()
@@ -241,6 +249,7 @@ extension InviteListViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        setupAlertView()
         fetchData()
     }
 }

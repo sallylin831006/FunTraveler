@@ -216,7 +216,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         return UIContextMenuConfiguration(identifier: nil,
                                           previewProvider: nil,
                                           actionProvider: { _ in
-            
+            guard KeyChainManager.shared.token != nil else {
+                self.onShowLogin()
+                return nil
+            }
             guard let userId = KeyChainManager.shared.userId else { return nil}
             guard let userIdNumber = Int(userId) else { return nil}
             if userIdNumber == self.exploreData[indexPath.row].user.id {
@@ -231,7 +234,24 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 self.exploreData.remove(at: indexPath.row)
                 ProgressHUD.showSuccess(text: "已封鎖")
             }
-            return UIMenu(title: "", children: [blockAction])
+            
+            let reportAction =
+            UIAction(title: NSLocalizedString("檢舉此貼文", comment: ""),
+                     image: UIImage(systemName: "minus.circle"),
+                     attributes: .destructive) { action in
+                ProgressHUD.showSuccess(text: "收到您的檢舉，團隊將在24小時盡快內處理")
+            }
+            
+            let blockAndReportAction =
+            UIAction(title: NSLocalizedString("封鎖並檢舉此貼文", comment: ""),
+                     image: UIImage(systemName: "minus.circle"),
+                     attributes: .destructive) { action in
+                self.postToBlockUser(index: indexPath.row)
+                self.exploreData.remove(at: indexPath.row)
+                ProgressHUD.showSuccess(text: "已封鎖該用戶，且團隊將在24小時盡快內處理您的檢舉")
+            }
+            
+            return UIMenu(title: "", children: [blockAction, reportAction, blockAndReportAction])
         })
     }
     
@@ -307,10 +327,8 @@ extension ExploreViewController {
     private func setupAlertView() {
         alertView.isHidden = false
         alertView.alertLabel.text = "查無資料"
-        self.view.addSubview(alertView)
-        alertView.translatesAutoresizingMaskIntoConstraints = false
-        alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        alertView.centerView(alertView, view)
     }
     
     // MARK: - POST TO Like

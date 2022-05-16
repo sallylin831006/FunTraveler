@@ -113,6 +113,11 @@ extension RegisterViewController {
         
         userProvider.postToRegister(
             email: email, password: password, name: name) {
+                self.userRegisterEmailClosure?(email)
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
                 ProgressHUD.showSuccess(text: "註冊成功")
             } failure: { error in
                 switch error {
