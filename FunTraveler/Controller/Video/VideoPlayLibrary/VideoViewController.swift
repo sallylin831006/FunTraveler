@@ -383,8 +383,8 @@ extension VideoViewController {
                 DispatchQueue.main.async {
                     self?.videoDataSource[index].ratings.type = ratingResponse.type
 
-                    let sectionIndex = IndexSet(integer: index)
-                    self?.tableView.reloadSections(sectionIndex, with: .none)
+//                    let sectionIndex = IndexSet(integer: index)
+//                    self?.tableView.reloadSections(sectionIndex, with: .none)
                 }
                 
             case .failure:

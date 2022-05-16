@@ -95,9 +95,9 @@ class SharePlanViewController: UIViewController {
     
     func addSwitchButton() {
         let switchButton = UIButton()
-        switchButton.frame = CGRect(x: UIScreen.width-50, y: 100, width: 30, height: 30)
-        switchButton.backgroundColor = .systemYellow
-        switchButton.setTitle("⇋", for: .normal)
+        switchButton.frame = CGRect(x: UIScreen.width-55, y: 70, width: 40, height: 40)
+        switchButton.setBackgroundImage(UIImage(systemName: "arrow.left.arrow.right.circle"), for: .normal)
+        switchButton.tintColor = UIColor.white
         self.view.addSubview(switchButton)
         
         switchButton.addTarget(target, action: #selector(tapSwitchButton), for: .touchUpInside)
