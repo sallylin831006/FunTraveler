@@ -12,7 +12,7 @@ class VideoViewController: UIViewController {
     var refreshControl: UIRefreshControl!
     
     private var videoDataSource: [Video] = []
-    private var index: Int = 0
+    private var indexOfSection: Int = 0
     private let ratingView = RatingView()
     @IBOutlet var tableView: UITableView! {
         didSet {
@@ -89,39 +89,12 @@ class VideoViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.appEnteredFromBackground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
-
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(closeView), name: NSNotification.Name("CloseView"), object: nil)
+ 
         view.addSubview(bgImageView)
         bgImageView.frame = view.frame
-        setupLongPressGesture()
-        
+              
+    }
 
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(closeView(_:)))
-        self.view.addGestureRecognizer(gesture)
-        ratingView.addGestureRecognizer(gesture)
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
-        swipeDown.direction = .down
-        self.view.addGestureRecognizer(swipeDown)
-        
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
-        swipeUp.direction = .up
-        self.view.addGestureRecognizer(swipeUp)
-
-       
-                
-    }
-    
-    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
-        print("上滑動")
-        ratingView.removeFromSuperview()
-    }
-    
-    @objc private func closeView(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        ratingView.removeFromSuperview()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -160,11 +133,22 @@ class VideoViewController: UIViewController {
 
 // MARK: - Add icon animation
 extension VideoViewController {
-    fileprivate func setupLongPressGesture() {
-        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
+//    fileprivate func setupLongPressGesture() {
+//        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
+//    }
+
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+
     }
     
-    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+    
+    override var prefersStatusBarHidden: Bool { return true }
+
+}
+
+extension VideoViewController: ShotTableViewCellDelegate {
+
+    func detectDoubleClick(_ index: Int, gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
             handleGestureBegan(gesture: gesture)
         } else if gesture.state == .ended {
@@ -172,18 +156,26 @@ extension VideoViewController {
             switch iconFrame {
             case 6.0:
                 onShowIcon(UIImage(named: "blue_like")!)
+                postLikeVideo(type: 1, index: index)
+                print("index", index)
+//                postLikeVideo(type: 1, index: indexOfSection-1)
             case 50.0:
+                postLikeVideo(type: 2, index: index)
                 onShowIcon(UIImage(named: "red_heart")!)
             case 94.0:
+                postLikeVideo(type: 3, index: index)
                 onShowIcon(UIImage(named: "surprised")!)
             case 138.0:
+                postLikeVideo(type: 4, index: index)
                 onShowIcon(UIImage(named: "cry_laugh")!)
             case 182.0:
+                postLikeVideo(type: 5, index: index)
                 onShowIcon(UIImage(named: "cry")!)
             case 226.0:
+                postLikeVideo(type: 6, index: index)
                 onShowIcon(UIImage(named: "angry")!)
             default:
-                onShowIcon(UIImage(named: "blue_like")!)
+                UIImage()
             }
         
             
@@ -210,7 +202,7 @@ extension VideoViewController {
     fileprivate func handleGestureChanged(gesture: UILongPressGestureRecognizer) {
         let pressedLocation = gesture.location(in: self.iconsContainerView)
 //        print(pressedLocation)
-        
+
         let fixedYLocation = CGPoint(x: pressedLocation.x, y: self.iconsContainerView.frame.height / 2)
         
         let hitTestView = iconsContainerView.hitTest(fixedYLocation, with: nil)
@@ -270,9 +262,9 @@ extension VideoViewController {
         })
     }
     
-    override var prefersStatusBarHidden: Bool { return true }
-
+    
 }
+
 
 extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
     // MARK: - Section Header
@@ -316,12 +308,13 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "ShotTableViewCell", for: indexPath)
                 as? ShotTableViewCell else { return UITableViewCell() }
-        self.index = indexPath.row
+        self.indexOfSection = indexPath.section
+        print("Cell section:", indexPath.section)
+
         cell.layoutCell(data: videoDataSource[indexPath.section], index: indexPath.section)
         
         cell.configureCell(videoUrl: videoDataSource[indexPath.section].url)
         cell.delegate = self
-        
         return cell
     }
     
@@ -333,9 +326,9 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
 
 }
 
-extension VideoViewController: ShotTableViewCellDelegate {
-
-    func detectDoubleClick(_ index: Int) {
+//extension VideoViewController: ShotTableViewCellDelegate {
+//
+//    func detectDoubleClick(_ index: Int) {
 //        print("detectDoubleClick")
 //        guard let ratingVC = storyboard?.instantiateViewController(
 //            withIdentifier: StoryboardCategory.ratingVC) as? RatingViewController else { return }
@@ -353,11 +346,11 @@ extension VideoViewController: ShotTableViewCellDelegate {
 //
 //        ratingView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 //        ratingView.heightAnchor.constraint(equalToConstant: 180).isActive = true
-
-    }
-    
-    
-}
+//
+//    }
+//
+//
+//}
 
 extension VideoViewController: RatingViewControllerDelegate {
     func passingIncon(_ icon: UIImageView) {
@@ -437,6 +430,35 @@ extension VideoViewController {
                 ProgressHUD.showSuccess(text: "已封鎖")
                 self?.fetchData()
 
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+            }
+        })
+    }
+    
+    // MARK: - POST Like Video
+    private func postLikeVideo(type: Int, index: Int) {
+        let videoProvider = VideoProvider()
+        if index < 0 {
+            return
+        }
+        let videoId = videoDataSource[index].id
+        print("videoId", videoId, "indexOfSection", index)
+        videoProvider.postLikeVideo(videoId: videoId, type: type, completion: { [weak self] result in
+
+            switch result {
+
+            case .success(let ratingResponse):
+                DispatchQueue.main.async {
+//                    self?.videoDataSource[index].ratings.type = []
+                    self?.videoDataSource[index].ratings.type = ratingResponse.type
+                    print("ratingResponse.type", ratingResponse.type)
+//                    self?.tableView.reloadData()
+//                    self?.fetchData()
+//                    let indexPath = IndexPath(item: index, section: 0)
+//                    self?.tableView.reloadRows(at: [indexPath], with: .none)
+                }
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
             }

@@ -26,6 +26,10 @@ struct Video: Codable {
     }
 }
 
+struct RatingData: Codable {
+    var ratings: Rating
+}
+
 struct Rating: Codable {
     var total: Int
     var type: [Int]
