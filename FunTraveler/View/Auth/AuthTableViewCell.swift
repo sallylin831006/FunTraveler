@@ -122,12 +122,6 @@ extension AuthTableViewCell: ASAuthorizationControllerPresentationContextProvidi
 
 extension AuthTableViewCell {
     func layoutOfSignInWithApple() {
-        siginView.addSubview(authorizationAppleIDButton)
-        authorizationAppleIDButton.translatesAutoresizingMaskIntoConstraints = false
-        authorizationAppleIDButton.centerXAnchor.constraint(equalTo: siginView.centerXAnchor).isActive = true
-        authorizationAppleIDButton.centerYAnchor.constraint(equalTo: siginView.centerYAnchor).isActive = true
-        authorizationAppleIDButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        authorizationAppleIDButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        
+        authorizationAppleIDButton.centerViewWithSize(authorizationAppleIDButton, siginView, width: 300, height: 44)
     }
 }

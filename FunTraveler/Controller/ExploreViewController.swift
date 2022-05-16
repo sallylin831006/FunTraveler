@@ -327,10 +327,8 @@ extension ExploreViewController {
     private func setupAlertView() {
         alertView.isHidden = false
         alertView.alertLabel.text = "查無資料"
-        self.view.addSubview(alertView)
-        alertView.translatesAutoresizingMaskIntoConstraints = false
-        alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        alertView.centerView(alertView, view)
     }
     
     // MARK: - POST TO Like

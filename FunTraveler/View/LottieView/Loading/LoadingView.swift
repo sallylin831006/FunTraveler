@@ -32,14 +32,7 @@ class LoadingView: UIView {
     }
     
     private func setupAnimationView() {
-        
-        addSubview(loadingView)
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        loadingView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        loadingView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        loadingView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        loadingView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
+        loadingView.stickView(loadingView, self)
     }
     
     private func lottieSetting() {

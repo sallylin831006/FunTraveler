@@ -13,7 +13,7 @@ class VideoViewController: UIViewController {
     
     private var videoDataSource: [Video] = []
     private var indexOfSection: Int = 0
-    private let ratingView = RatingView()
+
     @IBOutlet var tableView: UITableView! {
         didSet {
             tableView.dataSource = self
@@ -131,20 +131,6 @@ class VideoViewController: UIViewController {
     }
 }
 
-// MARK: - Add icon animation
-extension VideoViewController {
-//    fileprivate func setupLongPressGesture() {
-//        view.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
-//    }
-
-    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
-
-    }
-    
-    
-    override var prefersStatusBarHidden: Bool { return true }
-
-}
 
 extension VideoViewController: ShotTableViewCellDelegate {
 
@@ -173,7 +159,7 @@ extension VideoViewController: ShotTableViewCellDelegate {
                 postLikeVideo(type: 6, index: index)
                 onShowIcon(UIImage(named: "angry")!)
             default:
-                UIImage()
+                onShowIcon(UIImage(named: "blue_like")!)
             }
         
             
@@ -318,29 +304,6 @@ extension VideoViewController: UITableViewDelegate, UITableViewDataSource  {
         if let videoCell = cell as? ASAutoPlayVideoLayerContainer, let _ = videoCell.videoURL {
             ASVideoPlayerController.sharedVideoPlayer.removeLayerFor(cell: videoCell)
         }
-    }
-
-}
-
-
-extension VideoViewController: RatingViewControllerDelegate {
-    func passingIncon(_ icon: UIImageView) {
-        let iconView = UIImageView()
-        iconView.image = UIImage.asset(.collectSelected)
-        iconView.centerView(iconView, self.view, width: 100, height: 100)
-        self.view.addSubview(iconView)
-        iconView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        UIView.animate(withDuration: 1,
-                       delay: 0,
-                       usingSpringWithDamping: 0.2,
-                       initialSpringVelocity: 3.0,
-          options: .allowUserInteraction,
-          animations: { [weak self] in
-            iconView.transform = .identity
-          },
-          completion: {_ in
-            iconView.isHidden = true  }
-        )
     }
 
 }

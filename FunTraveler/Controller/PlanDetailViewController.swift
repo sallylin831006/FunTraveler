@@ -175,12 +175,8 @@ class PlanDetailViewController: UIViewController {
         searchButton.setTitle("+新增景點", for: .normal)
         searchButton.tintColor = UIColor.themeApricotDeep
         searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        searchButton.translatesAutoresizingMaskIntoConstraints = false
-
-        searchButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -10).isActive = true
-        searchButton.centerXAnchor.constraint(equalTo: bottomView.centerXAnchor, constant: 0).isActive = true
-        searchButton.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        searchButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        searchButton.centerViewWithSize(searchButton, bottomView, width: 250, height: 35, centerXconstant: 0, centerYconstant: -10)
         searchButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
     }
     @objc func tapScheduleButton() {

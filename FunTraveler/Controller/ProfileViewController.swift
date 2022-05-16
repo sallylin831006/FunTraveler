@@ -66,10 +66,8 @@ class ProfileViewController: UIViewController {
     private func setupAlertLoginView() {
         alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看個人頁"
-        self.view.addSubview(alertLoginView)
-        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
-        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        alertLoginView.centerView(alertLoginView, view)
         
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
         alertLoginView.addGestureRecognizer(imageTapGesture)

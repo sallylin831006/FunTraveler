@@ -148,16 +148,9 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     
     func setupImageView() {
         self.addSubview(screenImageView)
-        screenImageView.translatesAutoresizingMaskIntoConstraints = false
-        screenImageView.widthAnchor.constraint(equalToConstant: UIScreen.width * 4/5).isActive = true
-        screenImageView.heightAnchor.constraint(equalToConstant: UIScreen.width * 4/5 * 1.8).isActive = true
-        screenImageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        screenImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//        screenImageView.topAnchor.constraint(equalTo: topAnchor, constant: 50).isActive = true
-//
-//        screenImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50).isActive = true
-//        screenImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40).isActive = true
-//        screenImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40).isActive = true
+        let width = UIScreen.width * 4/5
+        let height = width * 1.8
+        screenImageView.centerViewWithSize(screenImageView, self, width: width, height: height)
     }
  
     
@@ -176,7 +169,6 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     func setupLocationLabel() {
         self.addSubview(locationLabel)
         locationLabel.textAlignment = .right
-//        locationLabel.font = UIFont(name: UIFont.AppleColorEmoji.colorEmoji.rawValue, size: 16)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.rightAnchor.constraint(equalTo: screenImageView.rightAnchor, constant: -20).isActive = true
         locationLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
