@@ -30,6 +30,9 @@ class VideoHeaderView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.contentView.backgroundColor = .themePink?.withAlphaComponent(0.1)
+//        self.contentView.backgroundColor = .themeApricotDeep?.withAlphaComponent(0.7)
+
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true

@@ -11,11 +11,13 @@ enum VideoRequest: STRequest {
     
     case getVideo(token: String)
     
+    case postVideoLike(token: String, videoId: Int, type: Int)
+    
     var headers: [String: String] {
         
         switch self {
             
-        case .getVideo(let token):
+        case .getVideo(let token), .postVideoLike(let token, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
@@ -31,6 +33,15 @@ enum VideoRequest: STRequest {
             
         case .getVideo: return nil
             
+        case .postVideoLike(_, _, let type):
+            
+            let body = [
+                "type": type,
+            ]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+        
+            
         }
     }
     var method: String {
@@ -38,7 +49,8 @@ enum VideoRequest: STRequest {
         switch self {
             
         case .getVideo : return STHTTPMethod.GET.rawValue
-            
+        case .postVideoLike : return STHTTPMethod.POST.rawValue
+
         }
     }
     
@@ -48,7 +60,8 @@ enum VideoRequest: STRequest {
             
         case .getVideo:
             return "/api/v1/videos"
-            
+        case .postVideoLike(_, let videoId, _):
+            return "/api/v1/videos/\(videoId)/rating"
         }
         
     }

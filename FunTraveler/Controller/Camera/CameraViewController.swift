@@ -18,14 +18,36 @@ class CameraViewController: UIViewController {
         super.viewDidLoad()
         setupActivityIndicator()
         activityIndicator.isHidden = true
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(respondToSwipeGesture))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
     }
     
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        buttonAnimation()
+    }
+ 
+    @IBOutlet weak var pickVideoButton: UIButton!
+    
+   
+    @IBOutlet weak var recordVideoButton: UIButton!
+    
+    
     @IBAction func recordVideo(_ sender: Any) {
+        let loadingView = LoadingView()
+        self.view.layoutLoadingView(loadingView, self.view)
         guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .camera)
     }
         
     @IBAction func pickVideo(_ sender: Any) {
+        let loadingView = LoadingView()
+        self.view.layoutLoadingView(loadingView, self.view)
         guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .savedPhotosAlbum)
     }
@@ -39,7 +61,37 @@ class CameraViewController: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
-        navigationItem.title = "拍立得"
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+
+//        navigationItem.title = "拍立得"
+        buttonAnimation()
+    }
+    
+    private func buttonAnimation() {
+        pickVideoButton.adjustsImageWhenHighlighted = false
+        recordVideoButton.adjustsImageWhenHighlighted = false
+
+        pickVideoButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 3,
+          delay: 0,
+          usingSpringWithDamping: 0.1,
+          initialSpringVelocity: 3.0,
+          options: .allowUserInteraction,
+          animations: { [weak self] in
+            self?.pickVideoButton.transform = .identity
+          },
+          completion: nil)
+        
+        recordVideoButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 3,
+                       delay: 0.05,
+                       usingSpringWithDamping: 0.1,
+                       initialSpringVelocity: 3.0,
+          options: .allowUserInteraction,
+          animations: { [weak self] in
+            self?.recordVideoButton.transform = .identity
+          },
+          completion: nil)
     }
     
     private func pickVideo(from sourceType: UIImagePickerController.SourceType) {
@@ -47,11 +99,14 @@ class CameraViewController: UIViewController {
         pickerController.sourceType = sourceType
         pickerController.mediaTypes = [kUTTypeMovie as String]
         pickerController.videoQuality = .typeIFrame1280x720
+        pickerController.allowsEditing = true
+
+        pickerController.videoMaximumDuration = TimeInterval(10.0)
         if sourceType == .camera {
             pickerController.cameraDevice = .rear
         }
         pickerController.delegate = self
-        
+
         present(pickerController, animated: true)
     }
     
@@ -100,9 +155,7 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
                 let navPlayerViewController = UINavigationController(rootViewController: playerViewController)
                 guard let url = self.pickedURL else { return }
                 playerViewController.videoURL = url
-//                let playerViewController = PlayerViewController()
-//                self.present(playerViewController, animated: true)
-
+                navPlayerViewController.modalPresentationStyle = .fullScreen
                 self.present(navPlayerViewController, animated: true)
                 
             }
@@ -112,12 +165,8 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 extension CameraViewController {
     func setupActivityIndicator() {
-        self.view.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
-        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        activityIndicator.centerViewWithSize(activityIndicator, view, width: 50, height: 50, centerXconstant: 0, centerYconstant: -10)
     }
     
 }

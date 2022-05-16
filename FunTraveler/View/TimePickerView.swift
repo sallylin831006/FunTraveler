@@ -9,6 +9,8 @@ import UIKit
 
 protocol TimePickerViewDelegate: AnyObject {
     func donePickerViewAction()
+    
+    func tapOnTimePicker()
 }
 
 class TimePickerView: UIView {
@@ -65,10 +67,14 @@ extension TimePickerView {
         timeTextField.layer.cornerRadius = 5
         
         timeTextField.textAlignment = .center
-
-        addSubview(timeTextField)
+        timeTextField.addTarget(self, action: #selector(tapOnPicker), for: .editingDidBegin)
+        
 
         layoutOfTimePickerView()
+    }
+    
+    @objc func tapOnPicker() {
+        delegate?.tapOnTimePicker()
     }
     
     @objc func donePicker() {
@@ -77,6 +83,8 @@ extension TimePickerView {
     }
 
     func layoutOfTimePickerView() {
+//        timeTextField.centerViewWithSize(timeTextField, self, width: UIScreen.width, height: 20)
+        addSubview(timeTextField)
         timeTextField.translatesAutoresizingMaskIntoConstraints = false
         timeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
         timeTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true

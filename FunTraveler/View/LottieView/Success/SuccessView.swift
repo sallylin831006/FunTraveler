@@ -32,14 +32,7 @@ class SuccessView: UIView {
     }
     
     private func setupAnimationView() {
-        
-        addSubview(successView)
-        successView.translatesAutoresizingMaskIntoConstraints = false
-        successView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        successView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        successView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        successView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
+        successView.stickView(successView, self)
     }
     
     private func lottieSetting() {

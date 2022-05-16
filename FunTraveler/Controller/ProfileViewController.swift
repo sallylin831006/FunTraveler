@@ -66,10 +66,8 @@ class ProfileViewController: UIViewController {
     private func setupAlertLoginView() {
         alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看個人頁"
-        self.view.addSubview(alertLoginView)
-        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
-        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        alertLoginView.centerView(alertLoginView, view)
         
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
         alertLoginView.addGestureRecognizer(imageTapGesture)
@@ -96,7 +94,9 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        tableView.isHidden = false
+        DispatchQueue.main.async {
+            self.tableView.isHidden = false
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
 
         if KeyChainManager.shared.token == nil {
@@ -131,12 +131,15 @@ class ProfileViewController: UIViewController {
     }
     
     private func onShowLogin() {
-        tableView.isHidden = true
-        guard let authVC = UIStoryboard.auth.instantiateViewController(
-            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-        authVC.delegate = self
-        let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.tableView.isHidden = true
+            guard let authVC = UIStoryboard.auth.instantiateViewController(
+                withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+            authVC.delegate = self
+            let navAuthVC = UINavigationController(rootViewController: authVC)
+            self.present(navAuthVC, animated: true, completion: nil)
+        }
+
     }
     
 }
@@ -371,8 +374,9 @@ extension ProfileViewController: AuthViewControllerDelegate {
         } else {
             setupAlertLoginView()
         }
-        
-        tableView.isHidden = false
+        DispatchQueue.main.async {
+            self.tableView.isHidden = false
+        }
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         fetchUserData(userId: userIdNumber)
@@ -419,7 +423,7 @@ extension ProfileViewController {
                 self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ProfileVC] GET Profile 資料失敗！")
+                self?.onShowLogin()
             }
         })
     }

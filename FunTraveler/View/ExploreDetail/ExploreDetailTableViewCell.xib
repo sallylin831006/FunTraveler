@@ -58,7 +58,6 @@
                         <rect key="frame" x="56" y="88" width="170" height="170"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="170" id="BHm-15-PcV"/>
-                            <constraint firstAttribute="width" secondItem="fnn-Wa-vM4" secondAttribute="height" id="weR-NL-ej4"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9Z-dH-OG6">
@@ -92,6 +91,7 @@
             <connections>
                 <outlet property="addressLabel" destination="3w0-ZE-TUG" id="09d-Bn-YrY"/>
                 <outlet property="durationLabel" destination="50E-8i-SG2" id="jWV-sw-MnN"/>
+                <outlet property="imageWithConstraint" destination="BHm-15-PcV" id="TSb-CY-h9H"/>
                 <outlet property="nameLabel" destination="8lF-UP-8cq" id="7OC-vo-t60"/>
                 <outlet property="orderLabel" destination="HL2-3u-yvL" id="y6E-UC-F5O"/>
                 <outlet property="storiesTextLabel" destination="L9Z-dH-OG6" id="Rsi-X6-nCd"/>

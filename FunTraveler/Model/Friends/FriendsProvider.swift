@@ -25,7 +25,8 @@ class FriendsProvider {
             
             switch result {
                 
-            case .success: break
+            case .success:
+                completion(Result.success("success"))
                 
             case .failure(let error):
                 
