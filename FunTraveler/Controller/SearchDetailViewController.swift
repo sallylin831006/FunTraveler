@@ -72,16 +72,8 @@ class SearchDetailViewController: UIViewController {
     }
     
     func layoutOfTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 200).isActive = true
-        
-        tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0).isActive = true
-        
-        tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0).isActive = true
-        
-        tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0).isActive = true
-        
+        tableView.stickView(tableView, self.view)
         tableView.widthAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true
         
         tableView.heightAnchor.constraint(equalToConstant: self.view.bounds.width).isActive = true

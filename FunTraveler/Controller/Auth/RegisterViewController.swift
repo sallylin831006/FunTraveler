@@ -10,6 +10,9 @@ import IQKeyboardManagerSwift
 
 class RegisterViewController: UIViewController {
     
+    var userRegisterEmailClosure: ((_ text: String) -> Void)?
+
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -92,11 +95,11 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             if passwordCheck != password {
-                ProgressHUD.showFailure(text: "密碼輸入不同")
+                ProgressHUD.showFailure(text: "請輸入相同密碼")
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)
-            
+
         }
         
         cell.cancelRegisterClosure = { [weak self] cell in
@@ -114,19 +117,23 @@ extension RegisterViewController {
         let userProvider = UserProvider()
         
         userProvider.postToRegister(
-            email: email, password: password, name: name, completion: { result in
-            
-            switch result {
+            email: email, password: password, name: name) {
+                self.userRegisterEmailClosure?(email)
+                DispatchQueue.main.async {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                ProgressHUD.showSuccess(text: "註冊成功")
+            } failure: { error in
+                switch error {
+                case .success(let data):
+                    ProgressHUD.showFailure(text: "\(data.errorMessage)")
+                case .failure(_): break
+                    
+                }
                 
-            case .success:
-                self.navigationController?.popViewController(animated: true)
-                
-            case .failure:
-                ProgressHUD.showFailure(text: "註冊失敗")
-                print("POST TO Register 失敗！")
+
             }
-        })
-        
+
     }
 
 }

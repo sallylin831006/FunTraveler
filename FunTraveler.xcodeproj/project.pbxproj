@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A041EB4282BA61A0034BFDD /* ASVideoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */; };
+		3A041EB6282BA62D0034BFDD /* ASVideoPlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */; };
+		3A041EB8282BA6400034BFDD /* ASVideoLayerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */; };
+		3A041EBA282BA6800034BFDD /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EB9282BA6800034BFDD /* VideoViewController.swift */; };
+		3A041EBC282BA7070034BFDD /* ShotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */; };
+		3A041EBE282BAB740034BFDD /* ShotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A041EBD282BAB740034BFDD /* ShotTableViewCell.xib */; };
+		3A041EC0282BAED40034BFDD /* VideoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A041EBF282BAED40034BFDD /* VideoHeaderView.xib */; };
+		3A041EC2282BAEE10034BFDD /* VideoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A041EC1282BAEE10034BFDD /* VideoHeaderView.swift */; };
 		3A0C3CDF281AA345006632AC /* LoadingText.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CDE281AA345006632AC /* LoadingText.json */; };
 		3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE0281AAF6C006632AC /* UnFollowTableViewCell.swift */; };
 		3A0C3CE3281AAF6C006632AC /* UnFollowTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0C3CE1281AAF6C006632AC /* UnFollowTableViewCell.xib */; };
@@ -70,8 +78,6 @@
 		3A2B6B712814D6A400D00638 /* Success.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A2B6B702814D6A300D00638 /* Success.json */; };
 		3A2B6B732814D89400D00638 /* LottieConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6B722814D89400D00638 /* LottieConstant.swift */; };
 		3A35288E28222009003E6400 /* BlockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A35288D28222009003E6400 /* BlockListViewController.swift */; };
-		3A3528952822CC12003E6400 /* VideoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3528932822CC12003E6400 /* VideoHeaderView.swift */; };
-		3A3528962822CC12003E6400 /* VideoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A3528942822CC12003E6400 /* VideoHeaderView.xib */; };
 		3A36E05528250C6C00FA5DEC /* AlertLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A36E05428250C6C00FA5DEC /* AlertLoginView.swift */; };
 		3A3FC6A42821099500788DE3 /* TextfieldHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */; };
 		3A40D3462816C14E00A7BF51 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D3452816C14E00A7BF51 /* UserProvider.swift */; };
@@ -96,6 +102,7 @@
 		3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A40D39B281822FE00A7BF51 /* ProfileTableViewCell.swift */; };
 		3A40D39E281822FE00A7BF51 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */; };
 		3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4653B72815069F005051EB /* UIView+Extension.swift */; };
+		3A4820C0282C8ABA006A1489 /* OrientationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4820BF282C8ABA006A1489 /* OrientationHelper.swift */; };
 		3A5445E8281B928E0078518E /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445E7281B928E0078518E /* FriendListViewController.swift */; };
 		3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5445EC281E21400078518E /* VideoWallHeaderView.swift */; };
 		3A5445EF281E21410078518E /* VideoWallHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A5445ED281E21400078518E /* VideoWallHeaderView.xib */; };
@@ -118,6 +125,8 @@
 		3A8E50682814F58B00DF40AE /* VideoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50672814F58B00DF40AE /* VideoRequest.swift */; };
 		3A8E506A2814F5B700DF40AE /* VideoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50692814F5B700DF40AE /* VideoProvider.swift */; };
 		3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E506B2814F5C200DF40AE /* VideoObject.swift */; };
+		3A9A511028290B7C00F49181 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A9A510F28290B7C00F49181 /* GoogleService-Info.plist */; };
+		3A9A5112282A090B00F49181 /* WebUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A5111282A090B00F49181 /* WebUrl.swift */; };
 		3A9A51072828F00200F49181 /* Orientation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A51062828F00200F49181 /* Orientation+Extension.swift */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
@@ -135,7 +144,6 @@
 		3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099A2280D48F20023A1C0 /* KeyConstants.swift */; };
 		3AC099A5280D62370023A1C0 /* Video.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099A4280D62370023A1C0 /* Video.storyboard */; };
 		3AC099AC280D62AF0023A1C0 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AC099AB280D62AF0023A1C0 /* Camera.storyboard */; };
-		3AC099AE280D62D70023A1C0 /* VideoWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */; };
 		3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC099AF280D62E10023A1C0 /* CameraViewController.swift */; };
 		3ACC6C7B281EB044002B7256 /* JGProgressHUDWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */; };
 		3ACC6C7D281F7FFD002B7256 /* ButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */; };
@@ -157,6 +165,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A041E97282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		3A041E98282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoContainer.swift; sourceTree = "<group>"; };
+		3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoPlayerController.swift; sourceTree = "<group>"; };
+		3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoLayerObject.swift; sourceTree = "<group>"; };
+		3A041EB9282BA6800034BFDD /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShotTableViewCell.swift; sourceTree = "<group>"; };
+		3A041EBD282BAB740034BFDD /* ShotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShotTableViewCell.xib; sourceTree = "<group>"; };
+		3A041EBF282BAED40034BFDD /* VideoHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoHeaderView.xib; sourceTree = "<group>"; };
+		3A041EC1282BAEE10034BFDD /* VideoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHeaderView.swift; sourceTree = "<group>"; };
 		3A0C3CDE281AA345006632AC /* LoadingText.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LoadingText.json; sourceTree = "<group>"; };
 		3A0C3CE0281AAF6C006632AC /* UnFollowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnFollowTableViewCell.swift; sourceTree = "<group>"; };
 		3A0C3CE1281AAF6C006632AC /* UnFollowTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnFollowTableViewCell.xib; sourceTree = "<group>"; };
@@ -220,8 +238,6 @@
 		3A2B6B702814D6A300D00638 /* Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Success.json; sourceTree = "<group>"; };
 		3A2B6B722814D89400D00638 /* LottieConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieConstant.swift; sourceTree = "<group>"; };
 		3A35288D28222009003E6400 /* BlockListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListViewController.swift; sourceTree = "<group>"; };
-		3A3528932822CC12003E6400 /* VideoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoHeaderView.swift; sourceTree = "<group>"; };
-		3A3528942822CC12003E6400 /* VideoHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoHeaderView.xib; sourceTree = "<group>"; };
 		3A36E05428250C6C00FA5DEC /* AlertLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertLoginView.swift; sourceTree = "<group>"; };
 		3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextfieldHelper.swift; sourceTree = "<group>"; };
 		3A40D3452816C14E00A7BF51 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
@@ -247,6 +263,7 @@
 		3A40D39B281822FE00A7BF51 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		3A40D39C281822FE00A7BF51 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		3A4653B72815069F005051EB /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		3A4820BF282C8ABA006A1489 /* OrientationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationHelper.swift; sourceTree = "<group>"; };
 		3A5445E7281B928E0078518E /* FriendListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
 		3A5445EC281E21400078518E /* VideoWallHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoWallHeaderView.swift; sourceTree = "<group>"; };
 		3A5445ED281E21400078518E /* VideoWallHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWallHeaderView.xib; sourceTree = "<group>"; };
@@ -269,6 +286,8 @@
 		3A8E50672814F58B00DF40AE /* VideoRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRequest.swift; sourceTree = "<group>"; };
 		3A8E50692814F5B700DF40AE /* VideoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProvider.swift; sourceTree = "<group>"; };
 		3A8E506B2814F5C200DF40AE /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
+		3A9A510F28290B7C00F49181 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3A9A5111282A090B00F49181 /* WebUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUrl.swift; sourceTree = "<group>"; };
 		3A9A51062828F00200F49181 /* Orientation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Orientation+Extension.swift"; sourceTree = "<group>"; };
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -288,7 +307,6 @@
 		3AC099A2280D48F20023A1C0 /* KeyConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyConstants.swift; sourceTree = "<group>"; };
 		3AC099A4280D62370023A1C0 /* Video.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Video.storyboard; sourceTree = "<group>"; };
 		3AC099AB280D62AF0023A1C0 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
-		3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWallViewController.swift; sourceTree = "<group>"; };
 		3AC099AF280D62E10023A1C0 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		3ACC6C7A281EB044002B7256 /* JGProgressHUDWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JGProgressHUDWrapper.swift; sourceTree = "<group>"; };
 		3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHelper.swift; sourceTree = "<group>"; };
@@ -329,6 +347,21 @@
 				73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A041EB2282BA5F60034BFDD /* VideoPlayLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */,
+				3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */,
+				3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */,
+				3A041EB9282BA6800034BFDD /* VideoViewController.swift */,
+				3A041EBD282BAB740034BFDD /* ShotTableViewCell.xib */,
+				3A041EBB282BA7070034BFDD /* ShotTableViewCell.swift */,
+				3A041EBF282BAED40034BFDD /* VideoHeaderView.xib */,
+				3A041EC1282BAEE10034BFDD /* VideoHeaderView.swift */,
+			);
+			path = VideoPlayLibrary;
 			sourceTree = "<group>";
 		};
 		3A0C3CEA281AFB50006632AC /* InviteList */ = {
@@ -457,13 +490,11 @@
 		3A2B6B2C281420F400D00638 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				3A3528932822CC12003E6400 /* VideoHeaderView.swift */,
-				3A3528942822CC12003E6400 /* VideoHeaderView.xib */,
 				3A5445EC281E21400078518E /* VideoWallHeaderView.swift */,
 				3A5445ED281E21400078518E /* VideoWallHeaderView.xib */,
-				3AC099AD280D62D70023A1C0 /* VideoWallViewController.swift */,
 				3A2B6B2D2814213500D00638 /* VideoCollectionViewCell.swift */,
 				3A2B6B2F2814215000D00638 /* PlayerView.swift */,
+				3A041EB2282BA5F60034BFDD /* VideoPlayLibrary */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -626,6 +657,7 @@
 				3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */,
 				3A9E9CCF2800912300C7B8D3 /* LaunchScreen.storyboard */,
 				3A9E9CD22800912300C7B8D3 /* Info.plist */,
+				3A9A510F28290B7C00F49181 /* GoogleService-Info.plist */,
 			);
 			path = FunTraveler;
 			sourceTree = "<group>";
@@ -645,6 +677,8 @@
 				3A5445F0281E7AA10078518E /* Font+Extension.swift */,
 				3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */,
 				3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */,
+				3A9A5111282A090B00F49181 /* WebUrl.swift */,
+				3A4820BF282C8ABA006A1489 /* OrientationHelper.swift */,
 				3A9A51062828F00200F49181 /* Orientation+Extension.swift */,
 			);
 			path = Extension;
@@ -782,7 +816,9 @@
 				3A9E9CBF2800912000C7B8D3 /* Resources */,
 				3A73528228018C9A00B4D8D3 /* ShellScript */,
 				8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */,
-				5A35B0A8BB7418057C779179 /* [CP] Copy Pods Resources */,
+				3A9A510E28290A5800F49181 /* ShellScript */,
+				3A041E99282B670C0034BFDD /* ShellScript */,
+				BD490DEDD0881F22BA0C666C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -815,6 +851,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
 			);
 			mainGroup = 3A9E9CB82800912000C7B8D3;
 			productRefGroup = 3A9E9CC22800912000C7B8D3 /* Products */;
@@ -854,9 +891,11 @@
 				3AC099A5280D62370023A1C0 /* Video.storyboard in Resources */,
 				3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */,
 				3A40D36C2817880500A7BF51 /* CommentTableViewCell.xib in Resources */,
-				3A3528962822CC12003E6400 /* VideoHeaderView.xib in Resources */,
+				3A041EC0282BAED40034BFDD /* VideoHeaderView.xib in Resources */,
+				3A041EBE282BAB740034BFDD /* ShotTableViewCell.xib in Resources */,
 				3A134944280E5C42008CECEA /* ShareHeaderView.xib in Resources */,
 				3A0C3CE5281ABF2F006632AC /* SegementView.xib in Resources */,
+				3A9A511028290B7C00F49181 /* GoogleService-Info.plist in Resources */,
 				3A7E4D972808DD1A00281E17 /* SharePlanTableViewCell.xib in Resources */,
 				3A134952280F9BE5008CECEA /* PlanOverViewTableViewCell.xib in Resources */,
 				3A73527E2801802A00B4D8D3 /* PlanCardTableViewCell.xib in Resources */,
@@ -875,6 +914,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3A041E99282B670C0034BFDD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		3A73528228018C9A00B4D8D3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
@@ -892,22 +951,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# SwiftLint Pods\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
-		5A35B0A8BB7418057C779179 /* [CP] Copy Pods Resources */ = {
+		3A9A510E28290A5800F49181 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\n",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -947,6 +1008,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BD490DEDD0881F22BA0C666C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -960,6 +1038,7 @@
 				3A40D34E2816CF6B00A7BF51 /* KeyChainManger.swift in Sources */,
 				3A185C062803C9E4004F5BB3 /* HeaderView.swift in Sources */,
 				3A40D36728177E5600A7BF51 /* CommentViewController.swift in Sources */,
+				3A041EB6282BA62D0034BFDD /* ASVideoPlayerController.swift in Sources */,
 				3A0C3CF5281B5587006632AC /* FriendsProvider.swift in Sources */,
 				3A2B6B302814215000D00638 /* PlayerView.swift in Sources */,
 				3A185C1628041A4F004F5BB3 /* HTTPClient.swift in Sources */,
@@ -981,11 +1060,13 @@
 				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
 				3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */,
 				3A3FC6A42821099500788DE3 /* TextfieldHelper.swift in Sources */,
+				3A4820C0282C8ABA006A1489 /* OrientationHelper.swift in Sources */,
 				3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */,
 				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
 				3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */,
 				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
+				3A041EBC282BA7070034BFDD /* ShotTableViewCell.swift in Sources */,
 				3A2B6B5A2814B54300D00638 /* LoadingView.swift in Sources */,
 				3A73527228017FAB00B4D8D3 /* UITableView+Extension.swift in Sources */,
 				3AC099B0280D62E10023A1C0 /* CameraViewController.swift in Sources */,
@@ -993,6 +1074,7 @@
 				3A40D3462816C14E00A7BF51 /* UserProvider.swift in Sources */,
 				3A185C012803C98B004F5BB3 /* AddPlanViewController.swift in Sources */,
 				3A73527C2801802A00B4D8D3 /* PlanCardHeaderView.swift in Sources */,
+				3A041EB8282BA6400034BFDD /* ASVideoLayerObject.swift in Sources */,
 				3ACC6C7B281EB044002B7256 /* JGProgressHUDWrapper.swift in Sources */,
 				3A185C4B28058CA6004F5BB3 /* SearchDetailTableViewCell.swift in Sources */,
 				3A185C0D2803D346004F5BB3 /* AddPlanTableViewCell.swift in Sources */,
@@ -1005,7 +1087,6 @@
 				3A7352802801802A00B4D8D3 /* PlanCardTableViewCell.swift in Sources */,
 				3A2B6B322814230700D00638 /* VideoManager.swift in Sources */,
 				3AC099A3280D48F20023A1C0 /* KeyConstants.swift in Sources */,
-				3AC099AE280D62D70023A1C0 /* VideoWallViewController.swift in Sources */,
 				3A40D3482816C15700A7BF51 /* UserRequest.swift in Sources */,
 				3A13495A281027D5008CECEA /* CollectedProvider.swift in Sources */,
 				3A9E9CD92800924B00C7B8D3 /* PlanPickerViewController.swift in Sources */,
@@ -1018,6 +1099,7 @@
 				3ACC6C7D281F7FFD002B7256 /* ButtonHelper.swift in Sources */,
 				3A9E9CDE2800931600C7B8D3 /* UIColor+Extension.swift in Sources */,
 				3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */,
+				3A041EC2282BAEE10034BFDD /* VideoHeaderView.swift in Sources */,
 				3A185C2528043DEB004F5BB3 /* PlanOverViewViewController.swift in Sources */,
 				3A13495C281027F7008CECEA /* CollectedRequest.swift in Sources */,
 				3A9A51072828F00200F49181 /* Orientation+Extension.swift in Sources */,
@@ -1029,17 +1111,18 @@
 				3A0C3CED281AFB6F006632AC /* InviteListTableViewCell.swift in Sources */,
 				3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */,
 				3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */,
+				3A041EB4282BA61A0034BFDD /* ASVideoContainer.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
 				3A40D3652817794500A7BF51 /* ReactionObject.swift in Sources */,
 				3A40D360281778FB00A7BF51 /* ReactionRequest.swift in Sources */,
 				3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */,
+				3A9A5112282A090B00F49181 /* WebUrl.swift in Sources */,
 				3A40D35B2816E62100A7BF51 /* RegisterTableViewCell.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
 				3A8E50682814F58B00DF40AE /* VideoRequest.swift in Sources */,
 				3A185C102803DA48004F5BB3 /* DatePickerView.swift in Sources */,
-				3A3528952822CC12003E6400 /* VideoHeaderView.swift in Sources */,
 				3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
@@ -1057,6 +1140,7 @@
 				3A0C3CE2281AAF6C006632AC /* UnFollowTableViewCell.swift in Sources */,
 				3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */,
 				3A134956280FAB1C008CECEA /* FriendsCollectionViewCell.swift in Sources */,
+				3A041EBA282BA6800034BFDD /* VideoViewController.swift in Sources */,
 				3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */,
 				3A185C2828048481004F5BB3 /* TripObject.swift in Sources */,
 				3A40D34C2816CE6B00A7BF51 /* UserObject.swift in Sources */,
@@ -1072,6 +1156,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3A9E9CCB2800912000C7B8D3 /* Base */,
+				3A041E97282AB5630034BFDD /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1080,6 +1165,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3A9E9CD02800912300C7B8D3 /* Base */,
+				3A041E98282AB5630034BFDD /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1091,6 +1177,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1153,6 +1240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1213,21 +1301,24 @@
 				CODE_SIGN_ENTITLEMENTS = FunTraveler/FunTraveler.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 66YLNV7J37;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
+				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需取用您的相機，以拍攝影片來發布到動態牆分享";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "授權取用您的麥克風以錄製聲音";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "讓您可發布相機膠卷內的相片";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以錄製影片聲音來發布到動態牆分享\n";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以發布照片或影片到動態牆分享\n";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1254,17 +1345,19 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FunTraveler/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = insertSublayer;
-				INFOPLIST_KEY_NSCameraUsageDescription = "授權從APP開啟相機";
+				INFOPLIST_KEY_NSCameraUsageDescription = "FunTraveler需取用您的相機，以拍攝影片來發布到動態牆分享";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "open map";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "授權取用您的麥克風以錄製聲音";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "讓您可發布相機膠卷內的相片";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "FunTraveler需取用您的麥克風，以錄製影片聲音來發布到動態牆分享\n";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "FunTraveler需存取您相機膠卷中的照片及影片，以發布照片或影片到動態牆分享\n";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

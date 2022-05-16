@@ -50,6 +50,28 @@ extension UIView {
         objectView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
     }
     
+    func centerViewWithSize(_ objectView: UIView, _ view: UIView, width: CGFloat, height: CGFloat, centerXconstant: CGFloat = 0, centerYconstant: CGFloat = 0) {
+
+        objectView.removeFromSuperview()
+
+        view.addSubview(objectView)
+        objectView.translatesAutoresizingMaskIntoConstraints = false
+        objectView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: centerXconstant).isActive = true
+        objectView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: centerYconstant).isActive = true
+        objectView.widthAnchor.constraint(equalToConstant: CGFloat(width)).isActive = true
+        objectView.heightAnchor.constraint(equalToConstant: CGFloat(height)).isActive = true
+    }
+    
+    func centerView(_ objectView: UIView, _ view: UIView) {
+
+        objectView.removeFromSuperview()
+        view.addSubview(objectView)
+        objectView.translatesAutoresizingMaskIntoConstraints = false
+        objectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        objectView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    
     func addShadow() {
         layer.masksToBounds = false
         layer.cornerRadius = CornerRadius.buttonCorner

@@ -49,26 +49,13 @@ class FriendsCollectionViewCell: UICollectionViewCell {
     
     
     func setupContainerView() {
-        self.addSubview(containerView)
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-
-        containerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-        containerView.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
-        containerView.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
-
+        containerView.stickSafeArea(containerView, self)
     }
     
     func setUpImage() {
-        containerView.addSubview(userImage)
+        userImage.stickView(userImage, containerView)
         userImage.backgroundColor = .systemOrange
         userImage.layer.masksToBounds = true
-        userImage.translatesAutoresizingMaskIntoConstraints = false
-
-        userImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        userImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
-        userImage.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: 0).isActive = true
-        userImage.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
 
     }
 }

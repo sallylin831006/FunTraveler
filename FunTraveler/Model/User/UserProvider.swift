@@ -8,11 +8,18 @@
 import Foundation
 import UIKit
 
+struct RegisterSeverError: Codable {
+    var errorMessage:  String
+    enum CodingKeys: String, CodingKey {
+        case errorMessage = "error_message"
+    }
+}
+
 typealias RegisterErrorHanlder = (Result<RegisterError>) -> Void
 
 typealias LoginHanlder = (Result<Token>) -> Void
 
-typealias ErrorHanlder = (Result<ClientError>) -> Void
+typealias ErrorHanlder = (Result<RegisterSeverError>) -> Void
 
 typealias UserHanlder = (Result<Users>) -> Void
 
@@ -34,19 +41,48 @@ class UserProvider {
     // MARK: - POST TO Register
     func postToRegister(email: String,
                         password: String,
-                        name: String, completion: @escaping ErrorHanlder) {
+                        name: String, complete: @escaping (() -> Void), failure: @escaping ErrorHanlder) {
         
         HTTPClient.shared.request(UserRequest.register(
             email: email, password: password, name: name), completion: { result in
                 
                 switch result {
                     
-                case .success: break
+                case .success:
+                    complete()
+                    print("success")
                     
                 case .failure(let error):
                     
-                    print(error)
-                    completion(Result.failure(error))
+                    if let error = error as? STHTTPClientError {
+                        
+                        switch error {
+                        case .decodeDataFail: break
+                            
+                        case .clientError(let data):
+                            do {
+                                
+                                let errorResponse = try JSONDecoder().decode(
+                                    RegisterSeverError.self,
+                                    from: data
+                                )
+                                
+                                DispatchQueue.main.async {
+                                    failure(Result.success(errorResponse))
+                                }
+                                
+                            } catch {
+                                print(error)
+                                failure(Result.failure(error))
+                            }
+                            
+                            
+                        case .serverError: break
+                            
+                        case .unexpectedError: break
+                            
+                        }
+                    }
                 }
             })
     }
@@ -270,8 +306,8 @@ class UserProvider {
             
             switch result {
                 
-            case .success: break
-                
+            case .success:
+                completion(Result.success("success"))
             case .failure(let error):
                 print(error)
                 completion(Result.failure(error))

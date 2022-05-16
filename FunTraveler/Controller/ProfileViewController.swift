@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ProfileViewControllerDelegate: AnyObject {
+    func detectProfileDissmiss(_ viewController: UIViewController)
+}
+
 class ProfileViewController: UIViewController {
+    
+    weak var delegate: ProfileViewControllerDelegate?
     
     private var collectedData: [Explore] = [] {
         didSet {
@@ -29,12 +35,12 @@ class ProfileViewController: UIViewController {
     }
     
     private var userNameTextField: UITextField!
-    
     private var segmentedControl: UISegmentedControl!
     var userId: Int?
     
     var isMyProfile: Bool = true
-    
+    private var isMyMemory: Bool = true
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -60,10 +66,8 @@ class ProfileViewController: UIViewController {
     private func setupAlertLoginView() {
         alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看個人頁"
-        self.view.addSubview(alertLoginView)
-        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
-        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        alertLoginView.centerView(alertLoginView, view)
         
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
         alertLoginView.addGestureRecognizer(imageTapGesture)
@@ -90,7 +94,9 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
-        tableView.isHidden = false
+        DispatchQueue.main.async {
+            self.tableView.isHidden = false
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
 
         if KeyChainManager.shared.token == nil {
@@ -125,12 +131,15 @@ class ProfileViewController: UIViewController {
     }
     
     private func onShowLogin() {
-        tableView.isHidden = true
-        guard let authVC = UIStoryboard.auth.instantiateViewController(
-            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-        authVC.delegate = self
-        let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: false, completion: nil)
+        DispatchQueue.main.async {
+            self.tableView.isHidden = true
+            guard let authVC = UIStoryboard.auth.instantiateViewController(
+                withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+            authVC.delegate = self
+            let navAuthVC = UINavigationController(rootViewController: authVC)
+            self.present(navAuthVC, animated: true, completion: nil)
+        }
+
     }
     
 }
@@ -231,17 +240,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let userData = userData else { return UITableViewCell()}
             cell.layoutCell(data: userData, isMyProfile: isMyProfile)
             
-            let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
-            cell.userImageView.addGestureRecognizer(imageTapGesture)
-            cell.userImageView.isUserInteractionEnabled = true
-            
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard (_:)))
-//            self.view.addGestureRecognizer(tapGesture)
-            
+            if isMyProfile {
+                let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+                cell.userImageView.addGestureRecognizer(imageTapGesture)
+                cell.userImageView.isUserInteractionEnabled = true
+                cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
+
+            }
+
             self.userNameTextField = cell.userNameTextField
             
             cell.delegate = self
-            cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
             cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
             
@@ -254,15 +263,15 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let item = collectedData[indexPath.row]
             cell.layoutCell(data: item)
             
-//            cell.collectButton.setImage(UIImage.asset(.collectSelected), for: .normal)
             cell.collectClosure = { isCollected in
-                self.postCollectedData(isCollected: item.isCollected, tripId: self.collectedData[indexPath.row].id)
-                self.collectedData.remove(at: indexPath.row)
-//                tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .left)
-//                tableView.reloadData()
-                
+                self.postCollectedData(isCollected: isCollected, tripId: self.collectedData[indexPath.row].id, index: indexPath.row )
             }
-            
+            if isMyMemory {
+                cell.collectButton.isHidden = true
+            } else {
+                cell.collectButton.isHidden = false
+            }
+
             return cell
             
         default: break
@@ -274,12 +283,26 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let exploreDeatilVC = UIStoryboard.explore.instantiateViewController(
             withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
+        switch indexPath.section {
+        case 0:
+            return
+        case 1:
+            exploreDeatilVC.tripId = collectedData[indexPath.row].id
+            exploreDeatilVC.days = collectedData[indexPath.row].days
+       
+            setupBackButton()
+            navigationController?.pushViewController(exploreDeatilVC, animated: true)
+            exploreDeatilVC.tabBarController?.tabBar.isHidden = true
+        default: break
+        }
         
-        exploreDeatilVC.tripId = collectedData[indexPath.row].id
-        exploreDeatilVC.days = collectedData[indexPath.row].days
-        navigationController?.pushViewController(exploreDeatilVC, animated: true)
-        exploreDeatilVC.tabBarController?.tabBar.isHidden = true
-        exploreDeatilVC.navigationController?.isNavigationBarHidden = false
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     @objc func tapToFriendList() {
@@ -307,7 +330,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         let photoSourceRequestController = UIAlertController(
-            title: "", message: "選擇大頭貼照片", preferredStyle: .actionSheet)
+            title: "", message: "選擇大頭貼照片", preferredStyle: .alert)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
@@ -351,8 +374,9 @@ extension ProfileViewController: AuthViewControllerDelegate {
         } else {
             setupAlertLoginView()
         }
-        
-        tableView.isHidden = false
+        DispatchQueue.main.async {
+            self.tableView.isHidden = false
+        }
         guard let userId = KeyChainManager.shared.userId else { return }
         guard let userIdNumber = Int(userId) else { return }
         fetchUserData(userId: userIdNumber)
@@ -365,10 +389,9 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
         let userName = userData?.name ?? "此位使用者"
         let blockController = UIAlertController(
             title: "封鎖\(userName)",
-            message: "\(userName)將無法再看到你的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .actionSheet)
+            message: "你不會再看到\(userName)的個人檔案、貼文、留言或訊息。你封鎖用戶時，對方不會收到通知。", preferredStyle: .alert)
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             self.postToBlockUser()
-            // Alert:已封鎖，可從黑名單中解除封鎖
         })
 
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -400,7 +423,7 @@ extension ProfileViewController {
                 self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ProfileVC] GET Profile 資料失敗！")
+                self?.onShowLogin()
             }
         })
     }
@@ -468,7 +491,7 @@ extension ProfileViewController {
     }
     
     // MARK: - POST TO ADJUST COLLECTED status
-    private func postCollectedData(isCollected: Bool, tripId: Int) {
+    private func postCollectedData(isCollected: Bool, tripId: Int, index: Int) {
             let collectedProvider = CollectedProvider()
         
             collectedProvider.addCollected(isCollected: isCollected,
@@ -477,6 +500,8 @@ extension ProfileViewController {
                 switch result {
                     
                 case .success:
+                    ProgressHUD.showSuccess()
+                    self.collectedData.remove(at: index)
                     self.tableView.reloadData()
                                     
                 case .failure:
@@ -513,11 +538,15 @@ extension ProfileViewController {
             
             switch result {
                 
-            case .success(let blockResponse):
-                print("blockResponse", blockResponse)
+            case .success:
+                ProgressHUD.showSuccess(text: "已封鎖")
+                DispatchQueue.main.async {
+                    self?.dismiss(animated: true, completion: nil)
+                    self?.delegate?.detectProfileDissmiss(self!)
+                }
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })
@@ -549,13 +578,13 @@ extension ProfileViewController: SegementViewDelegate {
     func switchSegement(_ segmentedControl: UISegmentedControl) {
         self.segmentedControl = segmentedControl
         if segmentedControl.selectedSegmentIndex == 0 {
-            print("我點了旅遊回憶")
+            isMyMemory = true
             guard let userId = KeyChainManager.shared.userId else { return }
             guard let userIdNumber = Int(userId) else { return }
             fetchProfileTripsData(userId: userIdNumber)
           
         } else if segmentedControl.selectedSegmentIndex == 1 {
-            print("我點了收藏")
+            isMyMemory = false
             fetchCollectedData()
             
         }

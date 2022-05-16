@@ -38,8 +38,8 @@ class ExploreViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
 //        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
 //        tableView.addGestureRecognizer(longPress)
-    }
-    
+
+          }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
@@ -181,15 +181,17 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             
             guard let profileVC = UIStoryboard.profile.instantiateViewController(
                 withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+            let navProfileVC = UINavigationController(rootViewController: profileVC)
             
             profileVC.userId = self.exploreData[indexPath.row].user.id
-            
+            profileVC.delegate = self
             if String(self.exploreData[indexPath.row].user.id) == KeyChainManager.shared.userId {
                 profileVC.isMyProfile = true
             } else {
                 profileVC.isMyProfile = false
             }
-            self.present(profileVC, animated: true)
+//            self.present(profileVC, animated: true)
+            self.present(navProfileVC, animated: true)
 
         }
         
@@ -214,7 +216,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         return UIContextMenuConfiguration(identifier: nil,
                                           previewProvider: nil,
                                           actionProvider: { _ in
-            
+            guard KeyChainManager.shared.token != nil else {
+                self.onShowLogin()
+                return nil
+            }
             guard let userId = KeyChainManager.shared.userId else { return nil}
             guard let userIdNumber = Int(userId) else { return nil}
             if userIdNumber == self.exploreData[indexPath.row].user.id {
@@ -229,7 +234,24 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 self.exploreData.remove(at: indexPath.row)
                 ProgressHUD.showSuccess(text: "已封鎖")
             }
-            return UIMenu(title: "", children: [blockAction])
+            
+            let reportAction =
+            UIAction(title: NSLocalizedString("檢舉此貼文", comment: ""),
+                     image: UIImage(systemName: "minus.circle"),
+                     attributes: .destructive) { action in
+                ProgressHUD.showSuccess(text: "收到您的檢舉，團隊將在24小時盡快內處理")
+            }
+            
+            let blockAndReportAction =
+            UIAction(title: NSLocalizedString("封鎖並檢舉此貼文", comment: ""),
+                     image: UIImage(systemName: "minus.circle"),
+                     attributes: .destructive) { action in
+                self.postToBlockUser(index: indexPath.row)
+                self.exploreData.remove(at: indexPath.row)
+                ProgressHUD.showSuccess(text: "已封鎖該用戶，且團隊將在24小時盡快內處理您的檢舉")
+            }
+            
+            return UIMenu(title: "", children: [blockAction, reportAction, blockAndReportAction])
         })
     }
     
@@ -237,7 +259,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: false, completion: nil)
+        present(navAuthVC, animated: true, completion: nil)
     }
 
 }
@@ -253,10 +275,9 @@ extension ExploreViewController {
                 switch result {
                     
                 case .success: break
-//                    print("按了收藏按鈕！", postResponse)
                                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "收藏失敗")
                     print("[Explore] collected postResponse失敗！")
                 }
             })
@@ -264,9 +285,10 @@ extension ExploreViewController {
         }
     // MARK: - GET Action
     private func fetchData() {
+        ProgressHUD.show()
         let exploreProvider = ExploreProvider()
         exploreProvider.fetchExplore(completion: { [weak self] result in
-            
+            ProgressHUD.dismiss()
             switch result {
                 
             case .success(let exploreData):
@@ -274,6 +296,7 @@ extension ExploreViewController {
                 self?.exploreData = exploreData
                 
             case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
@@ -295,7 +318,7 @@ extension ExploreViewController {
                 }
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+//                ProgressHUD.showFailure(text: "搜尋失敗")
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })
@@ -304,10 +327,8 @@ extension ExploreViewController {
     private func setupAlertView() {
         alertView.isHidden = false
         alertView.alertLabel.text = "查無資料"
-        self.view.addSubview(alertView)
-        alertView.translatesAutoresizingMaskIntoConstraints = false
-        alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        alertView.centerView(alertView, view)
     }
     
     // MARK: - POST TO Like
@@ -320,7 +341,7 @@ extension ExploreViewController {
                 case .success: break
                                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "按讚失敗")
                     print("[Explore] Liked postResponse失敗！")
                 }
             })
@@ -336,7 +357,7 @@ extension ExploreViewController {
                 case .success: break
                                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "取消失敗")
                     print("[Explore] UnLiked postResponse失敗！")
                 }
             })
@@ -351,10 +372,13 @@ extension ExploreViewController {
             switch result {
                 
             case .success:
-                self?.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                ProgressHUD.showSuccess(text: "已封鎖")
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })
@@ -384,4 +408,11 @@ extension ExploreViewController: UISearchBarDelegate {
         alertView.isHidden = true
         fetchData()
     }
+}
+
+extension ExploreViewController: ProfileViewControllerDelegate {
+    func detectProfileDissmiss(_ viewController: UIViewController) {
+        fetchData()
+    }
+    
 }

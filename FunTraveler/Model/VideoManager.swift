@@ -49,6 +49,7 @@ class VideoManager: NSObject {
         let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
             
             if error != nil {
+                ProgressHUD.showFailure(text: "上傳失敗")
                 print("Upload video error:", error as Any)
             } else {
                 guard let data = data else { return }
