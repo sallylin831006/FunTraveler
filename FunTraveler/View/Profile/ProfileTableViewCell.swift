@@ -25,7 +25,6 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userNameTextField: UITextField!
     
-    @IBOutlet weak var editButton: UIButton!
     
     @IBOutlet weak var numberOfFriendLabel: UILabel!
     
@@ -37,6 +36,7 @@ class ProfileTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.backgroundConfiguration = nil
         self.backgroundColor = .themeApricot
         let margins = UIEdgeInsets(top: 20, left: 30, bottom: -20, right: 30)
         contentView.frame = contentView.frame.inset(by: margins)
@@ -47,7 +47,6 @@ class ProfileTableViewCell: UITableViewCell {
         userImageView.clipsToBounds = true
         userImageView.layer.cornerRadius = CornerRadius.buttonCorner
         userImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        editButton.isHidden = true
         
         
         
@@ -55,7 +54,7 @@ class ProfileTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
+        
         userNameTextField.delegate = self
         blockButton.addTarget(self, action: #selector(tapBlockButton(_:)), for: .touchUpInside)
         
@@ -67,7 +66,6 @@ class ProfileTableViewCell: UITableViewCell {
     
     
     @objc func editUserNameTextField(_ textField: UITextField) {
-        editButton.isHidden = false //NOT WORKING
         userNameTextField.isUserInteractionEnabled = true
 //        userNameTextField.addBottomBorder()
         
@@ -95,6 +93,8 @@ class ProfileTableViewCell: UITableViewCell {
     }
     
     func layoutCell(data: Profile, isMyProfile: Bool) {
+        
+        
         userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)
@@ -106,7 +106,9 @@ class ProfileTableViewCell: UITableViewCell {
         
         if isMyProfile {
             blockButton.isHidden = true
+            userNameTextField.addTarget(self, action: #selector(editUserNameTextField(_:)), for: .valueChanged)
         } else {
+            userNameTextField.isUserInteractionEnabled = false
             settingButton.isHidden = true
         }
     }

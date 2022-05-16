@@ -24,6 +24,10 @@ class AuthTableViewCell: UITableViewCell {
     
     @IBOutlet weak var siginView: UIView!
     
+    @IBOutlet weak var privacyButton: UIButton!
+    
+    @IBOutlet weak var eulaButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         loginButton.addTarget(self, action: #selector(tapLoginButton), for: .touchUpInside)
@@ -38,7 +42,8 @@ class AuthTableViewCell: UITableViewCell {
         loginButton.layer.cornerRadius = CornerRadius.buttonCorner
         emailTextField.addBottomBorder(textField: emailTextField)
         passwordTextField.addBottomBorder(textField: passwordTextField)
-        
+        privacyButton.layer.cornerRadius = CornerRadius.buttonCorner
+        eulaButton.layer.cornerRadius = CornerRadius.buttonCorner
     }
 
     @objc func tapLoginButton() {
@@ -117,12 +122,6 @@ extension AuthTableViewCell: ASAuthorizationControllerPresentationContextProvidi
 
 extension AuthTableViewCell {
     func layoutOfSignInWithApple() {
-        siginView.addSubview(authorizationAppleIDButton)
-        authorizationAppleIDButton.translatesAutoresizingMaskIntoConstraints = false
-        authorizationAppleIDButton.centerXAnchor.constraint(equalTo: siginView.centerXAnchor).isActive = true
-        authorizationAppleIDButton.centerYAnchor.constraint(equalTo: siginView.centerYAnchor).isActive = true
-        authorizationAppleIDButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        authorizationAppleIDButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        
+        authorizationAppleIDButton.centerViewWithSize(authorizationAppleIDButton, siginView, width: 300, height: 44)
     }
 }

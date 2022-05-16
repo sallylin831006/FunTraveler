@@ -53,6 +53,8 @@ class ExploreDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+
         self.navigationItem.title = "旅遊分享"
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
@@ -60,34 +62,26 @@ class ExploreDetailViewController: UIViewController {
             tableView.tableHeaderView = UIView(
                 frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
         }
-
-        addCustomBackButton()
-
-    }
-    func addCustomBackButton() {
-        self.navigationItem.hidesBackButton = true
-
-        let customBackButton = UIBarButtonItem(image: UIImage(
-            systemName: "chevron.backward"), style: UIBarButtonItem.Style.plain,
-                                               target: self, action: #selector(backTap))
-        customBackButton.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = customBackButton
-    }
-    @objc func backTap(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-        self.navigationController?.popViewController(animated: true)
+        setupBackButton()
         
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
-        
+        ProgressHUD.show()
         guard let tripId = tripId else { return }
 //        guard let days = days else { return }
 
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
-            
+            ProgressHUD.dismiss()
             switch result {
                 
             case .success(let tripSchedule):
@@ -277,7 +271,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let authVC = UIStoryboard.auth.instantiateViewController(
             withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
         let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: false, completion: nil)
+        present(navAuthVC, animated: true, completion: nil)
     }
     
     // MARK: - Section Row
@@ -290,27 +284,9 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: ExploreDetailTableViewCell.self), for: indexPath)
                 as? ExploreDetailTableViewCell else { return UITableViewCell() }
-        
-        cell.selectionStyle = .none
-        
-        cell.orderLabel.text = String(indexPath.row + 1)
-        cell.nameLabel.text = schedule[indexPath.row].name
-        cell.addressLabel.text = schedule[indexPath.row].address
-        cell.durationLabel.text = "停留時間：\(schedule[indexPath.row].duration)"
-        
-        if schedule[indexPath.row].images.isEmpty {
-            cell.tripImage.image = nil
-            cell.tripImage.backgroundColor = UIColor.themeApricotDeep
-        } else {
-            cell.tripImage.loadImage(schedule[indexPath.row].images.first, placeHolder: UIImage.asset(.imagePlaceholder))
-            cell.tripImage.contentMode = .scaleAspectFill
-        }
-        
-        if schedule[indexPath.row].description.isEmpty {
-            cell.storiesTextLabel.text = nil
-        } else {
-            cell.storiesTextLabel.text = schedule[indexPath.row].description
-        }
+                
+        let item = schedule[indexPath.row]
+        cell.layoutCell(data: item, index: indexPath.row)
         
         return cell
         

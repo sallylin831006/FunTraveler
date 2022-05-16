@@ -50,6 +50,8 @@ struct StoryboardCategory {
     
     static let friendListVC = "FriendListViewController"
     
+    static let ratingVC = "RatingViewController"
+
 }
 
 extension UIStoryboard {

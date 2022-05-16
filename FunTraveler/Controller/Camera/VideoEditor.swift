@@ -138,7 +138,7 @@ class VideoEditor {
         let topImgHeight = topImgWidth / topAspect
         topImageLayer.frame = CGRect(
             x: 0,
-            y: videoSize.height-90,
+            y: videoSize.height-110,
             width: topImgWidth,
             height: topImgHeight)
         

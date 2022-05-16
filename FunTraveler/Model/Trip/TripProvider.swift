@@ -271,4 +271,34 @@ class TripProvider {
             }
         })
     }
+    
+    // MARK: - PATCH to Update Trip Info
+    func updateTripInfo(
+        
+        tripId: Int, title: String, startDate: String, endDate: String, completion: @escaping ResponseHanlder) {
+        
+        guard let token = KeyChainManager.shared.token else {
+            
+            return completion(Result.failure(FunTravelerSignInError.noToken))
+        }
+        
+        HTTPClient.shared.request(
+            TripRequest.updateTripInfo(token: token, tripId: tripId, title: title, startDate: startDate, endDate: endDate), completion: { result in
+               
+                switch result {
+                    
+                case .success:
+                    
+                    DispatchQueue.main.async {
+                        
+                        completion(Result.success("success"))
+                    }
+                                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
+    }
 }

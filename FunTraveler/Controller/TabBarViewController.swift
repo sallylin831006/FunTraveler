@@ -86,7 +86,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private let tabs: [Tab] = [.explore, .video, .camera, .planOverView, .profile ]
+    private let tabs: [Tab] = [.explore, .planOverView, .camera, .video,.profile ]
     
     var trolleyTabBarItem: UITabBarItem!
     

@@ -98,42 +98,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         footerView.delegate = self
         return footerView
     }
-    
-//    @objc func tapSaveButton() {
-//        if titleText == "" {
-//            ProgressHUD.showFailure(text: "請輸入標題")
-//            return
-//        }
-//
-//        guard let startDate = startDate else {
-//            ProgressHUD.showFailure(text: "請輸入出發日期")
-//            return
-//        }
-//        guard let endDate = endDate else {
-//            ProgressHUD.showFailure(text: "請輸入回程日期")
-//            return
-//        }
-//
-//        let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
-//        if isDescending == true {
-//            ProgressHUD.showFailure(text: "輸入錯誤")
-//            return
-//        }
-//
-//        if isCopiedTrip {
-//            postCopyTrip()
-//            dismiss(animated: true, completion: nil)
-//            print("成功複製行程！")
-//        } else {
-//            postData()
-//        }
-//    }
-
-  
-//    @objc func tapCancelButton() {
-//        self.dismiss(animated: true, completion: nil)
-//    }
-    
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -152,12 +116,21 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         cell.selectionStyle = .none
         if copyTextField == nil {
             cell.textField.text = titleText
+            
         } else {
             cell.textField.text = copyTextField!
         }
         
         cell.titleDelegate = self
-                
+        
+//        let datePicker = UIDatePicker()
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        let nowDate = formatter.string(from: datePicker.date)
+//
+//        self.startDate = nowDate
+//        self.endDate = nowDate
+
         cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
             self?.startDate = startDate
             self?.firstDate = calaulateDate
@@ -168,9 +141,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
 
             let components = calendar.dateComponents([.day], from: date1, to: date2)
             self?.dayCalculateNum = components.day ?? 0
-//            self?.tableView.reloadData()
         }
-
         cell.backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
             self?.endDate =  endDate
             self?.secondDate =  calaulateDate
@@ -181,7 +152,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
 
             let components = calendar.dateComponents([.day], from: date1, to: date2)
             self?.dayCalculateNum = components.day ?? 0
-//            self?.tableView.reloadData()
         }
         if dayCalculateNum <= -1 {
             cell.dayCalculateLabel.text = ""
@@ -204,6 +174,28 @@ extension AddPlanViewController: FooterViewDelegate {
             return
         }
         
+        let datePicker = UIDatePicker()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let nowDate = formatter.string(from: datePicker.date)
+        if isCopiedTrip {
+            if titleText == nil {
+                guard let copyTextField = copyTextField else { return }
+                titleText = "複製- \(String(describing: copyTextField))"
+            }
+        }
+        if titleText == nil {
+            ProgressHUD.showFailure(text: "請輸入標題")
+        }
+
+        if startDate == nil {
+            startDate = nowDate
+        }
+        
+        if endDate == nil {
+            endDate = nowDate
+        }
+        
         guard let startDate = startDate else {
             ProgressHUD.showFailure(text: "請輸入出發日期")
             return
@@ -212,7 +204,7 @@ extension AddPlanViewController: FooterViewDelegate {
             ProgressHUD.showFailure(text: "請輸入回程日期")
             return
         }
-        
+
         let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
         if isDescending == true {
             ProgressHUD.showFailure(text: "輸入錯誤")
@@ -269,7 +261,7 @@ extension AddPlanViewController {
                     self.navigationController?.pushViewController(planDetailViewController, animated: true)
                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "上傳失敗")
                     print("tripIdResponse讀取資料失敗！")
                 }
             })
@@ -279,9 +271,10 @@ extension AddPlanViewController {
     // MARK: - POST API TO COPY TRIP
         private func postCopyTrip() {
             let tripProvider = TripProvider()
-            let titleText = titleText ?? "複製 - "
-            let startDate = startDate ?? "2022-04-27"
-            let endDate = endDate ?? "2022-04-30"
+            guard let copyTextField = copyTextField else { return }
+            let titleText = titleText ?? "複製- \(copyTextField)"
+            let startDate = startDate ?? ""
+            let endDate = endDate ?? ""
             guard let tripId = copyTripId else { return }
             
             tripProvider.copyTrip(title: titleText,
@@ -296,7 +289,7 @@ extension AddPlanViewController {
                 print("copy tripIdResponse", tripIdResponse)
                     
                 case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
+                    ProgressHUD.showFailure(text: "上傳失敗")
                     print("POST COPY TRIP 失敗！")
                 }
             })

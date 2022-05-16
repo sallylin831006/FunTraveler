@@ -117,10 +117,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
         }
         
-        enum WebURL {
-            static let privacyPolicy: String = "https://www.privacypolicies.com/live/6de37506-6a29-4eeb-b813-f150e4ca0610"
-            static let eula: String = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
-        }
+       
     }
     
     func alertUser() {

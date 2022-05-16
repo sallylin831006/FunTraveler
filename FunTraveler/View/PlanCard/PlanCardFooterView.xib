@@ -20,7 +20,7 @@
                     <color key="backgroundColor" name="themeRed"/>
                     <color key="tintColor" name="themeApricotDeep"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="+ 建立行程規劃">
+                    <buttonConfiguration key="configuration" style="plain" title="">
                         <backgroundConfiguration key="background"/>
                     </buttonConfiguration>
                 </button>

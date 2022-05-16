@@ -9,6 +9,8 @@ import UIKit
 
 protocol TimePickerViewDelegate: AnyObject {
     func donePickerViewAction()
+    
+    func tapOnTimePicker()
 }
 
 class TimePickerView: UIView {
@@ -40,7 +42,8 @@ extension TimePickerView {
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.tintColor = .themeLightBlue
+//        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
 
         let doneButton = UIBarButtonItem(
@@ -64,10 +67,14 @@ extension TimePickerView {
         timeTextField.layer.cornerRadius = 5
         
         timeTextField.textAlignment = .center
-
-        addSubview(timeTextField)
+        timeTextField.addTarget(self, action: #selector(tapOnPicker), for: .editingDidBegin)
+        
 
         layoutOfTimePickerView()
+    }
+    
+    @objc func tapOnPicker() {
+        delegate?.tapOnTimePicker()
     }
     
     @objc func donePicker() {
@@ -76,6 +83,8 @@ extension TimePickerView {
     }
 
     func layoutOfTimePickerView() {
+//        timeTextField.centerViewWithSize(timeTextField, self, width: UIScreen.width, height: 20)
+        addSubview(timeTextField)
         timeTextField.translatesAutoresizingMaskIntoConstraints = false
         timeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
         timeTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
