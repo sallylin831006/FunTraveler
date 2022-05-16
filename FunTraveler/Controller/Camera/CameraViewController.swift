@@ -165,12 +165,8 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 extension CameraViewController {
     func setupActivityIndicator() {
-        self.view.addSubview(activityIndicator)
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -10).isActive = true
-        activityIndicator.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        activityIndicator.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        activityIndicator.centerViewWithSize(activityIndicator, view, width: 50, height: 50, centerXconstant: 0, centerYconstant: -10)
     }
     
 }

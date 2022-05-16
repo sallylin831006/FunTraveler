@@ -33,13 +33,7 @@ class AlertLoginView: UIView {
     
     private func setupIconImage() {
         iconImage.image = UIImage.asset(.defaultUserImage)
-        addSubview(iconImage)
-        iconImage.translatesAutoresizingMaskIntoConstraints = false
-        iconImage.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        iconImage.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        iconImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        iconImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        iconImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        iconImage.centerViewWithSize(iconImage, self, width: 100, height: 100)
         
         alertLabel.textAlignment = .center
         addSubview(alertLabel)

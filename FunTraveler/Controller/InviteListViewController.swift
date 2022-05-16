@@ -57,11 +57,9 @@ class InviteListViewController: UIViewController {
     private func setupAlertLoginView() {
         alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看好友邀請"
-        self.view.addSubview(alertLoginView)
-        alertLoginView.translatesAutoresizingMaskIntoConstraints = false
-        alertLoginView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        alertLoginView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        alertLoginView.centerView(alertLoginView, view)
+
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
         alertLoginView.addGestureRecognizer(imageTapGesture)
     }
@@ -122,10 +120,8 @@ class InviteListViewController: UIViewController {
     func setupAlertView() {
         alertView.isHidden = false
         alertView.alertLabel.text = "目前尚無好友邀請"
-        self.view.addSubview(self.alertView)
-        alertView.translatesAutoresizingMaskIntoConstraints = false
-        alertView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        alertView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        
+        alertView.centerView(alertView, view)
     }
     
 

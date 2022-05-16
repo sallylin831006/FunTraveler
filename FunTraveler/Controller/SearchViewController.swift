@@ -174,11 +174,6 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController {
     private func showSuccessView() {
         let successView = SuccessView()
-        self.view.addSubview(successView)
-        
-        successView.translatesAutoresizingMaskIntoConstraints = false
-        successView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        successView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        successView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        successView.centerViewWithSize(successView, view, width: 200, height: 200)
     }
 }
