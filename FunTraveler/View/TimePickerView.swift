@@ -83,7 +83,13 @@ extension TimePickerView {
     }
 
     func layoutOfTimePickerView() {
-        timeTextField.centerViewWithSize(timeTextField, self, width: UIScreen.width, height: 20)
+//        timeTextField.centerViewWithSize(timeTextField, self, width: UIScreen.width, height: 20)
+        addSubview(timeTextField)
+        timeTextField.translatesAutoresizingMaskIntoConstraints = false
+        timeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
+        timeTextField.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+        timeTextField.widthAnchor.constraint(equalToConstant: self.bounds.width).isActive = true
+        timeTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
 }
