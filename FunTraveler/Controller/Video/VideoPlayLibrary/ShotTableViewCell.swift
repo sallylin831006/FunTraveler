@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 protocol ShotTableViewCellDelegate: AnyObject {
-    func detectDoubleClick(_ index: Int)
+    func detectDoubleClick(_ index: Int, gesture: UILongPressGestureRecognizer)
 }
 
 
@@ -22,7 +22,6 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     private let dateLabel = UILabel()
     private var index: Int = 0
     private var iconViewArray: [UIImage] = []
-    
     
     private func switchIcon(_ type: Int) -> UIImage {
         switch type {
@@ -44,15 +43,12 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         }
         
     }
-    
-//    private var iconViewArray: [UIImage] = [UIImage(named: "blue_like")!,
-//                                    UIImage(named: "red_heart")!,
-//                                    UIImage(named: "surprised")!,
-//                                    UIImage(named: "cry_laugh")!,
-//                                    UIImage(named: "cry")!,
-//                                    UIImage(named: "angry")!]
+
     var playerController: ASVideoPlayerController?
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
+    
+    private var iconView = UIView()
+    
     var videoURL: String? {
         didSet {
             if let videoURL = videoURL {
@@ -66,20 +62,41 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         self.index = index
         locationLabel.text = data.location
         dateLabel.text = data.createdTime
-//        data.ratings.type
-        
-        for type in  data.ratings.type {
-            var icon = switchIcon(type)
-            iconViewArray.append(icon)
-        }
-        setupIconArray()
+//
+//        iconViewArray = []
+//        for type in  data.ratings.type {
+//            let icon = switchIcon(type)
+//            iconViewArray.append(icon)
+//        }
+//        print("iconViewArray count\(iconViewArray.count):", iconViewArray)
+//        
+//        var iconViewImage: [UIImageView] = []
+//
+//        for image in iconViewImage {
+//            image.removeFromSuperview()
+//        }
+//        iconViewImage = [UIImageView]()
+//        
+//        iconView.removeFromSuperview()
+//        for (index, iconImage) in iconViewArray.enumerated() {
+//            let iconView = UIImageView()
+//            iconView.image = iconImage
+//
+//            let width: CGFloat = 25
+//            let leading = UIScreen.width * 1/5 / 2 + 10
+//            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+//            
+//           
+//            self.addSubview(iconView)
+//            iconViewImage.append(iconView)
+//        }
+
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
-//        self.layer.borderColor = UIColor.themeApricot?.cgColor
-//        self.layer.borderWidth = 20
+
         setupImageView()
         setupDateLabel()
         setupLocationLabel()
@@ -95,23 +112,20 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         screenImageView.layer.addSublayer(videoLayer)
         selectionStyle = .none
         
-        let doubleTapped = UITapGestureRecognizer(target: self, action: #selector(doubleTapped))
-        doubleTapped.numberOfTapsRequired = 2
-        addGestureRecognizer(doubleTapped)
+        setupLongPressGesture()
         
-        let oneTapped = UITapGestureRecognizer(target: self, action: #selector(oneTapped))
-        oneTapped.numberOfTapsRequired = 1
-        addGestureRecognizer(oneTapped)
     }
     
-    @objc func doubleTapped() {
-        delegate?.detectDoubleClick(index)
+    fileprivate func setupLongPressGesture() {
+        self.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
     }
     
-    @objc func oneTapped() {
-//        print("點了一下")
+    
+    @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
+        delegate?.detectDoubleClick(index, gesture: gesture)
     }
     
+
     func configureCell(videoUrl: String?) {
         self.videoURL = videoUrl
     }
@@ -173,20 +187,20 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         locationLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0).isActive = true
     }
     
-    let indicatorView = UIView()
     
-    
-    func setupIconArray(iconImage: UIImage = UIImage.asset(.cameraNormal)!) {
+    func setupIconArray() {
+        
         for (index, iconImage) in iconViewArray.enumerated() {
+            
             let iconView = UIImageView()
-//            iconView.backgroundColor = .orange
             iconView.image = iconImage
 
             let width: CGFloat = 25
             let leading = UIScreen.width * 1/5 / 2 + 10
             iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+            
+            iconView.removeFromSuperview()
             self.addSubview(iconView)
-
         }
     }
     
