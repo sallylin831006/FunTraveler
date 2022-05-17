@@ -73,7 +73,12 @@ class FriendListViewController: UIViewController {
 extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "好友列表"
+        if isEditMode {
+            return "新增好友以共同編輯"
+        } else {
+            return "好友列表"
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

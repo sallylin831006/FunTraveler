@@ -30,6 +30,8 @@ class SegmentControlView: UIView {
         super.init(frame: frame)
         
     }
+    
+//    private var numberOfButton: Int = 1
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,8 +47,11 @@ class SegmentControlView: UIView {
         configureButton()
     }
     
+//    func configureButton(dayNumber: Int) {
     func configureButton() {
-        guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
+//        self.numberOfButton = dayNumber
+
+        guard let numberOfButton =  dataSource?.configureNumberOfButton(self) else { return }
 
         for num in 0...numberOfButton - 1 {
             // SET BUTTON POSITION
@@ -58,6 +63,7 @@ class SegmentControlView: UIView {
             dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: height)
             
             dayButton.setTitle("Day \(num + 1)", for: .normal)
+            dayButton.contentHorizontalAlignment = .center
 
             dayButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             
@@ -77,7 +83,6 @@ class SegmentControlView: UIView {
     }
     
     @objc func tapDayButton(_ sender: UIButton) {
-  
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
    
         let index = sender.tag + 1
@@ -95,30 +100,3 @@ class SegmentControlView: UIView {
     }
     
 }
-
-//            self.selectedButton = dayButton
-//            self.selectedButtonArray.append(dayButton)
-//            self.buttonIndex = num
-
-//        if selectedButton == sender {
-//            print("selectedButton == sender")
-//            selectedButton?.backgroundColor = .themeRed
-//            selectedButton?.tintColor = .themeApricot
-//            updateButtonSelection(sender)
-//            selectedButton?.tintColor = .themeApricot
-//        } else if selectedButton != sender {
-//            print("selectedButton != sender")
-//            sender.isSelected = !sender.isSelected
-//            selectedButton?.backgroundColor = .themeApricot
-//            selectedButton?.tintColor = .themeRed
-//            updateButtonSelection(sender)
-//
-//        }
-
-//    func updateButtonSelection(_ sender: UIButton) {
-//        selectedButton = sender
-//        selectedButton?.backgroundColor = .themeRed
-//        selectedButton?.tintColor = .themeApricot
-//
-//    }
-//

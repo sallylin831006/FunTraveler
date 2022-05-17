@@ -15,7 +15,6 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var ownerImageView: UIImageView!
     
-    
     @IBOutlet weak var departmentPickerView: TimePickerView!
     
     @IBOutlet weak var selectionView: SegmentControlView!
@@ -24,14 +23,18 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var inviteButton: UIButton!
     
+    private var data: Trip?
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-    
+//        selectionView.delegate = self
+//        selectionView.dataSource = self
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundConfiguration = nil
@@ -42,9 +45,11 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         contentView.backgroundColor = UIColor.themeLightBlue
         contentView.layer.cornerRadius = 12
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//        guard let data = data else { return }
+//        selectionView.configureButton(dayNumber: data.days)
     }
     
-    func layoutHeaderView(data: Trip) {
+    func layoutHeaderView(data: Trip) {data
         if data.user.imageUrl == "" {
             ownerImageView.image = UIImage.asset(.defaultUserImage)
         } else {
@@ -57,14 +62,39 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
               let endtDate = data.endDate
         else { return }
         dateLabel.text = "\(startDate) - \(endtDate)"
-      
+
+//        selectionView.configureButton(dayNumber: data.days)
+        self.data = data
+        
     }
 
 }
+
+//extension PlanCardHeaderView: SegmentControlViewDataSource {
+//    
+//    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+//        data?.days ?? 1
+//    }
+//    
+//}
+
+//@objc extension PlanCardHeaderView: SegmentControlViewDelegate {
+//    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+//        postData(days: currentDay, isFinished: false)
+//        currentDay = index
+//        currentdayClosure?(index)
+//        fetchData(days: index)
+//    }
+//    
+//    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
+//        return true
+//    }
+//}
+
+
 
 extension PlanCardHeaderView: PlanPickerViewControllerDelegate {
     func reloadCollectionView(_ collectionView: UICollectionView) {
         collectionView.reloadData()
     }
-   
 }
