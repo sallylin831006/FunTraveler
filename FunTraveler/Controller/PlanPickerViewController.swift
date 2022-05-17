@@ -18,14 +18,11 @@ class PlanPickerViewController: UIViewController {
     weak var reloadDelegate: PlanPickerViewControllerDelegate?
     
     var pusher: Pusher!
-    
-    private var friendListDataArray: [User] = []
-    
-    var headerCollectionView: UICollectionView!
+        
+    private var headerCollectionView: UICollectionView!
     
     var currentdayClosure: ((_ currentday: Int) -> Void)?
 
-    
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
@@ -34,26 +31,23 @@ class PlanPickerViewController: UIViewController {
 
     var trip: Trip? {
         didSet {
-//            tableView.reloadData()
             guard let trip = trip else { return  }
             tripClosure?(trip)
         }
     }
-    
+
     var schedule: [Schedule] = [] {
         didSet {
             if !self.schedule.isEmpty {
                 self.schedule[0].startTime = selectedDepartmentTimes
             }
             rearrangeTime()
-//            tableView.reloadData()
             scheduleClosure?(schedule) //?????
-            
-            // scrollToBottom()
         }
     }
     var currentDay = 1
-    private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
+    private var departmentTimes = ["06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
+    
     private var headerView: PlanCardHeaderView!
     private var selectedDepartmentTimes: String = "09:00"
 
@@ -84,7 +78,6 @@ class PlanPickerViewController: UIViewController {
         zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
         listenEvent()
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
-        
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
         
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
@@ -92,12 +85,15 @@ class PlanPickerViewController: UIViewController {
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPress(_:)))
         tableView.addGestureRecognizer(longpress)
+        
+        setupTableViewUI()
+    }
+    
+    func setupTableViewUI() {
         tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
         tableView.backgroundView?.contentMode = .scaleAspectFill
         tableView.backgroundColor = .clear
-        
-        self.tableView.contentInsetAdjustmentBehavior = .never
-
+        tableView.contentInsetAdjustmentBehavior = .never
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,7 +120,6 @@ class PlanPickerViewController: UIViewController {
                 
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[PlanPicker] GET schedule Detai 讀取資料失敗！")
             }
         })
         
@@ -199,7 +194,7 @@ class PlanPickerViewController: UIViewController {
             
         } else {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: 650, width: UIScreen.width, height: UIScreen.height)
+                self.view.frame = CGRect(x: 0, y: 660, width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)
             zoomButton.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
             zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 250, width: 50, height: 50)
@@ -223,20 +218,18 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
         
-        guard let trip = trip else { return nil}
+        guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
         
-        headerView.titleLabel.text = trip.title
-    
+        
+        
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
         
         headerView.departmentPickerView.picker.delegate = self
         
         headerView.departmentPickerView.picker.dataSource = self
-        
-        self.headerView = headerView
-        
+                
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
         
         headerView.departmentPickerView.delegate = self
@@ -268,59 +261,18 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
 
         friendListVC.modalPresentationStyle = .pageSheet
         if #available(iOS 15.0, *) {
-            if let sheet = friendListVC.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-            }
-        } else {
-            // Fallback on earlier versions
+            let sheet = friendListVC.sheetPresentationController
+            sheet?.detents = [.medium(), .large()]
         }
         self.present(friendListVC, animated: true)
-//        shareLink()
     }
     
-    // MARK: - Section Footer
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        0.0
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-
-        guard let footerView = tableView.dequeueReusableHeaderFooterView(
-            withIdentifier: PlanCardFooterView.identifier)
-                as? PlanCardFooterView else { return nil }
-//        footerView.scheduleButton.setTitle("+新增景點", for: .normal)
-//        footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-        return footerView
-    }
-    
-//    @objc func tapScheduleButton() {
-//
-//        guard let searchVC = storyboard?.instantiateViewController(
-//            withIdentifier: StoryboardCategory.searchVC) as? SearchViewController else { return }
-//        searchVC.scheduleArray = schedule
-//
-//        if schedule.isEmpty {
-//            searchVC.day = 1
-//        } else {
-//            searchVC.day = schedule[0].day
-//        }
-//
-//        searchVC.scheduleClosure = { [weak self] newSchedule in
-//            self?.schedule = newSchedule
-//            self?.postData(days: self!.currentDay, isFinished: false)
-//        }
-//        let navSearchVC = UINavigationController(rootViewController: searchVC)
-//        self.present(navSearchVC, animated: true)
-//
-//    }
     // MARK: - Delete
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
-            tableView.isEditing = false
-            self.schedule.remove(at: index.row)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.schedule.remove(at: indexPath.row)
             self.postData(days: self.currentDay, isFinished: false)
         }
-        return [deleteAction]
     }
     
     // MARK: - Section Row
@@ -330,26 +282,20 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let tripCell = tableView.dequeueReusableCell(
+        guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
         tableView.separatorColor = .clear
-//        if isTrafficTimeSelfSelect {
-//            tripCell.trafficTime = currentSelectTrafficTimeArray[indexPath.row]
-//        } else {
-//            let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
-//            tripCell.trafficTime = rearrangeTrafficTime
-//        }
-        
+
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
-        tripCell.trafficTime = rearrangeTrafficTime
-        tripCell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
+        cell.trafficTime = rearrangeTrafficTime
+        cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
-        tripCell.index = indexPath.row
-        tripCell.delegate = self
+        cell.index = indexPath.row
+        cell.delegate = self
                 
-        return tripCell
+        return cell
     }
     
     private func scrollToBottom() {
@@ -400,11 +346,11 @@ extension PlanPickerViewController: TimePickerViewDelegate {
 }
 
 extension PlanPickerViewController: SegmentControlViewDataSource {
-    
+
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
         trip?.days ?? 1
     }
-    
+
 }
 
 @objc extension PlanPickerViewController: SegmentControlViewDelegate {
@@ -414,7 +360,7 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
         currentdayClosure?(index)
         fetchData(days: index)
     }
-    
+
     func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
         return true
     }
@@ -426,15 +372,14 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         self.schedule[index].startTime = startTime
         self.schedule[index].duration = duration
         self.schedule[index].trafficTime = trafficTime
-//        self.currentSelectTrafficTime = trafficTime
-//        self.isTrafficTimeSelfSelect = true
+
     }
     
     func rearrangeTime() {
         var previousEndTime = ""
         for (index, schedule) in self.schedule.enumerated() {
             do {
-//                let totalDuration = schedule.duration + schedule.trafficTime
+
                 let distance = (calculateTrafficTime(index: index)/1000).ceiling(toInteger: 1)
                 let totalDuration = schedule.duration + distance/60
 
@@ -485,7 +430,6 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return friendListDataArray.count
         return trip?.editors.count ?? 0
     }
     
@@ -495,27 +439,10 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
             withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
             for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
 
-//        cell.layoutCell(data: friendListDataArray, index: indexPath.row)
         guard let editors = trip?.editors else { return UICollectionViewCell() }
           cell.layoutCell(data: editors, index: indexPath.row)
-
-//        let last = max(numberOfFriends, 0) - 1
-//        if indexPath.item == last {
-//            cell.contentView.backgroundColor = .themeApricotDeep
-//            collectionView.reloadData()
-//        }
         
         return cell
-    }
-
-    
-    func shareLink() {
-        let shareURl = URL(string: "https://game.dev.newideas.com.tw/")!
-        let shareText = "Sally邀請你共同編輯旅遊行程"
-        let items: [Any] = [shareURl, shareText]
-        
-        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        present(activityViewController, animated: true, completion: nil)
     }
 }
 
@@ -524,7 +451,6 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
         deleteEditor(editorId: friendListData.id)
         self.trip?.editors.removeAll(where: { $0 == friendListData })
 
-//        friendListDataArray.removeAll(where: { $0 == friendListData })
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
 
     }
@@ -533,7 +459,6 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
         postToAddEditor(editorId: friendListData.id)
         
         self.trip?.editors.append(friendListData)
-//        self.friendListDataArray.append(friendListData)
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
     }
     
@@ -559,54 +484,41 @@ extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
 
 extension PlanPickerViewController: PusherDelegate {
     // MARK: - PusherSwift
-    
     func listenEvent() {
-
-            let options = PusherClientOptions(
-                host: .cluster("ap3")
-            )
-    
-            pusher = Pusher(
-                key: KeyConstants.pusherKey,
-                options: options
-            )
-    
-            pusher.delegate = self
-    
-            // subscribe to channel
-            let channel = pusher.subscribe("trip")
-    
-            // bind a callback to handle an event
-            let _ = channel.bind(eventName: "server.updated", eventCallback: { (event: PusherEvent) in
-                if let data = event.data {
-                    do {
-    
-                        let tripSchedule = try JSONDecoder().decode(
-                            Schedules.self,
-                            from: data.data(using: .utf8)!
-                        )
-                        
-                        if tripSchedule.tripId != self.myTripId { return }
-                        if tripSchedule.schedules.first == nil {
-                            self.schedule = []
-                            self.tableView.reloadData()
-                        }
-                        if tripSchedule.schedules.first?.day != self.currentDay { return }
-                        self.schedule = tripSchedule.schedules
-                        self.rearrangeTime()
+        let options = PusherClientOptions(host: .cluster("ap3"))
+        
+        pusher = Pusher(key: KeyConstants.pusherKey, options: options)
+        
+        pusher.delegate = self
+        
+        let channel = pusher.subscribe("trip")
+        
+        let _ = channel.bind(eventName: "server.updated", eventCallback: { (event: PusherEvent) in
+            if let data = event.data {
+                do {
+                    
+                    let tripSchedule = try JSONDecoder().decode(
+                        Schedules.self,
+                        from: data.data(using: .utf8)!
+                    )
+                    
+                    if tripSchedule.tripId != self.myTripId { return }
+                    if tripSchedule.schedules.first == nil {
+                        self.schedule = []
                         self.tableView.reloadData()
-                    } catch {
-                        print(error)
                     }
-    
+                    if tripSchedule.schedules.first?.day != self.currentDay { return }
+                    self.schedule = tripSchedule.schedules
+                    self.rearrangeTime()
+                    self.tableView.reloadData()
+                } catch {
+                    print(error)
                 }
-            })
-    
-            pusher.connect()
-    
-        }
-//    func debugLog(message: String) {
-//        print("Pusher debug messages:", message)
-//    }
+            }
+        })
+        
+        pusher.connect()
+        
+    }
     
 }
