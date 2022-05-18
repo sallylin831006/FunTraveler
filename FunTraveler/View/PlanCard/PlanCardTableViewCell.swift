@@ -42,8 +42,6 @@ class PlanCardTableViewCell: UITableViewCell {
     private var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
     private var trafficTimes = ["0.5","1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
 
-//    private var trafficTimes = ["30分鐘", "1小時", "1小時30分鐘", "2小時", "2小時30分鐘", "3小時", "3小時30分鐘", "4小時", "4小時30分鐘", "5小時", "5小時30分鐘", "6小時"]
-
     var startTime: String = "" {
         didSet {
             startTimeLabel.text = startTime
@@ -51,8 +49,6 @@ class PlanCardTableViewCell: UITableViewCell {
         }
 }
     
-//    var endTimeClosure : ((_ text: String) -> Void)?
-
     @IBOutlet weak var orderLabel: UILabel!
     
     @IBOutlet weak var timePickerView: TimePickerView!
@@ -137,7 +133,6 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
         } else {
             return trafficTimes.count
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
