@@ -11,7 +11,7 @@ class PlanOverViewViewController: UIViewController {
     
     private var startDateTextField: UITextField!
     
-    var tripData: [Trip] = [] {
+    var tripData: [TripOverView] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -67,7 +67,7 @@ class PlanOverViewViewController: UIViewController {
                 
             case .success(let tripData):
                 
-                self.tripData = tripData.data
+                self.tripData = tripData
                 self.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
