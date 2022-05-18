@@ -15,8 +15,6 @@ protocol SegmentControlViewDataSource: AnyObject {
 @objc protocol SegmentControlViewDelegate: AnyObject {
     
     @objc optional func didSelectedButton(_ selectionView: SegmentControlView, at index: Int)
-    
-    @objc optional func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool
 }
 
 class SegmentControlView: UIView {
@@ -86,10 +84,7 @@ class SegmentControlView: UIView {
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
    
         let index = sender.tag + 1
-        
-        if delegate?.shouldSelectedButton?(self, at: index) == false {
-            return
-        }
+
         delegate?.didSelectedButton?(self, at: index)
         let width = self.frame.width/CGFloat(numberOfButton)
         let height = self.frame.height

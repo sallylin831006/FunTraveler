@@ -8,6 +8,7 @@
 import UIKit
 import PusherSwift
 import CoreLocation
+import simd
 
 protocol PlanPickerViewControllerDelegate: AnyObject {
     func reloadCollectionView(_ collectionView: UICollectionView)
@@ -31,25 +32,23 @@ class PlanPickerViewController: UIViewController {
 
     var trip: Trip? {
         didSet {
-            guard let trip = trip else { return  }
+            guard let trip = trip else { return }
             tripClosure?(trip)
         }
     }
 
     var schedule: [Schedule] = [] {
         didSet {
-            if !self.schedule.isEmpty {
-                self.schedule[0].startTime = selectedDepartmentTimes
-            }
             rearrangeTime()
             scheduleClosure?(schedule) //?????
         }
     }
+    
+    private var fixedDepartmentTime: String?
+
     var currentDay = 1
-    private var departmentTimes = ["06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     
     private var headerView: PlanCardHeaderView!
-    private var selectedDepartmentTimes: String = "09:00"
 
     private var isMoveDown: Bool = false
     
@@ -77,10 +76,6 @@ class PlanPickerViewController: UIViewController {
         super.viewDidLoad()
         zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
         listenEvent()
-        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
-        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
-        
-        tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
         
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
             PlanPickerViewController.longPress(_:)))
@@ -94,6 +89,9 @@ class PlanPickerViewController: UIViewController {
         tableView.backgroundView?.contentMode = .scaleAspectFill
         tableView.backgroundColor = .clear
         tableView.contentInsetAdjustmentBehavior = .never
+        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
+        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,7 +113,6 @@ class PlanPickerViewController: UIViewController {
                 self?.trip = tripSchedule.data
                 
                 let schedule = tripSchedule.data.schedules?.first ?? []
-                self?.selectedDepartmentTimes = schedule.first?.startTime ?? "9:00"
                 self?.schedule = schedule
                 
             case .failure:
@@ -133,10 +130,10 @@ class PlanPickerViewController: UIViewController {
             switch result {
                 
             case .success:
+                self.schedule[0].startTime = self.fixedDepartmentTime ?? "9:00"
                 self.tableView.reloadData()
             case .failure:
-//                ProgressHUD.showFailure(text: "讀取失敗")
-                print("POST TRIP DETAIL API讀取資料失敗！")
+                ProgressHUD.showFailure(text: "行程儲存失敗")
             }
         })
     }
@@ -150,12 +147,10 @@ class PlanPickerViewController: UIViewController {
             
             switch result {
                 
-            case .success(let coEditorResponse):
-//                ProgressHUD.showSuccess(text: "成功加入")
-                print("coEditorResponse", coEditorResponse)
+            case .success(_):
+                ProgressHUD.showSuccess(text: "成功加入")
             case .failure:
                 ProgressHUD.showFailure(text: "新增失敗")
-                print("postToAddEditor失敗！")
             }
         })
     }
@@ -169,10 +164,10 @@ class PlanPickerViewController: UIViewController {
             
             switch result {
                 
-            case .success(let coEditorResponse):
-                print("coEditorResponse", coEditorResponse)
+            case .success(_):
+                ProgressHUD.showSuccess(text: "成功移除")
             case .failure:
-                print("postToDeleteEditor失敗！")
+                ProgressHUD.showFailure(text: "移除失敗")
             }
         })
     }
@@ -220,19 +215,18 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
-        
-        
-        
+ 
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
-        
-        headerView.departmentPickerView.picker.delegate = self
-        
-        headerView.departmentPickerView.picker.dataSource = self
-                
-        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-        
-        headerView.departmentPickerView.delegate = self
+
+        headerView.selectedDepartmentTimesClosure = { selectedDepartmentTimes in
+            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+            if !self.schedule.isEmpty {
+                self.schedule[0].startTime = selectedDepartmentTimes
+                self.fixedDepartmentTime = selectedDepartmentTimes
+            }
+        }
+
         headerView.collectionView.registerCellWithNib(identifier: String(
             describing: FriendsCollectionViewCell.self), bundle: nil)
         
@@ -240,7 +234,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.collectionView.delegate = self
         
         self.reloadDelegate = headerView
-        
+        self.headerView = headerView
         self.headerCollectionView = headerView.collectionView
     
         headerView.inviteButton.addTarget(target, action: #selector(tapToInvite), for: .touchUpInside)
@@ -297,52 +291,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 
         return cell
     }
-    
-    private func scrollToBottom() {
-        DispatchQueue.main.async {
-            let number = self.schedule.count
-            
-            let indexPath = IndexPath(row: number-1, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        }
-    }
-}
-
-extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        return departmentTimes.count
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(departmentTimes[row])"
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        self.selectedDepartmentTimes = departmentTimes[row]
-        
-    }
-}
-
-extension PlanPickerViewController: TimePickerViewDelegate {
-    func tapOnTimePicker() {
-    }
-    
-    func donePickerViewAction() {
-        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-        if !self.schedule.isEmpty {
-            self.schedule[0].startTime = selectedDepartmentTimes
-        }
-    }
-    
 }
 
 extension PlanPickerViewController: SegmentControlViewDataSource {
@@ -361,9 +309,6 @@ extension PlanPickerViewController: SegmentControlViewDataSource {
         fetchData(days: index)
     }
 
-    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
-        return true
-    }
 }
 
 extension PlanPickerViewController: PlanCardTableViewCellDelegate {
@@ -377,17 +322,16 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     
     func rearrangeTime() {
         var previousEndTime = ""
-        for (index, schedule) in self.schedule.enumerated() {
+        for (index, plan) in self.schedule.enumerated() {
             do {
-
                 let distance = (calculateTrafficTime(index: index)/1000).ceiling(toInteger: 1)
-                let totalDuration = schedule.duration + distance/60
+                let totalDuration = plan.duration + distance/60
 
-                let date = try TimeManager.getDateFromString(startTime: schedule.startTime, duration: totalDuration)
+                let date = try TimeManager.getDateFromString(startTime: plan.startTime, duration: totalDuration)
                 
                 let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
                 
-                if schedule.startTime == previousEndTime || previousEndTime == "" {
+                if plan.startTime == previousEndTime || previousEndTime == "" {
                     previousEndTime = endTime
                     continue
                 }
@@ -412,7 +356,6 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         if index == lastIndex {
             return 0
         }
-        // calculate time
         let coordinate₀ = CLLocation(
             latitude: schedule[index].position.lat,
             longitude: schedule[index].position.long
@@ -450,14 +393,12 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
     func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
         deleteEditor(editorId: friendListData.id)
         self.trip?.editors.removeAll(where: { $0 == friendListData })
-
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
 
     }
     
     func passingCoEditFriendsData(_ friendListData: User) {
         postToAddEditor(editorId: friendListData.id)
-        
         self.trip?.editors.append(friendListData)
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
     }
@@ -465,25 +406,18 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
 }
 
 extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
-    var itemSize: CGSize {
-        get {
-            return CGSize(width: 40, height: 40)
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return itemSize
+        return CGSize(width: 40, height: 40)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(10)
+        return CGFloat(5)
     }
 }
 
 extension PlanPickerViewController: PusherDelegate {
-    // MARK: - PusherSwift
     func listenEvent() {
         let options = PusherClientOptions(host: .cluster("ap3"))
         

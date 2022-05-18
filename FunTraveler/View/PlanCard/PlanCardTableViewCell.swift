@@ -120,8 +120,6 @@ class PlanCardTableViewCell: UITableViewCell {
         addressLabel.text = data.address
         startTime = data.startTime
         durationTime = data.duration
-//        trafficTime = rearrangeTrafficTime
-//        trafficTime = data.trafficTime
         orderLabel.text = String(index + 1)
     }
 
@@ -168,9 +166,6 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
 }
 
 extension PlanCardTableViewCell: TimePickerViewDelegate {
-    func tapOnTimePicker() {
-        
-    }
     
     func donePickerViewAction() {
         calculateTime()

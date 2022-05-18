@@ -306,8 +306,4 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
          fetchData(days: index)
     }
-    
-    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
-        return true
-    }
 }
