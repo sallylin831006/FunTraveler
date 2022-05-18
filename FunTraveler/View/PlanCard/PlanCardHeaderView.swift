@@ -8,7 +8,12 @@
 import UIKit
 
 protocol PlanCardHeaderViewDelegate: AnyObject {
+    
     func switchDayButton(index: Int)
+    
+    func tapToInviteFriends(_ button: UIButton)
+    
+    func passingSelectedDepartmentTime(_ selectedDepartmentTime: String)
 }
 
 class PlanCardHeaderView: UITableViewHeaderFooterView {
@@ -55,8 +60,6 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         contentView.backgroundColor = UIColor.themeLightBlue
         contentView.layer.cornerRadius = 12
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        guard let data = data else { return }
-//        selectionView.configureButton(dayNumber: data.days)
     }
     
     func layoutHeaderView(data: Trip) { data
@@ -69,11 +72,9 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         titleLabel.text = data.title
         
         guard let startDate = data.startDate,
-              let endtDate = data.endDate
-        else { return }
+              let endtDate = data.endDate else { return }
         dateLabel.text = "\(startDate) - \(endtDate)"
         self.tripData = data
-//        selectionView.configureButton(dayNumber: data.days)
 
         departmentPickerView.picker.delegate = self
         departmentPickerView.picker.dataSource = self
@@ -82,6 +83,12 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         
         selectionView.delegate = self
         selectionView.dataSource = self
+        
+        inviteButton.addTarget(target, action: #selector(tapToInvite(_:)), for: .touchUpInside)
+    }
+    
+    @objc func tapToInvite(_ sender: UIButton) {
+        delegate?.tapToInviteFriends(sender)
     }
 }
 
@@ -107,7 +114,8 @@ extension PlanCardHeaderView: UIPickerViewDataSource, UIPickerViewDelegate {
 
 extension PlanCardHeaderView: TimePickerViewDelegate {
     func donePickerViewAction() {
-        selectedDepartmentTimesClosure?(selectedDepartmentTimes)
+        delegate?.passingSelectedDepartmentTime(selectedDepartmentTimes)
+//        selectedDepartmentTimesClosure?(selectedDepartmentTimes)
     }
 }
 
@@ -123,11 +131,6 @@ extension PlanCardHeaderView: SegmentControlViewDataSource {
 @objc extension PlanCardHeaderView: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
         delegate?.switchDayButton(index: index)
-        
-//        postData(days: currentDay, isFinished: false)
-//        currentDay = index
-//        currentdayClosure?(index)
-//        fetchData(days: index)
     }
 
 }
