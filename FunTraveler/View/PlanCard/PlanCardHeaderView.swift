@@ -62,7 +62,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
-    func layoutHeaderView(data: Trip) { data
+    func layoutHeaderView(data: Trip) {
         if data.user.imageUrl == "" {
             ownerImageView.image = UIImage.asset(.defaultUserImage)
         } else {
@@ -76,10 +76,10 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         dateLabel.text = "\(startDate) - \(endtDate)"
         self.tripData = data
 
-        departmentPickerView.picker.delegate = self
-        departmentPickerView.picker.dataSource = self
-        departmentPickerView.timeTextField.text = selectedDepartmentTimes
-        departmentPickerView.delegate = self
+//        departmentPickerView.picker.delegate = self
+//        departmentPickerView.picker.dataSource = self
+//        departmentPickerView.timeTextField.text = selectedDepartmentTimes
+//        departmentPickerView.delegate = self
         
         selectionView.delegate = self
         selectionView.dataSource = self
