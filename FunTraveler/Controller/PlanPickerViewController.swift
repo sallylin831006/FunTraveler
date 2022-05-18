@@ -8,7 +8,6 @@
 import UIKit
 import PusherSwift
 import CoreLocation
-import simd
 
 protocol PlanPickerViewControllerDelegate: AnyObject {
     func reloadCollectionView(_ collectionView: UICollectionView)
@@ -19,85 +18,64 @@ class PlanPickerViewController: UIViewController {
     weak var reloadDelegate: PlanPickerViewControllerDelegate?
     
     var pusher: Pusher!
-        
+    
     private var headerCollectionView: UICollectionView!
     
     var currentdayClosure: ((_ currentday: Int) -> Void)?
-
+    
+    var currentDay: Int = 1
+    
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
-
+    
     var myTripId: Int?
-
+    
     var trip: Trip? {
         didSet {
             guard let trip = trip else { return }
             tripClosure?(trip)
         }
     }
-
+    
     var schedule: [Schedule] = [] {
         didSet {
             rearrangeTime()
-            scheduleClosure?(schedule) //?????
+            scheduleClosure?(schedule)
         }
     }
     
     private var fixedDepartmentTime: String?
-
-    var currentDay = 1
-    
     private var headerView: PlanCardHeaderView!
-
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.bottomHeightConstraint.constant = UIScreen.height/14
-    }
-    
     @IBOutlet weak var tableView: UITableView! {
-        
         didSet {
-            
             tableView.dataSource = self
-            
             tableView.delegate = self
-            
         }
     }
     
-    @IBOutlet weak var zoomButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
         listenEvent()
-        
-        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
-            PlanPickerViewController.longPress(_:)))
-        tableView.addGestureRecognizer(longpress)
-        
-        setupTableViewUI()
-    }
-    
-    func setupTableViewUI() {
-        tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
-        tableView.backgroundView?.contentMode = .scaleAspectFill
-        tableView.backgroundColor = .clear
-        tableView.contentInsetAdjustmentBehavior = .never
-        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
-        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
-        tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchData(days: 1)
+        setupZoomButton()
     }
-        
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupTableViewUI()
+    }
+}
+
+extension PlanPickerViewController {
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
@@ -109,7 +87,6 @@ class PlanPickerViewController: UIViewController {
             switch result {
                 
             case .success(let tripSchedule):
-                
                 self?.trip = tripSchedule.data
                 
                 let schedule = tripSchedule.data.schedules?.first ?? []
@@ -119,21 +96,18 @@ class PlanPickerViewController: UIViewController {
                 ProgressHUD.showFailure(text: "讀取失敗")
             }
         })
-        
     }
     // MARK: - POST Action
     func postData(days: Int, isFinished: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
-        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { result in
-            
+        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { [weak self] result in
             switch result {
-                
             case .success:
-                if !self.schedule.isEmpty {
-                    self.schedule[0].startTime = self.fixedDepartmentTime ?? "9:00"
+                if !self!.schedule.isEmpty {
+                    self?.schedule[0].startTime = self?.fixedDepartmentTime ?? "9:00"
                 }
-                self.tableView.reloadData()
+                self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "行程儲存失敗")
             }
@@ -146,9 +120,7 @@ class PlanPickerViewController: UIViewController {
         guard let tripId = myTripId else { return }
         
         coEditProvider.postToAddEditor(tripId: tripId, editorId: editorId, completion: { result in
-            
             switch result {
-                
             case .success(_):
                 ProgressHUD.showSuccess(text: "成功加入")
             case .failure:
@@ -161,11 +133,8 @@ class PlanPickerViewController: UIViewController {
     func deleteEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
         guard let tripId = myTripId else { return }
-        
         coEditProvider.deleteCoEditor(tripId: tripId, editorId: editorId, completion: { result in
-            
             switch result {
-                
             case .success(_):
                 ProgressHUD.showSuccess(text: "成功移除")
             case .failure:
@@ -173,37 +142,11 @@ class PlanPickerViewController: UIViewController {
             }
         })
     }
-    
-    private func showLoadingView() {
-        let loadingView = LoadingView()
-        view.layoutLoadingView(loadingView, view)
-    }
-    
-    @IBAction func tapZoomButton(_ sender: UIButton) {
-        sender.isSelected = isMoveDown
-        if isMoveDown {
-            UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
-            }, completion: nil)
-            
-            zoomButton.setImage(UIImage.asset(.zoomIn), for: .selected)
-            zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 400, width: 50, height: 50)
-            
-        } else {
-            UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: 660, width: UIScreen.width, height: UIScreen.height)
-            }, completion: nil)
-            zoomButton.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
-            zoomButton.frame = CGRect(x: UIScreen.width - 170, y: 250, width: 50, height: 50)
-            
-        }
-        isMoveDown = !isMoveDown
-    }
-    
 }
+// MARK: - TableView
 
 extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
-    // MARK: - Section Header
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 200.0
@@ -214,53 +157,19 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
+        headerView.collectionView.registerCellWithNib(identifier: String(
+            describing: FriendsCollectionViewCell.self), bundle: nil)
         
         guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
         headerView.delegate = self
-//        headerView.selectionView.delegate = self
-//        headerView.selectionView.dataSource = self
-
-        headerView.selectedDepartmentTimesClosure = { selectedDepartmentTimes in
-            headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-            if !self.schedule.isEmpty {
-                self.schedule[0].startTime = selectedDepartmentTimes
-                self.fixedDepartmentTime = selectedDepartmentTimes
-            }
-        }
-
-        headerView.collectionView.registerCellWithNib(identifier: String(
-            describing: FriendsCollectionViewCell.self), bundle: nil)
-        
         headerView.collectionView.dataSource = self
         headerView.collectionView.delegate = self
         
         self.reloadDelegate = headerView
         self.headerView = headerView
         self.headerCollectionView = headerView.collectionView
-    
-        headerView.inviteButton.addTarget(target, action: #selector(tapToInvite), for: .touchUpInside)
-        
         return headerView
-    }
-    @objc func tapToInvite() {
-        guard let friendListVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
-        
-        guard let userId = KeyChainManager.shared.userId else { return }
-        
-        friendListVC.userId = Int(userId)
-        
-        friendListVC.isEditMode = true
-        
-        friendListVC.delegate = self
-
-        friendListVC.modalPresentationStyle = .pageSheet
-        if #available(iOS 15.0, *) {
-            let sheet = friendListVC.sheetPresentationController
-            sheet?.detents = [.medium(), .large()]
-        }
-        self.present(friendListVC, animated: true)
     }
     
     // MARK: - Delete
@@ -283,35 +192,20 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
         tableView.separatorColor = .clear
-
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
+            PlanPickerViewController.longPress(_:)))
+        tableView.addGestureRecognizer(longpress)
+        
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         cell.trafficTime = rearrangeTrafficTime
         cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
         cell.index = indexPath.row
         cell.delegate = self
-                
+        
         return cell
     }
 }
-
-//extension PlanPickerViewController: SegmentControlViewDataSource {
-//
-//    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-//        trip?.days ?? 1
-//    }
-//
-//}
-//
-//@objc extension PlanPickerViewController: SegmentControlViewDelegate {
-//    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-//        postData(days: currentDay, isFinished: false)
-//        currentDay = index
-//        currentdayClosure?(index)
-//        fetchData(days: index)
-//    }
-//
-//}
 
 extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int) {
@@ -319,7 +213,7 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         self.schedule[index].startTime = startTime
         self.schedule[index].duration = duration
         self.schedule[index].trafficTime = trafficTime
-
+        
     }
     
     func rearrangeTime() {
@@ -328,7 +222,7 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
             do {
                 let distance = (calculateTrafficTime(index: index)/1000).ceiling(toInteger: 1)
                 let totalDuration = plan.duration + distance/60
-
+                
                 let date = try TimeManager.getDateFromString(startTime: plan.startTime, duration: totalDuration)
                 
                 let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
@@ -372,6 +266,34 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     
 }
 extension PlanPickerViewController: PlanCardHeaderViewDelegate {
+    func passingSelectedDepartmentTime(_ selectedDepartmentTime: String) {
+        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTime
+        if !self.schedule.isEmpty {
+            self.schedule[0].startTime = selectedDepartmentTime
+            self.fixedDepartmentTime = selectedDepartmentTime
+        }
+    }
+    
+    func tapToInviteFriends(_ button: UIButton) {
+        guard let friendListVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        
+        guard let userId = KeyChainManager.shared.userId else { return }
+        
+        friendListVC.userId = Int(userId)
+        
+        friendListVC.isEditMode = true
+        
+        friendListVC.delegate = self
+        
+        friendListVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            let sheet = friendListVC.sheetPresentationController
+            sheet?.detents = [.medium(), .large()]
+        }
+        self.present(friendListVC, animated: true)
+    }
+    
     func switchDayButton(index: Int) {
         postData(days: currentDay, isFinished: false)
         currentDay = index
@@ -381,9 +303,9 @@ extension PlanPickerViewController: PlanCardHeaderViewDelegate {
 }
 
 
-// MARK: - CollectionView
+// MARK: - Friends Co-Editing CollectionView
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trip?.editors.count ?? 0
     }
@@ -393,9 +315,9 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
             for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
-
+        
         guard let editors = trip?.editors else { return UICollectionViewCell() }
-          cell.layoutCell(data: editors, index: indexPath.row)
+        cell.layoutCell(data: editors, index: indexPath.row)
         
         return cell
     }
@@ -406,7 +328,7 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
         deleteEditor(editorId: friendListData.id)
         self.trip?.editors.removeAll(where: { $0 == friendListData })
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
-
+        
     }
     
     func passingCoEditFriendsData(_ friendListData: User) {
@@ -422,13 +344,13 @@ extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 40, height: 40)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return CGFloat(5)
     }
 }
-
+// MARK: - Friends Co-Editing Pusher
 extension PlanPickerViewController: PusherDelegate {
     func listenEvent() {
         let options = PusherClientOptions(host: .cluster("ap3"))
@@ -468,3 +390,44 @@ extension PlanPickerViewController: PusherDelegate {
     }
     
 }
+
+extension PlanPickerViewController {
+    func setupTableViewUI() {
+        self.bottomHeightConstraint.constant = UIScreen.height/14
+        tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
+        tableView.backgroundView?.contentMode = .scaleAspectFill
+        tableView.backgroundColor = .clear
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
+        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
+    }
+    
+    func setupZoomButton() {
+        let zoomButton = UIButton()
+        self.view.addSubview(zoomButton)
+        let width: CGFloat = 50
+        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width)
+        zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
+        zoomButton.addTarget(self, action: #selector(tapZoomBtn(_:)), for: .touchUpInside)
+        
+    }
+    @objc func tapZoomBtn(_ sender: UIButton) {
+        sender.isSelected = isMoveDown
+        if isMoveDown {
+            UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
+                self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
+            }, completion: nil)
+            
+            sender.setImage(UIImage.asset(.zoomIn), for: .selected)
+        } else {
+            UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
+                self.view.frame = CGRect(x: 0, y: 660, width: UIScreen.width, height: UIScreen.height)
+            }, completion: nil)
+            sender.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
+        }
+        isMoveDown = !isMoveDown
+    }
+}
+
+

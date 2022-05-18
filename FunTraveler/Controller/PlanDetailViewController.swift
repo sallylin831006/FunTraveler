@@ -14,7 +14,6 @@ class PlanDetailViewController: UIViewController {
     
     var trip: Trip?
     var currentDay: Int = 1
-    var testcurrentDay: Int = 1
 
     var schedules: [Schedule] = []
     
@@ -85,7 +84,7 @@ class PlanDetailViewController: UIViewController {
         let tripProvider = TripProvider()
         guard let tripId = myTripId else { return }
 
-        let day = testcurrentDay
+        let day = currentDay
 //        let day = schedules[0].day
         tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
             
@@ -126,10 +125,9 @@ class PlanDetailViewController: UIViewController {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
         planPickerViewController.currentdayClosure = { currentday in
-            self.testcurrentDay = currentday
+            self.currentDay = currentday
         }
         planPickerViewController.myTripId = myTripId
-        planPickerViewController.currentDay = currentDay
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
             self?.addMarker()
@@ -193,7 +191,7 @@ class PlanDetailViewController: UIViewController {
         
         searchVC.scheduleClosure = { [weak self] newSchedule in
             self?.schedules = newSchedule
-            self?.postData(days: self!.testcurrentDay, isFinished: false)
+            self?.postData(days: self!.currentDay, isFinished: false)
             
         }
         let navSearchVC = UINavigationController(rootViewController: searchVC)
