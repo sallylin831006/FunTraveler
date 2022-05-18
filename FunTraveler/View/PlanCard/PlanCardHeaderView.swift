@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlanCardHeaderView: UITableViewHeaderFooterView {
+class PlanCardHeaderView: UITableViewHeaderFooterView, TimePickerViewDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -23,8 +23,14 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var inviteButton: UIButton!
     
-    private var data: Trip?
     
+    var selectedDepartmentTimesClosure: ((_ selectedDepartmentTimes: String) -> Void)?
+
+    
+    private var departmentTimes = ["06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
+    
+    private var selectedDepartmentTimes: String = "09:00"
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
 //        selectionView.delegate = self
@@ -49,7 +55,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
 //        selectionView.configureButton(dayNumber: data.days)
     }
     
-    func layoutHeaderView(data: Trip) {data
+    func layoutHeaderView(data: Trip) { data
         if data.user.imageUrl == "" {
             ownerImageView.image = UIImage.asset(.defaultUserImage)
         } else {
@@ -64,32 +70,37 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         dateLabel.text = "\(startDate) - \(endtDate)"
 
 //        selectionView.configureButton(dayNumber: data.days)
-        self.data = data
+
+        departmentPickerView.picker.delegate = self
+        departmentPickerView.picker.dataSource = self
+        departmentPickerView.timeTextField.text = selectedDepartmentTimes
+        departmentPickerView.delegate = self
         
     }
-
+    
+    func donePickerViewAction() {
+        selectedDepartmentTimesClosure?(selectedDepartmentTimes)
+    }
 }
 
-//extension PlanCardHeaderView: SegmentControlViewDataSource {
-//    
-//    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-//        data?.days ?? 1
-//    }
-//    
-//}
+extension PlanCardHeaderView: UIPickerViewDataSource, UIPickerViewDelegate {
 
-//@objc extension PlanCardHeaderView: SegmentControlViewDelegate {
-//    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-//        postData(days: currentDay, isFinished: false)
-//        currentDay = index
-//        currentdayClosure?(index)
-//        fetchData(days: index)
-//    }
-//    
-//    func shouldSelectedButton(_ selectionView: SegmentControlView, at index: Int) -> Bool {
-//        return true
-//    }
-//}
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return departmentTimes.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(departmentTimes[row])"
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedDepartmentTimes = departmentTimes[row]
+    }
+}
 
 
 
