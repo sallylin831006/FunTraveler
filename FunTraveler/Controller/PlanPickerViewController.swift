@@ -178,8 +178,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return trip?.schedules?.count ?? 0
-//        schedule.count
+//        return trip?.schedules?.count ?? 0
+        schedule.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

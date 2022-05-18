@@ -251,8 +251,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         }
         
         footerView.moveToCommentButton.addTarget(self, action: #selector(tapToCommentView), for: .touchUpInside)
-        guard let numberOfComment = trip.commentCount else { return nil}
-        footerView.moveToCommentButton.setTitle("查看全部\(numberOfComment)則留言", for: .normal)
+        footerView.moveToCommentButton.setTitle("查看全部\(trip.commentCount)則留言", for: .normal)
         return footerView
     }
     

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+typealias TripOverViewHanlder = (Result<[TripOverView]>) -> Void
 typealias TripHanlder = (Result<Trips>) -> Void
 typealias AddTripHanlder = (Result<AddTrip>) -> Void
 typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
@@ -20,7 +21,7 @@ class TripProvider {
     let decoder = JSONDecoder()
     
     // MARK: - GET USER TRIP OVERVIEW
-    func fetchTrip(completion: @escaping TripHanlder) {
+    func fetchTrip(completion: @escaping TripOverViewHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -37,13 +38,13 @@ class TripProvider {
                     
                     do {
                         let tripData = try JSONDecoder().decode(
-                            Trips.self,
+                            TripOverViews.self,
                             from: data
                         )
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(tripData))
+                            completion(Result.success(tripData.data))
                         }
                         
                     } catch {

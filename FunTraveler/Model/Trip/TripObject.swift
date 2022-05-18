@@ -54,6 +54,16 @@ struct AddTrip: Codable {
     }
 }
 
+//TripOverView
+struct TripOverViews: Codable {
+    var data: [TripOverView]
+}
+
+struct TripOverView: Codable {
+    var id: Int
+    var title: String
+    var days: Int
+}
 
 struct Trip: Codable {
     var id: Int
@@ -66,7 +76,7 @@ struct Trip: Codable {
     var isCollected: Bool
     var likeCount: Int
     var isLiked: Bool
-    var commentCount: Int?
+    var commentCount: Int
     
     var schedules: [[Schedule]]?
     
