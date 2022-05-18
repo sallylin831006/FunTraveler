@@ -35,9 +35,12 @@ class PlanPickerViewController: UIViewController {
         didSet {
             guard let trip = trip else { return }
             tripClosure?(trip)
+            rearrangeTime()
+            guard let schedule = trip.schedules?.first else { return }
+            scheduleClosure?(schedule)
         }
     }
-
+    
     var schedule: [Schedule] = [] {
         didSet {
             rearrangeTime()
@@ -144,7 +147,7 @@ extension PlanPickerViewController {
 // MARK: - TableView
 
 extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 200.0
@@ -178,8 +181,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return trip?.schedules?.count ?? 0
-        schedule.count
+        return trip?.schedules?.first?.count ?? 0
+//        return schedule.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -195,7 +198,10 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         cell.trafficTime = rearrangeTrafficTime
-        cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
+        
+        
+        guard let item = trip?.schedules?.first?[indexPath.row] else { return UITableViewCell() }
+        cell.layouCell(data: item, index: indexPath.row)
         
         cell.index = indexPath.row
         cell.delegate = self
@@ -325,7 +331,6 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
         deleteEditor(editorId: friendListData.id)
         self.trip?.editors.removeAll(where: { $0 == friendListData })
         self.reloadDelegate?.reloadCollectionView(headerCollectionView)
-        
     }
     
     func passingCoEditFriendsData(_ friendListData: User) {
