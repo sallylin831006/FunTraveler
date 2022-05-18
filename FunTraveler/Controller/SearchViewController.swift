@@ -10,7 +10,7 @@ import CoreLocation
 
 class SearchViewController: UIViewController {
     var scheduleArray: [Schedule] = []
-    var day: Int = 1
+    var currentDay: Int = 1
     
     var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
@@ -73,14 +73,6 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
         
     }
-
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let searchDetailVC = SearchDetailViewController()
-//        self.navigationController?.pushViewController(searchDetailVC, animated: true)
-//        searchDetailVC.searchResoponse = searchData[indexPath.row]
-    }
     
 }
 
@@ -92,7 +84,7 @@ extension SearchViewController: SearchTableViewCellDelegate {
 
         let schedule = Schedule(
             name: searchData[indexPath.row].name,
-            day: day,
+            day: currentDay,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
             trafficTime: 0,
@@ -107,36 +99,10 @@ extension SearchViewController: SearchTableViewCellDelegate {
             return
             
         }
-//        let newTrafficTime = calculateTrafficTime(index: indexPath.row)
-//        scheduleArray[scheduleArray.endIndex-1].trafficTime = newTrafficTime
+
         scheduleArray.append(schedule)
         print("成功加入行程！！")
         
-    }
-    
-    func calculateTrafficTime(index: Int) -> Double {
-        if index == 0 {
-            return 0
-        }
-        let lastIndex = searchData.count - 1
-        if index == lastIndex {
-            return 0
-        }
-        // calculate time
-        let coordinate₀ = CLLocation(
-            latitude: CLLocationDegrees(searchData[index-1].geometry.location.lat),
-            longitude: CLLocationDegrees(searchData[index-1].geometry.location.lng)
-        )
-        let coordinate₁ = CLLocation(
-            latitude: CLLocationDegrees(searchData[index].geometry.location.lat),
-            longitude: CLLocationDegrees(searchData[index].geometry.location.lng)
-        )
-
-        let distance = coordinate₀.distance(from: coordinate₁)/1000
-        let carSpeed: Double = 60
-        
-        return coordinate₀.distance(from: coordinate₁)
-//       return Double(distance.rounding(toDecimal: 2)/carSpeed)
     }
     
 }

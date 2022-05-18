@@ -13,7 +13,7 @@ protocol PlanCardHeaderViewDelegate: AnyObject {
     
     func tapToInviteFriends(_ button: UIButton)
     
-    func passingSelectedDepartmentTime(_ selectedDepartmentTime: String)
+    func passingSelectedDepartmentTime(_ headerView: PlanCardHeaderView, _ selectedDepartmentTime: String)
 }
 
 class PlanCardHeaderView: UITableViewHeaderFooterView {
@@ -114,8 +114,7 @@ extension PlanCardHeaderView: UIPickerViewDataSource, UIPickerViewDelegate {
 
 extension PlanCardHeaderView: TimePickerViewDelegate {
     func donePickerViewAction() {
-        delegate?.passingSelectedDepartmentTime(selectedDepartmentTimes)
-//        selectedDepartmentTimesClosure?(selectedDepartmentTimes)
+        delegate?.passingSelectedDepartmentTime(self, selectedDepartmentTimes)
     }
 }
 
