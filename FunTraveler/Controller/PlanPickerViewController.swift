@@ -31,22 +31,27 @@ class PlanPickerViewController: UIViewController {
 
     var tripId: Int?
     
-    var trip: Trip? {
-        didSet {
-            guard let trip = trip else { return }
-            tripClosure?(trip)
-        }
-    }
+    var trip: Trip?
     
     var schedule: [Schedule] = [] {
         didSet {
+//            if !self.schedule.isEmpty {
+//                self.schedule[0].startTime = selectedDepartmentTimes
+//            }
+//            if !self.schedule.isEmpty {
+//                self.schedule[0].startTime = fixedDepartmentTime
+//            }
             rearrangeTime()
             scheduleClosure?(schedule)
         }
     }
     
-    private var fixedDepartmentTime: String?
-//    private var headerView: PlanCardHeaderView!
+    private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
+    
+    private var selectedDepartmentTimes: String = "09:00"
+    private var headerView: PlanCardHeaderView!
+    
+    private var fixedDepartmentTime: String = "09:00"
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
@@ -86,8 +91,13 @@ extension PlanPickerViewController {
                 
             case .success(let tripSchedule):
                 self?.trip = tripSchedule.data
+                self?.tripClosure?(tripSchedule.data)
                 let schedule = tripSchedule.data.schedules?.first ?? []
+                self?.selectedDepartmentTimes = schedule.first?.startTime ?? "9:00"
+//                self?.fixedDepartmentTime = schedule.first?.startTime ?? "9:00"
+
                 self?.schedule = schedule
+                self?.tableView.reloadData()
                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
@@ -100,10 +110,14 @@ extension PlanPickerViewController {
         guard let tripId = tripId else { return }
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { [weak self] result in
             switch result {
-            case .success:
+            case .success(let schedule):
+                print("schedule After POST", schedule)
                 if !self!.schedule.isEmpty {
-                    self?.schedule[0].startTime = self?.fixedDepartmentTime ?? "9:00"
+                    self?.schedule[0].startTime = self!.selectedDepartmentTimes
                 }
+//                if !schedule.isEmpty {
+//                    schedule[0].startTime = self?.fixedDepartmentTime ?? "9:00"
+//                }
                 self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "行程更新失敗")
@@ -163,6 +177,13 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.collectionView.dataSource = self
         headerView.collectionView.delegate = self
         
+        headerView.departmentPickerView.picker.delegate = self
+        headerView.departmentPickerView.picker.dataSource = self
+        
+        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+        headerView.departmentPickerView.delegate = self
+        
+        self.headerView = headerView
         self.reloadDelegate = headerView
         self.headerCollectionView = headerView.collectionView
         return headerView
@@ -192,9 +213,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         cell.trafficTime = rearrangeTrafficTime
-        
-        
-//        guard let item = trip?.schedules?.first?[indexPath.row] else { return UITableViewCell() }
+
         cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
         cell.index = indexPath.row
@@ -203,6 +222,82 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
+
+extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+        return departmentTimes.count
+
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(departmentTimes[row])"
+
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        self.selectedDepartmentTimes = departmentTimes[row]
+
+    }
+}
+
+extension PlanPickerViewController: TimePickerViewDelegate {
+
+    func donePickerViewAction() {
+        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
+        if !self.schedule.isEmpty {
+            self.schedule[0].startTime = selectedDepartmentTimes
+        }
+    }
+
+}
+
+extension PlanPickerViewController: PlanCardHeaderViewDelegate {
+    func passingSelectedDepartmentTime(_ headerView: PlanCardHeaderView, _ selectedDepartmentTime: String) {
+        self.fixedDepartmentTime = selectedDepartmentTime
+
+        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTime
+        if !self.schedule.isEmpty {
+            self.schedule[0].startTime = selectedDepartmentTime
+
+//            self.fixedDepartmentTime = selectedDepartmentTime
+        }
+    }
+    
+    func tapToInviteFriends(_ button: UIButton) {
+        guard let friendListVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
+        
+        guard let userId = KeyChainManager.shared.userId else { return }
+        
+        friendListVC.userId = Int(userId)
+        
+        friendListVC.isEditMode = true
+        
+        friendListVC.delegate = self
+        
+        friendListVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            let sheet = friendListVC.sheetPresentationController
+            sheet?.detents = [.medium(), .large()]
+        }
+        self.present(friendListVC, animated: true)
+    }
+    
+    func switchDayButton(index: Int) {
+        postData(days: currentDay, isFinished: false)
+        currentDay = index
+        currentdayClosure?(index)
+        fetchData(days: index)
+    }
+}
+
 
 extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int) {
@@ -262,43 +357,6 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     }
     
 }
-extension PlanPickerViewController: PlanCardHeaderViewDelegate {
-    func passingSelectedDepartmentTime(_ headerView: PlanCardHeaderView, _ selectedDepartmentTime: String) {
-        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTime
-        if !self.schedule.isEmpty {
-            self.schedule[0].startTime = selectedDepartmentTime
-            self.fixedDepartmentTime = selectedDepartmentTime
-        }
-    }
-    
-    func tapToInviteFriends(_ button: UIButton) {
-        guard let friendListVC = UIStoryboard.profile.instantiateViewController(
-            withIdentifier: StoryboardCategory.friendListVC) as? FriendListViewController else { return }
-        
-        guard let userId = KeyChainManager.shared.userId else { return }
-        
-        friendListVC.userId = Int(userId)
-        
-        friendListVC.isEditMode = true
-        
-        friendListVC.delegate = self
-        
-        friendListVC.modalPresentationStyle = .pageSheet
-        if #available(iOS 15.0, *) {
-            let sheet = friendListVC.sheetPresentationController
-            sheet?.detents = [.medium(), .large()]
-        }
-        self.present(friendListVC, animated: true)
-    }
-    
-    func switchDayButton(index: Int) {
-        postData(days: currentDay, isFinished: false)
-        currentDay = index
-        currentdayClosure?(index)
-        fetchData(days: index)
-    }
-}
-
 
 // MARK: - Friends Co-Editing CollectionView
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
