@@ -37,7 +37,7 @@ class PlanPickerViewController: UIViewController {
             tripClosure?(trip)
         }
     }
-    
+
     var schedule: [Schedule] = [] {
         didSet {
             rearrangeTime()
@@ -57,7 +57,6 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         listenEvent()
@@ -67,7 +66,6 @@ class PlanPickerViewController: UIViewController {
         fetchData(days: 1)
         setupZoomButton()
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -146,7 +144,7 @@ extension PlanPickerViewController {
 // MARK: - TableView
 
 extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 200.0
@@ -172,7 +170,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     
-    // MARK: - Delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.schedule.remove(at: indexPath.row)
@@ -180,9 +177,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        schedule.count
+        return trip?.schedules?.count ?? 0
+//        schedule.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -241,7 +238,7 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
                 previousEndTime = newEndTime
                 
             } catch let wrongError {
-                print("Error message: \(wrongError),Please add correct time!")
+                print("Error message: \(wrongError), Please add correct time!")
             }
         }
         tableView.reloadData()
