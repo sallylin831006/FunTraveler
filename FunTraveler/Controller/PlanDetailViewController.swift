@@ -126,7 +126,7 @@ class PlanDetailViewController: UIViewController {
         planPickerViewController.currentdayClosure = { currentday in
             self.currentDay = currentday
         }
-        planPickerViewController.myTripId = myTripId
+        planPickerViewController.tripId = myTripId
         planPickerViewController.scheduleClosure = { [weak self] schedules in
             self?.schedules = schedules
             self?.addMarker()
@@ -183,9 +183,9 @@ class PlanDetailViewController: UIViewController {
         searchVC.scheduleArray = schedules
         
         if schedules.isEmpty {
-            searchVC.day = 1
+            searchVC.currentDay = 1
         } else {
-            searchVC.day = schedules[0].day
+            searchVC.currentDay = schedules[0].day
         }
         
         searchVC.scheduleClosure = { [weak self] newSchedule in
