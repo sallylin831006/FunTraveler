@@ -130,7 +130,9 @@ class PlanPickerViewController: UIViewController {
             switch result {
                 
             case .success:
-                self.schedule[0].startTime = self.fixedDepartmentTime ?? "9:00"
+                if !self.schedule.isEmpty {
+                    self.schedule[0].startTime = self.fixedDepartmentTime ?? "9:00"
+                }
                 self.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "行程儲存失敗")
@@ -215,9 +217,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
- 
-        headerView.selectionView.delegate = self
-        headerView.selectionView.dataSource = self
+        headerView.delegate = self
+//        headerView.selectionView.delegate = self
+//        headerView.selectionView.dataSource = self
 
         headerView.selectedDepartmentTimesClosure = { selectedDepartmentTimes in
             headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
@@ -293,23 +295,23 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension PlanPickerViewController: SegmentControlViewDataSource {
-
-    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-        trip?.days ?? 1
-    }
-
-}
-
-@objc extension PlanPickerViewController: SegmentControlViewDelegate {
-    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-        postData(days: currentDay, isFinished: false)
-        currentDay = index
-        currentdayClosure?(index)
-        fetchData(days: index)
-    }
-
-}
+//extension PlanPickerViewController: SegmentControlViewDataSource {
+//
+//    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+//        trip?.days ?? 1
+//    }
+//
+//}
+//
+//@objc extension PlanPickerViewController: SegmentControlViewDelegate {
+//    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+//        postData(days: currentDay, isFinished: false)
+//        currentDay = index
+//        currentdayClosure?(index)
+//        fetchData(days: index)
+//    }
+//
+//}
 
 extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int) {
@@ -369,6 +371,16 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     }
     
 }
+extension PlanPickerViewController: PlanCardHeaderViewDelegate {
+    func switchDayButton(index: Int) {
+        postData(days: currentDay, isFinished: false)
+        currentDay = index
+        currentdayClosure?(index)
+        fetchData(days: index)
+    }
+}
+
+
 // MARK: - CollectionView
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
