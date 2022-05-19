@@ -16,7 +16,7 @@ protocol PlanCardTableViewCellDelegate: AnyObject {
 class PlanCardTableViewCell: UITableViewCell {
     
     weak var delegate: PlanCardTableViewCellDelegate?
-    var index: Int = 1
+    private var index: Int = 1
  
     var trafficTime: Double = 1 {
         didSet {
@@ -31,7 +31,7 @@ class PlanCardTableViewCell: UITableViewCell {
         }
     }
 
-    var durationTime: Double = 1 {
+    private var durationTime: Double = 1 {
         didSet {
             timePickerView.timeTextField.text = "\(durationTime)小時"
             calculateTime()
@@ -41,30 +41,30 @@ class PlanCardTableViewCell: UITableViewCell {
     private var times = PickerConstant.scheduleTImes
     private var trafficTimes = PickerConstant.trafficTImes
     
-    var startTime: String = "" {
+    private var startTime: String = "" {
         didSet {
             startTimeLabel.text = startTime
             calculateTime()
         }
 }
     
-    @IBOutlet weak var orderLabel: UILabel!
+    @IBOutlet weak private var orderLabel: UILabel!
     
-    @IBOutlet weak var timePickerView: TimePickerView!
+    @IBOutlet weak private var timePickerView: TimePickerView!
     
-    @IBOutlet weak var trafficPickerView: TimePickerView!
+    @IBOutlet weak private var trafficPickerView: TimePickerView!
     
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak private var nameLabel: UILabel!
     
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak private var addressLabel: UILabel!
     
-    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak private var startTimeLabel: UILabel!
     
-    @IBOutlet weak var orderImage: UIImageView!
+    @IBOutlet weak private var orderImage: UIImageView!
     
-    @IBOutlet weak var endTimeLabel: UILabel!
+    @IBOutlet weak private var endTimeLabel: UILabel!
     
-    @IBOutlet weak var cardView: UIView!
+    @IBOutlet weak private var cardView: UIView!
     
 
     override func awakeFromNib() {
@@ -103,6 +103,7 @@ class PlanCardTableViewCell: UITableViewCell {
         startTime = data.startTime
         durationTime = data.duration
         orderLabel.text = String(index + 1)
+        self.index = index
     }
     
     override func layoutSubviews() {
