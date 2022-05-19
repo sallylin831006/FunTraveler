@@ -37,8 +37,7 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
-    private var headerCollectionView: UICollectionView! //naming
-    private var fixedDepartmentTime: String = "09:00" // Date?
+    private var selectedDepartmentTime: String = "09:00" // Date?
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
@@ -87,7 +86,7 @@ extension PlanPickerViewController {
                 self?.schedule = schedule
                 self?.scheduleClosure?(schedule)
                 
-                self?.fixedDepartmentTime = schedule.first?.startTime ?? "9:00"
+                self?.selectedDepartmentTime = schedule.first?.startTime ?? "9:00"
                 
                 self?.tableView.reloadData()
                 
@@ -101,7 +100,7 @@ extension PlanPickerViewController {
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
         if !self.schedule.isEmpty {
-            self.schedule[0].startTime = self.fixedDepartmentTime
+            self.schedule[0].startTime = self.selectedDepartmentTime
         }
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { [weak self] result in
             switch result {
@@ -161,7 +160,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
-
+        
         guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
         headerView.delegate = self
@@ -192,7 +191,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
-        cell.index = indexPath.row
         cell.delegate = self
         
         return cell
@@ -203,10 +201,9 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
 extension PlanPickerViewController: PlanCardHeaderViewDelegate {
     
     internal func passingSelectedDepartmentTime(_ headerView: PlanCardHeaderView, _ selectedDepartmentTime: String) {
-        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTime
         if !self.schedule.isEmpty {
             self.schedule[0].startTime = selectedDepartmentTime
-            self.fixedDepartmentTime = selectedDepartmentTime
+            self.selectedDepartmentTime = selectedDepartmentTime
         }
         postData(days: currentDay, isFinished: false)
         fetchData(days: currentDay)

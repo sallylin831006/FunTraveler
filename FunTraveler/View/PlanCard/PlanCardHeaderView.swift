@@ -19,19 +19,19 @@ protocol PlanCardHeaderViewDelegate: AnyObject {
 class PlanCardHeaderView: UITableViewHeaderFooterView {
     weak var delegate: PlanCardHeaderViewDelegate?
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak private var titleLabel: UILabel!
     
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak private var dateLabel: UILabel!
     
-    @IBOutlet weak var ownerImageView: UIImageView!
+    @IBOutlet weak private var ownerImageView: UIImageView!
     
-    @IBOutlet weak var departmentPickerView: TimePickerView!
+    @IBOutlet weak private var departmentPickerView: TimePickerView!
     
-    @IBOutlet weak var selectionView: SegmentControlView!
+    @IBOutlet weak private var selectionView: SegmentControlView!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak private var collectionView: UICollectionView!
     
-    @IBOutlet weak var inviteButton: UIButton!
+    @IBOutlet weak private var inviteButton: UIButton!
     
     
     var selectedDepartmentTimesClosure: ((_ selectedDepartmentTimes: String) -> Void)?
