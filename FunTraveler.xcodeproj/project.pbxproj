@@ -67,6 +67,7 @@
 		3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5828058D6B004F5BB3 /* MapObject.swift */; };
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
 		3A1E78AC2835D030009D3B27 /* StringConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E78AB2835D030009D3B27 /* StringConstant.swift */; };
+		3A1E78AE283636E9009D3B27 /* PusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E78AD283636E9009D3B27 /* PusherManager.swift */; };
 		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
 		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
 		3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6AAF281385EE00D00638 /* PlayerViewController.swift */; };
@@ -227,6 +228,7 @@
 		3A185C5828058D6B004F5BB3 /* MapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObject.swift; sourceTree = "<group>"; };
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
 		3A1E78AB2835D030009D3B27 /* StringConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstant.swift; sourceTree = "<group>"; };
+		3A1E78AD283636E9009D3B27 /* PusherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherManager.swift; sourceTree = "<group>"; };
 		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		3A2B6AAF281385EE00D00638 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -705,6 +707,7 @@
 				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
 				3A35288D28222009003E6400 /* BlockListViewController.swift */,
+				3A1E78AD283636E9009D3B27 /* PusherManager.swift */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,
@@ -1126,6 +1129,7 @@
 				3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */,
 				3A9E9CE02800935200C7B8D3 /* UIStoryboard+Extension.swift in Sources */,
 				3A185C1428041A3A004F5BB3 /* Parser.swift in Sources */,
+				3A1E78AE283636E9009D3B27 /* PusherManager.swift in Sources */,
 				3A5445EE281E21410078518E /* VideoWallHeaderView.swift in Sources */,
 				3AF4DCA6280C2169008029D7 /* ExploreDetailViewController.swift in Sources */,
 				3A40D36B2817880500A7BF51 /* CommentTableViewCell.swift in Sources */,

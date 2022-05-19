@@ -51,6 +51,8 @@ class PlanPickerViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        let pusherManager = PusherManager()
+        pusherManager.delegate = self
         listenEvent()
     }
     
@@ -312,6 +314,25 @@ extension PlanPickerViewController: FriendListViewControllerDelegate {
 }
 
 // MARK: - Friends Co-Editing Pusher
+
+extension PlanPickerViewController: PusherManagerDelegate {
+    
+    func updaateSchedules(tripSchedule: Schedules) {
+        if tripSchedule.tripId != self.tripId { return }
+        if tripSchedule.schedules.first == nil {
+            self.schedule = []
+            self.tableView.reloadData()
+        }
+        if tripSchedule.schedules.first?.day != self.currentDay { return }
+        self.schedule = tripSchedule.schedules
+        self.rearrangeTime()
+        self.tableView.reloadData()
+    }
+    
+    
+}
+
+
 extension PlanPickerViewController: PusherDelegate {
     private func listenEvent() {
         let options = PusherClientOptions(host: .cluster(StringConstant.pusherCluster))
@@ -347,7 +368,6 @@ extension PlanPickerViewController: PusherDelegate {
         })
         
         pusher.connect()
-        
     }
 }
 
