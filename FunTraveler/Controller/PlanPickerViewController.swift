@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreLocation
 
 protocol PlanPickerViewControllerDelegate: AnyObject {
     func reloadCollectionView(_ collectionView: UICollectionView)
@@ -30,11 +29,11 @@ class PlanPickerViewController: UIViewController {
     
     var schedule: [Schedule] = [] { //
         didSet {
-            rearrangeTime()
+            schedule = rearrangeTimeManager.rearrangeSchedulesTime(schedule)
         }
     }
     
-    private var selectedDepartmentTime: String = "09:00" // Date?
+    private var selectedDepartmentTime: String = "09:00"
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
@@ -44,6 +43,7 @@ class PlanPickerViewController: UIViewController {
             tableView.delegate = self
         }
     }
+    let rearrangeTimeManager = RearrangeTimeManager()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -184,8 +184,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
+        let rearrangeTrafficTime = rearrangeTimeManager.calculateTrafficTime(indexPath.row, self.schedule)
         
-        let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         cell.trafficTime = rearrangeTrafficTime
         
         cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
@@ -248,54 +248,41 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         
     }
     
-    internal func rearrangeTime() {
-        var previousEndTime = ""
-        for (index, plan) in self.schedule.enumerated() {
-            do {
-                let distance = (calculateTrafficTime(index: index)/1000).ceiling(toInteger: 1)
-                let totalDuration = plan.duration + distance/60
-                
-                let date = try TimeManager.getDateFromString(startTime: plan.startTime, duration: totalDuration)
-                
-                let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
-                
-                if plan.startTime == previousEndTime || previousEndTime == "" {
-                    previousEndTime = endTime
-                    continue
-                }
-                
-                self.schedule[index].startTime = previousEndTime
-                
-                let newDate = try TimeManager.getDateFromString(startTime: previousEndTime, duration: totalDuration)
-                
-                let newEndTime = "\(newDate.endHours):\(String(format: "%02d", newDate.endMinutes))"
-                
-                previousEndTime = newEndTime
-                
-            } catch let wrongError {
-                print("Error message: \(wrongError), Please add correct time!")
-            }
-        }
-        tableView.reloadData()
-    }
     
-    private func calculateTrafficTime(index: Int) -> Double {
-        let lastIndex = schedule.count - 1
-        if index == lastIndex && lastIndex >= 0 {
-            return 0
-        }
-        let coordinate₀ = CLLocation(
-            latitude: schedule[index].position.lat,
-            longitude: schedule[index].position.long
-        )
-        
-        let coordinate₁ = CLLocation(
-            latitude: schedule[index+1].position.lat,
-            longitude: schedule[index+1].position.long
-        )
-        return coordinate₀.distance(from: coordinate₁)
-    } //
-    
+//
+//    internal func rearrangeTime() {
+//        var previousEndTime = ""
+//        for (index, plan) in self.schedule.enumerated() {
+//            do {
+//
+//                let distance = rearrangeTimeManager.calculateTrafficTime(index, self.schedule)
+//
+//                let totalDuration = plan.duration + distance/60
+//
+//                let date = try TimeManager.getDateFromString(startTime: plan.startTime, duration: totalDuration)
+//
+//                let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
+//
+//                if plan.startTime == previousEndTime || previousEndTime == "" {
+//                    previousEndTime = endTime
+//                    continue
+//                }
+//
+//                self.schedule[index].startTime = previousEndTime
+//
+//                let newDate = try TimeManager.getDateFromString(startTime: previousEndTime, duration: totalDuration)
+//
+//                let newEndTime = "\(newDate.endHours):\(String(format: "%02d", newDate.endMinutes))"
+//
+//                previousEndTime = newEndTime
+//
+//            } catch let wrongError {
+//                print("Error message: \(wrongError), Please add correct time!")
+//            }
+//        }
+//        tableView.reloadData()
+//    }
+//
 }
 
 // MARK: - FriendListDelegate
@@ -322,7 +309,7 @@ extension PlanPickerViewController: PusherManagerDelegate {
         }
         if tripSchedule.schedules.first?.day != self.currentDay { return }
         self.schedule = tripSchedule.schedules
-        self.rearrangeTime()
+        schedule = rearrangeTimeManager.rearrangeSchedulesTime(schedule)
         self.tableView.reloadData()
     }
 }
