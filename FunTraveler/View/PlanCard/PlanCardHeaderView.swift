@@ -39,7 +39,8 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     
     private var departmentTimes = ["06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
     
-    private var selectedDepartmentTimes: String = "09:00"
+    private var firstTime: String?
+    private var selectedDepartmentTimes: String?
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -63,6 +64,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     }
     
     func layoutHeaderView(data: Trip) {
+        self.firstTime = data.schedules?.first?.first?.startTime
         if data.user.imageUrl == "" {
             ownerImageView.image = UIImage.asset(.defaultUserImage)
         } else {
@@ -76,10 +78,22 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         dateLabel.text = "\(startDate) - \(endtDate)"
         self.tripData = data
 
-//        departmentPickerView.picker.delegate = self
-//        departmentPickerView.picker.dataSource = self
-//        departmentPickerView.timeTextField.text = selectedDepartmentTimes
-//        departmentPickerView.delegate = self
+        departmentPickerView.picker.delegate = self
+        departmentPickerView.picker.dataSource = self
+        departmentPickerView.delegate = self
+        
+        
+        departmentPickerView.timeTextField.text = data.schedules?.first?.first?.startTime
+        
+//        if selectedDepartmentTimes == nil {
+//            departmentPickerView.timeTextField.text = data.schedules?.first?.first?.startTime
+//                print("拿到data資料：", data.schedules?.first?.first?.startTime)
+//        } else {
+//            departmentPickerView.timeTextField.text = selectedDepartmentTimes
+//            print("拿到selectedDepartmentTimes：", selectedDepartmentTimes)
+//        }
+        
+
         
         selectionView.delegate = self
         selectionView.dataSource = self
@@ -114,7 +128,7 @@ extension PlanCardHeaderView: UIPickerViewDataSource, UIPickerViewDelegate {
 
 extension PlanCardHeaderView: TimePickerViewDelegate {
     func donePickerViewAction() {
-        delegate?.passingSelectedDepartmentTime(self, selectedDepartmentTimes)
+        delegate?.passingSelectedDepartmentTime(self, selectedDepartmentTimes ?? "9:00")
     }
 }
 

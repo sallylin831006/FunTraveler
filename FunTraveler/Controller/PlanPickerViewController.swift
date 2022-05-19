@@ -19,38 +19,26 @@ class PlanPickerViewController: UIViewController {
     
     var pusher: Pusher!
     
-    private var headerCollectionView: UICollectionView!
+    var currentDay: Int = 1
     
     var currentdayClosure: ((_ currentday: Int) -> Void)?
-    
-    var currentDay: Int = 1
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
     
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
-
+    
     var tripId: Int?
     
     var trip: Trip?
     
     var schedule: [Schedule] = [] {
         didSet {
-//            if !self.schedule.isEmpty {
-//                self.schedule[0].startTime = selectedDepartmentTimes
-//            }
-//            if !self.schedule.isEmpty {
-//                self.schedule[0].startTime = fixedDepartmentTime
-//            }
             rearrangeTime()
             scheduleClosure?(schedule)
         }
     }
     
-    private var departmentTimes = ["09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
-    
-    private var selectedDepartmentTimes: String = "09:00"
-    private var headerView: PlanCardHeaderView!
-    
+    private var headerCollectionView: UICollectionView!
     private var fixedDepartmentTime: String = "09:00"
     private var isMoveDown: Bool = false
     
@@ -69,12 +57,12 @@ class PlanPickerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         fetchData(days: 1)
-        setupZoomButton()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         setupTableViewUI()
+        setupZoomButton()
     }
 }
 
@@ -90,15 +78,14 @@ extension PlanPickerViewController {
             switch result {
                 
             case .success(let tripSchedule):
+                
                 self?.trip = tripSchedule.data
                 self?.tripClosure?(tripSchedule.data)
                 let schedule = tripSchedule.data.schedules?.first ?? []
-                self?.selectedDepartmentTimes = schedule.first?.startTime ?? "9:00"
-//                self?.fixedDepartmentTime = schedule.first?.startTime ?? "9:00"
-
+                self?.fixedDepartmentTime = schedule.first?.startTime ?? "9:00"
                 self?.schedule = schedule
                 self?.tableView.reloadData()
-               
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
             }
@@ -108,16 +95,12 @@ extension PlanPickerViewController {
     func postData(days: Int, isFinished: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
+        if !self.schedule.isEmpty {
+            self.schedule[0].startTime = self.fixedDepartmentTime
+        }
         tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { [weak self] result in
             switch result {
-            case .success(let schedule):
-                print("schedule After POST", schedule)
-                if !self!.schedule.isEmpty {
-                    self?.schedule[0].startTime = self!.selectedDepartmentTimes
-                }
-//                if !schedule.isEmpty {
-//                    schedule[0].startTime = self?.fixedDepartmentTime ?? "9:00"
-//                }
+            case .success:
                 self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "行程更新失敗")
@@ -125,7 +108,7 @@ extension PlanPickerViewController {
         })
     }
     
-    // MARK: - POST To Add Editor
+    // MARK: - POST Action
     func postToAddEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
         guard let tripId = tripId else { return }
@@ -140,7 +123,7 @@ extension PlanPickerViewController {
         })
     }
     
-    // MARK: - Delete Editor
+    // MARK: - Delete Action
     func deleteEditor(editorId: Int) {
         let coEditProvider = CoEditProvider()
         guard let tripId = tripId else { return }
@@ -154,7 +137,8 @@ extension PlanPickerViewController {
         })
     }
 }
-// MARK: - TableView
+
+// MARK: - TableView DataSourse & Delegate
 
 extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -177,13 +161,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         headerView.collectionView.dataSource = self
         headerView.collectionView.delegate = self
         
-        headerView.departmentPickerView.picker.delegate = self
-        headerView.departmentPickerView.picker.dataSource = self
-        
-        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-        headerView.departmentPickerView.delegate = self
-        
-        self.headerView = headerView
         self.reloadDelegate = headerView
         self.headerCollectionView = headerView.collectionView
         return headerView
@@ -213,7 +190,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         cell.trafficTime = rearrangeTrafficTime
-
+        
         cell.layouCell(data: schedule[indexPath.row], index: indexPath.row)
         
         cell.index = indexPath.row
@@ -223,51 +200,16 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension PlanPickerViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-
-        return departmentTimes.count
-
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(departmentTimes[row])"
-
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-
-        self.selectedDepartmentTimes = departmentTimes[row]
-
-    }
-}
-
-extension PlanPickerViewController: TimePickerViewDelegate {
-
-    func donePickerViewAction() {
-        headerView.departmentPickerView.timeTextField.text = selectedDepartmentTimes
-        if !self.schedule.isEmpty {
-            self.schedule[0].startTime = selectedDepartmentTimes
-        }
-    }
-
-}
-
+// MARK: - HeaderView Delegate
 extension PlanPickerViewController: PlanCardHeaderViewDelegate {
     func passingSelectedDepartmentTime(_ headerView: PlanCardHeaderView, _ selectedDepartmentTime: String) {
-        self.fixedDepartmentTime = selectedDepartmentTime
-
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTime
         if !self.schedule.isEmpty {
             self.schedule[0].startTime = selectedDepartmentTime
-
-//            self.fixedDepartmentTime = selectedDepartmentTime
+            self.fixedDepartmentTime = selectedDepartmentTime
         }
+        postData(days: currentDay, isFinished: false)
+        fetchData(days: currentDay)
     }
     
     func tapToInviteFriends(_ button: UIButton) {
@@ -298,7 +240,7 @@ extension PlanPickerViewController: PlanCardHeaderViewDelegate {
     }
 }
 
-
+// MARK: - PlanCardCellDelegate
 extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int) {
         
@@ -358,7 +300,23 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
     
 }
 
-// MARK: - Friends Co-Editing CollectionView
+// MARK: - FriendListDelegate
+extension PlanPickerViewController: FriendListViewControllerDelegate {
+    func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
+        deleteEditor(editorId: friendListData.id)
+        self.trip?.editors.removeAll(where: { $0 == friendListData })
+        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+    }
+    
+    func passingCoEditFriendsData(_ friendListData: User) {
+        postToAddEditor(editorId: friendListData.id)
+        self.trip?.editors.append(friendListData)
+        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+    }
+    
+}
+
+// MARK: - CollectionView DataSourse & Delegate
 extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -378,21 +336,6 @@ extension PlanPickerViewController: UICollectionViewDataSource, UICollectionView
     }
 }
 
-extension PlanPickerViewController: FriendListViewControllerDelegate {
-    func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
-        deleteEditor(editorId: friendListData.id)
-        self.trip?.editors.removeAll(where: { $0 == friendListData })
-        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
-    }
-    
-    func passingCoEditFriendsData(_ friendListData: User) {
-        postToAddEditor(editorId: friendListData.id)
-        self.trip?.editors.append(friendListData)
-        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
-    }
-    
-}
-
 extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -404,6 +347,7 @@ extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
         return CGFloat(5)
     }
 }
+
 // MARK: - Friends Co-Editing Pusher
 extension PlanPickerViewController: PusherDelegate {
     func listenEvent() {
@@ -442,7 +386,6 @@ extension PlanPickerViewController: PusherDelegate {
         pusher.connect()
         
     }
-    
 }
 
 extension PlanPickerViewController {
