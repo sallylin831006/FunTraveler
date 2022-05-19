@@ -17,28 +17,28 @@ class PlanPickerViewController: UIViewController {
     // MARK: - Property
     weak var reloadDelegate: PlanPickerViewControllerDelegate?
     
-    var pusher: Pusher!
+    var pusher: Pusher! //
     
     var currentDay: Int = 1
     
-    var currentdayClosure: ((_ currentday: Int) -> Void)?
+    var currentdayClosure: ((_ currentday: Int) -> Void)? //
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
     
     var scheduleClosure: ((_ schedule: [Schedule]) -> Void)?
     
-    var tripId: Int?
+    var tripId: Int? //
     
-    var trip: Trip?
+    var trip: Trip? // didset
     
-    var schedule: [Schedule] = [] {
+    var schedule: [Schedule] = [] { //
         didSet {
             rearrangeTime()
         }
     }
     
-    private var headerCollectionView: UICollectionView!
-    private var fixedDepartmentTime: String = "09:00"
+    private var headerCollectionView: UICollectionView! //
+    private var fixedDepartmentTime: String = "09:00" // Date?
     private var isMoveDown: Bool = false
     
     @IBOutlet weak var bottomHeightConstraint: NSLayoutConstraint!
@@ -56,6 +56,7 @@ class PlanPickerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchData(days: 1)
     }
     
@@ -157,7 +158,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
         headerView.collectionView.registerCellWithNib(identifier: String(
-            describing: FriendsCollectionViewCell.self), bundle: nil)
+            describing: FriendsCollectionViewCell.self), bundle: nil) //
         
         guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
@@ -187,10 +188,6 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: String(describing: PlanCardTableViewCell.self), for: indexPath)
                 as? PlanCardTableViewCell else { return UITableViewCell() }
         
-        tableView.separatorColor = .clear
-        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
-            PlanPickerViewController.longPress(_:)))
-        tableView.addGestureRecognizer(longpress)
         
         let rearrangeTrafficTime = (calculateTrafficTime(index: indexPath.row)/1000).ceiling(toInteger: 1)
         cell.trafficTime = rearrangeTrafficTime
@@ -232,12 +229,14 @@ extension PlanPickerViewController: PlanCardHeaderViewDelegate {
         if #available(iOS 15.0, *) {
             let sheet = friendListVC.sheetPresentationController
             sheet?.detents = [.medium(), .large()]
+        } else {
+            
         }
         self.present(friendListVC, animated: true)
     }
     
     internal func switchDayButton(index: Int) {
-        postData(days: currentDay, isFinished: false)
+        postData(days: currentDay, isFinished: false) // cache?
         currentDay = index
         currentdayClosure?(index)
         fetchData(days: index)
@@ -300,7 +299,7 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
             longitude: schedule[index+1].position.long
         )
         return coordinate₀.distance(from: coordinate₁)
-    }
+    } //
     
 }
 
@@ -398,17 +397,22 @@ extension PlanPickerViewController {
         tableView.backgroundView = UIImageView(image: UIImage.asset(.planBackground)!)
         tableView.backgroundView?.contentMode = .scaleAspectFill
         tableView.backgroundColor = .clear
+        tableView.separatorColor = .clear
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.registerHeaderWithNib(identifier: String(describing: PlanCardHeaderView.self), bundle: nil)
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: PlanCardTableViewCell.self), bundle: nil)
+        
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(
+            PlanPickerViewController.longPress(_:)))
+        tableView.addGestureRecognizer(longpress)
     }
     
     private func setupZoomButton() {
         let zoomButton = UIButton()
         self.view.addSubview(zoomButton)
         let width: CGFloat = 50
-        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width)
+        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width) //
         zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
         zoomButton.addTarget(self, action: #selector(tapZoomBtn(_:)), for: .touchUpInside)
         
@@ -423,7 +427,7 @@ extension PlanPickerViewController {
             sender.setImage(UIImage.asset(.zoomIn), for: .selected)
         } else {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: 660, width: UIScreen.width, height: UIScreen.height)
+                self.view.frame = CGRect(x: 0, y: 660, width: UIScreen.width, height: UIScreen.height) //
             }, completion: nil)
             sender.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
         }

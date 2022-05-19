@@ -63,14 +63,12 @@ extension UIView {
     }
     
     func centerView(_ objectView: UIView, _ view: UIView) {
-
         objectView.removeFromSuperview()
         view.addSubview(objectView)
         objectView.translatesAutoresizingMaskIntoConstraints = false
         objectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         objectView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-    
     
     func addShadow() {
         layer.masksToBounds = false

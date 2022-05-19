@@ -78,7 +78,7 @@ struct Trip: Codable {
     var isLiked: Bool
     var commentCount: Int
     
-    var schedules: [[Schedule]]?
+    var schedules: [[Schedule]]? //
     
     enum CodingKeys: String, CodingKey {
         case id, days, title, user, schedules, editors
