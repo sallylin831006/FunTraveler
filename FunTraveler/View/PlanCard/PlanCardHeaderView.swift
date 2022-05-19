@@ -37,16 +37,16 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     var selectedDepartmentTimesClosure: ((_ selectedDepartmentTimes: String) -> Void)?
     private var tripData: Trip?
     
-    private var departmentTimes = ["06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30"]
+    private var departmentTimes = PickerConstant.departmentTimes
     
     private var firstTime: String?
     private var selectedDepartmentTimes: String?
-
+    
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -70,30 +70,19 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         } else {
             ownerImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
-       
+        
         titleLabel.text = data.title
         
         guard let startDate = data.startDate,
               let endtDate = data.endDate else { return }
         dateLabel.text = "\(startDate) - \(endtDate)"
         self.tripData = data
-
+        
         departmentPickerView.picker.delegate = self
         departmentPickerView.picker.dataSource = self
         departmentPickerView.delegate = self
         
-        
         departmentPickerView.timeTextField.text = data.schedules?.first?.first?.startTime
-        
-//        if selectedDepartmentTimes == nil {
-//            departmentPickerView.timeTextField.text = data.schedules?.first?.first?.startTime
-//                print("拿到data資料：", data.schedules?.first?.first?.startTime)
-//        } else {
-//            departmentPickerView.timeTextField.text = selectedDepartmentTimes
-//            print("拿到selectedDepartmentTimes：", selectedDepartmentTimes)
-//        }
-        
-
         
         selectionView.delegate = self
         selectionView.dataSource = self
@@ -108,19 +97,19 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
 
 // MARK: - TimePicker in HeaderView
 extension PlanCardHeaderView: UIPickerViewDataSource, UIPickerViewDelegate {
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return departmentTimes.count
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(departmentTimes[row])"
+        return String(departmentTimes[row])
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedDepartmentTimes = departmentTimes[row]
     }
@@ -134,20 +123,17 @@ extension PlanCardHeaderView: TimePickerViewDelegate {
 
 
 extension PlanCardHeaderView: SegmentControlViewDataSource {
-
+    
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
         tripData?.days ?? 1
     }
-
 }
 
 @objc extension PlanCardHeaderView: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
         delegate?.switchDayButton(index: index)
     }
-
 }
-
 
 
 extension PlanCardHeaderView: PlanPickerViewControllerDelegate {

@@ -15,10 +15,9 @@ protocol PlanCardTableViewCellDelegate: AnyObject {
 
 class PlanCardTableViewCell: UITableViewCell {
     
-    var index: Int = 1
-        
     weak var delegate: PlanCardTableViewCellDelegate?
-    
+    var index: Int = 1
+ 
     var trafficTime: Double = 1 {
         didSet {
             var showTrafficTime: String = ""
@@ -39,9 +38,9 @@ class PlanCardTableViewCell: UITableViewCell {
         }
     }
 
-    private var times = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
-    private var trafficTimes = ["0.5","1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
-
+    private var times = PickerConstant.scheduleTImes
+    private var trafficTimes = PickerConstant.trafficTImes
+    
     var startTime: String = "" {
         didSet {
             startTimeLabel.text = startTime
@@ -67,22 +66,15 @@ class PlanCardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cardView: UIView!
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        cardView.layer.cornerRadius = CornerRadius.buttonCorner
-    }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.backgroundColor = .clear
-        self.selectionStyle = .none
-        trafficPickerView.picker.delegate = self
         
+        trafficPickerView.picker.delegate = self        
         trafficPickerView.picker.dataSource = self
-
         trafficPickerView.delegate = self
-        
         trafficPickerView.picker.tag = 2
+        
         
         timePickerView.picker.delegate = self
         
@@ -95,8 +87,7 @@ class PlanCardTableViewCell: UITableViewCell {
         startTimeLabel.text = startTime
     }
     
-    func calculateTime() {
-        
+    private func calculateTime() {
         do {
             let date = try TimeManager.getDateFromString(startTime: startTime, duration: durationTime)
             let formatMinutes = String(format: "%02d", date.endMinutes)
@@ -104,11 +95,6 @@ class PlanCardTableViewCell: UITableViewCell {
         } catch let wrongError {
             print("Error message: \(wrongError),Please add correct time!")
         }
-        
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
     func layouCell(data: Schedule, index: Int) {
@@ -118,6 +104,18 @@ class PlanCardTableViewCell: UITableViewCell {
         durationTime = data.duration
         orderLabel.text = String(index + 1)
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.backgroundColor = .clear
+        self.selectionStyle = .none
+        cardView.layer.cornerRadius = CornerRadius.buttonCorner
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
 
 }
 

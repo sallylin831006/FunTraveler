@@ -186,8 +186,6 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func reportAction(index: Int) {
-        let userName = commentData[index].user.name
-
         let reportController = UIAlertController(
             title: "檢舉留言",
             message: "", preferredStyle: .alert)
