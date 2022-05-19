@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import PusherSwift
 import CoreLocation
 
 protocol PlanPickerViewControllerDelegate: AnyObject {
@@ -16,9 +15,7 @@ protocol PlanPickerViewControllerDelegate: AnyObject {
 class PlanPickerViewController: UIViewController {
     // MARK: - Property
     weak var reloadDelegate: PlanPickerViewControllerDelegate?
-    
-    var pusher: Pusher! //
-    
+        
     var currentDay: Int = 1
     
     var currentdayClosure: ((_ currentday: Int) -> Void)? //naming
@@ -53,7 +50,7 @@ class PlanPickerViewController: UIViewController {
         super.viewDidLoad()
         let pusherManager = PusherManager()
         pusherManager.delegate = self
-        listenEvent()
+        pusherManager.listenEvent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -327,47 +324,6 @@ extension PlanPickerViewController: PusherManagerDelegate {
         self.schedule = tripSchedule.schedules
         self.rearrangeTime()
         self.tableView.reloadData()
-    }
-    
-    
-}
-
-
-extension PlanPickerViewController: PusherDelegate {
-    private func listenEvent() {
-        let options = PusherClientOptions(host: .cluster(StringConstant.pusherCluster))
-        
-        pusher = Pusher(key: KeyConstants.pusherKey, options: options)
-        
-        pusher.delegate = self
-        
-        let channel = pusher.subscribe(StringConstant.pusherSubscribe)
-        
-        let _ = channel.bind(eventName: StringConstant.pusherEventName, eventCallback: { (event: PusherEvent) in
-            if let data = event.data {
-                do {
-                    
-                    let tripSchedule = try JSONDecoder().decode(
-                        Schedules.self,
-                        from: data.data(using: .utf8)!
-                    )
-                    
-                    if tripSchedule.tripId != self.tripId { return }
-                    if tripSchedule.schedules.first == nil {
-                        self.schedule = []
-                        self.tableView.reloadData()
-                    }
-                    if tripSchedule.schedules.first?.day != self.currentDay { return }
-                    self.schedule = tripSchedule.schedules
-                    self.rearrangeTime()
-                    self.tableView.reloadData()
-                } catch {
-                    print(error)
-                }
-            }
-        })
-        
-        pusher.connect()
     }
 }
 
