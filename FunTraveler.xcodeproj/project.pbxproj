@@ -68,6 +68,7 @@
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
 		3A1E78AC2835D030009D3B27 /* StringConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E78AB2835D030009D3B27 /* StringConstant.swift */; };
 		3A1E78AE283636E9009D3B27 /* PusherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E78AD283636E9009D3B27 /* PusherManager.swift */; };
+		3A1E78C3283666CF009D3B27 /* FunTravelerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E78C2283666CF009D3B27 /* FunTravelerTests.swift */; };
 		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
 		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
 		3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6AAF281385EE00D00638 /* PlayerViewController.swift */; };
@@ -150,6 +151,7 @@
 		3ACC6C7D281F7FFD002B7256 /* ButtonHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */; };
 		3ACC6C7F281FE9EA002B7256 /* CoEditRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */; };
 		3ACC6C81281FE9F3002B7256 /* CoEditProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */; };
+		3AD8B87628368E390008F084 /* RearrangeTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD8B87528368E390008F084 /* RearrangeTimeManager.swift */; };
 		3AE13C882819AC1F003859E1 /* SettingViewConttoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */; };
 		3AF4DC9A280AF069008029D7 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AF4DC99280AF069008029D7 /* Profile.storyboard */; };
 		3AF4DC9C280AF0D5008029D7 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */; };
@@ -162,10 +164,22 @@
 		3AF4DCAD280C39AA008029D7 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */; };
 		3AF4DCB0280C3E26008029D7 /* KingFisherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF4DCAF280C3E26008029D7 /* KingFisherWrapper.swift */; };
 		3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFE61C8280A85FE0018394E /* CalculateHelper.swift */; };
+		4CD3C12FC28413CC89305D04 /* Pods_FunTravelerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FB044BB584D050241D82E30 /* Pods_FunTravelerTests.framework */; };
 		C3AEEE3C6189C8F8028B1D36 /* Pods_FunTraveler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3A1E78C4283666CF009D3B27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A9E9CB92800912000C7B8D3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A9E9CC02800912000C7B8D3;
+			remoteInfo = FunTraveler;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1FB044BB584D050241D82E30 /* Pods_FunTravelerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunTravelerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A041E97282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		3A041E98282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoContainer.swift; sourceTree = "<group>"; };
@@ -229,6 +243,8 @@
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
 		3A1E78AB2835D030009D3B27 /* StringConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstant.swift; sourceTree = "<group>"; };
 		3A1E78AD283636E9009D3B27 /* PusherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherManager.swift; sourceTree = "<group>"; };
+		3A1E78C0283666CF009D3B27 /* FunTravelerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunTravelerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A1E78C2283666CF009D3B27 /* FunTravelerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunTravelerTests.swift; sourceTree = "<group>"; };
 		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		3A2B6AAF281385EE00D00638 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +330,7 @@
 		3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHelper.swift; sourceTree = "<group>"; };
 		3ACC6C7E281FE9EA002B7256 /* CoEditRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditRequest.swift; sourceTree = "<group>"; };
 		3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoEditProvider.swift; sourceTree = "<group>"; };
+		3AD8B87528368E390008F084 /* RearrangeTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RearrangeTimeManager.swift; sourceTree = "<group>"; };
 		3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewConttoller.swift; sourceTree = "<group>"; };
 		3AF4DC99280AF069008029D7 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -326,12 +343,22 @@
 		3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		3AF4DCAF280C3E26008029D7 /* KingFisherWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingFisherWrapper.swift; sourceTree = "<group>"; };
 		3AFE61C8280A85FE0018394E /* CalculateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateHelper.swift; sourceTree = "<group>"; };
+		53F7538E32B1420E561C7D9F /* Pods-FunTravelerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTravelerTests.release.xcconfig"; path = "Target Support Files/Pods-FunTravelerTests/Pods-FunTravelerTests.release.xcconfig"; sourceTree = "<group>"; };
 		73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunTraveler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.release.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.release.xcconfig"; sourceTree = "<group>"; };
 		CB413D7F6C05AB4EFC0A0F9E /* Pods-FunTraveler.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTraveler.debug.xcconfig"; path = "Target Support Files/Pods-FunTraveler/Pods-FunTraveler.debug.xcconfig"; sourceTree = "<group>"; };
+		DD05A48B117DAED2F3FECCC8 /* Pods-FunTravelerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FunTravelerTests.debug.xcconfig"; path = "Target Support Files/Pods-FunTravelerTests/Pods-FunTravelerTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3A1E78BD283666CF009D3B27 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CD3C12FC28413CC89305D04 /* Pods_FunTravelerTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A9E9CBE2800912000C7B8D3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -347,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				73186D584D9808EFEC85EDA3 /* Pods_FunTraveler.framework */,
+				1FB044BB584D050241D82E30 /* Pods_FunTravelerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -477,6 +505,14 @@
 				3ACC6C80281FE9F3002B7256 /* CoEditProvider.swift */,
 			);
 			path = Trip;
+			sourceTree = "<group>";
+		};
+		3A1E78C1283666CF009D3B27 /* FunTravelerTests */ = {
+			isa = PBXGroup;
+			children = (
+				3A1E78C2283666CF009D3B27 /* FunTravelerTests.swift */,
+			);
+			path = FunTravelerTests;
 			sourceTree = "<group>";
 		};
 		3A2B6ADB2813DDDC00D00638 /* Camera */ = {
@@ -630,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				3A9E9CC32800912000C7B8D3 /* FunTraveler */,
+				3A1E78C1283666CF009D3B27 /* FunTravelerTests */,
 				3A9E9CC22800912000C7B8D3 /* Products */,
 				5A799DD875BE00BF1E7BBA1E /* Pods */,
 				38B0D11C00FC5A524FF36F27 /* Frameworks */,
@@ -640,6 +677,7 @@
 			isa = PBXGroup;
 			children = (
 				3A9E9CC12800912000C7B8D3 /* FunTraveler.app */,
+				3A1E78C0283666CF009D3B27 /* FunTravelerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -708,6 +746,7 @@
 				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
 				3A35288D28222009003E6400 /* BlockListViewController.swift */,
 				3A1E78AD283636E9009D3B27 /* PusherManager.swift */,
+				3AD8B87528368E390008F084 /* RearrangeTimeManager.swift */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,
@@ -802,6 +841,8 @@
 			children = (
 				CB413D7F6C05AB4EFC0A0F9E /* Pods-FunTraveler.debug.xcconfig */,
 				C2AC13864AD8DF7A3283E0A4 /* Pods-FunTraveler.release.xcconfig */,
+				DD05A48B117DAED2F3FECCC8 /* Pods-FunTravelerTests.debug.xcconfig */,
+				53F7538E32B1420E561C7D9F /* Pods-FunTravelerTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -809,6 +850,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3A1E78BF283666CF009D3B27 /* FunTravelerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3A1E78C6283666CF009D3B27 /* Build configuration list for PBXNativeTarget "FunTravelerTests" */;
+			buildPhases = (
+				857E36B4003DF66F560088BD /* [CP] Check Pods Manifest.lock */,
+				3A1E78BC283666CF009D3B27 /* Sources */,
+				3A1E78BD283666CF009D3B27 /* Frameworks */,
+				3A1E78BE283666CF009D3B27 /* Resources */,
+				A7F36A8331B3C30616669CEC /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A1E78C5283666CF009D3B27 /* PBXTargetDependency */,
+			);
+			name = FunTravelerTests;
+			productName = FunTravelerTests;
+			productReference = 3A1E78C0283666CF009D3B27 /* FunTravelerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3A9E9CC02800912000C7B8D3 /* FunTraveler */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A9E9CD52800912300C7B8D3 /* Build configuration list for PBXNativeTarget "FunTraveler" */;
@@ -842,6 +903,10 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					3A1E78BF283666CF009D3B27 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 3A9E9CC02800912000C7B8D3;
+					};
 					3A9E9CC02800912000C7B8D3 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -862,11 +927,19 @@
 			projectRoot = "";
 			targets = (
 				3A9E9CC02800912000C7B8D3 /* FunTraveler */,
+				3A1E78BF283666CF009D3B27 /* FunTravelerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3A1E78BE283666CF009D3B27 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A9E9CBF2800912000C7B8D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -973,6 +1046,28 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
+		857E36B4003DF66F560088BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FunTravelerTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8A7DC1EAD27005E708ECEBF9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -988,6 +1083,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTraveler/Pods-FunTraveler-frameworks.sh\"\n";
+		};
+		A7F36A8331B3C30616669CEC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTravelerTests/Pods-FunTravelerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FunTravelerTests/Pods-FunTravelerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FunTravelerTests/Pods-FunTravelerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		AFC60E12D96E8C88082C0084 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1031,6 +1143,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3A1E78BC283666CF009D3B27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A1E78C3283666CF009D3B27 /* FunTravelerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A9E9CBD2800912000C7B8D3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1115,6 +1235,7 @@
 				3A0C3CE9281AFA42006632AC /* InviteListViewController.swift in Sources */,
 				3A5445F1281E7AA10078518E /* Font+Extension.swift in Sources */,
 				3A041EB4282BA61A0034BFDD /* ASVideoContainer.swift in Sources */,
+				3AD8B87628368E390008F084 /* RearrangeTimeManager.swift in Sources */,
 				3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */,
 				3A134946280E5C6C008CECEA /* ShareHeaderView.swift in Sources */,
 				3A185C1A28041AA9004F5BB3 /* TripRequest.swift in Sources */,
@@ -1155,6 +1276,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3A1E78C5283666CF009D3B27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A9E9CC02800912000C7B8D3 /* FunTraveler */;
+			targetProxy = 3A1E78C4283666CF009D3B27 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		3A9E9CCA2800912000C7B8D3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1177,6 +1306,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3A1E78C7283666CF009D3B27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD05A48B117DAED2F3FECCC8 /* Pods-FunTravelerTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 66YLNV7J37;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Sally.FunTravelerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FunTraveler.app/FunTraveler";
+			};
+			name = Debug;
+		};
+		3A1E78C8283666CF009D3B27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53F7538E32B1420E561C7D9F /* Pods-FunTravelerTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 66YLNV7J37;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Sally.FunTravelerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FunTraveler.app/FunTraveler";
+			};
+			name = Release;
+		};
 		3A9E9CD32800912300C7B8D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1378,6 +1547,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3A1E78C6283666CF009D3B27 /* Build configuration list for PBXNativeTarget "FunTravelerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A1E78C7283666CF009D3B27 /* Debug */,
+				3A1E78C8283666CF009D3B27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3A9E9CBC2800912000C7B8D3 /* Build configuration list for PBXProject "FunTraveler" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
