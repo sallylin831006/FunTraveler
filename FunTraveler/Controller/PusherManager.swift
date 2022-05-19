@@ -16,7 +16,7 @@ class PusherManager: PusherDelegate {
     
     weak var delegate: PusherManagerDelegate?
     
-    var pusher: Pusher! //
+    var pusher: Pusher!
     
     func listenEvent() {
         let options = PusherClientOptions(host: .cluster(StringConstant.pusherCluster))
@@ -35,19 +35,7 @@ class PusherManager: PusherDelegate {
                         Schedules.self,
                         from: data.data(using: .utf8)!
                     )
-                    
                     self.delegate?.updaateSchedules(tripSchedule: tripSchedule)
-                    
-//                    self.updaateSchedules(tripSchedule: tripSchedule)
-//                    if tripSchedule.tripId != self.tripId { return }
-//                    if tripSchedule.schedules.first == nil {
-//                        self.schedule = []
-//                        self.tableView.reloadData()
-//                    }
-//                    if tripSchedule.schedules.first?.day != self.currentDay { return }
-//                    self.schedule = tripSchedule.schedules
-//                    self.rearrangeTime()
-//                    self.tableView.reloadData()
                 } catch {
                     print(error)
                 }
@@ -56,9 +44,4 @@ class PusherManager: PusherDelegate {
         
         pusher.connect()
     }
-    
-//    func updaateSchedules(tripSchedule: Schedules) {
-//        delegate?.updaateSchedules(tripSchedule: Schedules)
-//    }
-    
 }
