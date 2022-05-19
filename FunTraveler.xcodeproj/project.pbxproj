@@ -66,6 +66,7 @@
 		3A185C5728058D54004F5BB3 /* DomainConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5628058D54004F5BB3 /* DomainConstant.swift */; };
 		3A185C5928058D6B004F5BB3 /* MapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5828058D6B004F5BB3 /* MapObject.swift */; };
 		3A185C5D2807129D004F5BB3 /* PlanPickerViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */; };
+		3A1E78AC2835D030009D3B27 /* StringConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1E78AB2835D030009D3B27 /* StringConstant.swift */; };
 		3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */; };
 		3A24A8D0280A15C0002A4969 /* ShareExperienceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */; };
 		3A2B6AB0281385EE00D00638 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2B6AAF281385EE00D00638 /* PlayerViewController.swift */; };
@@ -225,6 +226,7 @@
 		3A185C5628058D54004F5BB3 /* DomainConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainConstant.swift; sourceTree = "<group>"; };
 		3A185C5828058D6B004F5BB3 /* MapObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObject.swift; sourceTree = "<group>"; };
 		3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlanPickerViewController+Extension.swift"; sourceTree = "<group>"; };
+		3A1E78AB2835D030009D3B27 /* StringConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstant.swift; sourceTree = "<group>"; };
 		3A24A8CD280A15C0002A4969 /* ShareExperienceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareExperienceTableViewCell.swift; sourceTree = "<group>"; };
 		3A24A8CE280A15C0002A4969 /* ShareExperienceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareExperienceTableViewCell.xib; sourceTree = "<group>"; };
 		3A2B6AAF281385EE00D00638 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */,
 				3A9A5111282A090B00F49181 /* WebUrl.swift */,
 				3A4820BF282C8ABA006A1489 /* OrientationHelper.swift */,
+				3A1E78AB2835D030009D3B27 /* StringConstant.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1053,6 +1056,7 @@
 				3AFE61C9280A85FE0018394E /* CalculateHelper.swift in Sources */,
 				3A40D3572816D5E100A7BF51 /* AuthTableViewCell.swift in Sources */,
 				3A185C1228041A23004F5BB3 /* Bundle+Extension.swift in Sources */,
+				3A1E78AC2835D030009D3B27 /* StringConstant.swift in Sources */,
 				3A4653B82815069F005051EB /* UIView+Extension.swift in Sources */,
 				3A185C4228058BF5004F5BB3 /* SearchViewController.swift in Sources */,
 				3AF4DC9F280C1203008029D7 /* ExploreRequest.swift in Sources */,
