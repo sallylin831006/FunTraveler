@@ -64,6 +64,9 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     }
     
     func layoutHeaderView(data: Trip) {
+        collectionView.registerCellWithNib(identifier: String(
+            describing: FriendsCollectionViewCell.self), bundle: nil)
+        
         self.firstTime = data.schedules?.first?.first?.startTime
         if data.user.imageUrl == "" {
             ownerImageView.image = UIImage.asset(.defaultUserImage)
@@ -88,10 +91,17 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
         selectionView.dataSource = self
         
         inviteButton.addTarget(target, action: #selector(tapToInvite(_:)), for: .touchUpInside)
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     @objc func tapToInvite(_ sender: UIButton) {
         delegate?.tapToInviteFriends(sender)
+    }
+    
+    func reloadCollectionView() {
+        self.collectionView.reloadData()
     }
 }
 
@@ -135,9 +145,36 @@ extension PlanCardHeaderView: SegmentControlViewDataSource {
     }
 }
 
+extension PlanCardHeaderView: UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return tripData?.editors.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
+            for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
 
-extension PlanCardHeaderView: PlanPickerViewControllerDelegate {
-    func reloadCollectionView(_ collectionView: UICollectionView) {
-        collectionView.reloadData()
+
+        guard let editors = tripData?.editors else { return UICollectionViewCell() }
+        cell.layoutCell(data: editors, index: indexPath.row)
+        
+        return cell
+    }
+}
+
+extension PlanCardHeaderView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 40, height: 40)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return CGFloat(5)
     }
 }

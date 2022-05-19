@@ -21,7 +21,7 @@ class PlanPickerViewController: UIViewController {
     
     var currentDay: Int = 1
     
-    var currentdayClosure: ((_ currentday: Int) -> Void)? //
+    var currentdayClosure: ((_ currentday: Int) -> Void)? //naming
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
     
@@ -37,7 +37,7 @@ class PlanPickerViewController: UIViewController {
         }
     }
     
-    private var headerCollectionView: UICollectionView! //
+    private var headerCollectionView: UICollectionView! //naming
     private var fixedDepartmentTime: String = "09:00" // Date?
     private var isMoveDown: Bool = false
     
@@ -114,13 +114,15 @@ extension PlanPickerViewController {
     }
     
     // MARK: - POST Action
-    private func postToAddEditor(editorId: Int) {
+    private func postToAddEditor(editor: User) {
         let coEditProvider = CoEditProvider()
         guard let tripId = tripId else { return }
         
-        coEditProvider.postToAddEditor(tripId: tripId, editorId: editorId, completion: { result in
+        coEditProvider.postToAddEditor(tripId: tripId, editorId: editor.id, completion: { result in
             switch result {
             case .success(_):
+                self.trip?.editors.append(editor)
+                self.tableView.reloadData()
                 ProgressHUD.showSuccess()
             case .failure:
                 ProgressHUD.showFailure()
@@ -129,12 +131,14 @@ extension PlanPickerViewController {
     }
     
     // MARK: - Delete Action
-    private func deleteEditor(editorId: Int) {
+    private func deleteEditor(editor: User) {
         let coEditProvider = CoEditProvider()
         guard let tripId = tripId else { return }
-        coEditProvider.deleteCoEditor(tripId: tripId, editorId: editorId, completion: { result in
+        coEditProvider.deleteCoEditor(tripId: tripId, editorId: editor.id, completion: { result in
             switch result {
             case .success(_):
+                self.trip?.editors.removeAll(where: { $0 == editor })
+                self.tableView.reloadData()
                 ProgressHUD.showSuccess()
             case .failure:
                 ProgressHUD.showFailure()
@@ -157,17 +161,11 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardHeaderView.identifier)
                 as? PlanCardHeaderView else { return nil }
-        headerView.collectionView.registerCellWithNib(identifier: String(
-            describing: FriendsCollectionViewCell.self), bundle: nil) //
-        
+
         guard let trip = trip else { return nil }
         headerView.layoutHeaderView(data: trip)
         headerView.delegate = self
-        headerView.collectionView.dataSource = self
-        headerView.collectionView.delegate = self
-        
-        self.reloadDelegate = headerView
-        self.headerCollectionView = headerView.collectionView
+        headerView.reloadCollectionView()
         return headerView
     }
     
@@ -203,6 +201,7 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - HeaderView Delegate
 extension PlanPickerViewController: PlanCardHeaderViewDelegate {
+    
     internal func passingSelectedDepartmentTime(_ headerView: PlanCardHeaderView, _ selectedDepartmentTime: String) {
         headerView.departmentPickerView.timeTextField.text = selectedDepartmentTime
         if !self.schedule.isEmpty {
@@ -306,49 +305,13 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
 // MARK: - FriendListDelegate
 extension PlanPickerViewController: FriendListViewControllerDelegate {
     internal func removeCoEditFriendsData(_ friendListData: User, _ index: Int) {
-        deleteEditor(editorId: friendListData.id)
-        self.trip?.editors.removeAll(where: { $0 == friendListData })
-        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+        deleteEditor(editor: friendListData)
     }
     
     internal func passingCoEditFriendsData(_ friendListData: User) {
-        postToAddEditor(editorId: friendListData.id)
-        self.trip?.editors.append(friendListData)
-        self.reloadDelegate?.reloadCollectionView(headerCollectionView)
+        postToAddEditor(editor: friendListData)
     }
     
-}
-
-// MARK: - CollectionView DataSourse & Delegate
-extension PlanPickerViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return trip?.editors.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
-            for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
-        
-        guard let editors = trip?.editors else { return UICollectionViewCell() }
-        cell.layoutCell(data: editors, index: indexPath.row)
-        
-        return cell
-    }
-}
-
-extension PlanPickerViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 40, height: 40)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return CGFloat(5)
-    }
 }
 
 // MARK: - Friends Co-Editing Pusher
