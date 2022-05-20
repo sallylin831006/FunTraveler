@@ -132,7 +132,7 @@
 		3A9A5112282A090B00F49181 /* WebUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A5111282A090B00F49181 /* WebUrl.swift */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
-		3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */; };
+		3A9E9CC92800912000C7B8D3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* MapViewController.swift */; };
 		3A9E9CCC2800912000C7B8D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A9E9CCA2800912000C7B8D3 /* Main.storyboard */; };
 		3A9E9CCE2800912300C7B8D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */; };
 		3A9E9CD12800912300C7B8D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A9E9CCF2800912300C7B8D3 /* LaunchScreen.storyboard */; };
@@ -310,7 +310,7 @@
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
+		3A9E9CC82800912000C7B8D3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3A9E9CCB2800912000C7B8D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A9E9CD02800912300C7B8D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -729,7 +729,7 @@
 			children = (
 				3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */,
 				3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */,
-				3A9E9CC82800912000C7B8D3 /* PlanDetailViewController.swift */,
+				3A9E9CC82800912000C7B8D3 /* MapViewController.swift */,
 				3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */,
 				3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */,
 				3A185C4128058BF5004F5BB3 /* SearchViewController.swift */,
@@ -1188,7 +1188,7 @@
 				3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */,
 				3A24A8CF280A15C0002A4969 /* ShareExperienceTableViewCell.swift in Sources */,
 				3A40D39D281822FE00A7BF51 /* ProfileTableViewCell.swift in Sources */,
-				3A9E9CC92800912000C7B8D3 /* PlanDetailViewController.swift in Sources */,
+				3A9E9CC92800912000C7B8D3 /* MapViewController.swift in Sources */,
 				3A9E9CDC280092E100C7B8D3 /* UIScreen+Extension.swift in Sources */,
 				3A041EBC282BA7070034BFDD /* ShotTableViewCell.swift in Sources */,
 				3A2B6B5A2814B54300D00638 /* LoadingView.swift in Sources */,

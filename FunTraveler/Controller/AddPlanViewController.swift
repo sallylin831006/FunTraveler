@@ -254,7 +254,7 @@ extension AddPlanViewController {
                 case .success(let tripIdResponse):
                     
                     guard let planDetailViewController = self.storyboard?.instantiateViewController(
-                        withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
+                        withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
                     
                     planDetailViewController.myTripId = tripIdResponse.id
 

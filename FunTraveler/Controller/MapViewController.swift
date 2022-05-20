@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class PlanDetailViewController: UIViewController {
+class MapViewController: UIViewController {
     
     var myTripId: Int?
     
@@ -212,7 +212,7 @@ class PlanDetailViewController: UIViewController {
     
  }
 
-extension PlanDetailViewController {
+extension MapViewController {
     
 
     func addMap() {
