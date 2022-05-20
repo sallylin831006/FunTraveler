@@ -10,6 +10,7 @@ import GoogleMaps
 
 class MapViewController: UIViewController {
     
+    
     var myTripId: Int?
     
     var trip: Trip?
@@ -20,14 +21,15 @@ class MapViewController: UIViewController {
     var departureTime: String = ""
     var backTime: String = ""
     var tripTitle: String = ""
-    private let label = UILabel()
+    
     private let mapView = GMSMapView()
+    private let bottomView = UIView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addMap()
         showPlanPicker()
-        addCustomBackButton()
-        
+        setupBackButton()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -35,18 +37,16 @@ class MapViewController: UIViewController {
         
     }
     
-    func addCustomBackButton() {
-        self.navigationItem.hidesBackButton = true
-        let customBackButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"),
-                                               style: UIBarButtonItem.Style.plain,
-                                               target: self, action: #selector(backTap))
-        customBackButton.tintColor = UIColor.black
-        self.navigationItem.leftBarButtonItem = customBackButton
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.postToSaveData(isFinished: false)
     }
     
-    @objc func backTap(_ sender: UIButton) {
-        self.postToSaveData(isFinished: false)
-        
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 
     // MARK: - Action
@@ -139,42 +139,8 @@ class MapViewController: UIViewController {
         addChild(planPickerViewController)
         view.addSubview(planPickerViewController.view)
 
+        setupUI()
         
-        // ADD BOTTOM VIEW
-        let bottomView = UIView()
-        let height = UIScreen.height/12
-        bottomView.frame = CGRect(x: 0, y: UIScreen.height - height, width: UIScreen.width, height: height)
-        bottomView.backgroundColor = UIColor.themeApricotDeep
-
-        self.view.addSubview(bottomView)
-        
-        // ADD SHARE BUTTON
-        let shareButton = UIButton()
-//        shareButton.setTitleColor(.themeRed, for: .normal)
-
-        shareButton.setBackgroundImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
-        shareButton.tintColor = UIColor.themePink
-        bottomView.addSubview(shareButton)
-        shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
-        
-        shareButton.translatesAutoresizingMaskIntoConstraints = false
-        shareButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -24).isActive = true
-        shareButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -10).isActive = true
-        shareButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        shareButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        //Add Schedule Button
-        let searchButton = UIButton()
-        bottomView.addSubview(searchButton)
-        
-        searchButton.backgroundColor = .themeRed
-        searchButton.layer.cornerRadius = CornerRadius.buttonCorner
-        searchButton.setTitle("+新增景點", for: .normal)
-        searchButton.tintColor = UIColor.themeApricotDeep
-        searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        
-        searchButton.centerViewWithSize(searchButton, bottomView, width: 250, height: 35, centerXconstant: 0, centerYconstant: -10)
-        searchButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
     }
     @objc func tapScheduleButton() {
         
@@ -279,4 +245,49 @@ extension MapViewController {
         line.strokeWidth = 4.0
         line.map = mapView
     }
+}
+
+extension MapViewController {
+    func setupUI() {
+        setupBottomView()
+        setupShareButton()
+        setupSearchButton()
+    }
+    
+    func setupBottomView() {
+        let height = UIScreen.height/12
+        bottomView.frame = CGRect(x: 0, y: UIScreen.height - height, width: UIScreen.width, height: height)
+        bottomView.backgroundColor = UIColor.themeApricotDeep
+        self.view.addSubview(bottomView)
+    }
+    
+    func setupShareButton() {
+        let shareButton = UIButton()
+
+        shareButton.setBackgroundImage(UIImage(systemName: "arrow.right.circle.fill"), for: .normal)
+        shareButton.tintColor = UIColor.themePink
+        bottomView.addSubview(shareButton)
+        shareButton.addTarget(target, action: #selector(tapToShare), for: .touchUpInside)
+        
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -24).isActive = true
+        shareButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor, constant: -10).isActive = true
+        shareButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        shareButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func setupSearchButton() {
+        let searchButton = UIButton()
+        bottomView.addSubview(searchButton)
+        
+        searchButton.backgroundColor = .themeRed
+        searchButton.layer.cornerRadius = CornerRadius.buttonCorner
+        searchButton.setTitle("+新增景點", for: .normal)
+        searchButton.tintColor = UIColor.themeApricotDeep
+        searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        
+        searchButton.centerViewWithSize(searchButton, bottomView, width: 250, height: 35, centerXconstant: 0, centerYconstant: -10)
+        searchButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
+    }
+    
 }
