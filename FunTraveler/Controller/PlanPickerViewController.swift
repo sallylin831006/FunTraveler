@@ -310,9 +310,7 @@ extension PlanPickerViewController {
         zoomButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
 //        zoomButton.tintColor = UIColor.themeApricotDeep
         zoomButton.backgroundColor = .themeApricotDeep
-        
-       
- 
+
         
 //        let width: CGFloat = 50
 //        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width) //

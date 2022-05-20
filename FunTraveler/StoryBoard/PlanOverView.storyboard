@@ -71,10 +71,10 @@
             </objects>
             <point key="canvasLocation" x="1745" y="-31"/>
         </scene>
-        <!--Plan Detail View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="zya-o9-Umf">
             <objects>
-                <viewController storyboardIdentifier="PlanDetailViewController" id="hGq-jY-Ztd" customClass="PlanDetailViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="hGq-jY-Ztd" customClass="MapViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HEK-P4-ATN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
