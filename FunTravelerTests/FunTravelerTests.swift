@@ -26,7 +26,7 @@ class FunTravelerTests: XCTestCase {
             Schedule(name: "", day: 1, address: "", startTime: "", duration: 1.0, trafficTime: 1.0, type: "", position: Position(lat: 2.5, long: 2.5))
         ]
 
-        let trafficTime = sut.calculateTrafficTime(index: 1, schedule: mockSchedule)
+        let trafficTime = sut.calculateTrafficTime(1, mockSchedule)
  
         
         XCTAssertEqual(trafficTime, 0)
@@ -38,7 +38,7 @@ class FunTravelerTests: XCTestCase {
             Schedule(name: "", day: 1, address: "", startTime: "", duration: 1.0, trafficTime: 1.0, type: "", position: Position(lat: 25.036215, long: 121.56727))
         ]
 
-        let trafficTime = sut.calculateTrafficTime(index: 0, schedule: multipleSchedule)
+        let trafficTime = sut.calculateTrafficTime(0, multipleSchedule)
         
         XCTAssertEqual(trafficTime, 572.4575439142843)
     }
@@ -48,7 +48,7 @@ class FunTravelerTests: XCTestCase {
             Schedule(name: "", day: 1, address: "", startTime: "", duration: 1.0, trafficTime: 1.0, type: "", position: Position(lat: 2.5, long: 2.5))
         ]
 
-        let trafficTime = sut.calculateTrafficTime(index: 2, schedule: oneSchedule)
+        let trafficTime = sut.calculateTrafficTime(2, oneSchedule)
  
         XCTAssertEqual(trafficTime, 0)
     }
