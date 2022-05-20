@@ -247,42 +247,6 @@ extension PlanPickerViewController: PlanCardTableViewCellDelegate {
         self.schedule[index].trafficTime = trafficTime
         
     }
-    
-    
-//
-//    internal func rearrangeTime() {
-//        var previousEndTime = ""
-//        for (index, plan) in self.schedule.enumerated() {
-//            do {
-//
-//                let distance = rearrangeTimeManager.calculateTrafficTime(index, self.schedule)
-//
-//                let totalDuration = plan.duration + distance/60
-//
-//                let date = try TimeManager.getDateFromString(startTime: plan.startTime, duration: totalDuration)
-//
-//                let endTime = "\(date.endHours):\(String(format: "%02d", date.endMinutes))"
-//
-//                if plan.startTime == previousEndTime || previousEndTime == "" {
-//                    previousEndTime = endTime
-//                    continue
-//                }
-//
-//                self.schedule[index].startTime = previousEndTime
-//
-//                let newDate = try TimeManager.getDateFromString(startTime: previousEndTime, duration: totalDuration)
-//
-//                let newEndTime = "\(newDate.endHours):\(String(format: "%02d", newDate.endMinutes))"
-//
-//                previousEndTime = newEndTime
-//
-//            } catch let wrongError {
-//                print("Error message: \(wrongError), Please add correct time!")
-//            }
-//        }
-//        tableView.reloadData()
-//    }
-//
 }
 
 // MARK: - FriendListDelegate

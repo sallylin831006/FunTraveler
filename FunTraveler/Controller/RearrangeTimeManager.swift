@@ -48,7 +48,6 @@ class RearrangeTimeManager {
                 print("Error message: \(wrongError), Please add correct time!")
             }
         }
-//        tableView.reloadData()
         return newSchedules
     }
     
