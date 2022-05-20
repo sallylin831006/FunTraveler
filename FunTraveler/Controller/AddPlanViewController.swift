@@ -256,7 +256,7 @@ extension AddPlanViewController {
                     guard let planDetailViewController = self.storyboard?.instantiateViewController(
                         withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
                     
-                    planDetailViewController.myTripId = tripIdResponse.id
+                    planDetailViewController.tripId = tripIdResponse.id
 
                     self.navigationController?.pushViewController(planDetailViewController, animated: true)
                     

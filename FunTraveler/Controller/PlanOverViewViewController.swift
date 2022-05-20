@@ -41,7 +41,14 @@ class PlanOverViewViewController: UIViewController {
         tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
         
         tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
-        
+        setupBackButton()
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -207,7 +214,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         guard let planDetailViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
 
-        planDetailViewController.myTripId = tripData[indexPath.row].id
+        planDetailViewController.tripId = tripData[indexPath.row].id
       
         addChild(planDetailViewController)
         
