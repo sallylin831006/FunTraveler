@@ -297,11 +297,27 @@ extension PlanPickerViewController {
     
     private func setupZoomButton() {
         let zoomButton = UIButton()
+//        zoomButton.setImage(UIImage.asset(.collectNormal), for: .normal)
+//        zoomButton.setBackgroundImage(UIImage(systemName: "arrow.down.square.fill"), for: .normal)
         self.view.addSubview(zoomButton)
-        let width: CGFloat = 50
-        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width) //
-        zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
         zoomButton.addTarget(self, action: #selector(tapZoomBtn(_:)), for: .touchUpInside)
+        
+        zoomButton.translatesAutoresizingMaskIntoConstraints = false
+        zoomButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+        zoomButton.bottomAnchor.constraint(
+            equalTo: tableView.topAnchor, constant: -10).isActive = true
+        zoomButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
+        zoomButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+//        zoomButton.tintColor = UIColor.themeApricotDeep
+        zoomButton.backgroundColor = .themeApricotDeep
+        
+       
+ 
+        
+//        let width: CGFloat = 50
+//        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width) //
+//        zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
+        
         
     }
     @objc func tapZoomBtn(_ sender: UIButton) {
