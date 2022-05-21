@@ -32,6 +32,8 @@ Funtraveler provides a place for members to share there trips, they could sync t
 - Implemented PusherSwift to perform real-time data synchronization and enable users to co-edit the itinerary together.
 - Implement the algorithm to rearrange all times in trip schedule.
 - Utilized CoreLocation to calculate the distance and driving time between the attractions.
+- Apply GoogleMaps SDK to show maps and search for attractions.
+- Utilized GMSPolyline to draw custom marker in googleMaps.
 - Create custom polaroid composite images with CALayer in AVFoundation.
 - Apply two upload methods to upload video with multipart/form-data.
 - Utilized video cache to optimize the transfer of video data on a network to improve performance for users.
