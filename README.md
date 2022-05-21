@@ -30,6 +30,7 @@ Funtraveler provides a place for members to share there trips, they could sync t
 
 - Used MVC pattern to define different objects with different responsibilities, and the way that objects interact with each other.
 - Implemented PusherSwift to perform real-time data synchronization and enable users to co-edit the itinerary together.
+- Synchronize data with RESTful APIsㄡ
 - Implement the algorithm to rearrange all times in trip schedule.
 - Utilized CoreLocation to calculate the distance and driving time between the attractions.
 - Apply GoogleMaps SDK to show maps and search for attractions.
