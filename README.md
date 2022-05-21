@@ -65,4 +65,4 @@ Sally Lin 林翊婷
 sallylin831006@gmail.com
 
 ## License
-This project is licensed under the terms of the MIT license
+Copyright (c) 2022 林翊婷｜YITING LIN
