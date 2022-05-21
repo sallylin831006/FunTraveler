@@ -57,6 +57,7 @@ Funtraveler provides a place for members to share there trips, they could sync t
 ## Requirement
 - Xcode 13.0 or later
 - iOS 14.0 or later
+- Swift 5
 
 ## Contact
 Sally Lin 林翊婷
