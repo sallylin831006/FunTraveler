@@ -38,11 +38,7 @@ Funtraveler provides a place for members to share there trips, they could sync t
 - Apply two upload methods to upload video with multipart/form-data.
 - Utilized video cache to optimize the transfer of video data on a network to improve performance for users.
 - Developed readable and maintainable codes in Swift using encapsulation in uiview module.
-
 - Utilized Lottie to display animations.
-- Implemented Auto Layout programmatically to make the app compatible with all the iPhones.
-- Customized and reused UI components to optimize maintainability and brevity of codes.
-- Applied XIBs to implement the presentation of the screen.
 - Implemented image downloading and caching via Kingfisher.
 
 ## Libraries
