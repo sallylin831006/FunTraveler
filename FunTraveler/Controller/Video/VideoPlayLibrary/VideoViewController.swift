@@ -425,7 +425,6 @@ extension VideoViewController: VideoWallHeaderViewDelegate {
         guard let userIdNumber = Int(userId) else { return }
         if userIdNumber == self.videoDataSource[index].user.id { return }
         
-        let userName = videoDataSource[index].user.name
         let blockController = UIAlertController(
             title: "封鎖用戶或檢舉動態",
             message: "", preferredStyle: .alert)

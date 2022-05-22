@@ -47,8 +47,7 @@ enum SearchRequest: STRequest {
         switch self {
         
         case .mapSearch(let keyword, let position, let radius):
-            return
-            "/place/nearbysearch/json?location=\(position)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(KeyConstants.mapKey)"
+            return "/place/nearbysearch/json?location=\(position)&radius=\(radius)&keyword=\(keyword)&language=zh-TW&key=\(KeyConstants.mapKey)"
             
         case .searchDetail(let placeId):
 

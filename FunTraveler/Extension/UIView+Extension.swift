@@ -50,7 +50,8 @@ extension UIView {
         objectView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
     }
     
-    func centerViewWithSize(_ objectView: UIView, _ view: UIView, width: CGFloat, height: CGFloat, centerXconstant: CGFloat = 0, centerYconstant: CGFloat = 0) {
+    func centerViewWithSize(_ objectView: UIView, _ view: UIView,
+                            width: CGFloat, height: CGFloat, centerXconstant: CGFloat = 0, centerYconstant: CGFloat = 0) {
 
         objectView.removeFromSuperview()
 
