@@ -17,24 +17,11 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     var copyTextField: String?
     
     private var startDate: String?
-    
+
     private var endDate: String?
     
-    private var firstDate = Date()
-    
-    private var secondDate = Date()
-    
-    private var dayCalculateNum: Int = 0 {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
     private var titleText: String?
-    
-    private var currentText: String?
-    
-    
+        
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -113,34 +100,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.titleDelegate = self
         
-        cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
-            self?.startDate = startDate
-            self?.firstDate = calaulateDate
-            let calendar = Calendar.current
-            guard let secondDate = self?.secondDate else { return }
-            let date1 = calendar.startOfDay(for: calaulateDate)
-            let date2 = calendar.startOfDay(for: secondDate)
-            
-            let components = calendar.dateComponents([.day], from: date1, to: date2)
-            self?.dayCalculateNum = components.day ?? 0
-        }
-        cell.backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
-            self?.endDate =  endDate
-            self?.secondDate =  calaulateDate
-            let calendar = Calendar.current
-            guard let firstDate = self?.firstDate else { return }
-            let date1 = calendar.startOfDay(for: firstDate)
-            let date2 = calendar.startOfDay(for: calaulateDate)
-            
-            let components = calendar.dateComponents([.day], from: date1, to: date2)
-            self?.dayCalculateNum = components.day ?? 0
-        }
-        if dayCalculateNum <= -1 {
-            cell.dayCalculateLabel.text = ""
-        } else {
-            cell.dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
-        }
-        
         return cell
         
     }
@@ -149,22 +108,21 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension AddPlanViewController: FooterViewDelegate {
     func saveButton(_ saveButton: UIButton) {
-        if titleText == "" {
-            ProgressHUD.showFailure(text: "請輸入標題")
-            return
-        }
-        
+        onShowErrorMessage()
+        distingushAddPlanStatus()
+    }
+    
+    func cancelButton(_ saveButton: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func onShowErrorMessage() {
         let datePicker = UIDatePicker()
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let nowDate = formatter.string(from: datePicker.date)
-        if isCopiedTrip {
-            if titleText == nil {
-                guard let copyTextField = copyTextField else { return }
-                titleText = "複製- \(String(describing: copyTextField))"
-            }
-        }
-        if titleText == nil {
+        
+        if titleText == nil || titleText == "" {
             ProgressHUD.showFailure(text: "請輸入標題")
         }
         if startDate == nil {
@@ -188,18 +146,19 @@ extension AddPlanViewController: FooterViewDelegate {
             ProgressHUD.showFailure(text: "輸入錯誤")
             return
         }
-        
+    }
+    
+    private func distingushAddPlanStatus() {
         if isCopiedTrip {
+            if titleText == nil {
+                guard let copyTextField = copyTextField else { return }
+                titleText = "複製- \(String(describing: copyTextField))"
+            }
             postCopyTrip()
             dismiss(animated: true, completion: nil)
-            print("成功複製行程！")
         } else {
             postData()
         }
-    }
-    
-    func cancelButton(_ saveButton: UIButton) {
-        self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -228,19 +187,20 @@ extension AddPlanViewController {
             switch result {
                 
             case .success(let tripIdResponse):
-                
-                guard let planDetailViewController = self.storyboard?.instantiateViewController(
-                    withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
-                
-                planDetailViewController.tripId = tripIdResponse.id
-                
-                self.navigationController?.pushViewController(planDetailViewController, animated: true)
-                
+                movingToMapViewController(data: tripIdResponse)
+                ProgressHUD.showSuccess()
             case .failure:
-                ProgressHUD.showFailure(text: "上傳失敗")
+                ProgressHUD.showFailure()
             }
         })
         
+        func movingToMapViewController(data: AddTrip) {
+            guard let mapViewController = self.storyboard?.instantiateViewController(
+                withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
+            mapViewController.tripId = data.id
+            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.pushViewController(mapViewController, animated: true)
+        }
     }
     
     // MARK: - POST API TO COPY TRIP
@@ -273,15 +233,19 @@ extension AddPlanViewController {
 extension AddPlanViewController {
     private func setupTableViewUI() {
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
-        
         tableView.registerCellWithNib(identifier: String(describing: AddPlanTableViewCell.self), bundle: nil)
+        tableView.shouldIgnoreScrollingAdjustment = true
+        tableView.separatorStyle = .none
         
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
-        
-        tableView.shouldIgnoreScrollingAdjustment = true
-        
-        tableView.separatorStyle = .none
+        setupBackButton() 
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 }

@@ -24,6 +24,12 @@ class AddPlanTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dayCalculateLabel: UILabel!
     
+    private var startDate: String?
+    private var endDate: String?
+    private var firstDate = Date()
+    private var secondDate = Date()
+    private var dayCalculateNum: Int = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -31,6 +37,38 @@ class AddPlanTableViewCell: UITableViewCell {
         textField.addtextfieldBorder(textField: textField)
 
         textField.delegate = self
+        
+        
+        departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
+            self?.startDate = startDate
+            self?.firstDate = calaulateDate
+            let calendar = Calendar.current
+            guard let secondDate = self?.secondDate else { return }
+            let date1 = calendar.startOfDay(for: calaulateDate)
+            let date2 = calendar.startOfDay(for: secondDate)
+            
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+        }
+        
+        
+        backPickerVIew.dateClosure = { [weak self] endDate, calaulateDate in
+            self?.endDate =  endDate
+            self?.secondDate =  calaulateDate
+            let calendar = Calendar.current
+            guard let firstDate = self?.firstDate else { return }
+            let date1 = calendar.startOfDay(for: firstDate)
+            let date2 = calendar.startOfDay(for: calaulateDate)
+            
+            let components = calendar.dateComponents([.day], from: date1, to: date2)
+            self?.dayCalculateNum = components.day ?? 0
+        }
+        if dayCalculateNum <= -1 {
+            dayCalculateLabel.text = ""
+        } else {
+            dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
