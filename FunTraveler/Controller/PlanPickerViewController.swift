@@ -51,6 +51,7 @@ class PlanPickerViewController: UIViewController {
         let pusherManager = PusherManager()
         pusherManager.delegate = self
         pusherManager.listenEvent()
+        setupZoomButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,9 +60,8 @@ class PlanPickerViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        super.viewDidLayoutSubviews() // LIFECYCLE FRAME AUTOLAYOUT
         setupTableViewUI()
-        setupZoomButton()
     }
 }
 
@@ -101,7 +101,8 @@ extension PlanPickerViewController {
         if !self.schedule.isEmpty {
             self.schedule[0].startTime = self.selectedDepartmentTime
         }
-        tripProvider.postTrip(tripId: tripId, schedules: schedule, day: days, isFinished: isFinished, completion: { [weak self] result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedule,
+                              day: days, isFinished: isFinished, completion: { [weak self] result in
             switch result {
             case .success:
                 self?.tableView.reloadData()
@@ -118,7 +119,7 @@ extension PlanPickerViewController {
         
         coEditProvider.postToAddEditor(tripId: tripId, editorId: editor.id, completion: { result in
             switch result {
-            case .success(_):
+            case .success:
                 self.trip?.editors.append(editor)
                 self.tableView.reloadData()
                 ProgressHUD.showSuccess()
@@ -134,7 +135,7 @@ extension PlanPickerViewController {
         guard let tripId = tripId else { return }
         coEditProvider.deleteCoEditor(tripId: tripId, editorId: editor.id, completion: { result in
             switch result {
-            case .success(_):
+            case .success:
                 self.trip?.editors.removeAll(where: { $0 == editor })
                 self.tableView.reloadData()
                 ProgressHUD.showSuccess()
@@ -297,26 +298,18 @@ extension PlanPickerViewController {
     
     private func setupZoomButton() {
         let zoomButton = UIButton()
-//        zoomButton.setImage(UIImage.asset(.collectNormal), for: .normal)
-//        zoomButton.setBackgroundImage(UIImage(systemName: "arrow.down.square.fill"), for: .normal)
+        zoomButton.setImage(UIImage.asset(.zoomIn), for: .normal)
         self.view.addSubview(zoomButton)
         zoomButton.addTarget(self, action: #selector(tapZoomBtn(_:)), for: .touchUpInside)
         
         zoomButton.translatesAutoresizingMaskIntoConstraints = false
-        zoomButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16).isActive = true
+        zoomButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                                             constant: -16).isActive = true
         zoomButton.bottomAnchor.constraint(
             equalTo: tableView.topAnchor, constant: -10).isActive = true
         zoomButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
         zoomButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
-//        zoomButton.tintColor = UIColor.themeApricotDeep
-        zoomButton.backgroundColor = .themeApricotDeep
-
-        
-//        let width: CGFloat = 50
-//        zoomButton.frame = CGRect(x: UIScreen.width - 70, y: 100, width: width, height: width) //
-//        zoomButton.setBackgroundImage(UIImage.asset(.zoomIn), for: .normal)
-        
-        
+      
     }
     @objc func tapZoomBtn(_ sender: UIButton) {
         sender.isSelected = isMoveDown
@@ -328,12 +321,10 @@ extension PlanPickerViewController {
             sender.setImage(UIImage.asset(.zoomIn), for: .selected)
         } else {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: 660, width: UIScreen.width, height: UIScreen.height) //
+                self.view.frame = CGRect(x: 0, y: UIScreen.height * 10/14, width: UIScreen.width, height: UIScreen.height) //
             }, completion: nil)
             sender.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
         }
         isMoveDown = !isMoveDown
     }
 }
-
-

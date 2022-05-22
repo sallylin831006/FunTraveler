@@ -48,7 +48,6 @@ class PlanOverViewViewController: UIViewController {
         fetchData()
     }
     
-    
     private func setupAlertLoginView() {
         alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以編輯旅遊行程"

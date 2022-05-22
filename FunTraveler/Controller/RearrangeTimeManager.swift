@@ -8,13 +8,7 @@
 import UIKit
 import CoreLocation
 
-//Protocol RearrangeTimeManagerDelegate {
-//    func passingNewSchedules()
-//}
-
 class RearrangeTimeManager {
-    
-    
     
     func rearrangeSchedulesTime(_ schedule: [Schedule]) -> [Schedule] {
         var previousEndTime = ""
@@ -50,7 +44,6 @@ class RearrangeTimeManager {
         }
         return newSchedules
     }
-    
     
     func calculateTrafficTime(_ index: Int, _ schedule: [Schedule]) -> Double {
         let lastIndex = schedule.count - 1

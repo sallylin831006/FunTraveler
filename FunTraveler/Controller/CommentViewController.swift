@@ -289,11 +289,11 @@ extension CommentViewController {
     private func postToBlockUser(index: Int) {
         let userProvider = UserProvider()
         let userId = commentData[index].user.id
-        userProvider.blockUser(userId: userId, completion: { [weak self] result in
+        userProvider.blockUser(userId: userId, completion: { result in
             
             switch result {
                 
-            case .success(let blockResponse):
+            case .success:
                 ProgressHUD.showSuccess(text: "已封鎖")
                 
             case .failure:

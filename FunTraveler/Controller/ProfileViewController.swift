@@ -317,7 +317,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
-        let navSettingVC = UINavigationController(rootViewController: settingVC)
         navigationController?.pushViewController(settingVC, animated: true)
     }
     
@@ -516,7 +515,7 @@ extension ProfileViewController {
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
         guard let userId = userId else { return }
-        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+        friendsProvider.postToInvite(userId: userId, completion: { result in
             
             switch result {
                 
