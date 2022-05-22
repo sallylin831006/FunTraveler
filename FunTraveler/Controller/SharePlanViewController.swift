@@ -228,9 +228,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: SharePlanTableViewCell.self), for: indexPath)
                     as? SharePlanTableViewCell else { return UITableViewCell() }
-            
-            cell.selectionStyle = .none
-            
+                        
             cell.orderLbael.text = String(indexPath.row+1)
             cell.nameLabel.text = schedules[indexPath.row].name
             cell.addressLabel.text = schedules[indexPath.row].address

@@ -57,6 +57,7 @@ class ProfileTableViewCell: UITableViewCell {
         
         userNameTextField.delegate = self
         blockButton.addTarget(self, action: #selector(tapBlockButton(_:)), for: .touchUpInside)
+        self.selectionStyle = .none
         
 //        let textFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserNameTextField(_:)))
 //        userNameTextField.addGestureRecognizer(textFieldTapGesture)

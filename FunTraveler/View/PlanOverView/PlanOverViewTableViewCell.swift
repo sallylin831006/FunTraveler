@@ -17,6 +17,7 @@ class PlanOverViewTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
     }
     
     override func layoutSubviews() {
