@@ -22,7 +22,7 @@ Funtraveler provides a place for members to share there trips, they could sync t
 
 - With real-time data synchronization to add co-editors, you can invite your friend to edit the itinerary together.
 - Integrate the Google Maps in the app, you can search for attractions fast
-- Plan the itinerary automatically, a powerful algorithm that helps you calculate the distance and driving time between the attractions. You don’t need to worry about estimating it.
+- Plan the itinerary automatically, a powerful algorithm that helps you calculate the distance and driving time between the attractions. You don’t need to worry about how to estimating it.
 - find the sharing post easily. We have brought together an active community where you can find useful travel experience sharing and comments.
 
 
@@ -30,7 +30,7 @@ Funtraveler provides a place for members to share there trips, they could sync t
 
 - Used MVC pattern to define different objects with different responsibilities, and the way that objects interact with each other.
 - Implemented PusherSwift to perform real-time data synchronization and enable users to co-edit the itinerary together.
-- Synchronize data with RESTful APIsㄡ
+- Synchronize data with RESTful APIs.
 - Implement the algorithm to rearrange all times in trip schedule.
 - Utilized CoreLocation to calculate the distance and driving time between the attractions.
 - Apply GoogleMaps SDK to show maps and search for attractions.
