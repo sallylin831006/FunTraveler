@@ -316,6 +316,9 @@ extension PlanPickerViewController {
         if isMoveDown {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
                 self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
+                
+//                self.view.stickView(self.view, self.view)
+                
             }, completion: nil)
             
             sender.setImage(UIImage.asset(.zoomIn), for: .selected)
