@@ -236,7 +236,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
                     as? ProfileTableViewCell else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
             guard let userData = userData else { return UITableViewCell()}
             cell.layoutCell(data: userData, isMyProfile: isMyProfile)
             

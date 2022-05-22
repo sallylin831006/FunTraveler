@@ -24,9 +24,9 @@ class AddPlanTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dayCalculateLabel: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         self.backgroundColor = .themeApricot
         textField.addtextfieldBorder(textField: textField)
 

@@ -9,7 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class AddPlanViewController: UIViewController, UITextFieldDelegate {
-            
+    
     var copyTripId: Int?
     
     var isCopiedTrip: Bool = false
@@ -29,11 +29,11 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
             tableView.reloadData()
         }
     }
-        
+    
     private var titleText: String?
     
     private var currentText: String?
-
+    
     
     @IBOutlet weak var tableView: UITableView! {
         
@@ -48,21 +48,13 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableViewUI()
         
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
-        tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
-        
-        tableView.registerCellWithNib(identifier: String(describing: AddPlanTableViewCell.self), bundle: nil)
-        
-        IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
-        tableView.shouldIgnoreScrollingAdjustment = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        tableView.separatorStyle = .none
     }
     
 }
@@ -113,24 +105,14 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: String(describing: AddPlanTableViewCell.self), for: indexPath)
                 as? AddPlanTableViewCell else { return UITableViewCell() }
         
-        cell.selectionStyle = .none
         if copyTextField == nil {
             cell.textField.text = titleText
-            
         } else {
-            cell.textField.text = copyTextField!
+            cell.textField.text = copyTextField
         }
         
         cell.titleDelegate = self
         
-//        let datePicker = UIDatePicker()
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd"
-//        let nowDate = formatter.string(from: datePicker.date)
-//
-//        self.startDate = nowDate
-//        self.endDate = nowDate
-
         cell.departurePickerVIew.dateClosure = { [weak self] startDate, calaulateDate in
             self?.startDate = startDate
             self?.firstDate = calaulateDate
@@ -138,7 +120,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             guard let secondDate = self?.secondDate else { return }
             let date1 = calendar.startOfDay(for: calaulateDate)
             let date2 = calendar.startOfDay(for: secondDate)
-
+            
             let components = calendar.dateComponents([.day], from: date1, to: date2)
             self?.dayCalculateNum = components.day ?? 0
         }
@@ -149,7 +131,7 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
             guard let firstDate = self?.firstDate else { return }
             let date1 = calendar.startOfDay(for: firstDate)
             let date2 = calendar.startOfDay(for: calaulateDate)
-
+            
             let components = calendar.dateComponents([.day], from: date1, to: date2)
             self?.dayCalculateNum = components.day ?? 0
         }
@@ -158,8 +140,6 @@ extension AddPlanViewController: UITableViewDataSource, UITableViewDelegate {
         } else {
             cell.dayCalculateLabel.text = "共 \(dayCalculateNum+1) 天"
         }
-        
-        
         
         return cell
         
@@ -187,11 +167,9 @@ extension AddPlanViewController: FooterViewDelegate {
         if titleText == nil {
             ProgressHUD.showFailure(text: "請輸入標題")
         }
-
         if startDate == nil {
             startDate = nowDate
         }
-        
         if endDate == nil {
             endDate = nowDate
         }
@@ -204,7 +182,7 @@ extension AddPlanViewController: FooterViewDelegate {
             ProgressHUD.showFailure(text: "請輸入回程日期")
             return
         }
-
+        
         let isDescending = startDate.compare(endDate) == ComparisonResult.orderedDescending
         if isDescending == true {
             ProgressHUD.showFailure(text: "輸入錯誤")
@@ -224,7 +202,6 @@ extension AddPlanViewController: FooterViewDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
 }
 
 extension AddPlanViewController: AddPlanTableViewCellDelegate {
@@ -233,66 +210,78 @@ extension AddPlanViewController: AddPlanTableViewCellDelegate {
         self.titleText = text
         self.copyTextField = text
     }
-    
 }
 
 extension AddPlanViewController {
     // MARK: - POST API TO ADD NEW TRIP
-        private func postData() {
-            let tripProvider = TripProvider()
-            guard let titleText = titleText,
-                  let startDate = startDate,
-                  let endDate = endDate else { return }
+    private func postData() {
+        let tripProvider = TripProvider()
+        guard let titleText = titleText,
+              let startDate = startDate,
+              let endDate = endDate else { return }
+        
+        tripProvider.addTrip(title: titleText,
+                             startDate: startDate,
+                             endDate: endDate,
+                             completion: { result in
             
-            tripProvider.addTrip(title: titleText,
-                                 startDate: startDate,
-                                 endDate: endDate,
-                                 completion: { result in
+            switch result {
                 
-                switch result {
-                    
-                case .success(let tripIdResponse):
-                    
-                    guard let planDetailViewController = self.storyboard?.instantiateViewController(
-                        withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
-                    
-                    planDetailViewController.tripId = tripIdResponse.id
-
-                    self.navigationController?.pushViewController(planDetailViewController, animated: true)
-                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "上傳失敗")
-                    print("tripIdResponse讀取資料失敗！")
-                }
-            })
-            
-        }
+            case .success(let tripIdResponse):
+                
+                guard let planDetailViewController = self.storyboard?.instantiateViewController(
+                    withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
+                
+                planDetailViewController.tripId = tripIdResponse.id
+                
+                self.navigationController?.pushViewController(planDetailViewController, animated: true)
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "上傳失敗")
+            }
+        })
+        
+    }
     
     // MARK: - POST API TO COPY TRIP
-        private func postCopyTrip() {
-            let tripProvider = TripProvider()
-            guard let copyTextField = copyTextField else { return }
-            let titleText = titleText ?? "複製- \(copyTextField)"
-            let startDate = startDate ?? ""
-            let endDate = endDate ?? ""
-            guard let tripId = copyTripId else { return }
+    private func postCopyTrip() {
+        let tripProvider = TripProvider()
+        guard let copyTextField = copyTextField else { return }
+        let titleText = titleText ?? "複製- \(copyTextField)"
+        let startDate = startDate ?? ""
+        let endDate = endDate ?? ""
+        guard let tripId = copyTripId else { return }
+        
+        tripProvider.copyTrip(title: titleText,
+                              startDate: startDate,
+                              endDate: endDate,
+                              tripId: tripId, completion: { result in
             
-            tripProvider.copyTrip(title: titleText,
-                                  startDate: startDate,
-                                  endDate: endDate,
-                                  tripId: tripId, completion: { result in
+            switch result {
                 
-                switch result {
-                    
-                case .success(let tripIdResponse):
-                    ProgressHUD.showSuccess(text: "成功複製行程到行程編輯頁")
-                print("copy tripIdResponse", tripIdResponse)
-                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "上傳失敗")
-                    print("POST COPY TRIP 失敗！")
-                }
-            })
-            
-        }
+            case .success:
+                ProgressHUD.showSuccess(text: "成功複製行程到行程編輯頁")
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "上傳失敗")
+            }
+        })
+        
+    }
+}
+
+extension AddPlanViewController {
+    private func setupTableViewUI() {
+        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        
+        tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
+        
+        tableView.registerCellWithNib(identifier: String(describing: AddPlanTableViewCell.self), bundle: nil)
+        
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
+        
+        tableView.shouldIgnoreScrollingAdjustment = true
+        
+        tableView.separatorStyle = .none
+    }
 }

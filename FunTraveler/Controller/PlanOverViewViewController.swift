@@ -106,7 +106,8 @@ extension PlanOverViewViewController {
         let tripProvider = TripProvider()
         let tripId = tripData[index].id
         
-        tripProvider.updateTripInfo(tripId: tripId, title: title, startDate: startDate, endDate: endDate, completion: { [weak self] result in
+        tripProvider.updateTripInfo(tripId: tripId, title: title,
+                                    startDate: startDate, endDate: endDate, completion: { [weak self] result in
             
             switch result {
                 
@@ -120,7 +121,6 @@ extension PlanOverViewViewController {
         })
     }
 }
-
 
 extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
@@ -174,11 +174,9 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
-        cell.selectionStyle = .none
         let days = tripData[indexPath.row].days
         cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
         cell.tripTitle.text = tripData[indexPath.row].title
-        
         
         return cell
         
@@ -198,22 +196,21 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
     // MARK: - Delete
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-
+        
         let deleteAction = UIContextualAction(style: .normal, title: "刪除") { _, _, _ in
             tableView.isEditing = false
             self.deleteTrip(index: indexPath.row)
             self.tripData.remove(at: indexPath.row)
         }
-
+        
         let editAction = UIContextualAction(style: .destructive, title: "編輯") { (_, _, completionHandler) in
             self.showEditTextfield(index: indexPath.row)
-
+            
             completionHandler(true)
         }
         return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
-
+        
     }
-    
     
     private func showEditTextfield(index: Int) {
         
@@ -241,7 +238,6 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             self.updateTripInfo(title: title, startDate: startDate, endDate: endDate, index: index)
         }
         
-        
         let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
             self.dismiss(animated: true, completion: nil)
         }
@@ -251,16 +247,13 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         present(controller, animated: true, completion: nil)
     }
     
-    
 }
-
-
 
 extension PlanOverViewViewController: PlanCardFooterViewDelegate {
     func tapScheduleButton() {
         guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         movingToAddPlanPage()
-       
+        
     }
     
     private func movingToAddPlanPage() {
@@ -270,10 +263,8 @@ extension PlanOverViewViewController: PlanCardFooterViewDelegate {
         navAddPlanVC.modalPresentationStyle = .fullScreen
         self.present(navAddPlanVC, animated: true)
     }
-
+    
 }
-
-
 
 extension PlanOverViewViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
@@ -286,7 +277,6 @@ extension PlanOverViewViewController: AuthViewControllerDelegate {
         fetchData()
     }
 }
-
 
 extension PlanOverViewViewController {
     private func setupTableViewUI() {
