@@ -186,9 +186,7 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
         
         planDetailViewController.tripId = tripData[indexPath.row].id
-        
-        addChild(planDetailViewController)
-        
+                
         navigationController?.pushViewController(planDetailViewController, animated: true)
         planDetailViewController.tabBarController?.tabBar.isHidden = true
     }

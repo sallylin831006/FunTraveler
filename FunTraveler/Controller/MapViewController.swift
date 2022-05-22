@@ -35,7 +35,6 @@ class MapViewController: UIViewController {
         self.postToSaveData(isFinished: false)
     }
     
-    
     func showPlanPicker() {
         guard let planPickerViewController = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.planPickerVC) as? PlanPickerViewController else { return }
@@ -94,7 +93,8 @@ extension MapViewController {
         if schedules.isEmpty { return }
         
         let day = schedules[0].day
-        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { [weak self] result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day,
+                              isFinished: isFinished, completion: { [weak self] result in
             
             switch result {
                 
@@ -120,7 +120,8 @@ extension MapViewController {
         guard let tripId = tripId else { return }
         
         let day = currentDay
-        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day, isFinished: isFinished, completion: { result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: day,
+                              isFinished: isFinished, completion: { result in
             
             switch result {
                 
@@ -139,7 +140,8 @@ extension MapViewController {
     func postData(days: Int, isFinished: Bool) {
         let tripProvider = TripProvider()
         guard let tripId = tripId else { return }
-        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: days, isFinished: isFinished, completion: { result in
+        tripProvider.postTrip(tripId: tripId, schedules: schedules, day: days,
+                              isFinished: isFinished, completion: { result in
             
             switch result {
                 
@@ -239,7 +241,8 @@ extension MapViewController {
         searchButton.setTitle("+新增景點", for: .normal)
         searchButton.tintColor = UIColor.themeApricotDeep
         searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        searchButton.centerViewWithSize(searchButton, bottomView, width: 250, height: 35, centerXconstant: 0, centerYconstant: -10)
+        searchButton.centerViewWithSize(searchButton, bottomView, width: 250, height: 35,
+                                        centerXconstant: 0, centerYconstant: -10)
         searchButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
     }
     
