@@ -18,7 +18,7 @@ Funtraveler provides a place for members to share there trips, they could sync t
 
 ## Features
 
-### Hightlights
+## Hightlights
 
 - With real-time data synchronization to add co-editors, you can invite your friend to edit the itinerary together.
 - Integrate the Google Maps in the app, you can search for attractions fast
