@@ -9,7 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
-    
+    let uploadImageManager = UploadImageManager()
     var schedules: [Schedule] = []
     
     var trip: Trip? {
@@ -17,10 +17,9 @@ class SharePlanViewController: UIViewController {
             tableView?.reloadData()
         }
     }
-    var myTripId: Int?
     
-    private var tripImage: UIImageView?
-    private var imageIndex: Int = 0
+    var tripId: Int?
+    
     private var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
@@ -43,37 +42,26 @@ class SharePlanViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         showLoadingView()
         fetchData(days: 1)
-    }
-    private func showLoadingView() {
-        let loadingView = LoadingView()
-        view.layoutLoadingView(loadingView, view)
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
-        
-        tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
-        
-        tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
-        tableView.registerCellWithNib(identifier: String(describing: SharePlanTableViewCell.self), bundle: nil)
-        
+        setupTableViewUI()
         addSwitchButton()
         
         let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-        
-        IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
-        tableView.shouldIgnoreScrollingAdjustment = true
-        
     }
-    
+}
+
+extension SharePlanViewController {
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         
-        guard let tripId = myTripId else { return }
+        guard let tripId = tripId else { return }
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             
             switch result {
@@ -93,25 +81,10 @@ class SharePlanViewController: UIViewController {
         
     }
     
-    func addSwitchButton() {
-        let switchButton = UIButton()
-        switchButton.frame = CGRect(x: UIScreen.width-55, y: 70, width: 40, height: 40)
-        switchButton.setBackgroundImage(UIImage(systemName: "arrow.left.arrow.right.circle"), for: .normal)
-        switchButton.tintColor = UIColor.white
-        self.view.addSubview(switchButton)
-        
-        switchButton.addTarget(target, action: #selector(tapSwitchButton), for: .touchUpInside)
-        
-    }
-    
-    @objc func tapSwitchButton() {
-        isSimpleMode = !isSimpleMode
-    }
-    
     // MARK: - PATCH Action
     private func patchData(isPrivate: Bool, isPublish: Bool) {
         let tripProvider = TripProvider()
-        guard let tripId = myTripId else { return }
+        guard let tripId = tripId else { return }
         
         tripProvider.updateTrip(tripId: tripId, schedules: schedules,
                                 isPrivate: isPrivate, isPublish: isPublish, completion: { [weak self] result in
@@ -127,14 +100,13 @@ class SharePlanViewController: UIViewController {
                     ProgressHUD.showSuccess(text: "成功發布私密貼文")
                     self?.moveToPage(tabIndex: 4)
                 }
-               
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
                 print("PATCH TRIPAPI讀取資料失敗！")
             }
         })
     }
-    
 }
 
 extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
@@ -150,12 +122,12 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: ShareHeaderView.identifier)
                 as? ShareHeaderView else { return nil }
         guard let trip = trip else { return nil }
-        headerView.titleLabel.text = trip.title
-        headerView.dateLabel.text = "\(trip.startDate!) - \(trip.endDate!)"
-
-        headerView.selectionView.delegate = self
-        headerView.selectionView.dataSource = self
-
+        
+        headerView.layoutSharePlanHeaderView(data: trip)
+        headerView.delegate = self
+//        headerView.selectionView.delegate = self
+//        headerView.selectionView.dataSource = self
+        
         return headerView
     }
     
@@ -228,7 +200,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: String(describing: SharePlanTableViewCell.self), for: indexPath)
                     as? SharePlanTableViewCell else { return UITableViewCell() }
-                        
+            
             cell.orderLbael.text = String(indexPath.row+1)
             cell.nameLabel.text = schedules[indexPath.row].name
             cell.addressLabel.text = schedules[indexPath.row].address
@@ -245,27 +217,21 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
             experienceCell.delegate = self
             
             if schedules[indexPath.row].name.isEmpty { return UITableViewCell() }
-
+            
             return experienceCell
         }
     }
-
-}
-
-extension SharePlanViewController: SegmentControlViewDataSource {
     
-    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+}
+extension SharePlanViewController: ShareHeaderViewDelegate {
+    func configureNumberOfButton() -> Int {
         trip?.days ?? 1
     }
-    
-}
-
-@objc extension SharePlanViewController: SegmentControlViewDelegate {
-    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+    func didSelectedButton(index: Int) {
         fetchData(days: index)
     }
-
 }
+
 extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     
     func detectTextViewChange(_ textView: UITextView, _ index: Int) {
@@ -274,86 +240,56 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     }
     
     func detectUploadImage(_ tripImage: UIImageView, _ imageRecognizer: UITapGestureRecognizer, _ index: Int) {
-        selectImageAction(sender: imageRecognizer)
-        self.tripImage = tripImage
-        self.imageIndex = index
+        
+        uploadImageManager.selectImageAction(sender: imageRecognizer, viewController: self)
+        uploadImageManager.tripImage = tripImage
+        uploadImageManager.imageIndex = index
+        uploadImageManager.schedules = schedules
+        uploadImageManager.delegate = self
 
     }
     
-    func selectImageAction(sender: UITapGestureRecognizer) {
-//        guard let view = sender.view else { return }
-        let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .alert)
-        
-        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
-            self.showLoadingView()
-            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-                let imagePicker = UIImagePickerController()
-                imagePicker.allowsEditing = true
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self
-                                
-                self.present(imagePicker, animated: true, completion: nil)
-            }
-        })
-        
-//        let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
-//            self.showLoadingView()
-//            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-//                let imagePicker = UIImagePickerController()
-//                imagePicker.allowsEditing = true
-//                imagePicker.sourceType = .camera
-//                imagePicker.delegate = self
-//
-//                self.present(imagePicker, animated: true, completion: nil)
-//            }
-//        })
 
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
-        })
-        
-        photoSourceRequestController.addAction(photoLibraryAction)
-//        photoSourceRequestController.addAction(cameraAction)
-        photoSourceRequestController.addAction(cancelAction)
-        
-        // iPad specific code
-        photoSourceRequestController.popoverPresentationController?.sourceView = self.view
-        
-        let xOrigin = self.view.bounds.width / 2
-        
-        let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-        
-        photoSourceRequestController.popoverPresentationController?.sourceRect = popoverRect
-        
-        photoSourceRequestController.popoverPresentationController?.permittedArrowDirections = .up
-        
-        present(photoSourceRequestController, animated: true, completion: nil)
+}
 
-        
+extension SharePlanViewController: UploadImageManagerDelegate {
+    func uploadAction() {
+        patchData(isPrivate: false, isPublish: false)
+        dismiss(animated: true, completion: nil)
     }
 }
 
-extension SharePlanViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo
-                               info: [UIImagePickerController.InfoKey: Any]) {
+extension SharePlanViewController {
+    private func setupTableViewUI() {
+        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
         
-        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            
-            tripImage?.image = selectedImage
-            tripImage?.contentMode = .scaleAspectFill
-            tripImage?.clipsToBounds = true
-            
-        guard let image = tripImage?.image else { return }
-        let newImage = image.scale(newWidth: 100.0)
-        guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
-        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-            
-        schedules[imageIndex].images.append(strBase64)
-        patchData(isPrivate: false, isPublish: false)
-
-        }
+        tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         
-        dismiss(animated: true, completion: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: SharePlanTableViewCell.self), bundle: nil)
+        IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
+        tableView.shouldIgnoreScrollingAdjustment = true
+        
     }
     
+    func addSwitchButton() {
+        let switchButton = UIButton()
+        switchButton.frame = CGRect(x: UIScreen.width-55, y: 70, width: 40, height: 40)
+        switchButton.setBackgroundImage(UIImage(systemName: "arrow.left.arrow.right.circle"), for: .normal)
+        switchButton.tintColor = UIColor.white
+        self.view.addSubview(switchButton)
+        
+        switchButton.addTarget(target, action: #selector(tapSwitchButton), for: .touchUpInside)
+        
+    }
+    
+    @objc func tapSwitchButton() {
+        isSimpleMode = !isSimpleMode
+    }
+    
+    
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.layoutLoadingView(loadingView, view)
+    }
 }

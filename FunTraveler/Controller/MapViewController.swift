@@ -102,7 +102,7 @@ extension MapViewController {
                 guard let sharePlanVC = self?.storyboard?.instantiateViewController(
                     withIdentifier: StoryboardCategory.shareVC) as? SharePlanViewController else { return }
                 
-                sharePlanVC.myTripId = self?.tripId
+                sharePlanVC.tripId = self?.tripId
                 
                 let navSharePlanVC = UINavigationController(rootViewController: sharePlanVC)
                 self?.present(navSharePlanVC, animated: true)
