@@ -19,7 +19,7 @@ class SharePlanViewController: UIViewController {
     }
     
     var tripId: Int?
-
+    
     private var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
@@ -37,6 +37,17 @@ class SharePlanViewController: UIViewController {
         }
     }
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTableViewUI()
+        setupSwitchButton()
+        
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -45,15 +56,6 @@ class SharePlanViewController: UIViewController {
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupTableViewUI()
-        addSwitchButton()
-        
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
 }
 
 extension SharePlanViewController {
@@ -74,8 +76,7 @@ extension SharePlanViewController {
                 self?.tableView.reloadData()
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
-                print("[SharePlanVC] GET schedule Detai 讀取資料失敗！")
+                ProgressHUD.showFailure()
             }
         })
         
@@ -93,17 +94,16 @@ extension SharePlanViewController {
                 
             case .success:
                 if isPublish {
-                    ProgressHUD.showSuccess(text: "成功發布貼文")
+                    ProgressHUD.showSuccess()
                     self?.moveToPage(tabIndex: 0)
                 }
                 if isPrivate {
-                    ProgressHUD.showSuccess(text: "成功發布私密貼文")
+                    ProgressHUD.showSuccess()
                     self?.moveToPage(tabIndex: 4)
                 }
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
-                print("PATCH TRIPAPI讀取資料失敗！")
+                ProgressHUD.showFailure()
             }
         })
     }
@@ -125,7 +125,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.layoutSharePlanHeaderView(data: trip)
         headerView.delegate = self
-
+        
         return headerView
     }
     
@@ -170,7 +170,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         present(publishController, animated: true, completion: nil)
     }
     
-    func moveToPage(tabIndex: Int) {
+    private func moveToPage(tabIndex: Int) {
         
         if self.presentingViewController?.presentingViewController == nil {
             dismiss(animated: true, completion: nil)
@@ -186,7 +186,6 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
                 tabBarController.tabBar.isHidden = false
             }
         }
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -199,10 +198,8 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: String(describing: SharePlanTableViewCell.self), for: indexPath)
                     as? SharePlanTableViewCell else { return UITableViewCell() }
             
-            cell.orderLbael.text = String(indexPath.row+1)
-            cell.nameLabel.text = schedules[indexPath.row].name
-            cell.addressLabel.text = schedules[indexPath.row].address
-            cell.tripTimeLabel.text = "停留時間：\(schedules[indexPath.row].duration)小時"
+            let item = schedules[indexPath.row]
+            cell.layoutCell(data: item, index: indexPath.row)
             
             return cell
         } else {
@@ -237,9 +234,9 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
         patchData(isPrivate: false, isPublish: false)
     }
     
-    func detectUploadImage(_ tripImage: UIImageView, _ imageRecognizer: UITapGestureRecognizer, _ index: Int) {
+    func detectUploadImage(_ tripImageview: UIImageView, _ imageRecognizer: UITapGestureRecognizer, _ index: Int) {
         uploadImageManager.selectImageAction(sender: imageRecognizer, viewController: self)
-        uploadImageManager.tripImage = tripImage
+        uploadImageManager.tripImageView = tripImageview
         uploadImageManager.imageIndex = index
         uploadImageManager.schedules = schedules
         uploadImageManager.delegate = self
@@ -265,13 +262,17 @@ extension SharePlanViewController {
         
     }
     
-    func addSwitchButton() {
+    func setupSwitchButton() {
         let switchButton = UIButton()
-        switchButton.frame = CGRect(x: UIScreen.width-55, y: 70, width: 40, height: 40)
+        self.view.addSubview(switchButton)
+        switchButton.translatesAutoresizingMaskIntoConstraints = false
+        switchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                                               constant: -16).isActive = true
+        switchButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 70).isActive = true
+        switchButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        switchButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         switchButton.setBackgroundImage(UIImage(systemName: "arrow.left.arrow.right.circle"), for: .normal)
         switchButton.tintColor = UIColor.white
-        self.view.addSubview(switchButton)
-        
         switchButton.addTarget(target, action: #selector(tapSwitchButton), for: .touchUpInside)
         
     }
@@ -279,7 +280,7 @@ extension SharePlanViewController {
     @objc func tapSwitchButton() {
         isSimpleMode = !isSimpleMode
     }
-        
+    
     private func showLoadingView() {
         let loadingView = LoadingView()
         view.layoutLoadingView(loadingView, view)

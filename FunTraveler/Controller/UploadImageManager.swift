@@ -16,7 +16,7 @@ class UploadImageManager: NSObject {
     
     weak var delegate: UploadImageManagerDelegate?
     
-    var tripImage: UIImageView?
+    var tripImageView: UIImageView?
     var imageIndex: Int = 0
     var viewController: SharePlanViewController?
     var schedules: [Schedule] = []
@@ -67,7 +67,7 @@ extension UploadImageManager: UIImagePickerControllerDelegate, UINavigationContr
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 
-            tripImage?.image = selectedImage
+            tripImageView?.image = selectedImage
             schedules[imageIndex].images.append(convertImageToString())
             delegate?.uploadAction()
             
@@ -76,7 +76,7 @@ extension UploadImageManager: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     func convertImageToString() -> String {
-        guard let image = tripImage?.image else { return "" }
+        guard let image = tripImageView?.image else { return "" }
         let newImage = image.scale(newWidth: 100.0)
         guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return "" }
         let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)

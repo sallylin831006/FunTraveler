@@ -26,7 +26,13 @@ class SharePlanTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+    }
+    
+    func layoutCell(data: Schedule, index: Int) {
+        orderLbael.text = String(index+1)
+        nameLabel.text = data.name
+        addressLabel.text = data.address
+        tripTimeLabel.text = "停留時間：\(data.duration)小時"
     }
     
 }
