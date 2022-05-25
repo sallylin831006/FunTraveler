@@ -626,6 +626,9 @@
 		3A73527528017FFF00B4D8D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3A1E78AD283636E9009D3B27 /* PusherManager.swift */,
+				3AD8B87528368E390008F084 /* RearrangeTimeManager.swift */,
+				3AD8B878283A9B640008F084 /* UploadImageManager.swift */,
 				3A0C3CEF281B5531006632AC /* Friends */,
 				3A2B6B312814230700D00638 /* VideoManager.swift */,
 				3A73527328017FF300B4D8D3 /* TimeManager.swift */,
@@ -737,7 +740,6 @@
 				3A185C4128058BF5004F5BB3 /* SearchViewController.swift */,
 				3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */,
 				3A7E4D912808818200281E17 /* SharePlanViewController.swift */,
-				3AD8B878283A9B640008F084 /* UploadImageManager.swift */,
 				3A7E4D982809149100281E17 /* TabBarViewController.swift */,
 				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
 				3AF4DCA5280C2169008029D7 /* ExploreDetailViewController.swift */,
@@ -748,8 +750,6 @@
 				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
 				3A35288D28222009003E6400 /* BlockListViewController.swift */,
-				3A1E78AD283636E9009D3B27 /* PusherManager.swift */,
-				3AD8B87528368E390008F084 /* RearrangeTimeManager.swift */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,
