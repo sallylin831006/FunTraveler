@@ -162,7 +162,6 @@ extension VideoViewController: ShotTableViewCellDelegate {
                 onShowIcon(UIImage(named: "blue_like")!)
             }
         
-            
             // clean up the animation
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
                 let stackView = self.iconsContainerView.subviews.first

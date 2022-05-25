@@ -67,25 +67,20 @@ extension UploadImageManager: UIImagePickerControllerDelegate, UINavigationContr
         
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 
-            
             tripImage?.image = selectedImage
-            tripImage?.contentMode = .scaleAspectFill
-            tripImage?.clipsToBounds = true
-            
-//            let testImage = UIImageView()
-//
-//            testImage.image = selectedImage
-
-            guard let image = tripImage?.image else { return }
-            let newImage = image.scale(newWidth: 100.0)
-            guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return }
-            let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-
-            schedules[imageIndex].images.append(strBase64)            
+            schedules[imageIndex].images.append(convertImageToString())
             delegate?.uploadAction()
             
         }
         
     }
     
+    func convertImageToString() -> String {
+        guard let image = tripImage?.image else { return "" }
+        let newImage = image.scale(newWidth: 100.0)
+        guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return "" }
+        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        
+        return strBase64
+    }
 }
