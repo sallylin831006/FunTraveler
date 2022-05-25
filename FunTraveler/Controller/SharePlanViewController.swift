@@ -9,7 +9,7 @@ import UIKit
 import IQKeyboardManagerSwift
 
 class SharePlanViewController: UIViewController {
-    let uploadImageManager = UploadImageManager()
+    private let uploadImageManager = UploadImageManager()
     var schedules: [Schedule] = []
     
     var trip: Trip? {
@@ -19,7 +19,7 @@ class SharePlanViewController: UIViewController {
     }
     
     var tripId: Int?
-    
+
     private var isSimpleMode: Bool = false {
         didSet {
             tableView.reloadData()
@@ -125,9 +125,7 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         headerView.layoutSharePlanHeaderView(data: trip)
         headerView.delegate = self
-//        headerView.selectionView.delegate = self
-//        headerView.selectionView.dataSource = self
-        
+
         return headerView
     }
     
@@ -240,16 +238,13 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     }
     
     func detectUploadImage(_ tripImage: UIImageView, _ imageRecognizer: UITapGestureRecognizer, _ index: Int) {
-        
         uploadImageManager.selectImageAction(sender: imageRecognizer, viewController: self)
         uploadImageManager.tripImage = tripImage
         uploadImageManager.imageIndex = index
         uploadImageManager.schedules = schedules
         uploadImageManager.delegate = self
-
     }
     
-
 }
 
 extension SharePlanViewController: UploadImageManagerDelegate {
@@ -262,9 +257,7 @@ extension SharePlanViewController: UploadImageManagerDelegate {
 extension SharePlanViewController {
     private func setupTableViewUI() {
         tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
-        
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
-        
         tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: SharePlanTableViewCell.self), bundle: nil)
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
@@ -286,8 +279,7 @@ extension SharePlanViewController {
     @objc func tapSwitchButton() {
         isSimpleMode = !isSimpleMode
     }
-    
-    
+        
     private func showLoadingView() {
         let loadingView = LoadingView()
         view.layoutLoadingView(loadingView, view)

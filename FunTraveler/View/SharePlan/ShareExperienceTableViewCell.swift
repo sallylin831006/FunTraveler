@@ -36,6 +36,8 @@ class ShareExperienceTableViewCell: UITableViewCell {
         self.backgroundColor = .themeApricot
         self.selectionStyle = .none
         storiesTextView.delegate = self
+        tripImage.contentMode = .scaleAspectFill
+        tripImage.clipsToBounds = true
     }
     
     func layoutCell(data: Schedule, index: Int) {
