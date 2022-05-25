@@ -17,11 +17,11 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     var copyTextField: String?
     
     private var startDate: String?
-
+    
     private var endDate: String?
     
     private var titleText: String?
-        
+
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -164,6 +164,11 @@ extension AddPlanViewController: FooterViewDelegate {
 }
 
 extension AddPlanViewController: AddPlanTableViewCellDelegate {
+    func reloadTableView(startDate: String, endDate: String) {
+        self.startDate = startDate
+        self.endDate = endDate
+        tableView.reloadData()
+    }
     
     func didChangeTitleData(_ cell: AddPlanTableViewCell, text: String) {
         self.titleText = text
@@ -239,7 +244,7 @@ extension AddPlanViewController {
         tableView.separatorStyle = .none
         
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
-        setupBackButton() 
+        setupBackButton()
     }
     
     private func setupBackButton() {
