@@ -33,39 +33,19 @@ class CommentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerCellWithNib(identifier: String(describing: CommentTableViewCell.self), bundle: nil)
-        
-        tableView.registerFooterWithNib(identifier: String(describing: CommentFooterView.self), bundle: nil)
-
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "留言"
         fetchData()
-        fetchProfileImage() 
+        fetchProfileData() 
     }
     
 }
 
 extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
-    
-//    // MARK: - Section Header
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//
-//        return 100.0
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-//            withIdentifier: HeaderView.identifier)
-//                as? HeaderView else { return nil }
-//
-//        headerView.titleLabel.text = "留言"
-//
-//        return headerView
-//    }
+
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         80.0
@@ -167,8 +147,6 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func blockAction(index: Int) {
-//        let userName = commentData[index].user.name
-
         let blockController = UIAlertController(
             title: "封鎖用戶",
             message: "", preferredStyle: .alert)
@@ -219,7 +197,6 @@ extension CommentViewController {
                                     
                 case .failure:
                     ProgressHUD.showFailure(text: "讀取失敗")
-                    print("[CommetVC] post Comment失敗！")
                 }
             })
             
@@ -239,7 +216,6 @@ extension CommentViewController {
                                     
                 case .failure:
                     ProgressHUD.showFailure(text: "讀取失敗")
-                    print("[CommetVC] delete Comment失敗！")
                 }
             })
             
@@ -266,7 +242,7 @@ extension CommentViewController {
     }
     
     // MARK: - GET My Profile Image
-    private func fetchProfileImage() {
+    private func fetchProfileData() {
         let userProvider = UserProvider()
         
         guard let userId = KeyChainManager.shared.userId else { return }
@@ -301,5 +277,14 @@ extension CommentViewController {
                 print("[ProfileVC] POST TO Block User失敗！")
             }
         })
+    }
+}
+
+extension CommentViewController {
+    private func setupTableView() {
+        tableView.registerCellWithNib(identifier: String(describing: CommentTableViewCell.self), bundle: nil)
+        tableView.registerFooterWithNib(identifier: String(describing: CommentFooterView.self), bundle: nil)
+        self.navigationItem.title = "留言"
+
     }
 }

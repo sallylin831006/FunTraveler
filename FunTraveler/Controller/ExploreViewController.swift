@@ -30,107 +30,22 @@ class ExploreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchBar()
-        setupNavItem()
-        tableView.separatorStyle = .none
-//        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        setupUI()
         
-        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
-//        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
-//        tableView.addGestureRecognizer(longPress)
-
-          }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
-        tableView.reloadData()
-        self.tabBarController?.tabBar.isHidden = false
-//        if #available(iOS 15.0, *) {
-//            tableView.sectionHeaderTopPadding = 0.0
-//        } else {
-//            tableView.tableHeaderView = UIView(
-//                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
-//        }
     }
-    
-//    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
-//        if sender.state == .began {
-//            let touchPoint = sender.location(in: tableView)
-//            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-//                print("我長按了")
-//            }
-//        }
-//    }
-    
-    private func setupNavItem() {
-        addLogoToNavigationBarItem()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage.asset(.friendInvitedIcon),
-            style: .plain,
-            target: self,
-            action: #selector(tapInviteList)
-        )
 
-    }
-    func addLogoToNavigationBarItem() {
-        let imageView = UIImageView(image: UIImage.asset(.logo))
-        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
-        self.navigationItem.titleView = imageView
-    }
-    
     @objc func tapInviteList() {
         guard let inviteVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.inviteVC) as? InviteListViewController else { return }
-        
         navigationController?.pushViewController(inviteVC, animated: true)
     }
-    
-    private func setupSearchBar() {
-        
-        searchController.searchBar.placeholder = "搜尋行程..."
-        searchController.searchBar.delegate = self
-        navigationController?.navigationBar.backgroundColor = .themeApricot
-        navigationController?.navigationBar.barTintColor = .themeApricot
-
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchBar.barTintColor = .themeRed
-        searchController.searchBar.tintColor = .themeRed
-        searchController.searchBar.backgroundColor = .themeApricot
-        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
-     
-        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .themeRed
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-
-    }
-    
-    private func showLoadingView() {
-        let loadingView = LoadingView()
-        view.layoutLoadingView(loadingView, view)
-    }
-    
 }
 
 extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
-    
-//    // MARK: - Section Header
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        
-//        return 100.0
-//    }
-//    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//        guard let headerView = tableView.dequeueReusableHeaderFooterView(
-//            withIdentifier: HeaderView.identifier)
-//                as? HeaderView else { return nil }
-//        
-//        headerView.titleLabel.text = "探索"
-//        
-//        return headerView
-//    }
     
     // MARK: - Section Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -145,7 +60,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         
         let item = exploreData[indexPath.row]
         cell.layoutCell(data: item)
-
+        
         cell.collectClosure = { isCollected in
             self.postData(isCollected: isCollected, tripId: self.exploreData[indexPath.row].id)
             self.exploreData[indexPath.row].isCollected = isCollected
@@ -157,7 +72,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             cell.heartButton.setImage(UIImage.asset(.heartNormal), for: .selected)
         }
         cell.heartClosure = { isLiked in
-            guard KeyChainManager.shared.token != nil else {                self.onShowLogin()
+            guard KeyChainManager.shared.token != nil else {
+                self.onShowLogin()
                 return
             }
             if isLiked {
@@ -174,7 +90,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 let indexPath = IndexPath(item: indexPath.row, section: 0)
                 tableView.reloadRows(at: [indexPath], with: .none)
             }
-           
+            
         }
         
         cell.friendClosure = {
@@ -190,9 +106,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 profileVC.isMyProfile = false
             }
-//            self.present(profileVC, animated: true)
             self.present(navProfileVC, animated: true)
-
+            
         }
         
         return cell
@@ -202,12 +117,10 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let exploreDeatilVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.exploreDetailVC) as? ExploreDetailViewController else { return }
-        
         exploreDeatilVC.tripId = exploreData[indexPath.row].id
         exploreDeatilVC.days = exploreData[indexPath.row].days
         navigationController?.pushViewController(exploreDeatilVC, animated: true)
         exploreDeatilVC.tabBarController?.tabBar.isHidden = true
-
     }
     
     func tableView(_ tableView: UITableView,
@@ -229,7 +142,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             let blockAction =
             UIAction(title: NSLocalizedString("封鎖該使用者", comment: ""),
                      image: UIImage(systemName: "minus.circle"),
-                     attributes: .destructive) { action in
+                     attributes: .destructive) { _ in
                 self.postToBlockUser(index: indexPath.row)
                 self.exploreData.remove(at: indexPath.row)
                 ProgressHUD.showSuccess(text: "已封鎖")
@@ -238,14 +151,14 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             let reportAction =
             UIAction(title: NSLocalizedString("檢舉此貼文", comment: ""),
                      image: UIImage(systemName: "minus.circle"),
-                     attributes: .destructive) { action in
+                     attributes: .destructive) { _ in
                 ProgressHUD.showSuccess(text: "收到您的檢舉，團隊將在24小時盡快內處理")
             }
             
             let blockAndReportAction =
             UIAction(title: NSLocalizedString("封鎖並檢舉此貼文", comment: ""),
                      image: UIImage(systemName: "minus.circle"),
-                     attributes: .destructive) { action in
+                     attributes: .destructive) { _ in
                 self.postToBlockUser(index: indexPath.row)
                 self.exploreData.remove(at: indexPath.row)
                 ProgressHUD.showSuccess(text: "已封鎖該用戶，且團隊將在24小時盡快內處理您的檢舉")
@@ -255,34 +168,26 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         })
     }
     
-    private func onShowLogin() {
-        guard let authVC = UIStoryboard.auth.instantiateViewController(
-            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-        let navAuthVC = UINavigationController(rootViewController: authVC)
-        present(navAuthVC, animated: true, completion: nil)
-    }
-
 }
 
 extension ExploreViewController {
     // MARK: - POST TO ADD NEW COLLECTED
     private func postData(isCollected: Bool, tripId: Int) {
-            let collectedProvider = CollectedProvider()
+        let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected(isCollected: isCollected,
-                                           tripId: tripId, completion: { result in
-                
-                switch result {
-                    
-                case .success: break
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "收藏失敗")
-                    print("[Explore] collected postResponse失敗！")
-                }
-            })
+        collectedProvider.addCollected(isCollected: isCollected,
+                                       tripId: tripId, completion: { result in
             
-        }
+            switch result {
+                
+            case .success: break
+                
+            case .failure:
+                ProgressHUD.showFailure()
+            }
+        })
+        
+    }
     // MARK: - GET Action
     private func fetchData() {
         ProgressHUD.show()
@@ -292,12 +197,10 @@ extension ExploreViewController {
             switch result {
                 
             case .success(let exploreData):
-                
                 self?.exploreData = exploreData
-                
+                self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
     }
@@ -318,7 +221,7 @@ extension ExploreViewController {
                 }
                 
             case .failure:
-//                ProgressHUD.showFailure(text: "搜尋失敗")
+//                ProgressHUD.showFailure()
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })
@@ -333,36 +236,34 @@ extension ExploreViewController {
     
     // MARK: - POST TO Like
     private func postLiked(index: Int) {
-            let reactionProvider = ReactionProvider()
+        let reactionProvider = ReactionProvider()
         reactionProvider.postToLiked(tripId: exploreData[index].id, completion: { result in
-                
-                switch result {
-                    
-                case .success: break
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "按讚失敗")
-                    print("[Explore] Liked postResponse失敗！")
-                }
-            })
             
-        }
+            switch result {
+                
+            case .success: break
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "按讚失敗")
+            }
+        })
+        
+    }
     // MARK: - DELETE TO UnLike
     private func deleteLiked(index: Int) {
-            let reactionProvider = ReactionProvider()
+        let reactionProvider = ReactionProvider()
         reactionProvider.deleteUnLiked(tripId: exploreData[index].id, completion: { result in
-                
-                switch result {
-                    
-                case .success: break
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "取消失敗")
-                    print("[Explore] UnLiked postResponse失敗！")
-                }
-            })
             
-        }
+            switch result {
+                
+            case .success: break
+                
+            case .failure:
+                ProgressHUD.showFailure()
+            }
+        })
+        
+    }
     // MARK: - POST To Block User
     private func postToBlockUser(index: Int) {
         let userProvider = UserProvider()
@@ -375,15 +276,14 @@ extension ExploreViewController {
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
-                ProgressHUD.showSuccess(text: "已封鎖")
+                ProgressHUD.showSuccess()
                 
             case .failure:
                 ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
-                print("[ProfileVC] POST TO Block User失敗！")
             }
         })
     }
-       
+    
 }
 
 extension ExploreViewController: UISearchBarDelegate {
@@ -413,6 +313,73 @@ extension ExploreViewController: UISearchBarDelegate {
 extension ExploreViewController: ProfileViewControllerDelegate {
     func detectProfileDissmiss(_ viewController: UIViewController) {
         fetchData()
+    }
+    
+}
+
+
+extension ExploreViewController {
+    
+    private func setupUI() {
+        setupSearchBar()
+        setupNavItem()
+        setupTableViewUI()
+    }
+    
+    private func setupTableViewUI() {
+        self.tabBarController?.tabBar.isHidden = false
+        tableView.separatorStyle = .none
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
+    }
+    
+    private func setupNavItem() {
+        addLogoToNavigationBarItem()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage.asset(.friendInvitedIcon),
+            style: .plain,
+            target: self,
+            action: #selector(tapInviteList)
+        )
+    }
+    
+    private func addLogoToNavigationBarItem() {
+        let imageView = UIImageView(image: UIImage.asset(.logo))
+        imageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        self.navigationItem.titleView = imageView
+    }
+    
+    private func setupSearchBar() {
+        searchController.searchBar.placeholder = "搜尋行程..."
+        searchController.searchBar.delegate = self
+        navigationController?.navigationBar.backgroundColor = .themeApricot
+        navigationController?.navigationBar.barTintColor = .themeApricot
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.barTintColor = .themeRed
+        searchController.searchBar.tintColor = .themeRed
+        searchController.searchBar.backgroundColor = .themeApricot
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
+        
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .themeRed
+        textFieldInsideSearchBar?.attributedPlaceholder =
+        NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "",
+                           attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+        
+    }
+    
+    private func showLoadingView() {
+        let loadingView = LoadingView()
+        view.layoutLoadingView(loadingView, view)
+    }
+    
+    private func onShowLogin() {
+        guard let authVC = UIStoryboard.auth.instantiateViewController(
+            withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+        let navAuthVC = UINavigationController(rootViewController: authVC)
+        present(navAuthVC, animated: true, completion: nil)
     }
     
 }

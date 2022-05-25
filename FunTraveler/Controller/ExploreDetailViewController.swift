@@ -10,11 +10,11 @@ import Kingfisher
 
 import UIKit
 class ExploreDetailViewController: UIViewController {
-
+    
     var tripId: Int?
     
     var days: Int?
-
+    
     var trip: Trip?
     
     var schedule: [Schedule] = [] {
@@ -22,12 +22,7 @@ class ExploreDetailViewController: UIViewController {
             tableView.reloadData()
         }
     }
-//    var commentData: [Comment] = [] {
-//        didSet {
-//            tableView.reloadData()
-//        }
-//    }
-
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -41,45 +36,26 @@ class ExploreDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
-
-        tableView.registerCellWithNib(identifier: String(describing: ExploreDetailTableViewCell.self), bundle: nil)
-        
-        tableView.registerFooterWithNib(identifier: String(describing: ExploreDetailFooterView.self), bundle: nil)
-
+        setupTableView()
         fetchData(days: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
-
-        self.navigationItem.title = "旅遊分享"
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0.0
-        } else {
-            tableView.tableHeaderView = UIView(
-                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
-        }
+        setupNaviagtionBar()
         setupBackButton()
-        
-    }
-    
-    func setupBackButton() {
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-        backButton.tintColor = .black
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
 
+}
+
+extension ExploreDetailViewController {
     // MARK: - GET Action
     private func fetchData(days: Int) {
         let tripProvider = TripProvider()
         ProgressHUD.show()
         guard let tripId = tripId else { return }
-//        guard let days = days else { return }
-
+        
         tripProvider.fetchSchedule(tripId: tripId, days: days, completion: { [weak self] result in
             ProgressHUD.dismiss()
             switch result {
@@ -87,14 +63,11 @@ class ExploreDetailViewController: UIViewController {
             case .success(let tripSchedule):
                 
                 guard let schedules = tripSchedule.data.schedules else { return }
-                
                 self?.trip = tripSchedule.data
-
                 self?.schedule = schedules.first ?? []
-                   
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[Explore Detail] GET schedule Detai 讀取資料失敗！")
             }
         })
         
@@ -110,11 +83,8 @@ class ExploreDetailViewController: UIViewController {
             switch result {
                 
             case .success: break
-                //print("按了收藏按鈕！", postResponse)
-                
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
-                print("[Explore] collected postResponse失敗！")
+                ProgressHUD.showFailure()
             }
         })
         
@@ -122,39 +92,37 @@ class ExploreDetailViewController: UIViewController {
     
     // MARK: - POST TO Like
     private func postLiked() {
-            let reactionProvider = ReactionProvider()
+        let reactionProvider = ReactionProvider()
         guard let tripId = trip?.id else { return }
         reactionProvider.postToLiked(tripId: tripId, completion: { result in
-                
-                switch result {
-                    
-                case .success: break
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
-                    print("[Explore] Liked postResponse失敗！")
-                }
-            })
             
-        }
+            switch result {
+                
+            case .success: break
+                
+            case .failure:
+                ProgressHUD.showFailure()
+            }
+        })
+    }
     // MARK: - DELETE TO UnLike
     private func deleteLiked() {
-            let reactionProvider = ReactionProvider()
+        let reactionProvider = ReactionProvider()
         guard let tripId = trip?.id else { return }
         reactionProvider.deleteUnLiked(tripId: tripId, completion: { result in
-                
-                switch result {
-                    
-                case .success: break
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
-                    print("[Explore] UnLiked postResponse失敗！")
-                }
-            })
             
-        }
+            switch result {
+                
+            case .success: break
+                
+            case .failure:
+                ProgressHUD.showFailure()
+            }
+        })
+        
+    }
 }
+
 extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Section Header
@@ -168,14 +136,14 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let headerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: ShareHeaderView.identifier)
                 as? ShareHeaderView else { return nil }
-
+        
         guard let trip = trip else { return nil }
-
+        
         headerView.layoutHeaderView(data: trip)
         
         headerView.selectionView.delegate = self
         headerView.selectionView.dataSource = self
-                
+        
         headerView.collectClosure = { isCollected in
             guard KeyChainManager.shared.token != nil else { self.onShowLogin()
                 return
@@ -185,14 +153,9 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
             tableView.reloadData()
         }
         
-        
         return headerView
     }
-    
-    
-    
-    
-    
+        
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         60.0
@@ -231,21 +194,19 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
                 self.trip?.likeCount -= 1
                 tableView.reloadData()
             }
-           
+            
         }
         
         footerView.copyClosure = { [weak self] in
             guard KeyChainManager.shared.token != nil else { self?.onShowLogin()
                 return
             }
-//            self?.postCopyTrip()
             guard let addPlanVC = UIStoryboard.planOverView.instantiateViewController(
                 withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
             addPlanVC.isCopiedTrip = true
             addPlanVC.copyTripId = self?.trip?.id
             addPlanVC.copyTextField = self?.trip?.title
             let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
-            //  navAddPlanVC.modalPresentationStyle = .fullScreen
             self?.present(navAddPlanVC, animated: true)
             
         }
@@ -259,11 +220,10 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let commentVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.commentVC) as? CommentViewController else { return }
         commentVC.tripId = trip?.id
-//        commentVC.commentData = commentData
         let navCommentVC = UINavigationController(rootViewController: commentVC)
-
+        
         self.present(navCommentVC, animated: true)
-     
+        
     }
     
     private func onShowLogin() {
@@ -283,7 +243,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: ExploreDetailTableViewCell.self), for: indexPath)
                 as? ExploreDetailTableViewCell else { return UITableViewCell() }
-                
+        
         let item = schedule[indexPath.row]
         cell.layoutCell(data: item, index: indexPath.row)
         
@@ -303,6 +263,34 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
 
 @objc extension ExploreDetailViewController: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-         fetchData(days: index)
+        fetchData(days: index)
     }
+}
+
+
+extension ExploreDetailViewController {
+    private func setupTableView() {
+        tableView.separatorStyle = .none
+        tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreDetailTableViewCell.self), bundle: nil)
+        tableView.registerFooterWithNib(identifier: String(describing: ExploreDetailFooterView.self), bundle: nil)
+    }
+    
+    private func setupNaviagtionBar() {
+        self.navigationItem.title = "旅遊分享"
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        } else {
+            tableView.tableHeaderView = UIView(
+                frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
+        }
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
+    
 }
