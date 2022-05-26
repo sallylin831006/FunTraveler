@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-Funtraveler provides a place for members to share there trips, they could sync the information and co-edit about there scedules with each other.
+FunTraveler is an App that provides a platform for members to share their trips,  sync the information and co-edit their itineraries with group members.
 </p>
 
 
@@ -27,18 +27,19 @@ Funtraveler provides a place for members to share there trips, they could sync t
 
 
 ## Technologies Used
-
-- Used MVC pattern to define different objects with different responsibilities, and the way that objects interact with each other.
-- Implemented PusherSwift to perform real-time data synchronization and enable users to co-edit the itinerary together.
-- Synchronize data with RESTful APIs.
-- Implement the algorithm to rearrange all times in the trip schedule.
-- Utilized CoreLocation to calculate the distance and driving time between the attractions.
-- Apply GoogleMaps SDK to show maps and search for attractions.
-- Utilized GMSPolyline to draw custom markers in GoogleMaps.
-- Create custom polaroid composite images with CALayer in AVFoundation.
+- Used PusherSwift to implement real-time data synchronization and support the co-edit function.
+- Implemented the arithmetic logic to rearrange all the time setting in the trip plans.
+- Implemented Google Maps SDK to allow users to use maps and search for attractions.
+- Encapsulation CoreLocation to calculate distance and traffic times between attractions with coordinates.
+- Utilized GMSPolyline to draw custom markers in GoogleMaps to visualize paths.
+- Use video cache, enable requests so that data can be served faster, and improve user online experience.
+- Utilized AVVideoComposition CoreAnimationTool to combine CALayer and animations in the videos.
 - Apply two upload methods to upload video with multipart/form-data.
-- Utilized video cache to optimize the transfer of video data on a network to improve performance for users.
-- Developed readable and maintainable codes in Swift using encapsulation in UIView module.
+- Customized UI components to optimize the maintainability and reusability of codes.
+- Utilized UIView.animation with gesture recognizer to implement interaction in the whole App.
+- Utilized delegate pattern to hand off responsibilities between different classes.
+- Implemented Auto Layout programmatically to make the app compatible with all iPhone devices.
+- Used MVC pattern to define different objects with different responsibilities, and the way that objects interact with each other.
 - Utilized Lottie to display animations.
 - Implemented image downloading and caching via Kingfisher.
 
