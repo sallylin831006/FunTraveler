@@ -41,6 +41,30 @@ FunTraveler is an App that provides a platform for members to share their trips,
 - Utilized Lottie to display animations.
 - Implemented image downloading and caching via Kingfisher.
 
+## Screen Shots
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497594-c437f7bd-e590-49ca-9d90-e7642adb85a9.png" width="550" />
+</p>
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497612-320a158d-c921-4290-b1f9-0af4c3d8025e.png" width="550"/>
+</p>
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497616-bc700f9f-c770-499b-aa85-049c4bee3deb.png" width="550"/>
+  </p>
+<p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497618-2da1353a-9795-4745-beb9-cac65d42ff50.png" width="550"/>
+  </p>
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497625-1071f94c-fc6c-45fb-bf18-c9d2ea432f37.png" width="550"/>
+  </p>
+    <p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497627-416081bb-1dfb-4096-9d6a-c8aa60508295.png" width="550"/>
+  </p>
+    <p align="center">
+   <img src="https://user-images.githubusercontent.com/86958230/170497628-de99f22e-275a-41e2-843f-a66c4f56babf.png" width="550"/>
+</p>
+
+
 ## Libraries
   * [PusherSwift](https://github.com/pusher/pusher-websocket-swift)
   * [lottie-ios](https://github.com/airbnb/lottie-ios)
