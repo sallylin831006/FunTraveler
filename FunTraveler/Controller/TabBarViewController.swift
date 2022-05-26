@@ -86,7 +86,7 @@ private enum Tab {
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
 
-    private let tabs: [Tab] = [.explore, .planOverView, .camera, .video,.profile ]
+    private let tabs: [Tab] = [.explore, .planOverView, .camera, .video, .profile ]
     
     var trolleyTabBarItem: UITabBarItem!
     
@@ -115,8 +115,6 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        tabBar.frame.size.height = 90
-//        tabBar.frame.origin.y = view.frame.height - 90
         tabBar.tintColor = .black
         tabBar.layer.borderWidth = 0
         tabBar.clipsToBounds = true

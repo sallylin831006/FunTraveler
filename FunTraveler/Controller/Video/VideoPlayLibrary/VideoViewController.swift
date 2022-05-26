@@ -71,7 +71,6 @@ class VideoViewController: UIViewController {
         return containerView
     }()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,9 +78,9 @@ class VideoViewController: UIViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         let shotTableViewCellIdentifier = "ShotTableViewCell"
-        let loadingCellTableViewCellCellIdentifier = "LoadingCellTableViewCell"
+        let loadingCellIdentifier = "LoadingCellTableViewCell"
         tableView.registerCellWithNib(identifier: String(describing: shotTableViewCellIdentifier.self), bundle: nil)
-        tableView.registerCellWithNib(identifier: String(describing: loadingCellTableViewCellCellIdentifier.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: loadingCellIdentifier.self), bundle: nil)
         tableView.registerHeaderWithNib(identifier: String(describing: VideoHeaderView.self), bundle: nil)
 
         tableView.separatorStyle = .none
