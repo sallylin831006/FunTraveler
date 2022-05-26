@@ -66,4 +66,8 @@ Sally Lin 林翊婷
 sallylin831006@gmail.com
 
 ## License
-Copyright (c) 2022 林翊婷｜YITING LIN
+FunTraveler is released under the MIT license. See [LICENSE](https://github.com/sallylin831006/FunTraveler/blob/develop/LICENSE) for details.
+
+
+
+
