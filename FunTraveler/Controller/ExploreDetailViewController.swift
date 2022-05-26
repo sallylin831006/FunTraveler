@@ -267,7 +267,6 @@ extension ExploreDetailViewController: SegmentControlViewDataSource {
     }
 }
 
-
 extension ExploreDetailViewController {
     private func setupTableView() {
         tableView.separatorStyle = .none

@@ -66,7 +66,6 @@ extension TimePickerView {
         
         timeTextField.textAlignment = .center
         
-
         layoutOfTimePickerView()
     }
 

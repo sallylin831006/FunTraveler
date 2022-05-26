@@ -154,7 +154,6 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
             self.postToBlockUser(index: index)
             self.deleteData(index: index)
             self.commentData.remove(at: index)
-            
         })
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         

@@ -26,7 +26,6 @@ class FooterView: UITableViewHeaderFooterView {
         
         cancelButton.addTarget(target, action: #selector(tapCancelButton(_:)), for: .touchUpInside)
     }
-
     
     @objc func tapSaveButton(_ sender: UIButton) {
         delegate?.saveButton(sender)

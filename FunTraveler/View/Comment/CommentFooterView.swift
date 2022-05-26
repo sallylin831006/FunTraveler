@@ -12,7 +12,6 @@ class CommentFooterView: UITableViewHeaderFooterView {
     var sendCommentClosure: (() -> Void)?
     var moveToLoginClosure: (() -> Void)?
 
-
     @IBOutlet weak var userImageView: UIImageView!
     
     @IBOutlet weak var commentTextField: UITextField!
@@ -50,7 +49,6 @@ class CommentFooterView: UITableViewHeaderFooterView {
         moveToLoginClosure?()
     }
     
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -65,8 +63,6 @@ class CommentFooterView: UITableViewHeaderFooterView {
         userImageView.loadImage(data.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         commentTextField.placeholder =  "以\(data.name)新增留言..."
     }
-    
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()

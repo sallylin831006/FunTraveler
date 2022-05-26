@@ -82,9 +82,7 @@ class ProfileViewController: UIViewController {
         
         tableView.separatorStyle = .none
         tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
         tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
-        
         tableView.registerHeaderWithNib(identifier: String(describing: SegementView.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
@@ -263,7 +261,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             cell.layoutCell(data: item)
             
             cell.collectClosure = { isCollected in
-                self.postCollectedData(isCollected: isCollected, tripId: self.collectedData[indexPath.row].id, index: indexPath.row )
+                let tripId = self.collectedData[indexPath.row].id
+                self.postCollectedData(isCollected: isCollected, tripId: tripId,
+                                       index: indexPath.row )
             }
             if isMyMemory {
                 cell.collectButton.isHidden = true
@@ -318,13 +318,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
         navigationController?.pushViewController(settingVC, animated: true)
     }
-    
-//    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
-//        userNameTextField.resignFirstResponder()
-//        guard let name = userNameTextField.text else { return }
-//        patchData(name: name, image: "")
-//
-//    }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         let photoSourceRequestController = UIAlertController(
@@ -437,7 +430,7 @@ extension ProfileViewController {
                 self?.collectedData = profileTripsData.data
                 self?.tableView.reloadData()
             case .failure:
-                print("[ProfileVC] GET Profile Trips 資料失敗！")
+                ProgressHUD.showFailure()
             }
         })
     }
@@ -461,8 +454,7 @@ extension ProfileViewController {
                 self.tableView.reloadData()
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
-                print("PATCH Profile失敗！")
+                ProgressHUD.showFailure()
             }
         })
     }
@@ -504,7 +496,6 @@ extension ProfileViewController {
                                     
                 case .failure:
                     ProgressHUD.showFailure(text: "讀取失敗")
-                    print("[Explore] collected postResponse失敗！")
                 }
             })
             
@@ -518,12 +509,10 @@ extension ProfileViewController {
             
             switch result {
                 
-            case .success(let postResponse):
-                print("postResponse", postResponse)
-                
+            case .success:
+                ProgressHUD.showSuccess()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ProfileVC] POST TO INVITE失敗！")
             }
         })
     }
@@ -545,7 +534,6 @@ extension ProfileViewController {
                 
             case .failure:
                 ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
-                print("[ProfileVC] POST TO Block User失敗！")
             }
         })
     }
@@ -587,6 +575,5 @@ extension ProfileViewController: SegementViewDelegate {
             
         }
         
-    }
-    
+    }    
 }

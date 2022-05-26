@@ -52,7 +52,7 @@ class VideoProvider {
     }
     
     // MARK: - POST Video Like
-    func postLikeVideo(videoId: Int, type: Int ,completion: @escaping RatingHanlder)  {
+    func postLikeVideo(videoId: Int, type: Int, completion: @escaping RatingHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -80,7 +80,6 @@ class VideoProvider {
                         print(error)
                         completion(Result.failure(error))
                     }
-                    
                     
                 case .failure(let error):
                     print(error)

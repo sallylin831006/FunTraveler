@@ -17,7 +17,7 @@ class ASVideoLayerObject: NSObject {
 }
 
 struct VideoLayers {
-    var layers = Array<ASVideoLayerObject>()
+    var layers = [ASVideoLayerObject]()
     init() {
         for _ in 0..<1 {
             layers.append(ASVideoLayerObject())

@@ -103,19 +103,18 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 3 {
             let webViewController = WebViewController()
             self.navigationController?.pushViewController(webViewController, animated: true)
-            webViewController.url = WebURL.privacyPolicy
+            webViewController.webUrl = WebURL.privacyPolicy
             webViewController.tabBarController?.tabBar.isHidden = true
 
         }
         if indexPath.row == 4 {
             let webViewController = WebViewController()
             self.navigationController?.pushViewController(webViewController, animated: true)
-            webViewController.url = WebURL.eula
+            webViewController.webUrl = WebURL.eula
             webViewController.tabBarController?.tabBar.isHidden = true
 
         }
-        
-       
+
     }
     
     func alertUser() {

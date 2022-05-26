@@ -11,7 +11,6 @@ class DatePickerView: UIView {
     
     var dateClosure : ((_ text: String, _ date: Date) -> Void)?
 
-
     var datePicker = UIDatePicker()
     
     override init(frame: CGRect) {
@@ -27,7 +26,6 @@ class DatePickerView: UIView {
     private func commonInit() {
         setupSettingPickerView()
         
-
     }
 }
 
@@ -69,11 +67,11 @@ extension DatePickerView {
 }
 
 extension Calendar {
-    func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+    func numberOfTwoDays(_ from: Date, _ andto: Date) -> Int {
         let fromDate = startOfDay(for: from)
-        let toDate = startOfDay(for: to)
+        let toDate = startOfDay(for: andto)
         let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
         
-        return numberOfDays.day! + 1 // <1>
+        return numberOfDays.day! + 1
     }
 }

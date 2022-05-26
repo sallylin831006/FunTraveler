@@ -54,7 +54,6 @@ struct AddTrip: Codable {
     }
 }
 
-//TripOverView
 struct TripOverViews: Codable {
     var data: [TripOverView]
 }
@@ -88,7 +87,7 @@ struct Trip: Codable {
         case likeCount = "likes_count"
         case commentCount = "comments_count"
         case isLiked = "is_liked"
-
+        
     }
 }
 
@@ -105,7 +104,7 @@ struct Schedule: Codable {
     var id: Int = 0
     var description: String = ""
     var images: [String] = []
-
+    
     enum CodingKeys: String, CodingKey {
         case name, day, address, duration, type, position, id, description, images
         case scheduleId = "trip_id"

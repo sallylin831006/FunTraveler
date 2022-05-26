@@ -37,7 +37,6 @@ class SharePlanViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()

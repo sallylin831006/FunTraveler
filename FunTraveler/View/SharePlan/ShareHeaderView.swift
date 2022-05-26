@@ -90,7 +90,6 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     }
 }
 
-
 extension ShareHeaderView: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
