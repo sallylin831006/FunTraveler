@@ -1,13 +1,11 @@
 # FunTraveler
 <p align="center">
-  <img src="https://i.ibb.co/FXpy4Dd/1-4x.png" width="130" height="130"/>
+  
+  <img src="https://i.ibb.co/4JynXzf/71-4x.png" width="150" height="190"/>
+<!--   <img src="https://i.ibb.co/FXpy4Dd/1-4x.png" width="130" height="130"/> -->
 </p>
 
-<p align="center">
-<span style="color: #3D4659; font-size: 25px; font-weight:bold" > Funtraveler </span>
-</p>
-
-<p align="center">
+<p align="center" style="margin:0px 50px 0px 60px">
 FunTraveler is an App that provides a platform for members to share their trips,  sync the information and co-edit their itineraries with group members.
 </p>
 
