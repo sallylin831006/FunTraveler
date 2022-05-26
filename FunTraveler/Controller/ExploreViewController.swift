@@ -52,7 +52,8 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
         exploreData.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: ExploreOverViewTableViewCell.self), for: indexPath)
@@ -317,7 +318,6 @@ extension ExploreViewController: ProfileViewControllerDelegate {
     
 }
 
-
 extension ExploreViewController {
     
     private func setupUI() {
@@ -366,7 +366,7 @@ extension ExploreViewController {
         textFieldInsideSearchBar?.textColor = .themeRed
         textFieldInsideSearchBar?.attributedPlaceholder =
         NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "",
-                           attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
+                           attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         
     }
     

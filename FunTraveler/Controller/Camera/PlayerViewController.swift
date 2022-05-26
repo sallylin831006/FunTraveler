@@ -42,8 +42,7 @@ class PlayerViewController: UIViewController {
             self.saveVideoToPhotos(locationText: locationText)
            print(locationText)
         }
-        
-        
+                
         let cancelAction = UIAlertAction(title: "放棄", style: .destructive) { _ in
             self.dismiss(animated: true, completion: nil)
         }
@@ -85,7 +84,6 @@ class PlayerViewController: UIViewController {
                     tabBarController.selectedIndex = 3
                 }
             }
-            
             
         })
     }

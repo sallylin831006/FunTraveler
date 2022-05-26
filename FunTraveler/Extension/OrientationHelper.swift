@@ -17,7 +17,7 @@ struct AppUtility {
     }
 
     static func lockOrientation(_ orientation: UIInterfaceOrientationMask,
-                                andRotateTo rotateOrientation:UIInterfaceOrientation) {
+                                andRotateTo rotateOrientation: UIInterfaceOrientation) {
    
         self.lockOrientation(orientation)
     

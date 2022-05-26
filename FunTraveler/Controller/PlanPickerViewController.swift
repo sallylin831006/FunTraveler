@@ -17,7 +17,7 @@ class PlanPickerViewController: UIViewController {
         
     var currentDay: Int = 1
     
-    var currentdayClosure: ((_ currentday: Int) -> Void)? //naming
+    var currentdayClosure: ((_ currentday: Int) -> Void)?
     
     var tripClosure: ((_ schedule: Trip) -> Void)?
     
@@ -168,7 +168,8 @@ extension PlanPickerViewController: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             self.schedule.remove(at: indexPath.row)
             self.postData(days: self.currentDay, isFinished: false)
@@ -316,15 +317,13 @@ extension PlanPickerViewController {
         if isMoveDown {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
                 self.view.frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: UIScreen.height)
-                
-//                self.view.stickView(self.view, self.view)
-                
             }, completion: nil)
             
             sender.setImage(UIImage.asset(.zoomIn), for: .selected)
         } else {
             UIView.transition(with: self.view, duration: 0.2, options: [.curveLinear], animations: {
-                self.view.frame = CGRect(x: 0, y: UIScreen.height * 10/14, width: UIScreen.width, height: UIScreen.height) //
+                self.view.frame = CGRect(x: 0, y: UIScreen.height * 10/14,
+                                         width: UIScreen.width, height: UIScreen.height)
             }, completion: nil)
             sender.setBackgroundImage(UIImage.asset(.zoomOut), for: .normal)
         }

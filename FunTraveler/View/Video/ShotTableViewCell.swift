@@ -81,7 +81,8 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
 
             let width: CGFloat = 25
             let leading = UIScreen.width * 1/5 / 2 + 10
-            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1),
+                                    y: UIScreen.width * 4/5 * 1.8, width: width, height: width)
            
             self.addSubview(iconView)
             iconViewImage.append(iconView)
@@ -96,7 +97,6 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         setupImageView()
         setupDateLabel()
         setupLocationLabel()
-        
         
         screenImageView.layer.cornerRadius = 5
         screenImageView.image = UIImage.asset(.videoPlaceHolder)
@@ -116,12 +116,10 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         self.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress)))
     }
     
-    
     @objc func handleLongPress(gesture: UILongPressGestureRecognizer) {
         delegate?.detectDoubleClick(index, gesture: gesture)
     }
     
-
     func configureCell(videoUrl: String?) {
         self.videoURL = videoUrl
     }
@@ -172,7 +170,6 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         locationLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0).isActive = true
     }
     
-    
     func setupIconArray() {
         
         for (index, iconImage) in iconViewArray.enumerated() {
@@ -182,7 +179,8 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
 
             let width: CGFloat = 25
             let leading = UIScreen.width * 1/5 / 2 + 10
-            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1), y:  UIScreen.width * 4/5 * 1.8, width: width, height: width)
+            iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1),
+                                    y: UIScreen.width * 4/5 * 1.8, width: width, height: width)
             
             iconView.removeFromSuperview()
             self.addSubview(iconView)

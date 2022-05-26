@@ -21,7 +21,6 @@ class ExploreDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var storiesTextLabel: UILabel!
     
-
     @IBOutlet weak var imageWithConstraint: NSLayoutConstraint!
     
     func layoutCell(data: Schedule, index: Int) {

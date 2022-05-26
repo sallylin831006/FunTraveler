@@ -20,17 +20,14 @@ class AlertManager {
 
     private init() { }
         
-    func showPublishStatus(at viewController: UIViewController, title: String, message: String = "", publicAction: UIAlertAction, privateAction: UIAlertAction) {
+    func showPublishStatus(at viewController: UIViewController,
+                           title: String, message: String = "", publicAction: UIAlertAction, privateAction: UIAlertAction) {
                
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
-        let publicAction = UIAlertAction(title: "公開", style: .default) { (_) in
-            publicAction
-        }
+        let publicAction = UIAlertAction(title: "公開", style: .default)
         
-        let privateAction = UIAlertAction(title: "私密", style: .default) { (_) in
-            privateAction
-        }
+        let privateAction = UIAlertAction(title: "私密", style: .default)
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         

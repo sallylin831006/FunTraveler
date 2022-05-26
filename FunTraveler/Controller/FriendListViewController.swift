@@ -39,8 +39,7 @@ class FriendListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorStyle = .none
-        tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +101,6 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.confirmInviteButton.isHidden = true
         cell.cancelInviteButton.isHidden = true
-        //        cell.delegate = self
         
         return cell
     }
@@ -136,5 +134,12 @@ extension FriendListViewController: UITableViewDataSource, UITableViewDelegate {
             
         }
         
+    }
+}
+
+extension FriendListViewController {
+    func setupTableView() {
+        tableView.separatorStyle = .none
+        tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
     }
 }

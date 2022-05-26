@@ -36,12 +36,10 @@ enum VideoRequest: STRequest {
         case .postVideoLike(_, _, let type):
             
             let body = [
-                "type": type,
+                "type": type
             ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-        
-            
         }
     }
     var method: String {
@@ -50,7 +48,7 @@ enum VideoRequest: STRequest {
             
         case .getVideo : return STHTTPMethod.GET.rawValue
         case .postVideoLike : return STHTTPMethod.POST.rawValue
-
+            
         }
     }
     

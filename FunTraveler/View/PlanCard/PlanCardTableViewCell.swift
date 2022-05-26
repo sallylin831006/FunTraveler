@@ -66,7 +66,6 @@ class PlanCardTableViewCell: UITableViewCell {
     
     @IBOutlet weak private var cardView: UIView!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -74,8 +73,7 @@ class PlanCardTableViewCell: UITableViewCell {
         trafficPickerView.picker.dataSource = self
         trafficPickerView.delegate = self
         trafficPickerView.picker.tag = 2
-        
-        
+
         timePickerView.picker.delegate = self
         
         timePickerView.picker.dataSource = self
@@ -117,7 +115,6 @@ class PlanCardTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-
 }
 
 extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {

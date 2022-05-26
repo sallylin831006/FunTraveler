@@ -32,8 +32,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak private var collectionView: UICollectionView!
     
     @IBOutlet weak private var inviteButton: UIButton!
-    
-    
+        
     var selectedDepartmentTimesClosure: ((_ selectedDepartmentTimes: String) -> Void)?
     private var tripData: Trip?
     
@@ -131,7 +130,6 @@ extension PlanCardHeaderView: TimePickerViewDelegate {
     }
 }
 
-
 extension PlanCardHeaderView: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
@@ -147,7 +145,6 @@ extension PlanCardHeaderView: SegmentControlViewDataSource {
 
 extension PlanCardHeaderView: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tripData?.editors.count ?? 0
     }
@@ -158,8 +155,6 @@ extension PlanCardHeaderView: UICollectionViewDataSource, UICollectionViewDelega
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: String(describing: FriendsCollectionViewCell.self),
             for: indexPath) as? FriendsCollectionViewCell else { return UICollectionViewCell() }
-
-
         guard let editors = tripData?.editors else { return UICollectionViewCell() }
         cell.layoutCell(data: editors, index: indexPath.row)
         

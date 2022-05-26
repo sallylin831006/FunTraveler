@@ -51,7 +51,8 @@ extension UIView {
     }
     
     func centerViewWithSize(_ objectView: UIView, _ view: UIView,
-                            width: CGFloat, height: CGFloat, centerXconstant: CGFloat = 0, centerYconstant: CGFloat = 0) {
+                            width: CGFloat, height: CGFloat,
+                            centerXconstant: CGFloat = 0, centerYconstant: CGFloat = 0) {
 
         objectView.removeFromSuperview()
 
