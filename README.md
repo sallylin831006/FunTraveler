@@ -1,7 +1,6 @@
 # FunTraveler
 <p align="center">
-  
-  <img src="https://i.ibb.co/4JynXzf/71-4x.png" width="150" height="190"/>
+  <img src="https://i.ibb.co/4JynXzf/71-4x.png" width="150"/>
 <!--   <img src="https://i.ibb.co/FXpy4Dd/1-4x.png" width="130" height="130"/> -->
 </p>
 
