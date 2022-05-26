@@ -12,7 +12,6 @@ protocol ShotTableViewCellDelegate: AnyObject {
     func detectDoubleClick(_ index: Int, gesture: UILongPressGestureRecognizer)
 }
 
-
 class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     weak var delegate: ShotTableViewCellDelegate?
     
@@ -135,7 +134,8 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     }
     
     func visibleVideoHeight() -> CGFloat {
-        let videoFrameInParentSuperView: CGRect? = self.superview?.superview?.convert(screenImageView.frame, from: screenImageView)
+        let videoFrameInParentSuperView: CGRect? = self.superview?.superview?.convert(
+            screenImageView.frame, from: screenImageView)
         guard let videoFrame = videoFrameInParentSuperView,
             let superViewFrame = superview?.frame else {
              return 0
@@ -143,18 +143,14 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         let visibleVideoFrame = videoFrame.intersection(superViewFrame)
         return visibleVideoFrame.size.height
     }
-    
-    
-    
+            
     func setupImageView() {
         self.addSubview(screenImageView)
         let width = UIScreen.width * 4/5
         let height = width * 1.8
         screenImageView.centerViewWithSize(screenImageView, self, width: width, height: height)
     }
- 
-    
-    
+     
     func setupDateLabel() {
         self.addSubview(dateLabel)
         dateLabel.textAlignment = .right

@@ -40,12 +40,8 @@ class SharePlanViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableViewUI()
+        setupTableView()
         setupSwitchButton()
-        
-        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -146,12 +142,12 @@ extension SharePlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         return footerView
     }
-    @objc func tapSaveButton() {
-        decidePublishStatus()
-    }
-    
     @objc func tapCancelButton() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func tapSaveButton() {
+        decidePublishStatus()
     }
     
     func decidePublishStatus() {
@@ -252,14 +248,13 @@ extension SharePlanViewController: UploadImageManagerDelegate {
 }
 
 extension SharePlanViewController {
-    private func setupTableViewUI() {
+    private func setupTableView() {
         tableView.registerHeaderWithNib(identifier: String(describing: ShareHeaderView.self), bundle: nil)
         tableView.registerFooterWithNib(identifier: String(describing: FooterView.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: ShareExperienceTableViewCell.self), bundle: nil)
         tableView.registerCellWithNib(identifier: String(describing: SharePlanTableViewCell.self), bundle: nil)
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 40
         tableView.shouldIgnoreScrollingAdjustment = true
-        
     }
     
     func setupSwitchButton() {
