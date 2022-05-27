@@ -231,16 +231,19 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
     
     func detectUploadImage(_ tripImageview: UIImageView, _ imageRecognizer: UITapGestureRecognizer, _ index: Int) {
         uploadImageManager.selectImageAction(sender: imageRecognizer, viewController: self)
+        uploadImageManager.delegate = self
         uploadImageManager.tripImageView = tripImageview
         uploadImageManager.imageIndex = index
-        uploadImageManager.schedules = schedules
-        uploadImageManager.delegate = self
+//        uploadImageManager.schedules = schedules
+        
     }
     
 }
 
 extension SharePlanViewController: UploadImageManagerDelegate {
-    func uploadAction() {
+    func uploadAction(index: Int, strBase64: String) {
+        
+        schedules[index].images.append(strBase64)
         patchData(isPrivate: false, isPublish: false)
         dismiss(animated: true, completion: nil)
     }

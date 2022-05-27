@@ -26,7 +26,9 @@ struct VideoLayers {
     
     func getLayerForParentLayer(parentLayer: CALayer) -> AVPlayerLayer {
         for videoObject in layers {
+            // swiftlint:disable for_where
             if videoObject.layer.superlayer == parentLayer {
+            // swiftlint:disable for_where
                 return videoObject.layer
             }
         }

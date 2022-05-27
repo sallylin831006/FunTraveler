@@ -21,7 +21,8 @@ class AlertManager {
     private init() { }
         
     func showPublishStatus(at viewController: UIViewController,
-                           title: String, message: String = "", publicAction: UIAlertAction, privateAction: UIAlertAction) {
+                           title: String, message: String = "",
+                           publicAction: UIAlertAction, privateAction: UIAlertAction) {
                
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         

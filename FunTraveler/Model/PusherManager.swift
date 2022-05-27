@@ -27,7 +27,7 @@ class PusherManager: PusherDelegate {
         
         let channel = pusher.subscribe(StringConstant.pusherSubscribe)
         
-        let _ = channel.bind(eventName: StringConstant.pusherEventName, eventCallback: { (event: PusherEvent) in
+        _ = channel.bind(eventName: StringConstant.pusherEventName, eventCallback: { (event: PusherEvent) in
             if let data = event.data {
                 do {
                     

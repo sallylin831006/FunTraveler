@@ -14,25 +14,25 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
 
-    @IBOutlet weak var planImageView: UIImageView!
+    @IBOutlet private weak var planImageView: UIImageView!
     
-    @IBOutlet weak var dayTitleLabel: UILabel!
+    @IBOutlet private weak var dayTitleLabel: UILabel!
     
-    @IBOutlet weak var tripTitleLabel: UILabel!
+    @IBOutlet private weak var tripTitleLabel: UILabel!
     
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet private weak var userImageView: UIImageView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet private weak var userNameLabel: UILabel!
     
     @IBOutlet weak var collectButton: UIButton!
     
     @IBOutlet weak var heartButton: UIButton!
         
-    @IBOutlet weak var numberOfLikeLabel: UILabel!
+    @IBOutlet private weak var numberOfLikeLabel: UILabel!
     
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
     
-    @IBOutlet weak var lockIconImage: UIImageView!
+    @IBOutlet private weak var lockIconImage: UIImageView!
     
     private var isCollected: Bool = false
     

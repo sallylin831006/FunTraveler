@@ -54,7 +54,6 @@ extension DatePickerView {
     
     @objc func tapToChangeDate(datePicker: UIDatePicker) {
         let formatter = DateFormatter()
-        // formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.dateFormat = "yyyy-MM-dd"
 
         dateClosure?(formatter.string(from: datePicker.date), datePicker.date)
@@ -71,7 +70,6 @@ extension Calendar {
         let fromDate = startOfDay(for: from)
         let toDate = startOfDay(for: andto)
         let numberOfDays = dateComponents([.day], from: fromDate, to: toDate)
-        
         return numberOfDays.day! + 1
     }
 }

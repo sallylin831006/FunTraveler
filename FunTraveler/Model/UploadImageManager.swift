@@ -9,7 +9,7 @@ import UIKit
 
 protocol UploadImageManagerDelegate: AnyObject {
     
-    func uploadAction()
+    func uploadAction(index: Int, strBase64: String)
 }
 
 class UploadImageManager: NSObject {
@@ -18,10 +18,10 @@ class UploadImageManager: NSObject {
     
     var tripImageView: UIImageView?
     var imageIndex: Int = 0
-    var viewController: SharePlanViewController?
-    var schedules: [Schedule] = []
+    var viewController: UIViewController?
+//    var schedules: [Schedule] = []
     
-    func selectImageAction(sender: UITapGestureRecognizer, viewController: SharePlanViewController) {
+    func selectImageAction(sender: UITapGestureRecognizer, viewController: UIViewController) {
 
         let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .alert)
         
@@ -37,10 +37,22 @@ class UploadImageManager: NSObject {
             }
         })
         
+        let cameraAction = UIAlertAction(title: "相機", style: .default, handler: { (_) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                
+                viewController.present(imagePicker, animated: true, completion: nil)
+            }
+        })
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
         })
         
         photoSourceRequestController.addAction(photoLibraryAction)
+        photoSourceRequestController.addAction(cameraAction)
         photoSourceRequestController.addAction(cancelAction)
         
         // iPad specific code
@@ -68,14 +80,14 @@ extension UploadImageManager: UIImagePickerControllerDelegate, UINavigationContr
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
 
             tripImageView?.image = selectedImage
-            schedules[imageIndex].images.append(convertImageToString())
-            delegate?.uploadAction()
+//            schedules[imageIndex].images.append(convertImageString())
+            delegate?.uploadAction(index: imageIndex, strBase64: convertImageString())
             
         }
         
     }
     
-    func convertImageToString() -> String {
+    func convertImageString() -> String {
         guard let image = tripImageView?.image else { return "" }
         let newImage = image.scale(newWidth: 100.0)
         guard let imageData: NSData = newImage.jpegData(compressionQuality: 1) as NSData? else { return "" }
