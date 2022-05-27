@@ -9,14 +9,11 @@ import UIKit
 
 class InviteListViewController: UIViewController {
     
-    var inviteData: [User] = [] {
-        didSet {
-//            tableView.reloadData()
-        }
-    }
-    
+    var inviteData: [User] = []
+    private let searchController = UISearchController(searchResultsController: nil)
     private var isSearchUser: Bool = false
     private let alertView = AlertLoginView()
+    private let alertLoginView = AlertLoginView()
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -30,18 +27,9 @@ class InviteListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorStyle = .none
-        tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
+        setupTableView()
         setupSearchBar()
         setupBackButton()
-
-    }
-    
-    func setupBackButton() {
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-        backButton.tintColor = .black
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,20 +38,9 @@ class InviteListViewController: UIViewController {
             setupAlertLoginView()
             return
         }
-        
         fetchData()
     }
-    let alertLoginView = AlertLoginView()
-    private func setupAlertLoginView() {
-        alertLoginView.isHidden = false
-        alertLoginView.alertLabel.text = "登入以查看好友邀請"
         
-        alertLoginView.centerView(alertLoginView, view)
-
-        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
-        alertLoginView.addGestureRecognizer(imageTapGesture)
-    }
-    
     @objc func tapToShowLogin() {
         onShowLogin()
     }
@@ -75,26 +52,9 @@ class InviteListViewController: UIViewController {
         present(navAuthVC, animated: true, completion: nil)
         alertLoginView.isHidden = true
     }
-    
-    private let searchController = UISearchController(searchResultsController: nil)
-    private func setupSearchBar() {
-        
-        searchController.searchBar.placeholder = "搜尋帳戶..."
-        searchController.searchBar.delegate = self
-        
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchBar.barTintColor = .themeRed
-        searchController.searchBar.tintColor = .themeRed
+}
 
-        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
-     
-        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
-        textFieldInsideSearchBar?.textColor = .themeRed
-        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(string: textFieldInsideSearchBar?.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
-
-    }
-    
+extension InviteListViewController {
     // MARK: - GET Action
     private func fetchData() {
         let friendsProvider = FriendsProvider()
@@ -112,33 +72,21 @@ class InviteListViewController: UIViewController {
                 self?.tableView.reloadData()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[InvitedVC] GET資料失敗！")
             }
         })
     }
     
-    func setupAlertView() {
-        alertView.isHidden = false
-        alertView.alertLabel.text = "目前尚無好友邀請"
-        
-        alertView.centerView(alertView, view)
-    }
-    
-
     // MARK: - POST Action
     private func postData(index: Int, isAccept: Bool) {
         let friendsProvider = FriendsProvider()
-        
         friendsProvider.postToAccept(userId: inviteData[index].id, isAccept: isAccept, completion: { result in
             
             switch result {
                 
-            case .success(let postResponse):
-                print("postAcceptResponse", postResponse)
-                
+            case .success:
+                ProgressHUD.showSuccess()
             case .failure:
                 ProgressHUD.showFailure(text: "邀請失敗")
-                print("[InvitedVC] POST邀請失敗！")
             }
         })
     }
@@ -155,16 +103,12 @@ class InviteListViewController: UIViewController {
                 self?.inviteData = userSearchListResponse.data
                 self?.isSearchUser = true
                 self?.tableView.reloadData()
-                
-                print("userSearchListResponse", userSearchListResponse)
-                
             case .failure:
                 guard KeyChainManager.shared.token != nil else {
                     ProgressHUD.showFailure(text: "請先登入")
                     return
                 }
                 ProgressHUD.showFailure(text: "搜尋失敗")
-                print("[InvitedVC] POST資料失敗！")
             }
         })
     }
@@ -251,5 +195,56 @@ extension InviteListViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         setupAlertView()
         fetchData()
+    }
+}
+
+extension InviteListViewController {
+    private func setupTableView() {
+        tableView.separatorStyle = .none
+        tableView.registerCellWithNib(identifier: String(describing: InviteListTableViewCell.self), bundle: nil)
+        
+    }
+    
+    private func setupSearchBar() {
+        
+        searchController.searchBar.placeholder = "搜尋帳戶..."
+        searchController.searchBar.delegate = self
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchBar.barTintColor = .themeRed
+        searchController.searchBar.tintColor = .themeRed
+
+        searchController.searchBar.searchTextField.backgroundColor = .themeApricot
+     
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.textColor = .themeRed
+        textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(
+            string: textFieldInsideSearchBar?.placeholder ?? "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
+    
+    private func setupAlertView() {
+        alertView.isHidden = false
+        alertView.alertLabel.text = "目前尚無好友邀請"
+        
+        alertView.centerView(alertView, view)
+    }
+    
+    private func setupAlertLoginView() {
+        alertLoginView.isHidden = false
+        alertLoginView.alertLabel.text = "登入以查看好友邀請"
+        alertLoginView.centerView(alertLoginView, view)
+
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
     }
 }

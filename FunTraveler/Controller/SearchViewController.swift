@@ -6,11 +6,12 @@
 //
 
 import UIKit
-import CoreLocation
 
 class SearchViewController: UIViewController {
+    
     var scheduleArray: [Schedule] = []
-    var day: Int = 1
+    
+    var currentDay: Int = 1
     
     var scheduleClosure : ((_ schedules: [Schedule]) -> Void)?
     
@@ -35,15 +36,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.placeholder = "搜尋景點..."
-        searchBar.layer.borderWidth = 2
-        searchBar.layer.borderColor = UIColor.themeApricot?.cgColor
-        searchBar.barTintColor = .themeApricot
-        searchBar.searchTextField.backgroundColor = .white
-        
-        tableView.registerCellWithNib(identifier: String(describing: SearchTableViewCell.self), bundle: nil)
-        tableView.separatorColor = .themeApricotDeep
-        searchBar.delegate = self
+        setupSearchBar()
+        setupTableView()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -69,17 +63,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         cell.layoutCell(data: item, index: indexPath.row)
         
         cell.delegate = self
-
+        
         return cell
         
-    }
-
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-//        let searchDetailVC = SearchDetailViewController()
-//        self.navigationController?.pushViewController(searchDetailVC, animated: true)
-//        searchDetailVC.searchResoponse = searchData[indexPath.row]
     }
     
 }
@@ -89,10 +75,10 @@ extension SearchViewController: SearchTableViewCellDelegate {
         showSuccessView()
         let point = sender.convert(CGPoint.zero, to: tableView)
         guard let indexPath = tableView.indexPathForRow(at: point) else { return }
-
+        
         let schedule = Schedule(
             name: searchData[indexPath.row].name,
-            day: day,
+            day: currentDay,
             address: searchData[indexPath.row].vicinity,
             startTime: "09:00", duration: 1.0,
             trafficTime: 0,
@@ -107,36 +93,7 @@ extension SearchViewController: SearchTableViewCellDelegate {
             return
             
         }
-//        let newTrafficTime = calculateTrafficTime(index: indexPath.row)
-//        scheduleArray[scheduleArray.endIndex-1].trafficTime = newTrafficTime
         scheduleArray.append(schedule)
-        print("成功加入行程！！")
-        
-    }
-    
-    func calculateTrafficTime(index: Int) -> Double {
-        if index == 0 {
-            return 0
-        }
-        let lastIndex = searchData.count - 1
-        if index == lastIndex {
-            return 0
-        }
-        // calculate time
-        let coordinate₀ = CLLocation(
-            latitude: CLLocationDegrees(searchData[index-1].geometry.location.lat),
-            longitude: CLLocationDegrees(searchData[index-1].geometry.location.lng)
-        )
-        let coordinate₁ = CLLocation(
-            latitude: CLLocationDegrees(searchData[index].geometry.location.lat),
-            longitude: CLLocationDegrees(searchData[index].geometry.location.lng)
-        )
-
-        let distance = coordinate₀.distance(from: coordinate₁)/1000
-        let carSpeed: Double = 60
-        
-        return coordinate₀.distance(from: coordinate₁)
-//       return Double(distance.rounding(toDecimal: 2)/carSpeed)
     }
     
 }
@@ -154,7 +111,7 @@ extension SearchViewController: UISearchBarDelegate {
         let searchProvider = SearchProvider()
         if searchText == "" { return }
         searchProvider.fetchSearch(keyword: "\(searchText)",
-        position: "25.0338,121.5646", radius: 100000, completion: { result in
+                                   position: "25.0338,121.5646", radius: 1000000, completion: { result in
             
             switch result {
                 
@@ -163,7 +120,7 @@ extension SearchViewController: UISearchBarDelegate {
                 self.searchData = searchData.results
                 
             case .failure:
-//                ProgressHUD.showFailure(text: "讀取失敗")
+                ProgressHUD.showFailure()
                 print("searchProvider讀取資料失敗！")
             }
         })
@@ -175,5 +132,20 @@ extension SearchViewController {
     private func showSuccessView() {
         let successView = SuccessView()
         successView.centerViewWithSize(successView, view, width: 200, height: 200)
+    }
+}
+
+extension SearchViewController {
+    private func setupSearchBar() {
+        searchBar.placeholder = "搜尋景點..."
+        searchBar.layer.borderWidth = 2
+        searchBar.layer.borderColor = UIColor.themeApricot?.cgColor
+        searchBar.barTintColor = .themeApricot
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.delegate = self
+    }
+    private func setupTableView() {
+        tableView.registerCellWithNib(identifier: String(describing: SearchTableViewCell.self), bundle: nil)
+        tableView.separatorColor = .themeApricotDeep
     }
 }

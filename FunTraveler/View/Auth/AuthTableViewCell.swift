@@ -34,7 +34,7 @@ class AuthTableViewCell: UITableViewCell {
         setupSignInwithApple()
         self.backgroundColor = .themeApricot
         passwordTextField.isSecureTextEntry = true
-
+        self.selectionStyle = .none
     }
     
     override func layoutSubviews() {

@@ -26,7 +26,7 @@ struct StoryboardCategory {
     
     static let planOverView = "PlanOverView"
 
-    static let planDetailVC = "PlanDetailViewController"
+    static let MapVC = "MapViewController"
     
     static let planPickerVC = "PlanPickerViewController"
     

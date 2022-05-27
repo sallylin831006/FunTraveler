@@ -8,19 +8,19 @@
 import Foundation
 import UIKit
 
+typealias TripOverViewHanlder = (Result<[TripOverView]>) -> Void
 typealias TripHanlder = (Result<Trips>) -> Void
 typealias AddTripHanlder = (Result<AddTrip>) -> Void
 typealias ScheduleInfoHanlder = (Result<ScheduleInfo>) -> Void
 typealias ResponseHanlder = (Result<String>) -> Void
 typealias CopyHanlder = (Result<CopyTrip>) -> Void
 
-
 class TripProvider {
     
     let decoder = JSONDecoder()
     
     // MARK: - GET USER TRIP OVERVIEW
-    func fetchTrip(completion: @escaping TripHanlder) {
+    func fetchTrip(completion: @escaping TripOverViewHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -37,13 +37,13 @@ class TripProvider {
                     
                     do {
                         let tripData = try JSONDecoder().decode(
-                            Trips.self,
+                            TripOverViews.self,
                             from: data
                         )
                         
                         DispatchQueue.main.async {
                             
-                            completion(Result.success(tripData))
+                            completion(Result.success(tripData.data))
                         }
                         
                     } catch {
@@ -139,7 +139,8 @@ class TripProvider {
     }
     
     // MARK: - POST TO BUILD SCHEDULES FOR TRIP
-    func postTrip(tripId: Int, schedules: [Schedule], day: Int, isFinished: Bool, completion: @escaping ScheduleInfoHanlder) {
+    func postTrip(tripId: Int, schedules: [Schedule],
+                  day: Int, isFinished: Bool, completion: @escaping ScheduleInfoHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -182,7 +183,8 @@ class TripProvider {
     }
     
     // MARK: - PATCH to Update and publish schedules
-    func updateTrip(tripId: Int, schedules: [Schedule], isPrivate: Bool, isPublish: Bool, completion: @escaping ResponseHanlder) {
+    func updateTrip(tripId: Int, schedules: [Schedule],
+                    isPrivate: Bool, isPublish: Bool, completion: @escaping ResponseHanlder) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -190,7 +192,9 @@ class TripProvider {
         }
         
         HTTPClient.shared.request(
-            TripRequest.updateTrip(token: token, tripId: tripId, schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: { result in
+            TripRequest.updateTrip(token: token, tripId: tripId,
+                                   schedules: schedules,
+                                   isPrivate: isPrivate, isPublish: isPublish), completion: { result in
                
                 switch result {
                     
@@ -283,7 +287,9 @@ class TripProvider {
         }
         
         HTTPClient.shared.request(
-            TripRequest.updateTripInfo(token: token, tripId: tripId, title: title, startDate: startDate, endDate: endDate), completion: { result in
+            TripRequest.updateTripInfo(token: token, tripId: tripId,
+                                       title: title, startDate: startDate,
+                                       endDate: endDate), completion: { result in
                
                 switch result {
                     

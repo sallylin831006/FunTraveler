@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="396" width="414" height="500"/>
                                 <color key="backgroundColor" name="themeApricot"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="oFk-M9-c47" secondAttribute="height" multiplier="207:250" id="9XV-xN-Rms"/>
+                                    <constraint firstAttribute="height" constant="500" id="CRT-HR-Vgs"/>
                                 </constraints>
                             </tableView>
                         </subviews>
@@ -54,7 +54,7 @@
                                 <rect key="frame" x="0.0" y="396" width="414" height="500"/>
                                 <color key="backgroundColor" name="themeApricot"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="YYM-0F-5pt" secondAttribute="height" multiplier="207:250" id="tod-E4-gXp"/>
+                                    <constraint firstAttribute="height" constant="500" id="zoe-RG-XUF"/>
                                 </constraints>
                             </tableView>
                         </subviews>

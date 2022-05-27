@@ -1,12 +1,11 @@
 //
-//  Orientation+Extension.swift
+//  OrientationHelper.swift
 //  FunTraveler
 //
-//  Created by 林翊婷 on 2022/5/9.
+//  Created by 林翊婷 on 2022/5/12.
 //
 
 import UIKit
-
 
 struct AppUtility {
 
@@ -17,7 +16,8 @@ struct AppUtility {
         }
     }
 
-    static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask,
+                                andRotateTo rotateOrientation: UIInterfaceOrientation) {
    
         self.lockOrientation(orientation)
     

@@ -7,9 +7,15 @@
 
 import UIKit
 
-class PlanCardFooterView: UITableViewHeaderFooterView {
+protocol PlanCardFooterViewDelegate: AnyObject {
+    func tapScheduleButton()
+}
 
-    @IBOutlet weak var scheduleButton: UIButton!
+class PlanCardFooterView: UITableViewHeaderFooterView {
+    
+    weak var delegate: PlanCardFooterViewDelegate?
+
+    @IBOutlet weak private var scheduleButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -20,18 +26,22 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        setupFooterView()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        setupFooterView()
     }
 
-    private func setupFooterView() {
-//        contentView.backgroundColor = UIColor.clear
-//        self.backgroundColor = UIColor.clear
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        scheduleButton.setTitle("+建立行程規劃", for: .normal)
+        
+        scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
+    }
+    
+    @objc func tapScheduleButton() {
+        delegate?.tapScheduleButton()
     }
     
 }

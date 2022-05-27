@@ -43,11 +43,6 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         }
     }
     
-
-    
-
-    
-    
     func setupContainerView() {
         containerView.stickSafeArea(containerView, self)
     }

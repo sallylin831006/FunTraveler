@@ -71,10 +71,10 @@
             </objects>
             <point key="canvasLocation" x="1745" y="-31"/>
         </scene>
-        <!--Plan Detail View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="zya-o9-Umf">
             <objects>
-                <viewController storyboardIdentifier="PlanDetailViewController" id="hGq-jY-Ztd" customClass="PlanDetailViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="hGq-jY-Ztd" customClass="MapViewController" customModule="FunTraveler" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HEK-P4-ATN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,34 +98,19 @@
                                 <rect key="frame" x="0.0" y="145" width="414" height="672"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Er-F4-1TE">
-                                <rect key="frame" x="353" y="90" width="45" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="TiA-aW-zgb"/>
-                                    <constraint firstAttribute="height" constant="45" id="uC8-V5-8E3"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title=""/>
-                                <connections>
-                                    <action selector="tapZoomButton:" destination="tiy-4S-2Ws" eventType="touchUpInside" id="xqt-xJ-heq"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aVy-ZK-8So"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="7gH-LC-QFq" secondAttribute="bottom" constant="79" id="6oT-z2-fcg"/>
-                            <constraint firstItem="7gH-LC-QFq" firstAttribute="top" secondItem="3Er-F4-1TE" secondAttribute="bottom" constant="10" id="FMi-fC-U0D"/>
                             <constraint firstItem="7gH-LC-QFq" firstAttribute="height" secondItem="kie-bb-u3j" secondAttribute="height" multiplier="0.75" id="TeP-WF-OyR"/>
                             <constraint firstItem="7gH-LC-QFq" firstAttribute="leading" secondItem="aVy-ZK-8So" secondAttribute="leading" id="X1s-TE-tsn"/>
-                            <constraint firstItem="aVy-ZK-8So" firstAttribute="trailing" secondItem="3Er-F4-1TE" secondAttribute="trailing" constant="16" id="hJI-SU-a2v"/>
                             <constraint firstItem="aVy-ZK-8So" firstAttribute="trailing" secondItem="7gH-LC-QFq" secondAttribute="trailing" id="mYz-gZ-rK3"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bottomHeightConstraint" destination="6oT-z2-fcg" id="46r-kt-eyr"/>
                         <outlet property="tableView" destination="7gH-LC-QFq" id="0Ns-J6-ysF"/>
-                        <outlet property="zoomButton" destination="3Er-F4-1TE" id="3Yl-oK-aQq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cQ-kL-dqU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

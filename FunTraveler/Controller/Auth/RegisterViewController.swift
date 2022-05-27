@@ -12,7 +12,6 @@ class RegisterViewController: UIViewController {
     
     var userRegisterEmailClosure: ((_ text: String) -> Void)?
 
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -90,19 +89,14 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
                   let email = cell.emailTextField.text,
                   let password = cell.passwordTextfield.text,
                   let passwordCheck = cell.passwordCheckTextfield.text else { return }
-            if name == "" || email  == "" || password  == "" || passwordCheck   == "" {
-                ProgressHUD.showFailure(text: "請輸入完整資料")
-                return
-            }
             if passwordCheck != password {
                 ProgressHUD.showFailure(text: "請輸入相同密碼")
                 return
             }
             self?.postToRegister(email: email, password: password, name: name)
-
         }
         
-        cell.cancelRegisterClosure = { [weak self] cell in
+        cell.cancelRegisterClosure = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
         return cell
@@ -122,16 +116,16 @@ extension RegisterViewController {
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
                 }
+                
                 ProgressHUD.showSuccess(text: "註冊成功")
             } failure: { error in
                 switch error {
                 case .success(let data):
                     ProgressHUD.showFailure(text: "\(data.errorMessage)")
-                case .failure(_): break
+                case .failure: break
                     
                 }
                 
-
             }
 
     }

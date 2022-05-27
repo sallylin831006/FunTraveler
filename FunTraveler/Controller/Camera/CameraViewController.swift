@@ -34,9 +34,7 @@ class CameraViewController: UIViewController {
  
     @IBOutlet weak var pickVideoButton: UIButton!
     
-   
     @IBOutlet weak var recordVideoButton: UIButton!
-    
     
     @IBAction func recordVideo(_ sender: Any) {
         let loadingView = LoadingView()
@@ -165,8 +163,8 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 extension CameraViewController {
     func setupActivityIndicator() {
-        
-        activityIndicator.centerViewWithSize(activityIndicator, view, width: 50, height: 50, centerXconstant: 0, centerYconstant: -10)
+        activityIndicator.centerViewWithSize(
+            activityIndicator, view, width: 50, height: 50, centerXconstant: 0, centerYconstant: -10)
     }
     
 }

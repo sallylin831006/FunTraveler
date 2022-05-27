@@ -10,7 +10,8 @@ import AVFoundation
 
 class VideoEditor {
     
-    func makeCustomEffect(fromVideoAt videoURL: URL, onComplete: @escaping (URL?) -> Void) {
+    func makeCustomEffect(fromVideoAt videoURL: URL,
+                          onComplete: @escaping (URL?) -> Void) {
         let asset = AVURLAsset(url: videoURL)
         let composition = AVMutableComposition()
         

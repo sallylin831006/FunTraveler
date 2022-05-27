@@ -91,7 +91,6 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: AuthTableViewCell.self), for: indexPath)
                 as? AuthTableViewCell else { return UITableViewCell() }
-        cell.selectionStyle = .none
         cell.loginClosure = { [weak self] cell in
             guard let email = cell.emailTextField.text,
                   let password = cell.passwordTextField.text else { return }
@@ -117,7 +116,7 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
         
         let webViewController = WebViewController()
         self.navigationController?.pushViewController(webViewController, animated: true)
-        webViewController.url = WebURL.privacyPolicy
+        webViewController.webUrl = WebURL.privacyPolicy
         webViewController.modalPresentationStyle = .fullScreen
         webViewController.navigationController?.isNavigationBarHidden = false
         webViewController.tabBarController?.tabBar.isHidden = true
@@ -127,7 +126,7 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapMoveToEULAPage() {
         let webViewController = WebViewController()
         self.navigationController?.pushViewController(webViewController, animated: true)
-        webViewController.url = WebURL.eula
+        webViewController.webUrl = WebURL.eula
         webViewController.modalPresentationStyle = .fullScreen
         webViewController.navigationController?.isNavigationBarHidden = false
         webViewController.tabBarController?.tabBar.isHidden = true
