@@ -9,20 +9,19 @@ import UIKit
 
 class ExploreDetailTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var orderLabel: UILabel!
+    @IBOutlet private weak var orderLabel: UILabel!
     
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
     
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
     
-    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet private weak var durationLabel: UILabel!
     
-    @IBOutlet weak var tripImage: UIImageView!
+    @IBOutlet private weak var tripImage: UIImageView!
     
-    @IBOutlet weak var storiesTextLabel: UILabel!
+    @IBOutlet private weak var storiesTextLabel: UILabel!
     
-
-    @IBOutlet weak var imageWithConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var imageWithConstraint: NSLayoutConstraint!
     
     func layoutCell(data: Schedule, index: Int) {
         orderLabel.text = String(index + 1)
@@ -32,7 +31,6 @@ class ExploreDetailTableViewCell: UITableViewCell {
         
         if data.images.isEmpty {
             imageWithConstraint.constant = 0
-//            tripImage.image = UIImage.asset(.imagePlaceholder)
             tripImage.backgroundColor = UIColor.themeApricotDeep
         } else {
             tripImage.loadImage(data.images.first, placeHolder: UIImage.asset(.imagePlaceholder))
@@ -52,11 +50,4 @@ class ExploreDetailTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
 }

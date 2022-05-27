@@ -11,7 +11,7 @@ class RegisterTableViewCell: UITableViewCell {
     
     var registerClosure: ((_ cell: RegisterTableViewCell) -> Void)?
 
-    var cancelRegisterClosure: ((_ cell: RegisterTableViewCell) -> Void)?
+    var cancelRegisterClosure: (() -> Void)?
 
     @IBOutlet weak var nameTextField: UITextField!
     
@@ -24,7 +24,6 @@ class RegisterTableViewCell: UITableViewCell {
     @IBOutlet weak var registerButton: UIButton!
     
     @IBOutlet weak var cancelRegisterButton: UIButton!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -55,10 +54,9 @@ class RegisterTableViewCell: UITableViewCell {
     }
     
     @objc func tapCancelRegisterButton() {
-        cancelRegisterClosure?(self)
+        cancelRegisterClosure?()
     }
     
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

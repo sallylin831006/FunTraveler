@@ -16,13 +16,11 @@ struct Results: Codable {
     var geometry: Geometry
     var name: String
     var rating: Double?
-    var userRatingsTotal: Int
     var vicinity: String
     var placeId: String
    
     enum CodingKeys: String, CodingKey {
         case geometry, name, rating, vicinity
-        case userRatingsTotal = "user_ratings_total"
         case placeId = "place_id"
     }
 }

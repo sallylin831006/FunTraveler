@@ -10,8 +10,9 @@ import UIKit
 class PlanOverViewViewController: UIViewController {
     
     private var startDateTextField: UITextField!
+    private let alertLoginView = AlertLoginView()
     
-    var tripData: [Trip] = [] {
+    var tripData: [TripOverView] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -28,25 +29,15 @@ class PlanOverViewViewController: UIViewController {
         }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.barStyle = .black
-        tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
-        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
-        
-        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
-        
+        setupTableViewUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        tabBarController?.tabBar.isHidden = false
         if KeyChainManager.shared.token == nil {
             setupAlertLoginView()
             self.onShowLogin()
@@ -57,6 +48,22 @@ class PlanOverViewViewController: UIViewController {
         fetchData()
     }
     
+    private func setupAlertLoginView() {
+        alertLoginView.isHidden = false
+        alertLoginView.alertLabel.text = "登入以編輯旅遊行程"
+        alertLoginView.centerView(alertLoginView, view)
+        
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    @objc func tapToShowLogin() {
+        onShowLogin()
+    }
+    
+}
+
+extension PlanOverViewViewController {
     // MARK: - Action
     private func fetchData() {
         let tripProvider = TripProvider()
@@ -67,8 +74,9 @@ class PlanOverViewViewController: UIViewController {
                 
             case .success(let tripData):
                 
-                self.tripData = tripData.data
+                self.tripData = tripData
                 self.tableView.reloadData()
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
                 print("GET TRIP OVERVIEW API讀取資料失敗！")
@@ -98,7 +106,8 @@ class PlanOverViewViewController: UIViewController {
         let tripProvider = TripProvider()
         let tripId = tripData[index].id
         
-        tripProvider.updateTripInfo(tripId: tripId, title: title, startDate: startDate, endDate: endDate, completion: { [weak self] result in
+        tripProvider.updateTripInfo(tripId: tripId, title: title,
+                                    startDate: startDate, endDate: endDate, completion: { [weak self] result in
             
             switch result {
                 
@@ -111,21 +120,6 @@ class PlanOverViewViewController: UIViewController {
             }
         })
     }
-    
-    let alertLoginView = AlertLoginView()
-    private func setupAlertLoginView() {
-        alertLoginView.isHidden = false
-        alertLoginView.alertLabel.text = "登入以編輯旅遊行程"
-        alertLoginView.centerView(alertLoginView, view)
-        
-        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
-        alertLoginView.addGestureRecognizer(imageTapGesture)
-    }
-    
-    @objc func tapToShowLogin() {
-        onShowLogin()
-    }
-    
 }
 
 extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate {
@@ -156,22 +150,8 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: PlanCardFooterView.identifier)
                 as? PlanCardFooterView else { return nil }
-        
-        footerView.scheduleButton.addTarget(target, action: #selector(tapScheduleButton), for: .touchUpInside)
-        footerView.scheduleButton.setTitle("+建立行程規劃", for: .normal)
+        footerView.delegate = self
         return footerView
-    }
-    
-    @objc func tapScheduleButton() {
-        
-        guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
-        
-        guard let addPlanVC = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
-        let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
-        navAddPlanVC.modalPresentationStyle = .fullScreen
-        self.present(navAddPlanVC, animated: true)
-        
     }
     
     private func onShowLogin() {
@@ -194,47 +174,44 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             withIdentifier: String(describing: PlanOverViewTableViewCell.self), for: indexPath)
                 as? PlanOverViewTableViewCell else { return UITableViewCell() }
         
-        cell.selectionStyle = .none
-        let days = tripData[indexPath.row].days 
+        let days = tripData[indexPath.row].days
         cell.dayTitle.text = "\(days)天 ｜ 旅遊回憶"
         cell.tripTitle.text = tripData[indexPath.row].title
-
         
         return cell
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let planDetailViewController = storyboard?.instantiateViewController(
-            withIdentifier: StoryboardCategory.planDetailVC) as? PlanDetailViewController else { return }
-
-        planDetailViewController.myTripId = tripData[indexPath.row].id
-      
-        addChild(planDetailViewController)
+            withIdentifier: StoryboardCategory.MapVC) as? MapViewController else { return }
         
+        planDetailViewController.tripId = tripData[indexPath.row].id
+                
         navigationController?.pushViewController(planDetailViewController, animated: true)
         planDetailViewController.tabBarController?.tabBar.isHidden = true
     }
     
     // MARK: - Delete
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .default, title: "刪除") { _, index in
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .normal, title: "刪除") { _, _, _ in
             tableView.isEditing = false
             self.deleteTrip(index: indexPath.row)
-            self.tripData.remove(at: index.row)
-            
+            self.tripData.remove(at: indexPath.row)
         }
         
-        let editAction = UITableViewRowAction(style: .normal, title: "編輯") { _, index in
-            self.showEditTextfield(index: index.row)
-//            tableView.isEditing = false
-//            updateTripInfo(title: String, startDate: String, endDate: String, index: Int)
+        let editAction = UIContextualAction(style: .destructive, title: "編輯") { (_, _, completionHandler) in
+            self.showEditTextfield(index: indexPath.row)
             
+            completionHandler(true)
         }
-        return [deleteAction, editAction]
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        
     }
     
     private func showEditTextfield(index: Int) {
-       
+        
         let controller = UIAlertController(title: "編輯行程資訊", message: "修改標題或天數", preferredStyle: .alert)
         controller.addTextField { titleTextField in
             titleTextField.placeholder = "修改標題"
@@ -244,7 +221,6 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         controller.addTextField { startDateTextField in
             startDateTextField.placeholder = "去程日期 yyyy-MM-dd"
             startDateTextField.keyboardType = UIKeyboardType.numbersAndPunctuation
-            startDateTextField.delegate = self
         }
         
         controller.addTextField { endDateTextField in
@@ -256,10 +232,9 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
             let title = controller.textFields?[0].text ?? ""
             let startDate = controller.textFields?[1].text ?? ""
             let endDate = controller.textFields?[2].text ?? ""
-
+            
             self.updateTripInfo(title: title, startDate: startDate, endDate: endDate, index: index)
         }
-        
         
         let cancelAction = UIAlertAction(title: "取消", style: .destructive) { _ in
             self.dismiss(animated: true, completion: nil)
@@ -270,35 +245,24 @@ extension PlanOverViewViewController: UITableViewDataSource, UITableViewDelegate
         present(controller, animated: true, completion: nil)
     }
     
-   
 }
 
-extension PlanOverViewViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //Format Date of Birth dd-MM-yyyy
-
-        //initially identify your textfield
-
-        if textField == startDateTextField {
-
-            // check the chars length dd -->2 at the same time calculate the dd-MM --> 5
-            if (startDateTextField?.text?.count == 2) || (startDateTextField?.text?.count == 5) {
-                //Handle backspace being pressed
-                if !(string == "") {
-                    // append the text
-                    startDateTextField?.text = (startDateTextField?.text)! + "-"
-                }
-            }
-            // check the condition not exceed 9 chars
-            return !(textField.text!.count > 9 && (string.count ) > range.length)
-        }
-        else {
-            return true
-        }
+extension PlanOverViewViewController: PlanCardFooterViewDelegate {
+    func tapScheduleButton() {
+        guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
+        movingToAddPlanPage()
+        
     }
+    
+    private func movingToAddPlanPage() {
+        guard let addPlanVC = storyboard?.instantiateViewController(
+            withIdentifier: StoryboardCategory.addPlanVC) as? AddPlanViewController else { return }
+        let navAddPlanVC = UINavigationController(rootViewController: addPlanVC)
+        navAddPlanVC.modalPresentationStyle = .fullScreen
+        self.present(navAddPlanVC, animated: true)
+    }
+    
 }
-
-
 
 extension PlanOverViewViewController: AuthViewControllerDelegate {
     func detectLoginDissmiss(_ viewController: UIViewController, _ userId: Int) {
@@ -310,4 +274,22 @@ extension PlanOverViewViewController: AuthViewControllerDelegate {
         
         fetchData()
     }
+}
+
+extension PlanOverViewViewController {
+    private func setupTableViewUI() {
+        tableView.separatorStyle = .none
+        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: PlanOverViewTableViewCell.self), bundle: nil)
+        tableView.registerFooterWithNib(identifier: String(describing: PlanCardFooterView.self), bundle: nil)
+        setupBackButton()
+    }
+    
+    private func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
+    
 }

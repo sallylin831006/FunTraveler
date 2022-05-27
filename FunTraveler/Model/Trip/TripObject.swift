@@ -54,6 +54,15 @@ struct AddTrip: Codable {
     }
 }
 
+struct TripOverViews: Codable {
+    var data: [TripOverView]
+}
+
+struct TripOverView: Codable {
+    var id: Int
+    var title: String
+    var days: Int
+}
 
 struct Trip: Codable {
     var id: Int
@@ -66,9 +75,9 @@ struct Trip: Codable {
     var isCollected: Bool
     var likeCount: Int
     var isLiked: Bool
-    var commentCount: Int?
+    var commentCount: Int
     
-    var schedules: [[Schedule]]?
+    var schedules: [[Schedule]]? //
     
     enum CodingKeys: String, CodingKey {
         case id, days, title, user, schedules, editors
@@ -78,7 +87,7 @@ struct Trip: Codable {
         case likeCount = "likes_count"
         case commentCount = "comments_count"
         case isLiked = "is_liked"
-
+        
     }
 }
 
@@ -95,7 +104,7 @@ struct Schedule: Codable {
     var id: Int = 0
     var description: String = ""
     var images: [String] = []
-
+    
     enum CodingKeys: String, CodingKey {
         case name, day, address, duration, type, position, id, description, images
         case scheduleId = "trip_id"

@@ -24,13 +24,13 @@ enum UserRequest: STRequest {
     case deleteUser(token: String)
     
     case blockUser(token: String, userId: Int)
-
+    
     case unBlockUser(token: String, userId: Int)
     
     case getBlockList(token: String)
     
     case postToSearchUser(token: String, text: String)
-
+    
     var headers: [String: String] {
         
         switch self {
@@ -96,16 +96,15 @@ enum UserRequest: STRequest {
             ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-        
-        
-    case .postToSearchUser(_, let text):
-        
-        let body = [
-            "name": text
-        ]
-        
-        return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-    
+            
+        case .postToSearchUser(_, let text):
+            
+            let body = [
+                "name": text
+            ]
+            
+            return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
+            
         }
     }
     var method: String {
@@ -121,19 +120,19 @@ enum UserRequest: STRequest {
         case .getProfile : return STHTTPMethod.GET.rawValue
             
         case .getProfileTrips : return STHTTPMethod.GET.rawValue
-
+            
         case .updateProfile : return STHTTPMethod.PATCH.rawValue
-
+            
         case .deleteUser : return STHTTPMethod.DELETE.rawValue
             
         case .blockUser : return STHTTPMethod.POST.rawValue
             
         case .unBlockUser : return STHTTPMethod.DELETE.rawValue
-
+            
         case .getBlockList : return STHTTPMethod.GET.rawValue
             
         case .postToSearchUser : return STHTTPMethod.POST.rawValue
-
+            
         }
     }
     

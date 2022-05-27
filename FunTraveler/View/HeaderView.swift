@@ -9,7 +9,7 @@ import UIKit
 
 class HeaderView: UITableViewHeaderFooterView {
 
-    @IBOutlet weak var backgroundImage: UIImageView!
+    @IBOutlet private weak var backgroundImage: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
     

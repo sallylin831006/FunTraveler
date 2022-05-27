@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct RegisterSeverError: Codable {
-    var errorMessage:  String
+    var errorMessage: String
     enum CodingKeys: String, CodingKey {
         case errorMessage = "error_message"
     }
@@ -75,7 +75,6 @@ class UserProvider {
                                 print(error)
                                 failure(Result.failure(error))
                             }
-                            
                             
                         case .serverError: break
                             

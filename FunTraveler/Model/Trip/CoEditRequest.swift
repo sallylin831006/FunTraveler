@@ -17,7 +17,7 @@ enum CoEditRequest: STRequest {
         
         switch self {
             
-        case .addEditor(let token,_ , _), .removeEditor(let token,_ , _):
+        case .addEditor(let token, _, _), .removeEditor(let token, _, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",

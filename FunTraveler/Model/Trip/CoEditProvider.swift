@@ -52,7 +52,7 @@ class CoEditProvider {
     
     // MARK: - DELETE Co-Editor
     func deleteCoEditor(tripId: Int,
-                        editorId: Int, completion: @escaping CoEditHanlder) {
+                        editorId: Int, completion: @escaping (Result<String>) -> Void) {
         
         guard let token = KeyChainManager.shared.token else {
             
@@ -64,20 +64,11 @@ class CoEditProvider {
                 
                 switch result {
                     
-                case .success(let data):
+                case .success:
                     
-                    do {
-                        let deleteEditorResponse = try JSONDecoder().decode(
-                            Users.self, from: data)
+                    DispatchQueue.main.async {
                         
-                        DispatchQueue.main.async {
-                            
-                            completion(Result.success(deleteEditorResponse.data))
-                        }
-                        
-                    } catch {
-                        print(error)
-                        completion(Result.failure(error))
+                        completion(Result.success("success"))
                     }
                     
                 case .failure(let error):

@@ -67,7 +67,6 @@ class VideoHeaderView: UITableViewHeaderFooterView {
         let isInvite = data[section].user.isInvite
         guard let userId = KeyChainManager.shared.userId else { return }
         
-        
         if !isMyFriend && Int(userId) == data[section].user.id {
             followButton.isHidden = true
             blockButton.isHidden = true

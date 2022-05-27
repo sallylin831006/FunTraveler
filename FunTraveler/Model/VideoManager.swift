@@ -16,6 +16,7 @@ class VideoManager: NSObject {
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        // swiftlint:disable legacy_random
         let boundary = "Boundary+\(arc4random())\(arc4random())"
         var body = Data()
         
@@ -42,6 +43,10 @@ class VideoManager: NSObject {
         request.httpBody = body
         
         fetchedDataByDataTask(from: request, completion: completion)
+        
+    }
+    
+    private func generateParameter() {
         
     }
     

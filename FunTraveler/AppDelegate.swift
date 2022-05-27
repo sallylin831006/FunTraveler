@@ -34,7 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     }
     var orientationLock = UIInterfaceOrientationMask.portrait
 
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+    func application(_ application: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
             return self.orientationLock
     }
 
@@ -42,8 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession,
                      options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
@@ -53,9 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PusherDelegate {
     
     func application(_ application: UIApplication,
                      open url: URL,
-                     options: [UIApplication.OpenURLOptionsKey : Any] = [:] ) -> Bool {
-        
-
+                     options: [UIApplication.OpenURLOptionsKey: Any] = [:] ) -> Bool {
         // Determine who sent the URL.
         let sendingAppID = options[.sourceApplication]
         print("source application = \(sendingAppID ?? "Unknown")")

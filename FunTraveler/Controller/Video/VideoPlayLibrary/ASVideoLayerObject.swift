@@ -17,16 +17,18 @@ class ASVideoLayerObject: NSObject {
 }
 
 struct VideoLayers {
-    var layers = Array<ASVideoLayerObject>()
+    var layers = [ASVideoLayerObject]()
     init() {
-        for _ in 0..<1{
+        for _ in 0..<1 {
             layers.append(ASVideoLayerObject())
         }
     }
     
     func getLayerForParentLayer(parentLayer: CALayer) -> AVPlayerLayer {
         for videoObject in layers {
+            // swiftlint:disable for_where
             if videoObject.layer.superlayer == parentLayer {
+            // swiftlint:disable for_where
                 return videoObject.layer
             }
         }

@@ -13,9 +13,7 @@ class CommentFooterTableViewCell: UITableViewCell {
     
     @IBOutlet weak var commentTextField: UITextField!
     
-    
     @IBOutlet weak var sendCommentButton: UIButton!
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
