@@ -77,6 +77,12 @@ FunTraveler is an App that provides a platform for members to share their trips,
 ## Version
 1.0.1
 
+## Release Notes
+| Version | Notes |
+| :---: | ----- |
+| 1.0.1 | Fix bugs|
+| 1.0.0 | Submitted to the App Store |
+
 ## Requirement
 - Xcode 13.0 or later
 - iOS 14.0 or later
