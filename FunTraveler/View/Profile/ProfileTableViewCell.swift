@@ -25,7 +25,6 @@ class ProfileTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userNameTextField: UITextField!
     
-    
     @IBOutlet weak var numberOfFriendLabel: UILabel!
     
     @IBOutlet weak var numberOfTrips: UILabel!
@@ -48,8 +47,6 @@ class ProfileTableViewCell: UITableViewCell {
         userImageView.layer.cornerRadius = CornerRadius.buttonCorner
         userImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         
-        
-        
     }
 
     override func awakeFromNib() {
@@ -57,44 +54,25 @@ class ProfileTableViewCell: UITableViewCell {
         
         userNameTextField.delegate = self
         blockButton.addTarget(self, action: #selector(tapBlockButton(_:)), for: .touchUpInside)
-        
-//        let textFieldTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapUserNameTextField(_:)))
-//        userNameTextField.addGestureRecognizer(textFieldTapGesture)
-//        userNameTextField.isUserInteractionEnabled = true
+        self.selectionStyle = .none
 
     }
-    
-    
+   
     @objc func editUserNameTextField(_ textField: UITextField) {
         userNameTextField.isUserInteractionEnabled = true
-//        userNameTextField.addBottomBorder()
-        
     }
     
     @objc func tapBlockButton(_ sender: UIButton) {
         delegate?.blockUser(sender)
     }
-    
-//    @objc func tapUserNameTextField(_ gestureRecognizer: UITapGestureRecognizer) {
-//        editButton.isHidden = false
-//        userNameTextField.isUserInteractionEnabled = true
-//        userNameTextField.addBottomBorder()
-//
-//        if gestureRecognizer.state == .failed {
-//            editButton.isHidden = true
-//            userNameTextField.isUserInteractionEnabled = false
-//        }
-//    }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.selectionStyle = .none
-        // Configure the view for the selected state
     }
     
     func layoutCell(data: Profile, isMyProfile: Bool) {
-        
-        
+                
         userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)

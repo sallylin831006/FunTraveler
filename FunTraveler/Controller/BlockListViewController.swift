@@ -18,8 +18,7 @@ class BlockListViewController: UIViewController {
     lazy var tableView: UITableView = {
         
         let tableView = UITableView.init(frame: self.view.bounds, style: UITableView.Style.plain)
-        tableView.register(
-            UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.dataSource = self
         tableView.delegate = self
         return tableView }()
@@ -28,31 +27,18 @@ class BlockListViewController: UIViewController {
         super.viewDidLoad()
         setupContainerView()
         setupTableView()
-        tableView.separatorStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
-        self.view.backgroundColor = .themeApricot
-        tableView.backgroundColor = .clear
         navigationController?.setNavigationBarHidden(false, animated: animated)
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = UIColor.themeApricot
-
-        self.navigationController?.navigationBar.standardAppearance = appearance
-        self.navigationController?.navigationBar.scrollEdgeAppearance =
-        self.navigationController?.navigationBar.standardAppearance
+        setupNavigationBar()
         setupBackButton()
+        fetchData()
     }
-    func setupBackButton() {
-        let backButton = UIBarButtonItem()
-        backButton.title = ""
-        backButton.tintColor = .black
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-    }
-    
+}
+
+extension BlockListViewController {
     // MARK: - GET Action
     private func fetchData() {
         let userProvider = UserProvider()
@@ -67,7 +53,6 @@ class BlockListViewController: UIViewController {
                                 
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ExploreVC] GET 讀取資料失敗！")
             }
         })
     }
@@ -80,9 +65,8 @@ class BlockListViewController: UIViewController {
             
             switch result {
                 
-            case .success(let unBlockResponse):
-                print("unBlockResponse", unBlockResponse)
-                
+            case .success:
+                ProgressHUD.showSuccess(text: "解除封鎖")
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
                 print("[ProfileVC] POST TO UnBlock User失敗！")
@@ -95,12 +79,10 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "已封鎖的使用者"
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         blockListData.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -118,22 +100,18 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func addAlert(index: Int) {
-        let alertController = UIAlertController(title: "解除封鎖\(blockListData[index].name)?", message: "", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "解除封鎖\(blockListData[index].name)?",
+                                                message: "", preferredStyle: .alert)
         
         let backAction = UIAlertAction(title: "解除封鎖", style: .destructive, handler: { (_) in
             self.deleteToUnBlockUser(index: index)
             ProgressHUD.showSuccess(text: "已解除封鎖")
             self.blockListData.remove(at: index)
             self.tableView.reloadData()
-            
-//            self.dismiss(animated: true, completion: nil)
-//            self.navigationController?.popViewController(animated: true)
-//            self.tabBarController?.tabBar.isHidden = false
-            
+
         })
         
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: { (_) in
-        })
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         
         alertController.addAction(backAction)
         alertController.addAction(cancelAction)
@@ -146,12 +124,30 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension BlockListViewController {
     func setupContainerView() {
-        
         containerView.stickSafeArea(containerView, view)
     }
-    
     func setupTableView() {
+        self.view.backgroundColor = .themeApricot
         tableView.stickView(tableView, containerView)
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+    }
+    func setupNavigationBar() {
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = UIColor.themeApricot
+
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        self.navigationController?.navigationBar.scrollEdgeAppearance =
+        self.navigationController?.navigationBar.standardAppearance
+    }
+    
+    func setupBackButton() {
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .black
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
 }

@@ -50,6 +50,5 @@ struct Profile: Codable {
         case numberOfFriends = "friends_count"
         case numberOfTrips = "trip_count"
 
-
     }
 }

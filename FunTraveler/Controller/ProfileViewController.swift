@@ -14,31 +14,25 @@ protocol ProfileViewControllerDelegate: AnyObject {
 class ProfileViewController: UIViewController {
     
     weak var delegate: ProfileViewControllerDelegate?
+    var userId: Int?
+    var isMyProfile: Bool = true
     
+    private let alertLoginView = AlertLoginView()
+    private var collectedDataArray: [[Explore]] = []
     private var collectedData: [Explore] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    private var collectedDataArray: [[Explore]] = []
     
     private var userData: Profile? {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    private var profileTrips: [Trip] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
+
     private var userNameTextField: UITextField!
     private var segmentedControl: UISegmentedControl!
-    var userId: Int?
-    
-    var isMyProfile: Bool = true
     private var isMyMemory: Bool = true
 
     @IBOutlet weak var tableView: UITableView! {
@@ -62,33 +56,9 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    let alertLoginView = AlertLoginView()
-    private func setupAlertLoginView() {
-        alertLoginView.isHidden = false
-        alertLoginView.alertLabel.text = "登入以查看個人頁"
-        
-        alertLoginView.centerView(alertLoginView, view)
-        
-        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
-        alertLoginView.addGestureRecognizer(imageTapGesture)
-    }
-    
-    @objc func tapToShowLogin() {
-        onShowLogin()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.separatorStyle = .none
-        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
-        
-        tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
-        
-        tableView.registerHeaderWithNib(identifier: String(describing: SegementView.self), bundle: nil)
-        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
-        tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
-        
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -130,16 +100,8 @@ class ProfileViewController: UIViewController {
         segmentedControl?.selectedSegmentIndex = 0
     }
     
-    private func onShowLogin() {
-        DispatchQueue.main.async {
-            self.tableView.isHidden = true
-            guard let authVC = UIStoryboard.auth.instantiateViewController(
-                withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
-            authVC.delegate = self
-            let navAuthVC = UINavigationController(rootViewController: authVC)
-            self.present(navAuthVC, animated: true, completion: nil)
-        }
-
+    @objc func tapToShowLogin() {
+        onShowLogin()
     }
     
 }
@@ -152,7 +114,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - Section Header
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-            //        return UIScreen.main.bounds.width / 39 * 10
         case 0: return 120.0
         case 1: return 90.0
         default: break
@@ -167,7 +128,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(
                 withIdentifier: HeaderView.identifier)
                     as? HeaderView else { return nil }
-            
             headerView.titleLabel.text = "個人"
             return headerView
             
@@ -236,7 +196,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: String(describing: ProfileTableViewCell.self), for: indexPath)
                     as? ProfileTableViewCell else { return UITableViewCell() }
             
-            cell.selectionStyle = .none
             guard let userData = userData else { return UITableViewCell()}
             cell.layoutCell(data: userData, isMyProfile: isMyProfile)
             
@@ -247,9 +206,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
 
             }
-
             self.userNameTextField = cell.userNameTextField
-            
             cell.delegate = self
             cell.numberOfFriendsButton.addTarget(self, action: #selector(tapToFriendList), for: .touchUpInside)
             return cell
@@ -264,7 +221,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             cell.layoutCell(data: item)
             
             cell.collectClosure = { isCollected in
-                self.postCollectedData(isCollected: isCollected, tripId: self.collectedData[indexPath.row].id, index: indexPath.row )
+                let tripId = self.collectedData[indexPath.row].id
+                self.postCollectedData(isCollected: isCollected, tripId: tripId,
+                                       index: indexPath.row )
             }
             if isMyMemory {
                 cell.collectButton.isHidden = true
@@ -317,16 +276,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     @objc func tapSettingButton() {
         guard let settingVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.settingVC) as? SettingViewController else { return }
-        let navSettingVC = UINavigationController(rootViewController: settingVC)
         navigationController?.pushViewController(settingVC, animated: true)
     }
-    
-//    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
-//        userNameTextField.resignFirstResponder()
-//        guard let name = userNameTextField.text else { return }
-//        patchData(name: name, image: "")
-//
-//    }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
         let photoSourceRequestController = UIAlertController(
@@ -439,7 +390,7 @@ extension ProfileViewController {
                 self?.collectedData = profileTripsData.data
                 self?.tableView.reloadData()
             case .failure:
-                print("[ProfileVC] GET Profile Trips 資料失敗！")
+                ProgressHUD.showFailure()
             }
         })
     }
@@ -463,8 +414,7 @@ extension ProfileViewController {
                 self.tableView.reloadData()
                 
             case .failure:
-                ProgressHUD.showFailure(text: "讀取失敗")
-                print("PATCH Profile失敗！")
+                ProgressHUD.showFailure()
             }
         })
     }
@@ -506,7 +456,6 @@ extension ProfileViewController {
                                     
                 case .failure:
                     ProgressHUD.showFailure(text: "讀取失敗")
-                    print("[Explore] collected postResponse失敗！")
                 }
             })
             
@@ -516,16 +465,14 @@ extension ProfileViewController {
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
         guard let userId = userId else { return }
-        friendsProvider.postToInvite(userId: userId, completion: { [weak self] result in
+        friendsProvider.postToInvite(userId: userId, completion: { result in
             
             switch result {
                 
-            case .success(let postResponse):
-                print("postResponse", postResponse)
-                
+            case .success:
+                ProgressHUD.showSuccess()
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
-                print("[ProfileVC] POST TO INVITE失敗！")
             }
         })
     }
@@ -547,7 +494,6 @@ extension ProfileViewController {
                 
             case .failure:
                 ProgressHUD.showFailure(text: "封鎖失敗，請再次嘗試")
-                print("[ProfileVC] POST TO Block User失敗！")
             }
         })
     }
@@ -589,6 +535,36 @@ extension ProfileViewController: SegementViewDelegate {
             
         }
         
+    }    
+}
+
+
+extension ProfileViewController {
+    private func setupTableView() {
+        tableView.separatorStyle = .none
+        tableView.registerHeaderWithNib(identifier: String(describing: HeaderView.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ProfileTableViewCell.self), bundle: nil)
+        tableView.registerHeaderWithNib(identifier: String(describing: SegementView.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: ExploreOverViewTableViewCell.self), bundle: nil)
+        tableView.registerCellWithNib(identifier: String(describing: UnFollowTableViewCell.self), bundle: nil)
     }
     
+    private func setupAlertLoginView() {
+        alertLoginView.isHidden = false
+        alertLoginView.alertLabel.text = "登入以查看個人頁"
+        alertLoginView.centerView(alertLoginView, view)
+        let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
+        alertLoginView.addGestureRecognizer(imageTapGesture)
+    }
+    
+    private func onShowLogin() {
+        DispatchQueue.main.async {
+            self.tableView.isHidden = true
+            guard let authVC = UIStoryboard.auth.instantiateViewController(
+                withIdentifier: StoryboardCategory.authVC) as? AuthViewController else { return }
+            authVC.delegate = self
+            let navAuthVC = UINavigationController(rootViewController: authVC)
+            self.present(navAuthVC, animated: true, completion: nil)
+        }
+    }
 }

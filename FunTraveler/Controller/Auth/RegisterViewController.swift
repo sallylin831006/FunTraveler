@@ -12,7 +12,6 @@ class RegisterViewController: UIViewController {
     
     var userRegisterEmailClosure: ((_ text: String) -> Void)?
 
-    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -97,7 +96,7 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
             self?.postToRegister(email: email, password: password, name: name)
         }
         
-        cell.cancelRegisterClosure = { [weak self] cell in
+        cell.cancelRegisterClosure = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
         }
         return cell
@@ -123,7 +122,7 @@ extension RegisterViewController {
                 switch error {
                 case .success(let data):
                     ProgressHUD.showFailure(text: "\(data.errorMessage)")
-                case .failure(_): break
+                case .failure: break
                     
                 }
                 

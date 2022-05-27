@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol ShareHeaderViewDelegate: AnyObject {
+    func configureNumberOfButton() -> Int
+    
+    func didSelectedButton(index: Int)
+}
+
 class ShareHeaderView: UITableViewHeaderFooterView {
+    
+    weak var delegate: ShareHeaderViewDelegate?
     
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     private var isCollected: Bool = false
@@ -50,15 +58,20 @@ class ShareHeaderView: UITableViewHeaderFooterView {
         guard let startDate = data.startDate,
               let endDate = data.endDate else { return }
         dateLabel.text = "\(startDate) - \(endDate)"
-        
         titleLabel.text = data.title
         
+    }
+    
+    func layoutSharePlanHeaderView(data: Trip) {
+        titleLabel.text = data.title
+        dateLabel.text = "\(data.startDate!) - \(data.endDate!)"
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
-        
+        selectionView.delegate = self
+        selectionView.dataSource = self
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
@@ -75,6 +88,21 @@ class ShareHeaderView: UITableViewHeaderFooterView {
         isCollected = data.isCollected
         collectButton.isSelected = data.isCollected
     }
+}
+
+extension ShareHeaderView: SegmentControlViewDataSource {
     
+    func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
+//        trip?.days ?? 1
+        delegate?.configureNumberOfButton() ?? 1
+    }
+    
+}
+
+@objc extension ShareHeaderView: SegmentControlViewDelegate {
+    func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
+//        fetchData(days: index)
+        delegate?.didSelectedButton(index: index)
+    }
     
 }

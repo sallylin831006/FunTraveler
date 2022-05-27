@@ -42,8 +42,7 @@ class PlayerViewController: UIViewController {
             self.saveVideoToPhotos(locationText: locationText)
            print(locationText)
         }
-        
-        
+                
         let cancelAction = UIAlertAction(title: "放棄", style: .destructive) { _ in
             self.dismiss(animated: true, completion: nil)
         }
@@ -57,6 +56,7 @@ class PlayerViewController: UIViewController {
         PHPhotoLibrary.shared().performChanges({
 
             PHAssetChangeRequest.creationRequestForAssetFromVideo(
+                // swiftlint:disable multiple_closures_with_trailing_closure
                 atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
             if isSaved {
                 self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
@@ -85,7 +85,6 @@ class PlayerViewController: UIViewController {
                     tabBarController.selectedIndex = 3
                 }
             }
-            
             
         })
     }

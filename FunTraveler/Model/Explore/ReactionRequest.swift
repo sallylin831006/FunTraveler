@@ -26,7 +26,8 @@ enum ReactionRequest: STRequest {
         switch self {
             
         case .postComment(let token, _, _), .deleteComment(let token, _, _),
-                .postLiked(let token, _) , .deleteUnLiked(let token, _) , .getLiked(let token, _), .getComment(let token, _):
+                .postLiked(let token, _), .deleteUnLiked(let token, _) ,
+                .getLiked(let token, _), .getComment(let token, _):
             
             return [
                 STHTTPHeaderField.auth.rawValue: "Bearer \(token)",
