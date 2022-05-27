@@ -9,14 +9,13 @@ import UIKit
 
 class ExploreDetailFooterView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var copyButton: UIButton!
+    @IBOutlet private weak var copyButton: UIButton!
     
     @IBOutlet weak var moveToCommentButton: UIButton!
+        
+    @IBOutlet weak private var heartButton: UIButton!
     
-//    @IBOutlet weak var collectButton: UIButton!
-    
-    @IBOutlet weak var heartButton: UIButton!
-    @IBOutlet weak var numberOfLikeLabel: UILabel!
+    @IBOutlet weak private var numberOfLikeLabel: UILabel!
     
     var copyClosure: (() -> Void)?
     var collectClosure: ((_ isCollected: Bool) -> Void)?
@@ -26,10 +25,6 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
 
     func layoutFooterView(data: Trip) {
         self.backgroundConfiguration = nil
-//        collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
-//        collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
-//        self.isCollected = data.isCollected
-//        collectButton.isSelected = data.isCollected
         heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
         heartButton.setImage(UIImage.asset(.heartSelected), for: .selected)
         heartButton.setImage(UIImage.asset(.heartNormalBlue), for: .normal)
@@ -42,7 +37,6 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
         copyButton.addTarget(self, action: #selector(tapCopyButton), for: .touchUpInside)
-//        collectButton.addTarget(self, action: #selector(tapCollectButton), for: .touchUpInside)
         heartButton.addTarget(self, action: #selector(tapHeartButton), for: .touchUpInside)
     }
     
@@ -56,19 +50,18 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
         heartClosure?(!isLiked)
     }
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        setupFooterView()
-        
-    }
     
     @objc func tapCopyButton(_ sender: UIButton) {
         copyClosure?()
     }
     
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        setupFooterView()
+        
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         setupFooterView()
     }
 

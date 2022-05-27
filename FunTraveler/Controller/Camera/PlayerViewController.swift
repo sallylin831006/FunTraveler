@@ -56,6 +56,7 @@ class PlayerViewController: UIViewController {
         PHPhotoLibrary.shared().performChanges({
 
             PHAssetChangeRequest.creationRequestForAssetFromVideo(
+                // swiftlint:disable multiple_closures_with_trailing_closure
                 atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
             if isSaved {
                 self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)

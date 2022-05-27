@@ -29,8 +29,6 @@ class SegmentControlView: UIView {
         
     }
     
-//    private var numberOfButton: Int = 1
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = .themeLightBlue?.withAlphaComponent(0.5)
@@ -45,10 +43,7 @@ class SegmentControlView: UIView {
         configureButton()
     }
     
-//    func configureButton(dayNumber: Int) {
     func configureButton() {
-//        self.numberOfButton = dayNumber
-
         guard let numberOfButton =  dataSource?.configureNumberOfButton(self) else { return }
 
         for num in 0...numberOfButton - 1 {

@@ -15,7 +15,7 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     
     weak var delegate: PlanCardFooterViewDelegate?
 
-    @IBOutlet weak var scheduleButton: UIButton!
+    @IBOutlet weak private var scheduleButton: UIButton!
     
     override func layoutSubviews() {
         super.layoutSubviews()

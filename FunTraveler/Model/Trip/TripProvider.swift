@@ -193,7 +193,8 @@ class TripProvider {
         
         HTTPClient.shared.request(
             TripRequest.updateTrip(token: token, tripId: tripId,
-                                   schedules: schedules, isPrivate: isPrivate, isPublish: isPublish), completion: { result in
+                                   schedules: schedules,
+                                   isPrivate: isPrivate, isPublish: isPublish), completion: { result in
                
                 switch result {
                     

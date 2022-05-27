@@ -41,7 +41,6 @@ extension TimePickerView {
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = .themeLightBlue
-//        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
 
         let doneButton = UIBarButtonItem(
@@ -56,7 +55,6 @@ extension TimePickerView {
         timeTextField.font = UIFont.systemFont(ofSize: 12)
         timeTextField.backgroundColor = .themeApricotDeep
         timeTextField.inputView = picker
-//        timeTextField.inputAccessoryView = UIView()
         timeTextField.inputAccessoryView = toolBar
             
         timeTextField.backgroundColor = UIColor.init(
@@ -75,7 +73,6 @@ extension TimePickerView {
     }
 
     func layoutOfTimePickerView() {
-//        timeTextField.centerViewWithSize(timeTextField, self, width: UIScreen.width, height: 20)
         addSubview(timeTextField)
         timeTextField.translatesAutoresizingMaskIntoConstraints = false
         timeTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true

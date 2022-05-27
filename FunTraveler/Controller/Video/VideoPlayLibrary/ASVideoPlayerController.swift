@@ -32,7 +32,7 @@ class ASVideoPlayerController: NSObject, NSCacheDelegate {
      is being observed for its status change.
      Helps in removing observers for player items that are not being played.
      */
-    private var observingURLs = Dictionary<String, Bool>()
+    private var observingURLs = [String: Bool]()
     // Cache of player and player item
     private var videoCache = NSCache<NSString, ASVideoContainer>()
     private var videoLayers = VideoLayers()
@@ -165,7 +165,9 @@ class ASVideoPlayerController: NSObject, NSCacheDelegate {
     
     private func addObservers(url: String, videoContainer: ASVideoContainer) {
         if self.observingURLs[url] == false || self.observingURLs[url] == nil {
-            videoContainer.player.currentItem?.addObserver(self, forKeyPath: "status", options: [.new, .initial], context: &ASVideoPlayerController.playerViewControllerKVOContext)
+            videoContainer.player.currentItem?.addObserver(
+                self, forKeyPath: "status", options: [.new, .initial],
+                context: &ASVideoPlayerController.playerViewControllerKVOContext)
             
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(self.playerDidFinishPlaying(note:)),
