@@ -17,7 +17,7 @@ FunTraveler is an App that provides a platform for members to share their trips,
 
 ## Hightlights
 
-- With real-time data synchronization to add co-editors, you can invite your friend to edit the itinerary together.
+- With real-time data synchronization to add co-editors, you can invite your friends to edit the itinerary together.
 - Integrate the Google Maps into the app, and you can search for attractions fast
 - Plan the itinerary automatically, a powerful algorithm that helps you calculate the distance and driving time between the attractions. You don’t need to worry about how to estimate it.
 - Find the sharing post easily. We have brought together an active community where you can find useful travel experience sharing and comments.
