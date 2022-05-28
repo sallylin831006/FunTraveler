@@ -13,7 +13,7 @@ class FriendsCollectionViewCell: UICollectionViewCell {
     let userImage = UIImageView()
     
     var friendsClosure: ((_ cell: FriendsCollectionViewCell) -> Void)?
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         friendsClosure?(self)
@@ -51,6 +51,6 @@ class FriendsCollectionViewCell: UICollectionViewCell {
         userImage.stickView(userImage, containerView)
         userImage.backgroundColor = .systemOrange
         userImage.layer.masksToBounds = true
-
+        
     }
 }

@@ -51,7 +51,7 @@ class FriendListViewController: UIViewController {
     private func fetchData() {
         let friendsProvider = FriendsProvider()
         guard let userId = userId else { return }
-
+        
         friendsProvider.getFriendList(userId: userId, completion: { [weak self] result in
             
             switch result {

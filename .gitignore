@@ -75,4 +75,5 @@ DerivedData/
 
 FunTraveler/Model/Map/MapConstants.swift
 FunTraveler/GoogleService-Info.plist
+FunTraveler/Resource/Constant/KeyConstants.swift
 FunTraveler/Model/Map/KeyConstants.swift

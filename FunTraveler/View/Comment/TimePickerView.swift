@@ -34,29 +34,29 @@ class TimePickerView: UIView {
 }
 
 extension TimePickerView {
-
+    
     private func setupTimePickerView() {
-
+        
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 35))
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = .themeLightBlue
         toolBar.sizeToFit()
-
+        
         let doneButton = UIBarButtonItem(
             title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
-
+        
         let spaceButton = UIBarButtonItem(
             barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let cancelButton = UIBarButtonItem(
             title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
-
+        
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         timeTextField.font = UIFont.systemFont(ofSize: 12)
         timeTextField.backgroundColor = .themeApricotDeep
         timeTextField.inputView = picker
         timeTextField.inputAccessoryView = toolBar
-            
+        
         timeTextField.backgroundColor = UIColor.init(
             red: 0.9, green: 0.9, blue: 0.9, alpha: 0.4)
         
@@ -66,12 +66,12 @@ extension TimePickerView {
         
         layoutOfTimePickerView()
     }
-
+    
     @objc func donePicker() {
         delegate?.donePickerViewAction()
         timeTextField.resignFirstResponder()
     }
-
+    
     func layoutOfTimePickerView() {
         addSubview(timeTextField)
         timeTextField.translatesAutoresizingMaskIntoConstraints = false

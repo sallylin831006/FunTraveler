@@ -98,23 +98,23 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         if indexPath.row == 2 {
             let blockListViewController = BlockListViewController()
             self.navigationController?.pushViewController(blockListViewController, animated: true)
-
+            
         }
         if indexPath.row == 3 {
             let webViewController = WebViewController()
             self.navigationController?.pushViewController(webViewController, animated: true)
             webViewController.webUrl = WebURL.privacyPolicy
             webViewController.tabBarController?.tabBar.isHidden = true
-
+            
         }
         if indexPath.row == 4 {
             let webViewController = WebViewController()
             self.navigationController?.pushViewController(webViewController, animated: true)
             webViewController.webUrl = WebURL.eula
             webViewController.tabBarController?.tabBar.isHidden = true
-
+            
         }
-
+        
     }
     
     func alertUser() {
@@ -135,8 +135,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
         
-//        userData = nil
-//        onShowLogin()
+        //        userData = nil
+        //        onShowLogin()
     }
 }
 

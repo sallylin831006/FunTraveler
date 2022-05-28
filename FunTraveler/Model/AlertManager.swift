@@ -17,13 +17,13 @@ class AlertManager {
     weak var delegate: AlertManagerDelegate?
     
     static let shared = AlertManager()
-
+    
     private init() { }
-        
+    
     func showPublishStatus(at viewController: UIViewController,
                            title: String, message: String = "",
                            publicAction: UIAlertAction, privateAction: UIAlertAction) {
-               
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
         let publicAction = UIAlertAction(title: "公開", style: .default)
@@ -35,7 +35,7 @@ class AlertManager {
         alert.addAction(publicAction)
         alert.addAction(privateAction)
         alert.addAction(cancelAction)
-
+        
         viewController.present(alert, animated: true)
         
         specificForIpad(at: viewController, show: alert)
@@ -43,21 +43,20 @@ class AlertManager {
     }
     
     func okAction() {
-        print("okAction")
         delegate?.okAction()
     }
     
     func specificForIpad(at viewController: UIViewController, show alertViewController: UIViewController) {
-
+        
         alertViewController.popoverPresentationController?.sourceView = viewController.view
-
+        
         let xOrigin = viewController.view.bounds.width / 2
-
+        
         let popoverRect = CGRect(x: xOrigin, y: 0, width: 1, height: 1)
-
+        
         alertViewController.popoverPresentationController?.sourceRect = popoverRect
-
+        
         alertViewController.popoverPresentationController?.permittedArrowDirections = .up
     }
-
+    
 }

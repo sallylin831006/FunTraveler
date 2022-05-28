@@ -12,7 +12,7 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     @IBOutlet private weak var copyButton: UIButton!
     
     @IBOutlet weak var moveToCommentButton: UIButton!
-        
+    
     @IBOutlet weak private var heartButton: UIButton!
     
     @IBOutlet weak private var numberOfLikeLabel: UILabel!
@@ -22,7 +22,7 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
     var heartClosure: ((_ isLiked: Bool) -> Void)?
     private var isCollected: Bool = false
     private var isLiked: Bool = false
-
+    
     func layoutFooterView(data: Trip) {
         self.backgroundConfiguration = nil
         heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
@@ -49,8 +49,7 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
         sender.isSelected = !isLiked
         heartClosure?(!isLiked)
     }
-    
-    
+        
     @objc func tapCopyButton(_ sender: UIButton) {
         copyClosure?()
     }
@@ -64,9 +63,9 @@ class ExploreDetailFooterView: UITableViewHeaderFooterView {
         super.init(coder: aDecoder)
         setupFooterView()
     }
-
+    
     private func setupFooterView() {
         contentView.backgroundColor = UIColor.themeApricotDeep
     }
-
+    
 }

@@ -24,7 +24,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     
     private func switchIcon(_ type: Int) -> UIImage {
         switch type {
-
+            
         case 1:
             return UIImage(named: "blue_like")!
         case 2:
@@ -42,7 +42,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         }
         
     }
-
+    
     var playerController: ASVideoPlayerController?
     var videoLayer: AVPlayerLayer = AVPlayerLayer()
     
@@ -62,13 +62,13 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         self.index = index
         locationLabel.text = data.location
         dateLabel.text = data.createdTime
-
+        
         iconViewArray = []
         for type in  data.ratings.type {
             let icon = switchIcon(type)
             iconViewArray.append(icon)
         }
-    
+        
         for image in iconViewImage {
             image.removeFromSuperview()
         }
@@ -78,22 +78,22 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         for (index, iconImage) in iconViewArray.enumerated() {
             let iconView = UIImageView()
             iconView.image = iconImage
-
+            
             let width: CGFloat = 25
             let leading = UIScreen.width * 1/5 / 2 + 10
             iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1),
                                     y: UIScreen.width * 4/5 * 1.8, width: width, height: width)
-           
+            
             self.addSubview(iconView)
             iconViewImage.append(iconView)
         }
-
+        
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
-
+        
         setupImageView()
         setupDateLabel()
         setupLocationLabel()
@@ -123,7 +123,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
     func configureCell(videoUrl: String?) {
         self.videoURL = videoUrl
     }
- 
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         videoLayer.borderWidth = 3
@@ -135,20 +135,20 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         let videoFrameInParentSuperView: CGRect? = self.superview?.superview?.convert(
             screenImageView.frame, from: screenImageView)
         guard let videoFrame = videoFrameInParentSuperView,
-            let superViewFrame = superview?.frame else {
-             return 0
-        }
+              let superViewFrame = superview?.frame else {
+                  return 0
+              }
         let visibleVideoFrame = videoFrame.intersection(superViewFrame)
         return visibleVideoFrame.size.height
     }
-            
+    
     func setupImageView() {
         self.addSubview(screenImageView)
         let width = UIScreen.width * 4/5
         let height = width * 1.8
         screenImageView.centerViewWithSize(screenImageView, self, width: width, height: height)
     }
-     
+    
     func setupDateLabel() {
         self.addSubview(dateLabel)
         dateLabel.textAlignment = .right
@@ -166,7 +166,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         locationLabel.rightAnchor.constraint(equalTo: screenImageView.rightAnchor, constant: -20).isActive = true
         locationLabel.heightAnchor.constraint(equalToConstant: 25).isActive = true
-
+        
         locationLabel.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 0).isActive = true
     }
     
@@ -176,7 +176,7 @@ class ShotTableViewCell: UITableViewCell, ASAutoPlayVideoLayerContainer {
             
             let iconView = UIImageView()
             iconView.image = iconImage
-
+            
             let width: CGFloat = 25
             let leading = UIScreen.width * 1/5 / 2 + 10
             iconView.frame = CGRect(x: leading + CGFloat(index)*(width + 1),

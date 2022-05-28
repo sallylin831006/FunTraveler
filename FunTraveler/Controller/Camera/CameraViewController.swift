@@ -10,7 +10,7 @@ import MobileCoreServices
 import AVKit
 
 class CameraViewController: UIViewController {
-    private let editor = VideoEditor()
+    private let editor = PolaroidEditor()
     
     let activityIndicator =  UIActivityIndicatorView()
     
@@ -31,7 +31,7 @@ class CameraViewController: UIViewController {
     @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         buttonAnimation()
     }
- 
+    
     @IBOutlet weak var pickVideoButton: UIButton!
     
     @IBOutlet weak var recordVideoButton: UIButton!
@@ -42,7 +42,7 @@ class CameraViewController: UIViewController {
         guard KeyChainManager.shared.token != nil else { return self.onShowLogin()  }
         pickVideo(from: .camera)
     }
-        
+    
     @IBAction func pickVideo(_ sender: Any) {
         let loadingView = LoadingView()
         self.view.layoutLoadingView(loadingView, self.view)
@@ -56,40 +56,40 @@ class CameraViewController: UIViewController {
         let navAuthVC = UINavigationController(rootViewController: authVC)
         present(navAuthVC, animated: true, completion: nil)
     }
-   
+    
     override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-
-//        navigationItem.title = "拍立得"
+        
+        //        navigationItem.title = "拍立得"
         buttonAnimation()
     }
     
     private func buttonAnimation() {
         pickVideoButton.adjustsImageWhenHighlighted = false
         recordVideoButton.adjustsImageWhenHighlighted = false
-
+        
         pickVideoButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 3,
-          delay: 0,
-          usingSpringWithDamping: 0.1,
-          initialSpringVelocity: 3.0,
-          options: .allowUserInteraction,
-          animations: { [weak self] in
+                       delay: 0,
+                       usingSpringWithDamping: 0.1,
+                       initialSpringVelocity: 3.0,
+                       options: .allowUserInteraction,
+                       animations: { [weak self] in
             self?.pickVideoButton.transform = .identity
-          },
-          completion: nil)
+        },
+                       completion: nil)
         
         recordVideoButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         UIView.animate(withDuration: 3,
                        delay: 0.05,
                        usingSpringWithDamping: 0.1,
                        initialSpringVelocity: 3.0,
-          options: .allowUserInteraction,
-          animations: { [weak self] in
+                       options: .allowUserInteraction,
+                       animations: { [weak self] in
             self?.recordVideoButton.transform = .identity
-          },
-          completion: nil)
+        },
+                       completion: nil)
     }
     
     private func pickVideo(from sourceType: UIImagePickerController.SourceType) {
@@ -98,13 +98,13 @@ class CameraViewController: UIViewController {
         pickerController.mediaTypes = [kUTTypeMovie as String]
         pickerController.videoQuality = .typeIFrame1280x720
         pickerController.allowsEditing = true
-
+        
         pickerController.videoMaximumDuration = TimeInterval(10.0)
         if sourceType == .camera {
             pickerController.cameraDevice = .rear
         }
         pickerController.delegate = self
-
+        
         present(pickerController, animated: true)
     }
     
@@ -123,7 +123,7 @@ class CameraViewController: UIViewController {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
-
+    
     private func showCompleted() {
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()

@@ -21,7 +21,7 @@ class AddPlanViewController: UIViewController, UITextFieldDelegate {
     private var endDate: String?
     
     private var titleText: String?
-
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {

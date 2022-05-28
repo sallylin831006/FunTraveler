@@ -30,18 +30,18 @@ enum CollectedRequest: STRequest {
     var body: Data? {
         
         switch self {
- 
+            
         case .postCollected(_, let isCollected, let tripId):
-
+            
             let body = [
                 "trip_id": tripId,
                 "is_collected": isCollected
             ] as [String: Any]
-
+            
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .getCollected: return nil
-
+            
         }
     }
     var method: String {

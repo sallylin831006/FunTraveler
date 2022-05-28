@@ -27,10 +27,4 @@ class PlanOverViewTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: margins)
         contentView.addShadow()
     }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-    }
-    
 }

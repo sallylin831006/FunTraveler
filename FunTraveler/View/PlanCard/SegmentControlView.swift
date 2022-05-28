@@ -20,7 +20,7 @@ protocol SegmentControlViewDataSource: AnyObject {
 class SegmentControlView: UIView {
     
     let indicatorView = UIView()
-
+    
     weak var dataSource: SegmentControlViewDataSource?
     weak var delegate: SegmentControlViewDelegate?
     
@@ -37,7 +37,7 @@ class SegmentControlView: UIView {
         self.layer.cornerRadius = 12
         self.clipsToBounds = true
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         configureButton()
@@ -45,19 +45,19 @@ class SegmentControlView: UIView {
     
     func configureButton() {
         guard let numberOfButton =  dataSource?.configureNumberOfButton(self) else { return }
-
+        
         for num in 0...numberOfButton - 1 {
             // SET BUTTON POSITION
             let dayButton = UIButton()
-        
+            
             let width = self.frame.width/CGFloat(numberOfButton)
             let height = self.frame.height
-
+            
             dayButton.frame = CGRect(x: CGFloat(num)*(width), y: 0, width: width, height: height)
             
             dayButton.setTitle("Day \(num + 1)", for: .normal)
             dayButton.contentHorizontalAlignment = .center
-
+            
             dayButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
             
             dayButton.tag = num
@@ -65,8 +65,8 @@ class SegmentControlView: UIView {
             dayButton.addTarget(self, action: #selector(tapDayButton(_:)), for: .touchUpInside)
             
             self.addSubview(dayButton)
-
-//             SET INDICATOR
+            
+            //             SET INDICATOR
             indicatorView.frame = CGRect(x: 0, y: 0, width: width, height: height)
             indicatorView.backgroundColor = .themePink
             self.insertSubview(indicatorView, at: 0)
@@ -77,15 +77,15 @@ class SegmentControlView: UIView {
     
     @objc func tapDayButton(_ sender: UIButton) {
         guard let numberOfButton = dataSource?.configureNumberOfButton(self) else { return }
-   
+        
         let index = sender.tag + 1
-
+        
         delegate?.didSelectedButton?(self, at: index)
         let width = self.frame.width/CGFloat(numberOfButton)
         let height = self.frame.height
         UIView.transition(with: self, duration: 0.5, options: [.curveLinear], animations: {
             self.indicatorView.frame = CGRect(x: sender.frame.minX, y: 0, width: width, height: height)
-
+            
         })
     }
     

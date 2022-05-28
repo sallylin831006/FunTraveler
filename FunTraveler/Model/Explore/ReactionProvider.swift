@@ -34,7 +34,7 @@ class ReactionProvider {
                             SingleCmment.self,
                             from: data
                         )
-                                                
+                        
                         DispatchQueue.main.async {
                             
                             completion(Result.success(commentResponse.data))
@@ -74,11 +74,11 @@ class ReactionProvider {
                 }
             })
     }
-        
+    
     // MARK: - GET COMMENTS
     func fetchComment(tripId: Int, completion: @escaping CommentHanlder) {
         let token = KeyChainManager.shared.token ?? ""
-
+        
         HTTPClient.shared.request(
             ReactionRequest.getComment(token: token, tripId: tripId), completion: { result in
                 
@@ -165,7 +165,7 @@ class ReactionProvider {
             return completion(Result.failure(FunTravelerSignInError.noToken))
             
         }
-       
+        
         HTTPClient.shared.request(
             ReactionRequest.getLiked(token: token, tripId: tripId), completion: { result in
                 
@@ -196,5 +196,5 @@ class ReactionProvider {
                 }
             })
     }
-
+    
 }

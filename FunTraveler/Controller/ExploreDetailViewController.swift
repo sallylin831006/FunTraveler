@@ -46,7 +46,7 @@ class ExploreDetailViewController: UIViewController {
         setupNaviagtionBar()
         setupBackButton()
     }
-
+    
 }
 
 extension ExploreDetailViewController {
@@ -155,7 +155,7 @@ extension ExploreDetailViewController: UITableViewDataSource, UITableViewDelegat
         
         return headerView
     }
-        
+    
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         60.0

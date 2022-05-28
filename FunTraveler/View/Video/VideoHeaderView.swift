@@ -31,8 +31,8 @@ class VideoHeaderView: UITableViewHeaderFooterView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.backgroundColor = .themePink?.withAlphaComponent(0.1)
-//        self.contentView.backgroundColor = .themeApricotDeep?.withAlphaComponent(0.7)
-
+        //        self.contentView.backgroundColor = .themeApricotDeep?.withAlphaComponent(0.7)
+        
         userImageView.layer.cornerRadius = userImageView.frame.width/2
         userImageView.contentMode = .scaleAspectFill
         userImageView.clipsToBounds = true
@@ -47,7 +47,7 @@ class VideoHeaderView: UITableViewHeaderFooterView {
         userNameLabel.addGestureRecognizer(nameGesture)
         
         blockButton.addTarget(self, action: #selector(tapBlockButton), for: .touchUpInside)
-    
+        
     }
     
     func layoutHeaderView(data: [Video], section: Int) {
@@ -91,7 +91,7 @@ class VideoHeaderView: UITableViewHeaderFooterView {
             followButton.isUserInteractionEnabled = true
             followButton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
         }
-
+        
     }
     
     @objc func tapFollowButton(_ sender: UIButton) {
@@ -109,5 +109,5 @@ class VideoHeaderView: UITableViewHeaderFooterView {
     @objc func tapBlockButton(_ sender: UIButton, _ index: Int) {
         delegate?.blockUser(sender, section)
     }
- 
+    
 }

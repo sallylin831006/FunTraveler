@@ -44,9 +44,7 @@ class SearchDetailViewController: UIViewController {
         
         tableView.registerCellWithNib(identifier: String(describing: SearchDetailTableViewCell.self), bundle: nil)
         
-        layoutOfTableView()
-        // fetchData()
-        
+        layoutOfTableView()        
     }
     
     private func fetchData() {
@@ -94,14 +92,6 @@ extension SearchDetailViewController: UITableViewDataSource, UITableViewDelegate
         cell.ratingLabel.text = "\(searchDetails?.rating ?? 0.0)"
         cell.addressLabel.text = searchDetails?.address
         cell.bussinessStatusLabel.text = searchDetails?.businessStatus
-        // PHoto
-        //        let searchProvider = SearchProvider()
-        //        //沒有按照順序
-        //        let photoReference = searchDetails?.photos[indexPath.row].photoReference ?? ref
-        //        searchProvider.fetchPhotos(maxwidth: 400, photoreference: photoReference, completion: { result in
-        //            cell.detailImageView.image = result
-        //
-        //        })
         
         return cell
         

@@ -8,9 +8,9 @@
 import Foundation
 
 struct SuccessParser<T: Codable>: Codable {
-
+    
     let data: T
-
+    
     let paging: Int?
     
     enum CodingKeys: String, CodingKey {
@@ -22,6 +22,6 @@ struct SuccessParser<T: Codable>: Codable {
 }
 
 struct FailureParser: Codable {
-
+    
     let errorMessage: String
 }

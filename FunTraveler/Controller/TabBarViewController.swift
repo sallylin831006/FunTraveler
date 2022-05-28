@@ -17,33 +17,33 @@ private enum Tab {
     case video
     
     case camera
-
+    
     func controller() -> UIViewController {
-
+        
         var controller: UIViewController
-
+        
         switch self {
             
         case .explore: controller = UIStoryboard.explore.instantiateInitialViewController()!
             
         case .planOverView: controller = UIStoryboard.planOverView.instantiateInitialViewController()!
-
+            
         case .profile: controller = UIStoryboard.profile.instantiateInitialViewController()!
-
+            
         case .video: controller = UIStoryboard.video.instantiateInitialViewController()!
             
         case .camera: controller = UIStoryboard.camera.instantiateInitialViewController()!
         }
-
+        
         controller.tabBarItem = tabBarItem()
-
+        
         controller.tabBarItem.imageInsets = UIEdgeInsets(top: 10.0, left: 0.0, bottom: 10.0, right: 0.0)
-
+        
         return controller
     }
-
+    
     func tabBarItem() -> UITabBarItem {
-
+        
         switch self {
             
         case .explore:
@@ -85,22 +85,22 @@ private enum Tab {
 }
 
 class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
-
+    
     private let tabs: [Tab] = [.explore, .planOverView, .camera, .video, .profile ]
     
     var trolleyTabBarItem: UITabBarItem!
     
     var orderObserver: NSKeyValueObservation!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         viewControllers = tabs.map({ $0.controller() })
-
+        
         trolleyTabBarItem = viewControllers?[0].tabBarItem
         
         trolleyTabBarItem.badgeColor = .brown
-
+        
         delegate = self
         
         if #available(iOS 15.0, *) {
@@ -120,14 +120,14 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate {
         tabBar.clipsToBounds = true
         tabBar.backgroundColor = .themeApricotDeep
     }
-
+    
     // MARK: - UITabBarControllerDelegate
-
+    
     func tabBarController(
         _ tabBarController: UITabBarController,
         shouldSelect viewController: UIViewController
     ) -> Bool {
-
+        
         return true
     }
 }

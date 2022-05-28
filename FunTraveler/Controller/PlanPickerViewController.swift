@@ -14,7 +14,7 @@ protocol PlanPickerViewControllerDelegate: AnyObject {
 class PlanPickerViewController: UIViewController {
     // MARK: - Property
     weak var reloadDelegate: PlanPickerViewControllerDelegate?
-        
+    
     var currentDay: Int = 1
     
     var currentdayClosure: ((_ currentday: Int) -> Void)?
@@ -310,7 +310,7 @@ extension PlanPickerViewController {
             equalTo: tableView.topAnchor, constant: -10).isActive = true
         zoomButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
         zoomButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
-      
+        
     }
     @objc func tapZoomBtn(_ sender: UIButton) {
         sender.isSelected = isMoveDown

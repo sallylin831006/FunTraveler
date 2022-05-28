@@ -30,11 +30,11 @@ class ProfileViewController: UIViewController {
             tableView.reloadData()
         }
     }
-
+    
     private var userNameTextField: UITextField!
     private var segmentedControl: UISegmentedControl!
     private var isMyMemory: Bool = true
-
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController {
             self.tableView.isHidden = false
         }
         navigationController?.setNavigationBarHidden(true, animated: animated)
-
+        
         if KeyChainManager.shared.token == nil {
             setupAlertLoginView()
             onShowLogin()
@@ -158,9 +158,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 } else {
                     headerView.followbutton.setTitle("追蹤", for: .normal)
                     headerView.followbutton.addTarget(self, action: #selector(tapFollowButton), for: .touchUpInside)
-
+                    
                 }
-
+                
                 return headerView
             }
             
@@ -204,7 +204,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.userImageView.addGestureRecognizer(imageTapGesture)
                 cell.userImageView.isUserInteractionEnabled = true
                 cell.settingButton.addTarget(self, action: #selector(tapSettingButton), for: .touchUpInside)
-
+                
             }
             self.userNameTextField = cell.userNameTextField
             cell.delegate = self
@@ -230,7 +230,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.collectButton.isHidden = false
             }
-
+            
             return cell
             
         default: break
@@ -248,7 +248,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         case 1:
             exploreDeatilVC.tripId = collectedData[indexPath.row].id
             exploreDeatilVC.days = collectedData[indexPath.row].days
-       
+            
             setupBackButton()
             navigationController?.pushViewController(exploreDeatilVC, animated: true)
             exploreDeatilVC.tabBarController?.tabBar.isHidden = true
@@ -344,7 +344,7 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
         let blockAction = UIAlertAction(title: "封鎖", style: .destructive, handler: { (_) in
             self.postToBlockUser()
         })
-
+        
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         
         blockController.addAction(blockAction)
@@ -353,7 +353,7 @@ extension ProfileViewController: ProfileTableViewCellDelegate {
     }
     
     func didChangeName(_ cell: ProfileTableViewCell, text: String) {
-            
+        
         self.userNameTextField.text = text
         patchData(name: text, image: "")
         
@@ -442,25 +442,25 @@ extension ProfileViewController {
     
     // MARK: - POST TO ADJUST COLLECTED status
     private func postCollectedData(isCollected: Bool, tripId: Int, index: Int) {
-            let collectedProvider = CollectedProvider()
+        let collectedProvider = CollectedProvider()
         
-            collectedProvider.addCollected(isCollected: isCollected,
-                                           tripId: tripId, completion: { result in
-                
-                switch result {
-                    
-                case .success:
-                    ProgressHUD.showSuccess()
-                    self.collectedData.remove(at: index)
-                    self.tableView.reloadData()
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
-                }
-            })
+        collectedProvider.addCollected(isCollected: isCollected,
+                                       tripId: tripId, completion: { result in
             
-        }
- 
+            switch result {
+                
+            case .success:
+                ProgressHUD.showSuccess()
+                self.collectedData.remove(at: index)
+                self.tableView.reloadData()
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+            }
+        })
+        
+    }
+    
     // MARK: - POST TO INVITE
     private func postToInvite() {
         let friendsProvider = FriendsProvider()
@@ -497,7 +497,7 @@ extension ProfileViewController {
             }
         })
     }
-
+    
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -528,7 +528,7 @@ extension ProfileViewController: SegementViewDelegate {
             guard let userId = KeyChainManager.shared.userId else { return }
             guard let userIdNumber = Int(userId) else { return }
             fetchProfileTripsData(userId: userIdNumber)
-          
+            
         } else if segmentedControl.selectedSegmentIndex == 1 {
             isMyMemory = false
             fetchCollectedData()
@@ -537,7 +537,6 @@ extension ProfileViewController: SegementViewDelegate {
         
     }    
 }
-
 
 extension ProfileViewController {
     private func setupTableView() {

@@ -8,7 +8,7 @@
 import UIKit
 
 class HeaderView: UITableViewHeaderFooterView {
-
+    
     @IBOutlet private weak var backgroundImage: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -25,14 +25,14 @@ class HeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         setupHeaderView()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupHeaderView()
     }
-
+    
     private func setupHeaderView() {
-
+        
     }
-
+    
 }

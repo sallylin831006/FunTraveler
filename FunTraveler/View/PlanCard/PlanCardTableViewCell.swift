@@ -10,14 +10,14 @@ import UIKit
 protocol PlanCardTableViewCellDelegate: AnyObject {
     
     func updateTime(startTime: String, duration: Double, trafficTime: Double, index: Int)
-
+    
 }
 
 class PlanCardTableViewCell: UITableViewCell {
     
     weak var delegate: PlanCardTableViewCellDelegate?
     private var index: Int = 1
- 
+    
     var trafficTime: Double = 1 {
         didSet {
             var showTrafficTime: String = ""
@@ -30,14 +30,14 @@ class PlanCardTableViewCell: UITableViewCell {
             calculateTime()
         }
     }
-
+    
     private var durationTime: Double = 1 {
         didSet {
             timePickerView.timeTextField.text = "\(durationTime)小時"
             calculateTime()
         }
     }
-
+    
     private var times = PickerConstant.scheduleTImes
     private var trafficTimes = PickerConstant.trafficTImes
     
@@ -46,7 +46,7 @@ class PlanCardTableViewCell: UITableViewCell {
             startTimeLabel.text = startTime
             calculateTime()
         }
-}
+    }
     
     @IBOutlet weak private var orderLabel: UILabel!
     
@@ -69,15 +69,15 @@ class PlanCardTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        trafficPickerView.picker.delegate = self        
+        trafficPickerView.picker.delegate = self
         trafficPickerView.picker.dataSource = self
         trafficPickerView.delegate = self
         trafficPickerView.picker.tag = 2
-
+        
         timePickerView.picker.delegate = self
         
         timePickerView.picker.dataSource = self
-
+        
         timePickerView.delegate = self
         
         timePickerView.picker.tag = 1
@@ -118,11 +118,11 @@ class PlanCardTableViewCell: UITableViewCell {
 }
 
 extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
             return times.count
@@ -139,7 +139,7 @@ extension PlanCardTableViewCell: UIPickerViewDataSource, UIPickerViewDelegate {
         }
         
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 1 {
             guard let selectedTimes = Double(times[row]) else { return }

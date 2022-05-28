@@ -18,13 +18,13 @@ struct Results: Codable {
     var rating: Double?
     var vicinity: String
     var placeId: String
-   
+    
     enum CodingKeys: String, CodingKey {
         case geometry, name, rating, vicinity
         case placeId = "place_id"
     }
 }
- 
+
 struct Geometry: Codable {
     var location: Location
 }
@@ -69,14 +69,12 @@ struct Reviews: Codable {
     var photoUrl: String
     var description: String
     var text: String
-//    var time: Date
     
     enum CodingKeys: String, CodingKey {
         case authorName = "author_name"
         case photoUrl = "profile_photo_url"
         case description = "relative_time_description"
         case text
-//        case time
-
+        
     }
 }

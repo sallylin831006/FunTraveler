@@ -1,5 +1,5 @@
 //
-//  VideoEditor.swift
+//  PolaroidEditor.swift
 //  FunTraveler
 //
 //  Created by 林翊婷 on 2022/4/23.
@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-class VideoEditor {
+class PolaroidEditor {
     
     func makeCustomEffect(fromVideoAt videoURL: URL,
                           onComplete: @escaping (URL?) -> Void) {
@@ -16,8 +16,8 @@ class VideoEditor {
         let composition = AVMutableComposition()
         
         guard let compositionTrack = composition.addMutableTrack(
-                withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
-            let assetTrack = asset.tracks(withMediaType: .video).first
+            withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
+              let assetTrack = asset.tracks(withMediaType: .video).first
         else {
             print("Something is wrong with the asset.")
             onComplete(nil)
@@ -54,7 +54,7 @@ class VideoEditor {
         } else {
             videoSize = assetTrack.naturalSize
         }
-
+        
         let backgroundLayer = CALayer()
         backgroundLayer.frame = CGRect(origin: .zero, size: videoSize)
         let videoLayer = CALayer()
@@ -63,7 +63,7 @@ class VideoEditor {
         overlayLayer.frame = CGRect(origin: .zero, size: videoSize)
         
         backgroundLayer.backgroundColor = UIColor.white.cgColor
-    
+        
         videoLayer.frame = CGRect(
             x: 20,
             y: 20,
@@ -73,7 +73,7 @@ class VideoEditor {
         backgroundLayer.contentsGravity = .resizeAspectFill
         
         addImage(to: overlayLayer, videoSize: videoSize)
-
+        
         let outputLayer = CALayer()
         outputLayer.frame = CGRect(origin: .zero, size: videoSize)
         outputLayer.addSublayer(backgroundLayer)
@@ -180,10 +180,10 @@ private func orientation(from transform: CGAffineTransform) -> (orientation: UII
 
 private func compositionLayerInstruction(
     for track: AVCompositionTrack, assetTrack: AVAssetTrack) -> AVMutableVideoCompositionLayerInstruction {
-    let instruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
-    let transform = assetTrack.preferredTransform
-    
-    instruction.setTransform(transform, at: .zero)
-    
-    return instruction
-}
+        let instruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
+        let transform = assetTrack.preferredTransform
+        
+        instruction.setTransform(transform, at: .zero)
+        
+        return instruction
+    }

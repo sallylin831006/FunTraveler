@@ -50,7 +50,7 @@ extension BlockListViewController {
                 
                 self?.blockListData = blockListData.data
                 self?.tableView.reloadData()
-                                
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
             }
@@ -108,7 +108,7 @@ extension BlockListViewController: UITableViewDataSource, UITableViewDelegate {
             ProgressHUD.showSuccess(text: "已解除封鎖")
             self.blockListData.remove(at: index)
             self.tableView.reloadData()
-
+            
         })
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
@@ -137,7 +137,7 @@ extension BlockListViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = UIColor.themeApricot
-
+        
         self.navigationController?.navigationBar.standardAppearance = appearance
         self.navigationController?.navigationBar.scrollEdgeAppearance =
         self.navigationController?.navigationBar.standardAppearance

@@ -33,7 +33,7 @@ class WebViewController: UIViewController {
             }
         }
     }
- 
+    
 }
 
 extension WebViewController: WKNavigationDelegate {

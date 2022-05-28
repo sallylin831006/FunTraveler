@@ -4,6 +4,7 @@
 //
 //  Created by 林翊婷 on 2022/4/12.
 //
+
 import Foundation
 struct DomainConstant {
     
@@ -13,5 +14,4 @@ struct DomainConstant {
     enum Domain {
         case googleMap
     }
-    
 }

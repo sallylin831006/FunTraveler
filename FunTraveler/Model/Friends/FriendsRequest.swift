@@ -48,7 +48,7 @@ enum FriendsRequest: STRequest {
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .getInviteList, .getFriendList : return nil
-        
+            
         }
         
     }
@@ -63,7 +63,7 @@ enum FriendsRequest: STRequest {
         case .getFriendList : return STHTTPMethod.GET.rawValue
             
         case .getInviteList : return STHTTPMethod.GET.rawValue
-        
+            
         }
     }
     

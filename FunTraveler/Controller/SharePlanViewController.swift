@@ -233,9 +233,7 @@ extension SharePlanViewController: ShareExperienceTableViewCellDelegate {
         uploadImageManager.selectImageAction(sender: imageRecognizer, viewController: self)
         uploadImageManager.delegate = self
         uploadImageManager.tripImageView = tripImageview
-        uploadImageManager.imageIndex = index
-//        uploadImageManager.schedules = schedules
-        
+        uploadImageManager.imageIndex = index        
     }
     
 }

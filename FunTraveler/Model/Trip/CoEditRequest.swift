@@ -37,7 +37,7 @@ enum CoEditRequest: STRequest {
             ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-
+            
         }
         
     }
@@ -48,7 +48,7 @@ enum CoEditRequest: STRequest {
         case .addEditor : return STHTTPMethod.POST.rawValue
             
         case .removeEditor : return STHTTPMethod.DELETE.rawValue
-
+            
         }
     }
     

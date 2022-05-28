@@ -40,7 +40,7 @@ class InviteListViewController: UIViewController {
         }
         fetchData()
     }
-        
+    
     @objc func tapToShowLogin() {
         onShowLogin()
     }
@@ -214,15 +214,15 @@ extension InviteListViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.barTintColor = .themeRed
         searchController.searchBar.tintColor = .themeRed
-
+        
         searchController.searchBar.searchTextField.backgroundColor = .themeApricot
-     
+        
         let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
         textFieldInsideSearchBar?.textColor = .themeRed
         textFieldInsideSearchBar?.attributedPlaceholder = NSAttributedString(
             string: textFieldInsideSearchBar?.placeholder ?? "",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-
+        
     }
     
     private func setupBackButton() {
@@ -243,7 +243,7 @@ extension InviteListViewController {
         alertLoginView.isHidden = false
         alertLoginView.alertLabel.text = "登入以查看好友邀請"
         alertLoginView.centerView(alertLoginView, view)
-
+        
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(tapToShowLogin))
         alertLoginView.addGestureRecognizer(imageTapGesture)
     }

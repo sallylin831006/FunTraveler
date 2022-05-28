@@ -10,7 +10,7 @@ import UIKit
 class AlertLoginView: UIView {
     
     private let iconImage = UIImageView()
-
+    
     let alertLabel = UILabel()
     
     override func awakeFromNib() {

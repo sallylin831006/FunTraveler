@@ -32,7 +32,7 @@ class PlanCardHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak private var collectionView: UICollectionView!
     
     @IBOutlet weak private var inviteButton: UIButton!
-        
+    
     var selectedDepartmentTimesClosure: ((_ selectedDepartmentTimes: String) -> Void)?
     private var tripData: Trip?
     

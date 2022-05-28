@@ -47,7 +47,7 @@ class RearrangeTimeManager {
     
     func calculateTrafficTime(_ index: Int, _ schedule: [Schedule]) -> Double {
         let lastIndex = schedule.count - 1
-
+        
         if index == lastIndex || lastIndex <= 0 {
             return 0
         }

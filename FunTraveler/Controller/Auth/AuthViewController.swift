@@ -17,7 +17,7 @@ class AuthViewController: UIViewController {
     weak var delegate: AuthViewControllerDelegate?
     
     private var userRegisterEmail: String = ""
-
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -58,7 +58,7 @@ class AuthViewController: UIViewController {
                 frame: CGRect(x: .zero, y: .zero, width: .zero, height: CGFloat.leastNonzeroMagnitude))
         }
     }
-
+    
 }
 
 extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
@@ -96,7 +96,7 @@ extension AuthViewController: UITableViewDataSource, UITableViewDelegate {
                   let password = cell.passwordTextField.text else { return }
             self?.postToLogin(email: email, password: password)
         }
-    
+        
         cell.siginInwithAppleClosure = { [weak self] appleToken in
             self?.siginInwithApple(appleToken: appleToken)
             
@@ -186,11 +186,11 @@ extension AuthViewController {
             case .success(let responseData):
                 ProgressHUD.showSuccess(text: "登入成功")
                 let userId = responseData.userId
-
+                
                 self.presentingViewController?.dismiss(animated: false, completion: {
                     self.delegate?.detectLoginDissmiss(self, userId)
                 })
-            
+                
             case .failure(let error):
                 print(error.localizedDescription)
                 ProgressHUD.showFailure(text: "登入失敗!")

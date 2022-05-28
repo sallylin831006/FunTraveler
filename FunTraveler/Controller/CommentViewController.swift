@@ -16,7 +16,7 @@ class CommentViewController: UIViewController {
             tableView?.reloadData()
         }
     }
-        
+    
     var tripId: Int?
     
     private var profileData: Profile?
@@ -25,9 +25,9 @@ class CommentViewController: UIViewController {
         didSet {
             
             tableView.dataSource = self
-
+            
             tableView.delegate = self
-
+            
         }
     }
     
@@ -45,7 +45,7 @@ class CommentViewController: UIViewController {
 }
 
 extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     // MARK: - Section Footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         80.0
@@ -56,7 +56,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         guard let footerView = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: CommentFooterView.identifier)
                 as? CommentFooterView else { return nil }
-
+        
         if profileData == nil {
             footerView.moveToLoginButton.isHidden = false
             footerView.moveToLoginClosure = {  [weak self] in
@@ -73,7 +73,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         footerView.sendCommentClosure = { [weak self] in
             guard let newComment = footerView.commentTextField.text else { return }
             self?.postData(content: newComment)
-        
+            
             footerView.commentTextField.text = ""
             
         }
@@ -130,7 +130,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 
             }
             return UISwipeActionsConfiguration(actions: [deleteAction])
-           
+            
         } else {
             let blockAction = UIContextualAction(style: .destructive, title: "封鎖") { (_, _, completionHandler) in
                 self.blockAction(index: indexPath.row)
@@ -141,7 +141,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
                 self.reportAction(index: indexPath.row)
                 completionHandler(true)
             }
-
+            
             return UISwipeActionsConfiguration(actions: [blockAction, reportAction])
         }
     }
@@ -176,7 +176,7 @@ extension CommentViewController: UITableViewDataSource, UITableViewDelegate {
         reportController.addAction(cancelAction)
         present(reportController, animated: true, completion: nil)
     }
-
+    
 }
 
 extension CommentViewController {
@@ -185,21 +185,21 @@ extension CommentViewController {
         let reactionProvider = ReactionProvider()
         guard let tripId = tripId else { return }
         reactionProvider.postToComment(content: content, tripId: tripId, completion: { result in
-                
-                switch result {
-                    
-                case .success(let responseData):
-                    
-                    self.commentData.append(responseData)
-                    self.tableView.reloadData()
-                    self.scrollToBottom()
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
-                }
-            })
             
-        }
+            switch result {
+                
+            case .success(let responseData):
+                
+                self.commentData.append(responseData)
+                self.tableView.reloadData()
+                self.scrollToBottom()
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+            }
+        })
+        
+    }
     
     // MARK: - DELETE COMMENTS
     private func deleteData(index: Int) {
@@ -208,17 +208,17 @@ extension CommentViewController {
         
         let commentId = commentData[index].id
         reactionProvider.deleteComment(tripId: tripId, commentId: commentId, completion: { result in
-                
-                switch result {
-                    
-                case .success: break
-                                    
-                case .failure:
-                    ProgressHUD.showFailure(text: "讀取失敗")
-                }
-            })
             
-        }
+            switch result {
+                
+            case .success: break
+                
+            case .failure:
+                ProgressHUD.showFailure(text: "讀取失敗")
+            }
+        })
+        
+    }
     
     // MARK: - GET Action
     private func fetchData() {
@@ -232,7 +232,7 @@ extension CommentViewController {
             case .success(let commentData):
                 
                 self?.commentData = commentData.data
-                                
+                
             case .failure:
                 ProgressHUD.showFailure(text: "讀取失敗")
                 print("[CommentVC] GET 讀取資料失敗！")
@@ -284,6 +284,6 @@ extension CommentViewController {
         tableView.registerCellWithNib(identifier: String(describing: CommentTableViewCell.self), bundle: nil)
         tableView.registerFooterWithNib(identifier: String(describing: CommentFooterView.self), bundle: nil)
         self.navigationItem.title = "留言"
-
+        
     }
 }

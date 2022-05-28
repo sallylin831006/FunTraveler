@@ -15,7 +15,7 @@ protocol FooterViewDelegate: AnyObject {
 class FooterView: UITableViewHeaderFooterView {
     
     weak var delegate: FooterViewDelegate?
-
+    
     @IBOutlet weak var saveButton: UIButton!
     
     @IBOutlet weak var cancelButton: UIButton!
@@ -44,18 +44,18 @@ class FooterView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-       
+        
         setupFooterView()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         setupFooterView()
     }
-
+    
     private func setupFooterView() {
         
     }
-
+    
 }

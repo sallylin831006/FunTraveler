@@ -38,7 +38,7 @@ class ExploreViewController: UIViewController {
         tabBarController?.tabBar.isHidden = false
         fetchData()
     }
-
+    
     @objc func tapInviteList() {
         guard let inviteVC = storyboard?.instantiateViewController(
             withIdentifier: StoryboardCategory.inviteVC) as? InviteListViewController else { return }
@@ -223,7 +223,7 @@ extension ExploreViewController {
                 }
                 
             case .failure:
-//                ProgressHUD.showFailure()
+                //                ProgressHUD.showFailure()
                 print("POST TO SEARCH TRIP 失敗！")
             }
         })

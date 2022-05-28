@@ -10,7 +10,7 @@ import UIKit
 class DatePickerView: UIView {
     
     var dateClosure : ((_ text: String, _ date: Date) -> Void)?
-
+    
     var datePicker = UIDatePicker()
     
     override init(frame: CGRect) {
@@ -30,12 +30,12 @@ class DatePickerView: UIView {
 }
 
 extension DatePickerView {
-
+    
     private func setupSettingPickerView() {
         datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 100))
         
         datePicker.datePickerMode = .date
-
+        
         datePicker.minuteInterval = 15
         datePicker.date = Date()
         
@@ -47,7 +47,7 @@ extension DatePickerView {
         // ACTION
         datePicker.addTarget(self, action: #selector(tapToChangeDate), for: .valueChanged)
         addSubview(datePicker)
- 
+        
         layoutOfPicker()
         
     }
@@ -55,7 +55,7 @@ extension DatePickerView {
     @objc func tapToChangeDate(datePicker: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-
+        
         dateClosure?(formatter.string(from: datePicker.date), datePicker.date)
     }
     

@@ -14,7 +14,7 @@ protocol SegementViewDelegate: AnyObject {
 class SegementView: UITableViewHeaderFooterView {
     
     weak var delegate: SegementViewDelegate?
-        
+    
     @IBOutlet weak var followbutton: UIButton!
     
     @IBOutlet weak var segementControl: UISegmentedControl!
@@ -30,8 +30,6 @@ class SegementView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        let margins = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
-//        contentView.frame = contentView.frame.inset(by: margins)
         self.backgroundConfiguration = nil
         self.backgroundColor = .themeApricot
         segementControl.setTitleTextAttributes([.foregroundColor: UIColor.themeApricotDeep ?? .white], for: .selected)
@@ -42,18 +40,10 @@ class SegementView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        setupHeaderView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupHeaderView()
-    }
-    
-    private func setupHeaderView() {
-        //        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-        //        contentView.contentMode = .scaleToFill
-        
     }
     
 }

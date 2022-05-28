@@ -12,7 +12,7 @@ class VideoManager: NSObject {
     var downloadCompletionBlock: ((_ data: Data) -> Void)?
     
     func requestWithFormData(urlString: String, parameters: [String: Any], dataPath: [String: Data], completion: @escaping (Data) -> Void) {
-
+        
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -23,7 +23,7 @@ class VideoManager: NSObject {
         guard let token = KeyChainManager.shared.token else { return }
         request.setValue("Bearer \(token)", forHTTPHeaderField: STHTTPHeaderField.auth.rawValue)
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-
+        
         for (key, value) in parameters {
             body.appendString(string: "--\(boundary)\r\n")
             body.appendString(string: "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
@@ -43,11 +43,6 @@ class VideoManager: NSObject {
         request.httpBody = body
         
         fetchedDataByDataTask(from: request, completion: completion)
-        
-    }
-    
-    private func generateParameter() {
-        
     }
     
     private func fetchedDataByDataTask(from request: URLRequest, completion: @escaping (Data) -> Void) {
