@@ -22,7 +22,7 @@ class TimeManager {
         }
         
         let newDate = date + duration*3600
-
+        
         let calendar = Calendar.current
         
         let startHours = calendar.component(.hour, from: date)

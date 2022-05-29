@@ -28,7 +28,7 @@ class ShareExperienceTableViewCell: UITableViewCell {
     @IBOutlet weak var tripImage: UIImageView!
     
     @IBOutlet weak var storiesTextView: UITextView!
-        
+    
     private var index: Int = 0
     
     override func awakeFromNib() {
@@ -62,7 +62,7 @@ class ShareExperienceTableViewCell: UITableViewCell {
         let imageTapGesture = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
         tripImage.addGestureRecognizer(imageTapGesture)
         tripImage.isUserInteractionEnabled = true
-                
+        
     }
     
     @objc func profileTapped(sender: UITapGestureRecognizer) {
@@ -75,14 +75,12 @@ class ShareExperienceTableViewCell: UITableViewCell {
         tripImage.layer.borderWidth = 2
         tripImage.layer.cornerRadius = 10.0
         tripImage.layer.masksToBounds = true
-        
-        // Configure the view for the selected state
     }
     
 }
 
 extension ShareExperienceTableViewCell: UITextViewDelegate {
-
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         delegate?.detectTextViewChange(textView, index)
     }

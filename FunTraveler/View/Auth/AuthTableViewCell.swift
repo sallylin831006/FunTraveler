@@ -45,7 +45,7 @@ class AuthTableViewCell: UITableViewCell {
         privacyButton.layer.cornerRadius = CornerRadius.buttonCorner
         eulaButton.layer.cornerRadius = CornerRadius.buttonCorner
     }
-
+    
     @objc func tapLoginButton() {
         loginClosure?(self)
     }
@@ -102,11 +102,6 @@ extension AuthTableViewCell: ASAuthorizationControllerDelegate {
             }
             self.appleToken = idTokenString
             siginInwithAppleClosure?(appleToken)
-//                        print("appleIDToken", idTokenString)
-//                        print("user: \(appleIDCredential.user)")
-//                        print("fullName: \(String(describing: appleIDCredential.fullName))")
-//                        print("Email: \(String(describing: appleIDCredential.email))")
-//                        print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
         }
         
     }

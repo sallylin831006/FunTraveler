@@ -7,13 +7,21 @@
 
 import UIKit
 
+protocol ExploreOverViewTableViewCellDelegate: AnyObject {
+    func passingfriendsData(_ index: Int)
+    func passingHeartData(_ isLiked: Bool, _ index: Int)
+    func passingCollectData(_ isCollected: Bool, _ index: Int)
+}
+
 class ExploreOverViewTableViewCell: UITableViewCell {
+    
+    weak var delegate: ExploreOverViewTableViewCellDelegate?
     
     var friendClosure: (() -> Void)?
     var heartClosure: ((_ isLiked: Bool) -> Void)?
     var collectClosure: ((_ isCollected: Bool) -> Void)?
     var followClosure: ((_ cell: ExploreOverViewTableViewCell, _ isfollowed: Bool) -> Void)?
-
+    
     @IBOutlet private weak var planImageView: UIImageView!
     
     @IBOutlet private weak var dayTitleLabel: UILabel!
@@ -27,7 +35,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     @IBOutlet weak var collectButton: UIButton!
     
     @IBOutlet weak var heartButton: UIButton!
-        
+    
     @IBOutlet private weak var numberOfLikeLabel: UILabel!
     
     @IBOutlet private weak var dateLabel: UILabel!
@@ -37,8 +45,13 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     private var isCollected: Bool = false
     
     private var isLiked: Bool = false
-
-    func layoutCell(data: Explore) {
+    
+    private var index: Int = 0
+    
+    func layoutCell(data: Explore, index: Int) {
+        
+        self.index = index
+        
         if KeyChainManager.shared.token == nil {
             collectButton.isHidden = true
         } else {
@@ -46,7 +59,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         }
         
         heartButton.touchEdgeInsets = UIEdgeInsets(top: -15, left: -15, bottom: -15, right: -15)
-
+        
         dayTitleLabel.text = "\(data.days)天| 旅遊回憶"
         
         tripTitleLabel.text = data.title
@@ -60,7 +73,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         } else {
             userImageView.loadImage(data.user.imageUrl, placeHolder: UIImage.asset(.imagePlaceholder))
         }
-            
+        
         collectButton.setImage(UIImage.asset(.collectedIconSelected), for: .selected)
         collectButton.setImage(UIImage.asset(.collectedIconNormal), for: .normal)
         self.isCollected = data.isCollected
@@ -70,7 +83,7 @@ class ExploreOverViewTableViewCell: UITableViewCell {
         heartButton.setImage(UIImage.asset(.heartNormal), for: .normal)
         self.isLiked = data.isLiked
         heartButton.isSelected = data.isLiked
-
+        
         dateLabel.text = data.publishedDate
         
         if data.isPrivate {
@@ -99,29 +112,32 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @objc func tappedUserImage(gestureRecognizer: UITapGestureRecognizer) {
         friendClosure?()
+        delegate?.passingfriendsData(index)
     }
     
     @objc func tappedUserName(gestureRecognizer: UITapGestureRecognizer) {
         friendClosure?()
+        delegate?.passingfriendsData(index)
     }
-   
+    
     var isfollowed: Bool = false
     
     @objc func tapHeartButton(_ sender: UIButton) {
         sender.isSelected = !isLiked
         heartClosure?(!isLiked)
+        delegate?.passingHeartData(!isLiked, index)
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
         sender.isSelected = !isCollected
         collectClosure?(!isCollected)
+        delegate?.passingCollectData(!isCollected, index)
     }
     
     @objc func tapFollowButton(_ sender: UIButton) {
         sender.isSelected = !isfollowed
         isfollowed = !isfollowed
         followClosure?(self, isfollowed)
-        
     }
     
     override func layoutSubviews() {

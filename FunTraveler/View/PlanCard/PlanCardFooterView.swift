@@ -14,7 +14,7 @@ protocol PlanCardFooterViewDelegate: AnyObject {
 class PlanCardFooterView: UITableViewHeaderFooterView {
     
     weak var delegate: PlanCardFooterViewDelegate?
-
+    
     @IBOutlet weak private var scheduleButton: UIButton!
     
     override func layoutSubviews() {
@@ -27,12 +27,12 @@ class PlanCardFooterView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
+        
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         scheduleButton.setTitle("+建立行程規劃", for: .normal)

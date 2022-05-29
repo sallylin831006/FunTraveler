@@ -79,14 +79,13 @@ enum TripRequest: STRequest {
                     ]
                 ])
             }
-            // let encodedSchedules = try? JSONEncoder().encode(schedules)
             
             let body = [
                 "schedules": scheduleData,
                 "day": day,
                 "is_finished": isFinished
             ] as [String: Any]
-                        
+            
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
             
         case .updateTrip(_, _, let schedules, let isPrivate, let isPublish):
@@ -109,7 +108,7 @@ enum TripRequest: STRequest {
             ] as [String: Any]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-                        
+            
         case .copyTrip(_, let title, let startDate, let endDate, let tripId):
             
             let body = [
@@ -130,7 +129,7 @@ enum TripRequest: STRequest {
             ]
             
             return try? JSONSerialization.data(withJSONObject: body, options: .prettyPrinted)
-        
+            
         }
     }
     
@@ -146,7 +145,7 @@ enum TripRequest: STRequest {
         case .copyTrip: return STHTTPMethod.POST.rawValue
         case .deleteTrip: return STHTTPMethod.DELETE.rawValue
         case .updateTripInfo: return STHTTPMethod.PATCH.rawValue
-
+            
         }
     }
     

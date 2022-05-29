@@ -22,7 +22,7 @@ struct Video: Codable {
     enum CodingKeys: String, CodingKey {
         case user, id, url, location, ratings
         case createdTime = "created_at"
-       
+        
     }
 }
 

@@ -6,11 +6,12 @@
 //
 import Foundation
 struct DomainConstant {
-
+    
     static let urlKey = "STBaseURL"
     static let urlMap = "MapBaseURL"
-
+    
     enum Domain {
         case googleMap
     }
+    
 }

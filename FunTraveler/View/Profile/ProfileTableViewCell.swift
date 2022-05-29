@@ -12,7 +12,7 @@ protocol ProfileTableViewCellDelegate: AnyObject {
     func didChangeName( _ cell: ProfileTableViewCell, text: String)
     
     func blockUser(_ blockButton: UIButton)
-
+    
 }
 
 class ProfileTableViewCell: UITableViewCell {
@@ -48,16 +48,16 @@ class ProfileTableViewCell: UITableViewCell {
         userImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         userNameTextField.delegate = self
         blockButton.addTarget(self, action: #selector(tapBlockButton(_:)), for: .touchUpInside)
         self.selectionStyle = .none
-
+        
     }
-   
+    
     @objc func editUserNameTextField(_ textField: UITextField) {
         userNameTextField.isUserInteractionEnabled = true
     }
@@ -65,14 +65,14 @@ class ProfileTableViewCell: UITableViewCell {
     @objc func tapBlockButton(_ sender: UIButton) {
         delegate?.blockUser(sender)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         self.selectionStyle = .none
     }
     
     func layoutCell(data: Profile, isMyProfile: Bool) {
-                
+        
         userNameTextField.text = data.name
         if data.imageUrl == "" {
             userImageView.image = UIImage.asset(.defaultUserImage)

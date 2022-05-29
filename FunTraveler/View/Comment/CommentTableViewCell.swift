@@ -10,7 +10,7 @@ import UIKit
 class CommentTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userImageView: UIImageView!
-
+    
     @IBOutlet weak var userNameButton: UIButton!
     
     @IBOutlet weak var commentLabel: UILabel!
@@ -32,10 +32,10 @@ class CommentTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.backgroundColor = .themeApricot
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
     }
     
     func layoutCell(data: Comment) {
@@ -46,7 +46,6 @@ class CommentTableViewCell: UITableViewCell {
             durationLabel.text = "\(data.duration)分鐘"
         } else {
             let hour = Int(data.duration/60)
-//            let minute = data.duration - hour * 60
             durationLabel.text = "\(hour)小時"
         }
         

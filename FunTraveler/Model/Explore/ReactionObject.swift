@@ -21,7 +21,7 @@ struct Comment: Codable {
     var content: String
     var commentByMe: Bool
     var duration: Int
-
+    
     enum CodingKeys: String, CodingKey {
         case user, id, content, duration
         case commentByMe = "comment_by_me"

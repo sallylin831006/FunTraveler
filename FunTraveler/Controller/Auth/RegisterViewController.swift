@@ -11,7 +11,7 @@ import IQKeyboardManagerSwift
 class RegisterViewController: UIViewController {
     
     var userRegisterEmailClosure: ((_ text: String) -> Void)?
-
+    
     @IBOutlet weak var tableView: UITableView! {
         
         didSet {
@@ -38,7 +38,7 @@ class RegisterViewController: UIViewController {
         IQKeyboardManager.shared.keyboardDistanceFromTextField = 200
         tableView.shouldIgnoreScrollingAdjustment = true
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.layer.cornerRadius = 10
@@ -83,7 +83,7 @@ extension RegisterViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: RegisterTableViewCell.self), for: indexPath)
                 as? RegisterTableViewCell else { return UITableViewCell() }
-
+        
         cell.registerClosure = { [weak self] cell in
             guard let name = cell.nameTextField.text,
                   let email = cell.emailTextField.text,
@@ -127,7 +127,7 @@ extension RegisterViewController {
                 }
                 
             }
-
+        
     }
-
+    
 }

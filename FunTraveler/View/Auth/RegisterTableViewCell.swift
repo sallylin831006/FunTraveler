@@ -10,9 +10,9 @@ import UIKit
 class RegisterTableViewCell: UITableViewCell {
     
     var registerClosure: ((_ cell: RegisterTableViewCell) -> Void)?
-
+    
     var cancelRegisterClosure: (() -> Void)?
-
+    
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -32,7 +32,7 @@ class RegisterTableViewCell: UITableViewCell {
         cancelRegisterButton.addTarget(self, action: #selector(tapCancelRegisterButton), for: .touchUpInside)
         passwordTextfield.isSecureTextEntry = true
         passwordCheckTextfield.isSecureTextEntry = true
-
+        
     }
     
     override func layoutSubviews() {
@@ -40,7 +40,7 @@ class RegisterTableViewCell: UITableViewCell {
         self.selectionStyle = .none
         registerButton.layer.cornerRadius = CornerRadius.buttonCorner
         cancelRegisterButton.layer.cornerRadius = CornerRadius.buttonCorner
-
+        
         nameTextField.addBottomBorder(textField: nameTextField)
         emailTextField.addBottomBorder(textField: emailTextField)
         passwordTextfield.addBottomBorder(textField: passwordTextfield)
@@ -48,19 +48,13 @@ class RegisterTableViewCell: UITableViewCell {
         
         emailTextField.keyboardType = .emailAddress
     }
-
+    
     @objc func tapRegisterButton() {
         registerClosure?(self)
     }
     
     @objc func tapCancelRegisterButton() {
         cancelRegisterClosure?()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
 }

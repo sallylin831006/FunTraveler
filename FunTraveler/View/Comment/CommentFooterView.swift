@@ -11,7 +11,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
     
     var sendCommentClosure: (() -> Void)?
     var moveToLoginClosure: (() -> Void)?
-
+    
     @IBOutlet weak var userImageView: UIImageView!
     
     @IBOutlet weak var commentTextField: UITextField!
@@ -54,7 +54,7 @@ class CommentFooterView: UITableViewHeaderFooterView {
         
         setupFooterView()
     }
-
+    
     private func setupFooterView() {
         
     }
@@ -71,5 +71,5 @@ class CommentFooterView: UITableViewHeaderFooterView {
         userImageView.clipsToBounds = true
         
     }
-
+    
 }

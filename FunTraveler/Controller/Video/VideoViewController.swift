@@ -182,8 +182,6 @@ extension VideoViewController: ShotTableViewCellDelegate {
     
     fileprivate func handleGestureChanged(gesture: UILongPressGestureRecognizer) {
         let pressedLocation = gesture.location(in: self.iconsContainerView)
-        //        print(pressedLocation)
-        
         let fixedYLocation = CGPoint(x: pressedLocation.x, y: self.iconsContainerView.frame.height / 2)
         
         let hitTestView = iconsContainerView.hitTest(fixedYLocation, with: nil)
@@ -232,7 +230,6 @@ extension VideoViewController: ShotTableViewCellDelegate {
         
         let pressedLocation = gesture.location(in: self.view)
         
-        // transformation of the red box
         let centeredX = (view.frame.width - iconsContainerView.frame.width) / 2
         
         iconsContainerView.alpha = 0

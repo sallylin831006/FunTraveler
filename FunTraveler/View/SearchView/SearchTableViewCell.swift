@@ -33,7 +33,7 @@ class SearchTableViewCell: UITableViewCell {
         ratingLabel?.text = "★★★★☆\(data.rating ?? 0.0)"
         addressLabel?.text = data.vicinity
         actionBtn.addTarget(self, action: #selector(tapActionButton(_:)), for: .touchUpInside)
-
+        
     }
     
     override func awakeFromNib() {
@@ -50,9 +50,9 @@ class SearchTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         actionBtn.layer.cornerRadius = CornerRadius.buttonCorner
-
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         searchDataClosure?()

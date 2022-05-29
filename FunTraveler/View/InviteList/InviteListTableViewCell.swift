@@ -10,7 +10,7 @@ import UIKit
 protocol InviteListTableViewCellDelegate: AnyObject {
     func confirmInvitation(index: Int, isAccept: Bool)
     func cancelInvitation(index: Int, isAccept: Bool)
-
+    
 }
 
 class InviteListTableViewCell: UITableViewCell {
@@ -28,7 +28,7 @@ class InviteListTableViewCell: UITableViewCell {
     @IBOutlet weak var cancelInviteButton: UIButton!
     
     @IBAction func tapConfirmButton(_ sender: UIButton) {
-
+        
         delegate?.confirmInvitation(index: index, isAccept: true)
     }
     
@@ -55,12 +55,6 @@ class InviteListTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         self.backgroundColor = .themeApricot
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
 }

@@ -12,15 +12,15 @@ enum ReactionRequest: STRequest {
     case postComment(token: String, content: String, tripId: Int)
     
     case deleteComment(token: String, commentId: Int, tripId: Int)
-
+    
     case getComment(token: String, tripId: Int)
     
     case postLiked(token: String, tripId: Int)
-
+    
     case deleteUnLiked(token: String, tripId: Int)
     
     case getLiked(token: String, tripId: Int)
-
+    
     var headers: [String: String] {
         
         switch self {
@@ -63,7 +63,7 @@ enum ReactionRequest: STRequest {
         case .postLiked : return STHTTPMethod.POST.rawValue
         case .deleteUnLiked : return STHTTPMethod.DELETE.rawValue
         case .getLiked : return STHTTPMethod.DELETE.rawValue
-
+            
         }
     }
     

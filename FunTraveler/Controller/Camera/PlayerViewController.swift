@@ -15,34 +15,33 @@ class PlayerViewController: UIViewController {
     private var playerLayer: AVPlayerLayer!
     
     @IBOutlet weak var videoView: UIView!
-
+    
     @IBAction func saveVideo(_ sender: Any) {
         PHPhotoLibrary.requestAuthorization { [weak self] status in
-          switch status {
-          case .authorized:
-              DispatchQueue.main.async {
-                  self?.showInputTextfield()
-              }
-
-          default:
-            print("Photos permissions not granted.")
-            return
-          }
+            switch status {
+            case .authorized:
+                DispatchQueue.main.async {
+                    self?.showInputTextfield()
+                }
+                
+            default:
+                ProgressHUD.showFailure()
+                return
+            }
         }
-      }
+    }
     
     private func showInputTextfield() {
         let controller = UIAlertController(title: "旅遊動態", message: "輸入地點發布你的旅遊回憶", preferredStyle: .alert)
         controller.addTextField { textField in
-           textField.placeholder = "輸入地點"
+            textField.placeholder = "輸入地點"
             textField.keyboardType = UIKeyboardType.default
         }
         let okAction = UIAlertAction(title: "確定發布", style: .default) { [unowned controller] _ in
             let locationText = controller.textFields?[0].text ?? ""
             self.saveVideoToPhotos(locationText: locationText)
-           print(locationText)
         }
-                
+        
         let cancelAction = UIAlertAction(title: "放棄", style: .destructive) { _ in
             self.dismiss(animated: true, completion: nil)
         }
@@ -54,19 +53,17 @@ class PlayerViewController: UIViewController {
     
     private func saveVideoToPhotos(locationText: String) {
         PHPhotoLibrary.shared().performChanges({
-
+            
             PHAssetChangeRequest.creationRequestForAssetFromVideo(
                 // swiftlint:disable multiple_closures_with_trailing_closure
-                atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
-            if isSaved {
-                self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
-                print("Video saved.")
-            } else {
-                ProgressHUD.showFailure()
-                print("Cannot save video.")
-                print(error ?? "unknown error")
-            }
-        }
+                atFileURL: self.videoURL)}) { [weak self] (isSaved, _) in
+                    if isSaved {
+                        self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
+                        ProgressHUD.showSuccess()
+                    } else {
+                        ProgressHUD.showFailure()
+                    }
+                }
     }
     func postVideoData(locationText: String, url: URL) {
         ProgressHUD.show()
@@ -91,9 +88,9 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setupVideoView()
-//        setupVideoButton()
-
+        //        setupVideoView()
+        //        setupVideoButton()
+        
         player = AVPlayer(url: videoURL)
         playerLayer = AVPlayerLayer(player: player)
         playerLayer.frame = videoView.bounds

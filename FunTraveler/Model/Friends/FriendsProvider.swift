@@ -47,17 +47,17 @@ class FriendsProvider {
         
         HTTPClient.shared.request(FriendsRequest.postToAccept(
             token: token, userId: userId, isAccept: isAccept), completion: { result in
-            
-            switch result {
                 
-            case .success: break
-                
-            case .failure(let error):
-                print(error)
-                completion(Result.failure(error))
-                
-            }
-        })
+                switch result {
+                    
+                case .success: break
+                    
+                case .failure(let error):
+                    print(error)
+                    completion(Result.failure(error))
+                    
+                }
+            })
     }
     
     // MARK: - Get Invite List

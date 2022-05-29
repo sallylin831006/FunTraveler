@@ -23,7 +23,7 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     var collectButton = UIButton()
     
     @IBOutlet weak var titleLabel: UILabel!
-
+    
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var selectionView: SegmentControlView!
@@ -33,20 +33,13 @@ class ShareHeaderView: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         self.backgroundConfiguration = nil
-        setupHeaderView()
         titleLabel.text = "行程分享"
-
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
-        setupHeaderView()
-    }
-
-    private func setupHeaderView() {
-//        contentView.backgroundColor = UIColor(patternImage: UIImage.asset(.headerBackgroundImage)!)
-
+        
     }
     
     func layoutHeaderView(data: Trip) {
@@ -93,7 +86,6 @@ class ShareHeaderView: UITableViewHeaderFooterView {
 extension ShareHeaderView: SegmentControlViewDataSource {
     
     func configureNumberOfButton(_ selectionView: SegmentControlView) -> Int {
-//        trip?.days ?? 1
         delegate?.configureNumberOfButton() ?? 1
     }
     
@@ -101,7 +93,6 @@ extension ShareHeaderView: SegmentControlViewDataSource {
 
 @objc extension ShareHeaderView: SegmentControlViewDelegate {
     func didSelectedButton(_ selectionView: SegmentControlView, at index: Int) {
-//        fetchData(days: index)
         delegate?.didSelectedButton(index: index)
     }
     

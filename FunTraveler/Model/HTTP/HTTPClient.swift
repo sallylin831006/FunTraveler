@@ -89,8 +89,6 @@ class HTTPClient {
 
     private init() { }
 
-// ----- GOOGLE MAP -----//
-
     func maprequest(
         _ stRequest: STRequest,
         completion: @escaping (Result<Data>) -> Void
@@ -109,7 +107,6 @@ class HTTPClient {
             let httpResponse = response as! HTTPURLResponse
             // swiftlint:enable force_cast
             let statusCode = httpResponse.statusCode
-                print("STATUS CODE: \(httpResponse.statusCode),MAP, \(stRequest.endPoint)")
 
             switch statusCode {
 
@@ -133,7 +130,6 @@ class HTTPClient {
         }).resume()
     }
     
-    // ----- SEVER -----//
     func request(
         _ stRequest: STRequest,
         completion: @escaping (Result<Data>) -> Void
