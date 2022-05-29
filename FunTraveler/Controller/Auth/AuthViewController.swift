@@ -167,8 +167,7 @@ extension AuthViewController {
                     self.delegate?.detectLoginDissmiss(self, userId)
                 })
                 
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 ProgressHUD.showFailure(text: "登入失敗!")
             }
         })
@@ -191,8 +190,7 @@ extension AuthViewController {
                     self.delegate?.detectLoginDissmiss(self, userId)
                 })
                 
-            case .failure(let error):
-                print(error.localizedDescription)
+            case .failure:
                 ProgressHUD.showFailure(text: "登入失敗!")
             }
         })

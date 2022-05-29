@@ -15,7 +15,7 @@ struct StringConstant {
 }
 
 struct PickerConstant {
-    static let scheduleTImes = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5"]
+    static let scheduleTImes = ["1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5", "5.5", "6", "6.5", "7.0", "7.5", "8.0", "8.5"]
     
     static let trafficTImes = [
         "0.5", "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5",
@@ -25,4 +25,9 @@ struct PickerConstant {
                                   "08:00", "08:30", "09:00", "10:00",
                                   "10:30", "11:00", "11:30", "12:00",
                                   "12:30", "13:00", "13:30"]
+}
+
+struct WebURL {
+    static let privacyPolicy: String = "https://travel.newideas.com.tw/privacy"
+    static let eula: String = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
 }

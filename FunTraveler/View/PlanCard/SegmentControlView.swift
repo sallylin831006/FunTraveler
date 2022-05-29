@@ -47,7 +47,7 @@ class SegmentControlView: UIView {
         guard let numberOfButton =  dataSource?.configureNumberOfButton(self) else { return }
         
         for num in 0...numberOfButton - 1 {
-            // SET BUTTON POSITION
+
             let dayButton = UIButton()
             
             let width = self.frame.width/CGFloat(numberOfButton)
@@ -66,7 +66,6 @@ class SegmentControlView: UIView {
             
             self.addSubview(dayButton)
             
-            //             SET INDICATOR
             indicatorView.frame = CGRect(x: 0, y: 0, width: width, height: height)
             indicatorView.backgroundColor = .themePink
             self.insertSubview(indicatorView, at: 0)

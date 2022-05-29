@@ -19,7 +19,6 @@ class PolaroidEditor {
             withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
               let assetTrack = asset.tracks(withMediaType: .video).first
         else {
-            print("Something is wrong with the asset.")
             onComplete(nil)
             return
         }
@@ -38,7 +37,6 @@ class PolaroidEditor {
                     at: .zero)
             }
         } catch {
-            print(error)
             onComplete(nil)
             return
         }
@@ -101,7 +99,6 @@ class PolaroidEditor {
             asset: composition,
             presetName: AVAssetExportPresetHighestQuality)
         else {
-            print("Cannot create export session.")
             onComplete(nil)
             return
         }
@@ -121,8 +118,6 @@ class PolaroidEditor {
                 case .completed:
                     onComplete(exportURL)
                 default:
-                    print("Something went wrong during export.")
-                    print(export.error ?? "unknown error")
                     onComplete(nil)
                 }
             }

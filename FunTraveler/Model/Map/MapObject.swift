@@ -42,7 +42,6 @@ struct DetailResults: Codable {
     var businessStatus: String
     var address: String
     var geometry: Geometry
-    // opening_hours
     var name: String
     var photos: [PhotosResults]
     var rating: Double?

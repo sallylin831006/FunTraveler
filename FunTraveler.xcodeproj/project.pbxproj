@@ -126,7 +126,6 @@
 		3A8E506A2814F5B700DF40AE /* VideoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E50692814F5B700DF40AE /* VideoProvider.swift */; };
 		3A8E506C2814F5C200DF40AE /* VideoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8E506B2814F5C200DF40AE /* VideoObject.swift */; };
 		3A9A511028290B7C00F49181 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A9A510F28290B7C00F49181 /* GoogleService-Info.plist */; };
-		3A9A5112282A090B00F49181 /* WebUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A5111282A090B00F49181 /* WebUrl.swift */; };
 		3A9E9CC52800912000C7B8D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */; };
 		3A9E9CC72800912000C7B8D3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */; };
 		3A9E9CC92800912000C7B8D3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9E9CC82800912000C7B8D3 /* MapViewController.swift */; };
@@ -179,8 +178,6 @@
 
 /* Begin PBXFileReference section */
 		1FB044BB584D050241D82E30 /* Pods_FunTravelerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FunTravelerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A041E97282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
-		3A041E98282AB5630034BFDD /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3A041EB3282BA61A0034BFDD /* ASVideoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoContainer.swift; sourceTree = "<group>"; };
 		3A041EB5282BA62D0034BFDD /* ASVideoPlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoPlayerController.swift; sourceTree = "<group>"; };
 		3A041EB7282BA6400034BFDD /* ASVideoLayerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASVideoLayerObject.swift; sourceTree = "<group>"; };
@@ -302,7 +299,6 @@
 		3A8E50692814F5B700DF40AE /* VideoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProvider.swift; sourceTree = "<group>"; };
 		3A8E506B2814F5C200DF40AE /* VideoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoObject.swift; sourceTree = "<group>"; };
 		3A9A510F28290B7C00F49181 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3A9A5111282A090B00F49181 /* WebUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebUrl.swift; sourceTree = "<group>"; };
 		3A9E9CC12800912000C7B8D3 /* FunTraveler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FunTraveler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A9E9CC42800912000C7B8D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3A9E9CC62800912000C7B8D3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -627,9 +623,9 @@
 			isa = PBXGroup;
 			children = (
 				3A2B6B722814D89400D00638 /* LottieConstant.swift */,
-				3A1E78AB2835D030009D3B27 /* StringConstant.swift */,
 				3A47DD522842671D00F079D6 /* KeyConstants.swift */,
 				3A185C5628058D54004F5BB3 /* DomainConstant.swift */,
+				3A1E78AB2835D030009D3B27 /* StringConstant.swift */,
 				3A9E9CCD2800912300C7B8D3 /* Assets.xcassets */,
 			);
 			path = Constant;
@@ -640,6 +636,52 @@
 			children = (
 			);
 			path = ReuseView;
+			sourceTree = "<group>";
+		};
+		3A47DD7D28438CC100F079D6 /* Explores */ = {
+			isa = PBXGroup;
+			children = (
+				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
+				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
+				3AF4DCA5280C2169008029D7 /* ExploreDetailViewController.swift */,
+				3A40D36628177E5600A7BF51 /* CommentViewController.swift */,
+			);
+			path = Explores;
+			sourceTree = "<group>";
+		};
+		3A47DD7E28438CCD00F079D6 /* TrpPlan */ = {
+			isa = PBXGroup;
+			children = (
+				3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */,
+				3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */,
+				3A9E9CC82800912000C7B8D3 /* MapViewController.swift */,
+				3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */,
+				3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */,
+				3A185C4128058BF5004F5BB3 /* SearchViewController.swift */,
+				3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */,
+				3A7E4D912808818200281E17 /* SharePlanViewController.swift */,
+			);
+			path = TrpPlan;
+			sourceTree = "<group>";
+		};
+		3A47DD7F28438D0100F079D6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */,
+				3AB6D6452827798400193902 /* WebViewController.swift */,
+				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
+				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
+				3A35288D28222009003E6400 /* BlockListViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		3A47DD8028438DA200F079D6 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				3A7E4D982809149100281E17 /* TabBarViewController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		3A73527528017FFF00B4D8D3 /* Model */ = {
@@ -710,8 +752,8 @@
 		3A9E9CC32800912000C7B8D3 /* FunTraveler */ = {
 			isa = PBXGroup;
 			children = (
-				3A47DD4C28423FB600F079D6 /* Resource */,
 				3A40D3752817CC9C00A7BF51 /* FunTraveler.entitlements */,
+				3A47DD4C28423FB600F079D6 /* Resource */,
 				3AF4DCAE280C3E0A008029D7 /* Third Party Wrapper */,
 				3A9E9CDA280092D100C7B8D3 /* Extension */,
 				3A9E9CE328010D4100C7B8D3 /* Controller */,
@@ -736,15 +778,14 @@
 				3A9E9CDD2800931600C7B8D3 /* UIColor+Extension.swift */,
 				3A9E9CDF2800935200C7B8D3 /* UIStoryboard+Extension.swift */,
 				3A9E9CE12800992C00C7B8D3 /* UIImage+Extension.swift */,
-				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
-				3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */,
 				3A4653B72815069F005051EB /* UIView+Extension.swift */,
 				3A5445F0281E7AA10078518E /* Font+Extension.swift */,
-				3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */,
-				3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */,
-				3A9A5111282A090B00F49181 /* WebUrl.swift */,
-				3A4820BF282C8ABA006A1489 /* OrientationHelper.swift */,
 				3AD8B87C283F03450008F084 /* Alert+Extension.swift */,
+				3AFE61C8280A85FE0018394E /* CalculateHelper.swift */,
+				3ACC6C7C281F7FFD002B7256 /* ButtonHelper.swift */,
+				3AF4DCAC280C39AA008029D7 /* ImageHelper.swift */,
+				3A3FC6A32821099500788DE3 /* TextfieldHelper.swift */,
+				3A4820BF282C8ABA006A1489 /* OrientationHelper.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -752,27 +793,13 @@
 		3A9E9CE328010D4100C7B8D3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3A185C2428043DEB004F5BB3 /* PlanOverViewViewController.swift */,
-				3A185C002803C98B004F5BB3 /* AddPlanViewController.swift */,
-				3A9E9CC82800912000C7B8D3 /* MapViewController.swift */,
-				3A9E9CD82800924B00C7B8D3 /* PlanPickerViewController.swift */,
-				3A185C5C2807129D004F5BB3 /* PlanPickerViewController+Extension.swift */,
-				3A185C4128058BF5004F5BB3 /* SearchViewController.swift */,
-				3A185C4328058C1C004F5BB3 /* SearchDetailViewController.swift */,
-				3A7E4D912808818200281E17 /* SharePlanViewController.swift */,
-				3A7E4D982809149100281E17 /* TabBarViewController.swift */,
-				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
-				3AF4DCA5280C2169008029D7 /* ExploreDetailViewController.swift */,
-				3A40D36628177E5600A7BF51 /* CommentViewController.swift */,
-				3AF4DC9B280AF0D5008029D7 /* ProfileViewController.swift */,
-				3AE13C872819AC1F003859E1 /* SettingViewConttoller.swift */,
-				3AB6D6452827798400193902 /* WebViewController.swift */,
-				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
-				3A5445E7281B928E0078518E /* FriendListViewController.swift */,
-				3A35288D28222009003E6400 /* BlockListViewController.swift */,
+				3A47DD7D28438CC100F079D6 /* Explores */,
+				3A47DD7F28438D0100F079D6 /* Profile */,
+				3A47DD7E28438CCD00F079D6 /* TrpPlan */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,
+				3A47DD8028438DA200F079D6 /* TabBar */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -947,7 +974,6 @@
 			knownRegions = (
 				en,
 				Base,
-				"zh-Hant",
 			);
 			mainGroup = 3A9E9CB82800912000C7B8D3;
 			productRefGroup = 3A9E9CC22800912000C7B8D3 /* Products */;
@@ -1252,7 +1278,6 @@
 				3A40D360281778FB00A7BF51 /* ReactionRequest.swift in Sources */,
 				3AD8B87D283F03450008F084 /* Alert+Extension.swift in Sources */,
 				3A7E4D992809149100281E17 /* TabBarViewController.swift in Sources */,
-				3A9A5112282A090B00F49181 /* WebUrl.swift in Sources */,
 				3A40D35B2816E62100A7BF51 /* RegisterTableViewCell.swift in Sources */,
 				3A73527428017FF300B4D8D3 /* TimeManager.swift in Sources */,
 				3A8E50682814F58B00DF40AE /* VideoRequest.swift in Sources */,
@@ -1298,7 +1323,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				3A9E9CCB2800912000C7B8D3 /* Base */,
-				3A041E97282AB5630034BFDD /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1307,7 +1331,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				3A9E9CD02800912300C7B8D3 /* Base */,
-				3A041E98282AB5630034BFDD /* zh-Hant */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

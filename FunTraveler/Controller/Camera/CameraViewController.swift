@@ -60,8 +60,6 @@ class CameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
-        
-        //        navigationItem.title = "拍立得"
         buttonAnimation()
     }
     
@@ -134,7 +132,6 @@ extension CameraViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let url = info[.mediaURL] as? URL  else {
-            print("Cannot get video URL")
             return
         }
         

@@ -19,14 +19,12 @@ class UploadImageManager: NSObject {
     var tripImageView: UIImageView?
     var imageIndex: Int = 0
     var viewController: UIViewController?
-    //    var schedules: [Schedule] = []
     
     func selectImageAction(sender: UITapGestureRecognizer, viewController: UIViewController) {
         
         let photoSourceRequestController = UIAlertController(title: "", message: "選擇照片", preferredStyle: .alert)
         
         let photoLibraryAction = UIAlertAction(title: "相簿", style: .default, handler: { (_) in
-            //            self.showLoadingView()
             if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = true

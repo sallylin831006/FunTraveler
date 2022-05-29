@@ -25,7 +25,7 @@ class PlayerViewController: UIViewController {
                 }
                 
             default:
-                print("Photos permissions not granted.")
+                ProgressHUD.showFailure()
                 return
             }
         }
@@ -40,7 +40,6 @@ class PlayerViewController: UIViewController {
         let okAction = UIAlertAction(title: "確定發布", style: .default) { [unowned controller] _ in
             let locationText = controller.textFields?[0].text ?? ""
             self.saveVideoToPhotos(locationText: locationText)
-            print(locationText)
         }
         
         let cancelAction = UIAlertAction(title: "放棄", style: .destructive) { _ in
@@ -60,11 +59,9 @@ class PlayerViewController: UIViewController {
                 atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
                     if isSaved {
                         self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
-                        print("Video saved.")
+                        ProgressHUD.showSuccess()
                     } else {
                         ProgressHUD.showFailure()
-                        print("Cannot save video.")
-                        print(error ?? "unknown error")
                     }
                 }
     }

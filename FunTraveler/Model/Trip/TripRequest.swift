@@ -79,7 +79,6 @@ enum TripRequest: STRequest {
                     ]
                 ])
             }
-            // let encodedSchedules = try? JSONEncoder().encode(schedules)
             
             let body = [
                 "schedules": scheduleData,
