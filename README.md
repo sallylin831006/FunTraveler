@@ -1,4 +1,5 @@
-# FunTraveler
+# Personal Project - FunTraveler
+
 <p align="center">
   <img src="https://i.ibb.co/4JynXzf/71-4x.png" width="150"/>
 <!--   <img src="https://i.ibb.co/FXpy4Dd/1-4x.png" width="130" height="130"/> -->
@@ -8,6 +9,12 @@
 FunTraveler is an App that provides a platform for members to share their trips, <br>sync the information and co-edit their itineraries with group members.
 </p>
 
+<p align="center">
+    <img src="https://img.shields.io/badge/platform-iOS-lightgray">
+    <img src="https://img.shields.io/badge/license-MIT-informational">
+    <img src="https://img.shields.io/badge/release-v1.0.1-green">
+    <img src="https://img.shields.io/badge/Swift-5.0-orange.svg?style=flat">
+</p>
 
 <p align="center">
     <a href="https://apps.apple.com/tw/app/funtraveler/id1619742562"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"></a>
@@ -75,7 +82,11 @@ FunTraveler is an App that provides a platform for members to share their trips,
 
 ## Contact
 Sally Lin 林翊婷
-sallylin831006@gmail.com
+sallylin831006@gmail.com<br>
+
+<a href="https://www.linkedin.com/in/sallylin831006/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"></a>
+
+
 
 ## License
 FunTraveler is released under the MIT license. See [LICENSE](https://github.com/sallylin831006/FunTraveler/blob/develop/LICENSE) for details.
