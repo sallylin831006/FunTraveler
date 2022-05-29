@@ -20,8 +20,6 @@ FunTraveler is an App that provides a platform for members to share their trips,
     <a href="https://apps.apple.com/tw/app/funtraveler/id1619742562"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"></a>
 </p>
 
-## Features
-
 ## Hightlights
 
 - With real-time data synchronization to add co-editors, you can invite your friends to edit the itinerary together.
