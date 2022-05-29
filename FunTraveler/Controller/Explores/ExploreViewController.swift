@@ -61,55 +61,11 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
                 as? ExploreOverViewTableViewCell else { return UITableViewCell() }
         
         let item = exploreData[indexPath.row]
-        cell.layoutCell(data: item)
-        
-        cell.collectClosure = { isCollected in
-            self.postData(isCollected: isCollected, tripId: self.exploreData[indexPath.row].id)
-            self.exploreData[indexPath.row].isCollected = isCollected
-            let indexPath = IndexPath(item: indexPath.row, section: 0)
-            tableView.reloadRows(at: [indexPath], with: .none)
-        }
+        cell.layoutCell(data: item, index: indexPath.row)
+        cell.delegate = self
         
         if KeyChainManager.shared.token == nil {
             cell.heartButton.setImage(UIImage.asset(.heartNormal), for: .selected)
-        }
-        cell.heartClosure = { isLiked in
-            guard KeyChainManager.shared.token != nil else {
-                self.onShowLogin()
-                return
-            }
-            if isLiked {
-                self.postLiked(index: indexPath.row)
-                self.exploreData[indexPath.row].isLiked = isLiked
-                self.exploreData[indexPath.row].likeCount += 1
-                tableView.reloadData()
-                let indexPath = IndexPath(item: indexPath.row, section: 0)
-                tableView.reloadRows(at: [indexPath], with: .none)
-            } else {
-                self.deleteLiked(index: indexPath.row)
-                self.exploreData[indexPath.row].isLiked = isLiked
-                self.exploreData[indexPath.row].likeCount -= 1
-                let indexPath = IndexPath(item: indexPath.row, section: 0)
-                tableView.reloadRows(at: [indexPath], with: .none)
-            }
-            
-        }
-        
-        cell.friendClosure = {
-            
-            guard let profileVC = UIStoryboard.profile.instantiateViewController(
-                withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
-            let navProfileVC = UINavigationController(rootViewController: profileVC)
-            
-            profileVC.userId = self.exploreData[indexPath.row].user.id
-            profileVC.delegate = self
-            if String(self.exploreData[indexPath.row].user.id) == KeyChainManager.shared.userId {
-                profileVC.isMyProfile = true
-            } else {
-                profileVC.isMyProfile = false
-            }
-            self.present(navProfileVC, animated: true)
-            
         }
         
         return cell
@@ -172,7 +128,55 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
     
 }
 
+extension ExploreViewController: ExploreOverViewTableViewCellDelegate {
+    
+    func passingfriendsData(_ index: Int) {
+        guard let profileVC = UIStoryboard.profile.instantiateViewController(
+            withIdentifier: StoryboardCategory.profile) as? ProfileViewController else { return }
+        let navProfileVC = UINavigationController(rootViewController: profileVC)
+        
+        profileVC.userId = self.exploreData[index].user.id
+        profileVC.delegate = self
+        if String(self.exploreData[index].user.id) == KeyChainManager.shared.userId {
+            profileVC.isMyProfile = true
+        } else {
+            profileVC.isMyProfile = false
+        }
+        self.present(navProfileVC, animated: true)
+    }
+    
+    func passingCollectData(_ isCollected: Bool, _ index: Int) {
+        self.postData(isCollected: isCollected, tripId: self.exploreData[index].id)
+        self.exploreData[index].isCollected = isCollected
+        let indexPath = IndexPath(item: index, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+   
+    func passingHeartData(_ isLiked: Bool, _ index: Int) {
+        guard KeyChainManager.shared.token != nil else {
+            self.onShowLogin()
+            return
+        }
+        if isLiked {
+            self.postLiked(index: index)
+            self.exploreData[index].isLiked = isLiked
+            self.exploreData[index].likeCount += 1
+            tableView.reloadData()
+            let indexPath = IndexPath(item: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        } else {
+            self.deleteLiked(index: index)
+            self.exploreData[index].isLiked = isLiked
+            self.exploreData[index].likeCount -= 1
+            let indexPath = IndexPath(item: index, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+    
+}
+
 extension ExploreViewController {
+    
     // MARK: - POST TO ADD NEW COLLECTED
     private func postData(isCollected: Bool, tripId: Int) {
         let collectedProvider = CollectedProvider()

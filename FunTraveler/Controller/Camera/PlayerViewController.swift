@@ -56,7 +56,7 @@ class PlayerViewController: UIViewController {
             
             PHAssetChangeRequest.creationRequestForAssetFromVideo(
                 // swiftlint:disable multiple_closures_with_trailing_closure
-                atFileURL: self.videoURL)}) { [weak self] (isSaved, error) in
+                atFileURL: self.videoURL)}) { [weak self] (isSaved, _) in
                     if isSaved {
                         self?.postVideoData(locationText: locationText, url: (self?.videoURL)!)
                         ProgressHUD.showSuccess()

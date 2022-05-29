@@ -74,10 +74,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
             cell.heartButton.setImage(UIImage.asset(.heartNormal), for: .selected)
         }
         cell.heartClosure = { isLiked in
-            guard KeyChainManager.shared.token != nil else {
-                self.onShowLogin()
-                return
-            }
+            guard KeyChainManager.shared.token != nil else { self.onShowLogin() return }
             if isLiked {
                 self.postLiked(index: indexPath.row)
                 self.exploreData[indexPath.row].isLiked = isLiked

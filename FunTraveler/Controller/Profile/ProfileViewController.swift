@@ -218,7 +218,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
                     as? ExploreOverViewTableViewCell else { return UITableViewCell() }
             
             let item = collectedData[indexPath.row]
-            cell.layoutCell(data: item)
+            cell.layoutCell(data: item, index: indexPath.row)
             
             cell.collectClosure = { isCollected in
                 let tripId = self.collectedData[indexPath.row].id

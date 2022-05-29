@@ -641,9 +641,9 @@
 		3A47DD7D28438CC100F079D6 /* Explores */ = {
 			isa = PBXGroup;
 			children = (
-				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A7E4D9E2809437E00281E17 /* ExploreViewController.swift */,
 				3AF4DCA5280C2169008029D7 /* ExploreDetailViewController.swift */,
+				3A0C3CE8281AFA41006632AC /* InviteListViewController.swift */,
 				3A40D36628177E5600A7BF51 /* CommentViewController.swift */,
 			);
 			path = Explores;
@@ -793,9 +793,9 @@
 		3A9E9CE328010D4100C7B8D3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3A47DD7E28438CCD00F079D6 /* TrpPlan */,
 				3A47DD7D28438CC100F079D6 /* Explores */,
 				3A47DD7F28438D0100F079D6 /* Profile */,
-				3A47DD7E28438CCD00F079D6 /* TrpPlan */,
 				3A40D34F2816D45700A7BF51 /* Auth */,
 				3A2B6ADB2813DDDC00D00638 /* Camera */,
 				3A2B6B2C281420F400D00638 /* Video */,

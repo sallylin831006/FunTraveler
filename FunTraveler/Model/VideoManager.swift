@@ -11,7 +11,10 @@ class VideoManager: NSObject {
     
     var downloadCompletionBlock: ((_ data: Data) -> Void)?
     
-    func requestWithFormData(urlString: String, parameters: [String: Any], dataPath: [String: Data], completion: @escaping (Data) -> Void) {
+    func requestWithFormData(urlString: String,
+                             parameters: [String: Any],
+                             dataPath: [String: Data],
+                             completion: @escaping (Data) -> Void) {
         
         let url = URL(string: urlString)!
         var request = URLRequest(url: url)

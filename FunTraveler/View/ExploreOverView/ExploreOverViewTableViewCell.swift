@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol ExploreOverViewTableViewCellDelegate: AnyObject {
+    func passingfriendsData(_ index: Int)
+    func passingHeartData(_ isLiked: Bool, _ index: Int)
+    func passingCollectData(_ isCollected: Bool, _ index: Int)
+}
+
 class ExploreOverViewTableViewCell: UITableViewCell {
+    
+    weak var delegate: ExploreOverViewTableViewCellDelegate?
     
     var friendClosure: (() -> Void)?
     var heartClosure: ((_ isLiked: Bool) -> Void)?
@@ -38,7 +46,12 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     private var isLiked: Bool = false
     
-    func layoutCell(data: Explore) {
+    private var index: Int = 0
+    
+    func layoutCell(data: Explore, index: Int) {
+        
+        self.index = index
+        
         if KeyChainManager.shared.token == nil {
             collectButton.isHidden = true
         } else {
@@ -99,10 +112,12 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     
     @objc func tappedUserImage(gestureRecognizer: UITapGestureRecognizer) {
         friendClosure?()
+        delegate?.passingfriendsData(index)
     }
     
     @objc func tappedUserName(gestureRecognizer: UITapGestureRecognizer) {
         friendClosure?()
+        delegate?.passingfriendsData(index)
     }
     
     var isfollowed: Bool = false
@@ -110,18 +125,19 @@ class ExploreOverViewTableViewCell: UITableViewCell {
     @objc func tapHeartButton(_ sender: UIButton) {
         sender.isSelected = !isLiked
         heartClosure?(!isLiked)
+        delegate?.passingHeartData(!isLiked, index)
     }
     
     @objc func tapCollectButton(_ sender: UIButton) {
         sender.isSelected = !isCollected
         collectClosure?(!isCollected)
+        delegate?.passingCollectData(!isCollected, index)
     }
     
     @objc func tapFollowButton(_ sender: UIButton) {
         sender.isSelected = !isfollowed
         isfollowed = !isfollowed
         followClosure?(self, isfollowed)
-        
     }
     
     override func layoutSubviews() {
